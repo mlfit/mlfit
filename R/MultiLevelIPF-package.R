@@ -1,7 +1,9 @@
-#' What the package does (short line) ~~ package title ~~
+#' Implementation of algorithms that extend IPF to nested structures
 #' 
-#' More about what it does (maybe more than one line) ~~ A concise (1-5 lines)
-#' description of the package ~~
+#' The IPF algorithm operates on count data.  This package offers
+#' implementations for several algorithms that extend this to nested
+#' structures: "parent" and "child" items for both of which constraints can be
+#' provided.
 #' 
 #' \tabular{ll}{
 #'   Package: \tab MultiLevelIPF\cr
@@ -16,10 +18,11 @@
 #' @name MultiLevelIPF-package
 #' @aliases MultiLevelIPF-package MultiLevelIPF
 #' @docType package
-#' @author Who wrote it
+#' @author Kirill Müller
 #' 
-#' Maintainer: Who to complain to <yourfault@@somewhere.net> ~~ The author
-#' and/or maintainer of the package ~~
+#' Maintainer: Kirill Müller <kirill.mueller@@ivt.baug.ethz.ch>
+#' 
+#' Bug reports: https://github.com/krlmlr/MultiLevelIPF/issues
 #' @seealso ~~ Optional links to other man pages, e.g. ~~ ~~
 #' <pkg>:<pkg>-package ~~
 #' @references ~~ Literature or other references for background information ~~
