@@ -1,12 +1,14 @@
 Package: MultiLevelIPF
 Type: Package
 Encoding: UTF-8
-Title: What the package does (short line)
-Version: 1.0
-Date: 2013-07-09
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
+Title: Implementation of various algorithms that extend IPF to nested structures
+Version: 0.0.1
+Date: 2013-11-25
+Author: Kirill Müller
+Maintainer: Kirill Müller <kirill.mueller@ivt.baug.ethz.ch>
+Description: The IPF algorithm operates on count data.  This package provides
+  implementations for several algorithms that extend this to nested structures:
+  "parent" and "child" items for both of which constraints can be provided.
 License: GPL-3
 Suggests:
     testthat
