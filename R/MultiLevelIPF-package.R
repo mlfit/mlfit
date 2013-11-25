@@ -25,7 +25,11 @@
 #' Bug reports: https://github.com/krlmlr/MultiLevelIPF/issues
 #' @seealso ~~ Optional links to other man pages, e.g. ~~ ~~
 #' <pkg>:<pkg>-package ~~
-#' @references ~~ Literature or other references for background information ~~
+#' @references
+#'    Müller, K. and Axhausen, K. W. (2011), Hierarchical IPF: Generating a
+#'        synthetic population for Switzerland, in ERSA, ed., ‘51st Congress of
+#'        the European Regional Science Association’, University of Barcelona,
+#'        Barcelona.
 #' @keywords package
 #' @examples
 #' # ~~ simple examples of the most important functions ~~

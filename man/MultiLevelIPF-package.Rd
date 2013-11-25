@@ -28,7 +28,10 @@ Maintainer: Who to complain to <yourfault@somewhere.net> ~~ The author
 and/or maintainer of the package ~~
 }
 \references{
-~~ Literature or other references for background information ~~
+Müller, K. and Axhausen, K. W. (2011), Hierarchical IPF: Generating a
+       synthetic population for Switzerland, in ERSA, ed., ‘51st Congress of
+       the European Regional Science Association’, University of Barcelona,
+       Barcelona.
 }
 \seealso{
 ~~ Optional links to other man pages, e.g. ~~ ~~
