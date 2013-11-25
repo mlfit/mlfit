@@ -2,10 +2,12 @@
 \name{MultiLevelIPF-package}
 \alias{MultiLevelIPF}
 \alias{MultiLevelIPF-package}
-\title{What the package does (short line) ~~ package title ~~}
+\title{Implementation of algorithms that extend IPF to nested structures}
 \description{
-More about what it does (maybe more than one line) ~~ A concise (1-5 lines)
-description of the package ~~
+The IPF algorithm operates on count data.  This package offers
+implementations for several algorithms that extend this to nested
+structures: "parent" and "child" items for both of which constraints can be
+provided.
 }
 \details{
 \tabular{ll}{
@@ -22,10 +24,9 @@ important functions ~~
 # ~~ simple examples of the most important functions ~~
 }
 \author{
-Who wrote it
+Kirill Müller
 
-Maintainer: Who to complain to <yourfault@somewhere.net> ~~ The author
-and/or maintainer of the package ~~
+Maintainer: Kirill Müller <kirill.mueller@ivt.baug.ethz.ch>
 
 Bug reports: https://github.com/krlmlr/MultiLevelIPF/issues
 }
