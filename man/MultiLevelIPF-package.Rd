@@ -32,9 +32,9 @@ Bug reports: https://github.com/krlmlr/MultiLevelIPF/issues
 }
 \references{
 Müller, K. and Axhausen, K. W. (2011), Hierarchical IPF: Generating a
-       synthetic population for Switzerland, in ERSA, ed., ‘51st Congress of
-       the European Regional Science Association’, University of Barcelona,
-       Barcelona.
+       synthetic population for Switzerland, paper presented at the 51st
+       Congress of the European Regional Science Association, University of
+       Barcelona, Barcelona.
 }
 \seealso{
 ~~ Optional links to other man pages, e.g. ~~ ~~
