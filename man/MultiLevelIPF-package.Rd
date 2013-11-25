@@ -26,6 +26,8 @@ Who wrote it
 
 Maintainer: Who to complain to <yourfault@somewhere.net> ~~ The author
 and/or maintainer of the package ~~
+
+Bug reports: https://github.com/krlmlr/MultiLevelIPF/issues
 }
 \references{
 Müller, K. and Axhausen, K. W. (2011), Hierarchical IPF: Generating a
