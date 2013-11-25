@@ -7,10 +7,10 @@ Date: 2013-11-25
 Author: Kirill Müller
 Maintainer: Kirill Müller <kirill.mueller@ivt.baug.ethz.ch>
 Description: The IPF algorithm operates on count data.  This package provides
-  implementations for several algorithms that extend this to nested structures:
-  "parent" and "child" items for both of which constraints can be provided.
+    implementations for several algorithms that extend this to nested
+    structures: "parent" and "child" items for both of which constraints can be
+    provided.
 License: GPL-3
 Suggests:
     testthat
-Collate:
-    'MultiLevelIPF-package.R'
+Roxygen: list(wrap = FALSE)
