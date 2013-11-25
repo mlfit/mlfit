@@ -1,4 +1,4 @@
-Package: Template
+Package: MultiLevelIPF
 Type: Package
 Encoding: UTF-8
 Title: What the package does (short line)
@@ -11,4 +11,4 @@ License: GPL-3
 Suggests:
     testthat
 Collate:
-    'Template-package.R'
+    'MultiLevelIPF-package.R'

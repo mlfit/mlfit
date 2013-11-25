@@ -1,4 +1,4 @@
 library(testthat)
-library(Template)
+library(MultiLevelIPF)
 
-test_package("Template")
+test_package("MultiLevelIPF")
