@@ -27,9 +27,9 @@
 #' <pkg>:<pkg>-package ~~
 #' @references
 #'    Müller, K. and Axhausen, K. W. (2011), Hierarchical IPF: Generating a
-#'        synthetic population for Switzerland, in ERSA, ed., ‘51st Congress of
-#'        the European Regional Science Association’, University of Barcelona,
-#'        Barcelona.
+#'        synthetic population for Switzerland, paper presented at the 51st
+#'        Congress of the European Regional Science Association, University of
+#'        Barcelona, Barcelona.
 #' @keywords package
 #' @examples
 #' # ~~ simple examples of the most important functions ~~
