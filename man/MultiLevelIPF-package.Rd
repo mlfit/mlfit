@@ -13,8 +13,8 @@ provided.
 \tabular{ll}{
   Package: \tab MultiLevelIPF\cr
   Type: \tab Package\cr
-  Version: \tab 1.0\cr
-  Date: \tab 2013-07-09\cr
+  Version: \tab 0.0.2\cr
+  Date: \tab 2013-11-26\cr
   License: \tab What license is it under?\cr
 } ~~
 An overview of how to use the package, including the most
