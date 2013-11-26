@@ -1,4 +1,4 @@
 library(testthat)
 library(MultiLevelIPF)
 
-test_package("MultiLevelIPF")
+test_check("MultiLevelIPF")
