@@ -26,9 +26,9 @@ important functions ~~
 \author{
 Kirill Müller
 
-Maintainer: Kirill Müller <kirill.mueller@ivt.baug.ethz.ch>
+Maintainer: Kirill Müller <\href{mailto:kirill.mueller@ivt.baug.ethz.ch}{kirill.mueller@ivt.baug.ethz.ch}>
 
-Bug reports: https://github.com/krlmlr/MultiLevelIPF/issues
+Bug reports: \url{https://github.com/krlmlr/MultiLevelIPF/issues}
 }
 \references{
 Müller, K. and Axhausen, K. W. (2011), Hierarchical IPF: Generating a
