@@ -6,10 +6,16 @@ The IPF algorithm operates on count data.  This package offers implementations f
 
 Install using
 
-    devtools::install_github("krlmlr/MultiLevelIPF")
+```s
+library(devtools)
+install_github("krlmlr/MultiLevelIPF")
+```
 
 (requires `devtools` 1.4 or later) or
 
-    devtools::install_github("MultiLevelIPF", "krlmlr")
+```s
+library(devtools)
+install_github("MultiLevelIPF", "krlmlr")
+```
 
 My [`kimisc` package](https://github.com/krlmlr/kimisc) is also required.
