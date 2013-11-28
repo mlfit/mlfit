@@ -13,5 +13,8 @@ Description: The IPF algorithm operates on count data.  This package offers
     provided.
 License: GPL-3
 Suggests:
-    testthat, XML, plyr, kimisc
+    testthat,
+    XML,
+    plyr,
+    kimisc
 Roxygen: list(wrap = FALSE)

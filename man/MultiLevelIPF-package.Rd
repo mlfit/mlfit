@@ -15,13 +15,13 @@ provided.
   Type: \tab Package\cr
   Version: \tab 0.0.2\cr
   Date: \tab 2013-11-26\cr
-  License: \tab What license is it under?\cr
+  License: \tab GPL v3\cr
 } ~~
 An overview of how to use the package, including the most
 important functions ~~
 }
 \examples{
-# ~~ simple examples of the most important functions ~~
+\dontrun{import_IPAF_results("path/to/results")}
 }
 \author{
 Kirill Müller
