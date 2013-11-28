@@ -1,4 +1,4 @@
-#MultiLevelIPF
+#MultiLevelIPF [![Build Status](https://travis-ci.org/krlmlr/MultiLevelIPF.png)](https://travis-ci.org/krlmlr/MultiLevelIPF)
 
 Implementation of algorithms that extend IPF to nested structures.
 
