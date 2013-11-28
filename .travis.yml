@@ -16,6 +16,7 @@ before_install:
   - ./travis-tool.sh bootstrap
 install:
   - ./travis-tool.sh install_github hadley/testthat krlmlr/kimisc
+  - ./travis-tool.sh install_r_binary XML
   - ./travis-tool.sh install_deps
 notifications:
   email:
