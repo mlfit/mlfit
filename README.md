@@ -12,4 +12,4 @@ Install using
 
     devtools::install_github("MultiLevelIPF", "krlmlr")
 
-My [`kimisc` package](/krlmlr/kimisc) is also required.
+My [`kimisc` package](https://github.com/krlmlr/kimisc) is also required.
