@@ -6,18 +6,10 @@
         <name>entropy</name>
         <name>ml_ipf</name>
         <name>ipu</name>
-        <!--
-        <name>ipu</name>
-        <name>ml_ipf</name>
-        <name>entropy</name>
-        <name>entropy_o(1,0)</name>
-        <name>entropy_o(0,1)</name>
-        <name>entropy_o(1,1)</name>
-        -->
     </algorithms>
     <fileExtension>dat</fileExtension>
     <separator>\t</separator>
-    <refSample>REFSAMPLE</refSample>
+    <refSample>RS</refSample>
     <controls>
         <individual>
             <control>IND</control>
