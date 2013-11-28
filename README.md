@@ -11,3 +11,5 @@ Install using
 (requires `devtools` 1.4 or later) or
 
     devtools::install_github("MultiLevelIPF", "krlmlr")
+
+My [`kimisc` package](/krlmlr/kimisc) is also required.
