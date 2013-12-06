@@ -2,11 +2,14 @@
 \alias{import_IPAF_results}
 \title{Imports results from a run of the original Python implementation}
 \usage{
-import_IPAF_results(path)
+import_IPAF_results(path, all_weights = FALSE)
 }
 \arguments{
   \item{path}{Path to the directory that contains the
   input/output files}
+
+  \item{all_weights}{Should all weights be loaded, or only
+  the final ones (default)?}
 }
 \value{
 Named list with the following components:

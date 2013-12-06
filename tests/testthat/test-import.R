@@ -10,7 +10,7 @@ test_that("import minitoy and toy examples", {
   llply(
     results,
     function(result) {
-      sums_of_weights <- laply(result$weights, sum)
+      sums_of_weights <- laply(result$weights, function(lw) sum(lw[[1]]))
       l_ply(diff(sums_of_weights), function(s) expect_equal(s, 0, tolerance=TOL$total))
       
       check_control <- function (control, type, weightedRefSample) {
@@ -32,9 +32,10 @@ test_that("import minitoy and toy examples", {
       
       l_ply(
         result$weights,
-        function (w) {
+        function (lw) {
+          expect_equal(length(lw), 1)
           weightedRefSample <- result$refSample
-          weightedRefSample$w <- w
+          weightedRefSample$w <- lw[[1]]
           l_ply(
             c("individual", "group"),
             function(type) l_ply(
@@ -44,6 +45,28 @@ test_that("import minitoy and toy examples", {
               weightedRefSample=weightedRefSample
             )
           )
+        }
+      )
+    }
+  )
+})
+
+test_that("import all weights", {
+  require(plyr)
+  require(kimisc)
+  results <- llply(setNames(nm=c("minitoy", "toy")), import_IPAF_results, all_weights = TRUE)
+  
+  llply(
+    results,
+    function(result) {
+      l_ply(
+        result$weights,
+        function(lw) {
+          if (length(lw) > 1) {
+            sum_weights <- laply(lw, sum)
+            expect_equal(length(sum_weights), length(lw))
+            expect_equal(diff(sum_weights), rep(0, length(lw) - 1))
+          }
         }
       )
     }

@@ -5,6 +5,8 @@
 #' is read and interpreted.
 #' 
 #' @param path Path to the directory that contains the input/output files
+#' @param all_weights Should all weights be loaded, or only the final ones
+#'   (default)?
 #' @return Named list with the following components:
 #' \describe{
 #'   \item{\code{refSample}}{The reference sample, a \code{data.frame}.}
@@ -15,7 +17,7 @@
 #'   \item{\code{weights}}{A named list with weight vectors, one per algorithm.}
 #' }
 #' @export
-import_IPAF_results <- function(path) {
+import_IPAF_results <- function(path, all_weights = FALSE) {
   stopifnot(length(path) == 1)
 
   require(XML)
@@ -67,12 +69,21 @@ import_IPAF_results <- function(path) {
         fn_rx <- "^.*-weights-([0-9]+).csv$"
         csv_paths <- dir(subdir_paths, pattern=fn_rx, full.names=TRUE)
         csv_numbers <- as.integer(gsub(fn_rx, "\\1", csv_paths))
-        csv_path <- csv_paths[which.max(csv_numbers)]
-        weights <- read.csv(csv_path)
-        refSampleNew <- merge(refSample, weights, all.x=TRUE)
-        if (any(is.na(refSampleNew$w)))
-          warning("Missing weights for algorithm ", algo)
-        refSampleNew$w
+        names(csv_paths) <- csv_numbers
+
+        if (!all_weights)
+          csv_paths <- csv_paths[which.max(csv_numbers)]
+
+        llply(
+          csv_paths,
+          function(csv_path) {
+            weights <- read.csv(csv_path)
+            refSampleNew <- merge(refSample, weights, all.x=TRUE)
+            if (any(is.na(refSampleNew$w)))
+              warning("Missing weights for algorithm ", algo)
+            refSampleNew$w
+          }
+        )
       }
     }
   )
