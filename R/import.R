@@ -7,6 +7,8 @@
 #' @param path Path to the directory that contains the input/output files
 #' @param all_weights Should all weights be loaded, or only the final ones
 #'   (default)?
+#' @param config_name Name of the main configuration file, defaults to
+#'   \code{"config.xml"}
 #' @return Named list with the following components:
 #' \describe{
 #'   \item{\code{refSample}}{The reference sample, a \code{data.frame}.}
@@ -17,7 +19,7 @@
 #'   \item{\code{weights}}{A named list with weight vectors, one per algorithm.}
 #' }
 #' @export
-import_IPAF_results <- function(path, all_weights = FALSE) {
+import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config.xml") {
   stopifnot(length(path) == 1)
 
   require(XML)
@@ -26,7 +28,7 @@ import_IPAF_results <- function(path, all_weights = FALSE) {
 
   rl <- function(n) file.path(path, n)
 
-  xml_file <- rl("config.xml")
+  xml_file <- rl(config_name)
   config <- .xmlToList(xmlTreeParse(xml_file))
 
   fileExtension <-  config$fileExtension

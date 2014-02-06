@@ -1,5 +1,7 @@
 - Fix importing configuration files with more than one control of any type
 
+- New parameter `config_name` to `import`, defaults to `config.xml`
+
 # Version 0.0.4
 
 - Parameter `all_weights` to `import` that allows importing also intermediate
