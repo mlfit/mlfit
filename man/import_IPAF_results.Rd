@@ -2,7 +2,7 @@
 \alias{import_IPAF_results}
 \title{Imports results from a run of the original Python implementation}
 \usage{
-import_IPAF_results(path, all_weights = FALSE)
+import_IPAF_results(path, all_weights = FALSE, config_name = "config.xml")
 }
 \arguments{
   \item{path}{Path to the directory that contains the
@@ -10,6 +10,9 @@ import_IPAF_results(path, all_weights = FALSE)
 
   \item{all_weights}{Should all weights be loaded, or only
   the final ones (default)?}
+
+  \item{config_name}{Name of the main configuration file,
+  defaults to \code{"config.xml"}}
 }
 \value{
 Named list with the following components:
