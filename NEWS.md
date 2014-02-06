@@ -1,3 +1,5 @@
+# Version 0.0.5
+
 - Fix importing configuration files with more than one control of any type
   and with comments in the control definition
 
