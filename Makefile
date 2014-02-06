@@ -1,7 +1,7 @@
 all:
 
 install:
-	crant -SMCi
+	crant -SMCit
 
 test-%: install
-	Rscript -e 'library(testthat); library(MultiLevelIPF); test_file("tests/testthat/'"$@"'.R")'
+	Rscript -e 'library(methods); library(testthat); library(MultiLevelIPF); test_file("tests/testthat/'"$@"'.R")'
