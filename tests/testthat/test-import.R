@@ -1,3 +1,4 @@
+library(MultiLevelIPF)
 library(testthat)
 
 context("import")
@@ -18,14 +19,14 @@ test_that("import minitoy and toy examples", {
       check_control <- function (control, type, weightedRefSample) {
         countVar <- result$fieldNames$count
         controlVars <- setdiff(names(control), countVar)
-        ddply(
+        d_ply(
           control,
           controlVars,
           function (control1) {
             subWeightedRefSample <- merge(control1, weightedRefSample)
-            subWeights <- if (type == "individual")
+            subWeights <- if (type == "individual") {
               subWeightedRefSample$w
-            else
+            } else
               subWeightedRefSample$w / subWeightedRefSample[[result$fieldNames$individualsPerGroup]]
             expect_equal(sum(subWeights), control1[[countVar]], tolerance=TOL[[type]])
           }
