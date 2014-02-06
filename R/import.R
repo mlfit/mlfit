@@ -27,7 +27,7 @@ import_IPAF_results <- function(path, all_weights = FALSE) {
   rl <- function(n) file.path(path, n)
 
   xml_file <- rl("config.xml")
-  config <- xmlToList(xmlTreeParse(xml_file))
+  config <- .xmlToList(xmlTreeParse(xml_file))
 
   fileExtension <-  config$fileExtension
   fx <- function(n) rl(sprintf("%s.%s", n, fileExtension))
@@ -42,7 +42,7 @@ import_IPAF_results <- function(path, all_weights = FALSE) {
     setNames(nm=c("individual", "group")),
     function(type) {
       llply(
-        setNames(nm=config$controls[[sprintf("%s.control", type)]]),
+        setNames(nm=config$controls[[type]]),
         function (control) {
           rd(control)
         }
@@ -89,4 +89,33 @@ import_IPAF_results <- function(path, all_weights = FALSE) {
   )
 
   nlist(refSample, controls, fieldNames, algorithms, weights)
+}
+
+.xmlToList <- function (node, addAttributes = TRUE, simplify = FALSE)
+{
+  if (is.character(node))
+    node = xmlParse(node)
+  if (inherits(node, "XMLAbstractDocument")) 
+    node = xmlRoot(node)
+  if (any(inherits(node, c("XMLTextNode", "XMLInternalTextNode"))))
+    xmlValue(node)
+  else if (xmlSize(node) == 0)
+    xmlAttrs(node)
+  else {
+    tmp = vals = (if (simplify)
+      xmlSApply
+                  else xmlApply)(node, .xmlToList, addAttributes)
+    tt = xmlSApply(node, inherits, c("XMLTextNode", "XMLInternalTextNode"))
+    vals[tt] = (if (simplify)
+      sapply
+                else lapply)(vals[tt], function(x) x[[1]])
+    if (length(attrs <- xmlAttrs(node)) > 0) {
+      if (addAttributes)
+        vals[[".attrs"]] = attrs
+      else attributes(vals) = as.list(attrs)
+    }
+    if (any(tt) && length(vals) == 1 && names(vals) == "text")
+      vals[[1]]
+    else vals
+  }
 }

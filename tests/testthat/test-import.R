@@ -1,3 +1,5 @@
+library(testthat)
+
 context("import")
 
 test_that("import minitoy and toy examples", {
@@ -69,6 +71,22 @@ test_that("import all weights", {
           }
         }
       )
+    }
+  )
+})
+
+test_that("import with more than one control of each type", {
+  require(plyr)
+  require(kimisc)
+  l_ply(
+    list(c(1,1), c(2,2), c(1,3), c(2,3)),
+    function(gi) {
+      dirname <- if (all(gi == 1)) "minitoy" else
+        do.call(sprintf, c(list("minitoy-%sx%s"), gi))
+      config <- import_IPAF_results(dirname, all_weights = FALSE)
+      expect_equal(length(config$controls), 2)
+      expect_equal(length(config$controls$individual), gi[[1]])
+      expect_equal(length(config$controls$group), gi[[2]])
     }
   )
 })
