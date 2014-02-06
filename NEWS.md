@@ -1,4 +1,5 @@
 - Fix importing configuration files with more than one control of any type
+  and with comments in the control definition
 
 - New parameter `config_name` to `import`, defaults to `config.xml`
 

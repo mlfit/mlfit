@@ -4,10 +4,13 @@
 	<refSample>RS</refSample>
 	<controls>
 		<individual>
+			<!-- comment -->
 			<control>IND</control>
 			<control>IND</control>
+			<!-- comment -->
 		</individual>
 		<group>
+			<!-- comment -->
 			<control>GROUP</control>
 			<control>GROUP</control>
 			<control>GROUP</control>

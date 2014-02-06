@@ -5,9 +5,12 @@
 	<controls>
 		<individual>
 			<control>IND</control>
+			<!-- comment -->
 			<control>IND</control>
+			<!-- comment -->
 		</individual>
 		<group>
+			<!-- comment -->
 			<control>GROUP</control>
 			<control>GROUP</control>
 		</group>

@@ -44,7 +44,7 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
     setNames(nm=c("individual", "group")),
     function(type) {
       llply(
-        setNames(nm=config$controls[[type]]),
+        setNames(nm=unlist(config$controls[[type]])),
         function (control) {
           rd(control)
         }

@@ -9,6 +9,7 @@
 		<group>
 			<control>GROUP</control>
 			<control>GROUP</control>
+			<!-- comment -->
 			<control>GROUP</control>
 		</group>
 	</controls>
