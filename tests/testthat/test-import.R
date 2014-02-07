@@ -19,6 +19,8 @@ test_that("import minitoy and toy examples", {
       check_control <- function (control, type, weightedRefSample) {
         countVar <- result$fieldNames$count
         controlVars <- setdiff(names(control), countVar)
+        expect_true(all(laply(controlVars, function(n)
+          is.factor(weightedRefSample[[n]]) && is.factor(control[[n]]))))
         d_ply(
           control,
           controlVars,

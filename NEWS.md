@@ -1,5 +1,6 @@
 - `import_IPAF_results` now returns a class of type `IPAF_results`
 - New function `ml_ipf` and `ml_ipf_entropy_o`
+- Convert control columns to factors
 
 # Version 0.0.5
 

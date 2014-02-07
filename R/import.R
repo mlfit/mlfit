@@ -41,19 +41,39 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
 
   refSample <- rd(config$refSample)
 
+  fieldNames <- config$fieldNames
+
   controls <- llply(
     setNames(nm=c("individual", "group")),
     function(type) {
       llply(
         setNames(nm=unlist(config$controls[[type]])),
         function (control) {
-          rd(control)
+          control.df <- rd(control)
+          control.columns <- setdiff(colnames(control.df), fieldNames$count)
+          for (control.column in setdiff(control.columns, fieldNames$count))
+            control.df[[control.column]] <- factor(control.df[[control.column]])
+
+          control.df
         }
       )
     }
   )
 
-  fieldNames <- config$fieldNames
+  control.columns <- llply(
+    controls,
+    function(control.type) {
+      llply(
+        control.type,
+        function(control)
+          names(control)
+      )
+    }
+  )
+
+  control.columns <- unique(unlist(control.columns))
+  for (control.column in setdiff(control.columns, fieldNames$count))
+    refSample[[control.column]] <- factor(refSample[[control.column]])
 
   algorithms <- setNames(nm=unlist(config$algorithms))
 
