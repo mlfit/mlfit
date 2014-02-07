@@ -15,7 +15,8 @@ import_IPAF_results(path, all_weights = FALSE, config_name = "config.xml")
   defaults to \code{"config.xml"}}
 }
 \value{
-Named list with the following components:
+An object of class \code{IPAF_result}, essentially a named list with
+  the following components:
 \describe{
   \item{\code{refSample}}{The reference sample, a \code{data.frame}.}
   \item{\code{controls}}{A named list with two components, \code{individual}

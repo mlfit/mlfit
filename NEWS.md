@@ -1,3 +1,5 @@
+- `import_IPAF_results` now returns a class of type `IPAF_results`
+
 # Version 0.0.5
 
 - Fix importing configuration files with more than one control of any type

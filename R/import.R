@@ -9,7 +9,8 @@
 #'   (default)?
 #' @param config_name Name of the main configuration file, defaults to
 #'   \code{"config.xml"}
-#' @return Named list with the following components:
+#' @return An object of class \code{IPAF_result}, essentially a named list with
+#'   the following components:
 #' \describe{
 #'   \item{\code{refSample}}{The reference sample, a \code{data.frame}.}
 #'   \item{\code{controls}}{A named list with two components, \code{individual}
@@ -90,7 +91,10 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
     }
   )
 
-  nlist(refSample, controls, fieldNames, algorithms, weights)
+  structure(
+    nlist(refSample, controls, fieldNames, algorithms, weights),
+    class = "IPAF_result"
+  )
 }
 
 .xmlToList <- function (node, addAttributes = TRUE, simplify = FALSE)
