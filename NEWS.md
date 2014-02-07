@@ -1,4 +1,5 @@
 - `import_IPAF_results` now returns a class of type `IPAF_results`
+- New function `ml_ipf` and `ml_ipf_entropy_o`
 
 # Version 0.0.5
 
