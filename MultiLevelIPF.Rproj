@@ -12,4 +12,6 @@ Encoding: UTF-8
 RnwWeave: Sweave
 LaTeX: pdfLaTeX
 
-BuildType: Makefile
+BuildType: Package
+PackageInstallArgs: --no-multiarch --with-keep.source --install-tests
+PackageRoxygenize: rd,collate,namespace
