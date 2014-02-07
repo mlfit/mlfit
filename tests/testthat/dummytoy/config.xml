@@ -1,0 +1,32 @@
+<config>
+    <algorithms>
+        <name>entropy_o(c=1,d=0)</name>
+        <name>entropy_o(c=0,d=1)</name>
+        <name>entropy_o(c=1,d=1)</name>
+        <name>ml_ipf</name>
+        <!--<name>ipu</name>-->
+        <name>entropy</name>
+        <!--
+        <name>ml_ipf(maxiter=5)</name>
+        <name>ipu(maxiter=5)</name>
+        <name>entropy(maxiter=20)</name>
+        -->
+    </algorithms>
+    <fileExtension>dat</fileExtension>
+    <separator>\t</separator>
+    <refSample>REFSAMPLE</refSample>
+    <controls>
+        <individual>
+            <control>IND</control>
+        </individual>
+        <group>
+            <control>GROUP</control>
+        </group>
+    </controls>
+    <fieldNames>
+        <groupId>HHNR</groupId>
+        <individualId>PNR</individualId>
+        <individualsPerGroup>APER</individualsPerGroup>
+        <count>N</count>
+    </fieldNames>
+</config>
