@@ -1,3 +1,5 @@
+# Version 0.0.6
+
 - `import_IPAF_results` now returns a class of type `IPAF_results`
 - New functions `ml_ipf` and `ml_ipf_entropy_o`, implementation does not yet
   return the same weights as the Python code
