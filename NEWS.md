@@ -1,5 +1,6 @@
 - `import_IPAF_results` now returns a class of type `IPAF_results`
-- New function `ml_ipf` and `ml_ipf_entropy_o`
+- New functions `ml_ipf` and `ml_ipf_entropy_o`, implementation does not yet
+  return the same weights as the Python code
 - Convert control columns to factors
 
 # Version 0.0.5

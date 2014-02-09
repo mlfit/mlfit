@@ -15,7 +15,8 @@ ml_fit_entropy_o(ref_sample, controls, field_names)
   \item{field_names}{Names of special columns in the data}
 }
 \value{
-Named list.
+An object of classes \code{ml_fit_entropy_o} and \code{ml_fit},
+  essentially a named list.
 }
 \description{
 This function reweights a reference sample to match constraints given by

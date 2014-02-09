@@ -17,7 +17,7 @@ ml_fit(algorithm, ref_sample, controls, field_names)
   \item{field_names}{Names of special columns in the data}
 }
 \value{
-Named list.
+An object of class \code{ml_fit}, essentially a named list.
 }
 \description{
 This function reweights a reference sample to match constraints given by

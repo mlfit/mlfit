@@ -3,10 +3,10 @@ library(testthat)
 
 context("import")
 
-test_that("import minitoy and toy examples", {
+test_that("import toy examples", {
   require(plyr)
   require(kimisc)
-  results <- llply(setNames(nm=c("minitoy", "toy")), import_IPAF_results)
+  results <- llply(setNames(nm=c("minitoy", "toy", "dummytoy", "multitoy")), import_IPAF_results)
   
   TOL <- list(total=2e-3, individual=0.6, group=0.8)
   
@@ -59,7 +59,7 @@ test_that("import minitoy and toy examples", {
 test_that("import all weights", {
   require(plyr)
   require(kimisc)
-  results <- llply(setNames(nm=c("minitoy", "toy")), import_IPAF_results, all_weights = TRUE)
+  results <- llply(setNames(nm=c("minitoy", "toy", "dummytoy", "multitoy")), import_IPAF_results, all_weights = TRUE)
   
   llply(
     results,

@@ -11,7 +11,7 @@
 #'   arguments are ignored.
 #' @param controls Control totals
 #' @param field_names Names of special columns in the data
-#' @return Named list.
+#' @return An object of class \code{ml_fit}, essentially a named list.
 #' @export
 ml_fit <- function(algorithm = c("entropy_o"),
                    ref_sample, controls, field_names) {
