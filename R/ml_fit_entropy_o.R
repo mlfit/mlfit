@@ -69,9 +69,9 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names) {
   )
   control.totals <- unlist(unname(control.totals.list), use.names=TRUE)
   if (any(names(control.totals) != rownames(ref_sample.agg.m))) {
-    stop("The following controls do not have any corresponding observation in the reference sample:\n  ",
+    stop("  The following controls do not have any corresponding observation in the reference sample:\n    ",
          paste(setdiff(names(control.totals), rownames(ref_sample.agg.m)), collapse=", "), "\n",
-         "The following categories in the reference sample do not have a corresponding control:\n  ",
+         "  The following categories in the reference sample do not have a corresponding control:\n    ",
          paste(setdiff(rownames(ref_sample.agg.m), names(control.totals)), collapse=", "), "\n"
     )
   }
