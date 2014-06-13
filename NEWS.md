@@ -1,3 +1,6 @@
+- Print more helpful error message if control totals and reference sample
+  categories do not overlap
+
 # Version 0.0.6
 
 - `import_IPAF_results` now returns a class of type `IPAF_results`
