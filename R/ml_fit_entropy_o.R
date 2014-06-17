@@ -8,8 +8,8 @@
 #'   essentially a named list.
 #' @export
 #' @examples
-#'   path <- system.file("extdata/minitoy", package="MultiLevelIPF")
-#'   ml_fit(ref_sample = import_IPAF_results(path))
+#' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
+#' ml_fit(ref_sample = import_IPAF_results(path))
 ml_fit_entropy_o <- function(ref_sample, controls, field_names) {
   .patch_ml_fit_args()
 
