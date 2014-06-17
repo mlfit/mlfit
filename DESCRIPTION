@@ -12,10 +12,8 @@ Description: The IPF algorithm operates on count data.  This package offers
     structures: "parent" and "child" items for both of which constraints can be
     provided.
 License: GPL-3
-Depends:
-    BB
 Imports:
-    plyr
+    plyr, BB
 Suggests:
     testthat,
     XML,

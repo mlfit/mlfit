@@ -80,7 +80,7 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names) {
   }
 
   par <- rep(0, length(control.totals))
-  bbout <- BBsolve(
+  bbout <- BB::BBsolve(
     par=par,
     fn=dss.objective.m(x=ref_sample.agg.m, control.totals=control.totals, F=exp))
 
