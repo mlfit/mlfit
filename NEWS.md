@@ -1,3 +1,5 @@
+- Add example for `ml_ipf_entropy_o`
+
 - Print more helpful error message if control totals and reference sample
   categories do not overlap
 
