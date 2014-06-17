@@ -25,7 +25,6 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
 
 
   requireNamespace("XML")
-  requireNamespace("plyr")
   requireNamespace("kimisc")
 
   rl <- function(n) file.path(path, n)
