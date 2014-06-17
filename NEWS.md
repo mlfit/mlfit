@@ -4,7 +4,7 @@ v0.0.8 (2014-06-17)
 - Add example for `ml_fit` (#11)
 
 - allow additional arguments for the algorithms; `ml_fit_entropy_o` now accepts
-  a named list `BBsolve_args` that is passed to `BB::BBsolve`
+  a named list `BBsolve_args` that contains additional arguments to `BB::BBsolve`
 
 - Faster internal data preparation for `ml_fit_entropy_o`
 

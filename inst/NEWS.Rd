@@ -1,10 +1,18 @@
 \name{NEWS}
 \title{News for Package 'MultiLevelIPF'}
 \encoding{UTF-8}
+\section{Changes in MultiLevelIPF version 0.0.8 (2014-06-17)}{
+  \itemize{
+    \item Add example for \code{ml_fit} (#11)
+    \item allow additional arguments for the algorithms; \code{ml_fit_entropy_o} now accepts
+      a named list \code{BBsolve_args} that contains additional arguments to \code{BB::BBsolve}
+    \item Faster internal data preparation for \code{ml_fit_entropy_o}
+  }
+}
 \section{Changes in MultiLevelIPF version 0.0.7 (2014-06-17)}{
   \itemize{
     \item Fix dependency issues (#13, #14)
-    \item Add example for \code{ml_ipf_entropy_o} (#11)
+    \item Add example for \code{ml_fit_entropy_o} (#11)
     \item Print more helpful error message if control totals and reference sample
       categories do not overlap (#11)
   }
