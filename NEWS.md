@@ -1,7 +1,9 @@
-- Add example for `ml_ipf_entropy_o`
+- Fix dependency issues (#13, #14)
+
+- Add example for `ml_ipf_entropy_o` (#11)
 
 - Print more helpful error message if control totals and reference sample
-  categories do not overlap
+  categories do not overlap (#11)
 
 # Version 0.0.6
 
