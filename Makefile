@@ -1,7 +1,12 @@
-all:
+all: inst
 
-install:
-	crant -SMCit
+gh-pages:
+	git subtree split --prefix website --branch gh-pages
 
-test-%: install
-	Rscript -e 'library(methods); library(testthat); library(MultiLevelIPF); test_file("tests/testthat/'"$@"'.R")'
+inst: inst/NEWS.Rd
+
+inst/NEWS.Rd: NEWS.md
+	Rscript -e "tools:::news2Rd('$<', '$@')"
+	sed -r -i 's/`([^`]+)`/\\code{\1}/g' $@
+
+.FORCE:
