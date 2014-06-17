@@ -13,10 +13,10 @@
 ml_fit_entropy_o <- function(ref_sample, controls, field_names) {
   .patch_ml_fit_args()
 
-  control.terms.list <- llply(
+  control.terms.list <- plyr::llply(
     controls,
     function(control.list) {
-      control.columns <- llply(
+      control.columns <- plyr::llply(
         control.list,
         function(control) {
           control.names <- setdiff(colnames(control), field_names$count)
@@ -38,10 +38,10 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names) {
     }
   )
 
-  control.formulae <- llply(
+  control.formulae <- plyr::llply(
     control.terms.list,
     function(control.terms) {
-      paste(laply(control.terms, `[[`, 'term'), collapse='+')
+      paste(plyr::laply(control.terms, `[[`, 'term'), collapse='+')
     }
   )
 
@@ -52,11 +52,11 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names) {
   ref_sample_ind.mm <- as.data.frame(model.matrix(
     as.formula(sprintf("~%s+%s-1", field_names$groupId, control.formulae$individual)),
     ref_sample))
-  ref_sample_ind.agg <- ddply(
+  ref_sample_ind.agg <- plyr::ddply(
     ref_sample_ind.mm,
     field_names$groupId,
     function(group) {
-    quickdf(llply(group[setdiff(colnames(group), field_names$groupId)], sum))
+      plyr::quickdf(plyr::llply(group[setdiff(colnames(group), field_names$groupId)], sum))
   })
 
   ref_sample.agg <- merge(ref_sample_ind.agg, ref_sample_grp.agg,
@@ -64,10 +64,10 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names) {
   ref_sample.agg.m <- t(as.matrix(ref_sample.agg[
     , setdiff(colnames(ref_sample.agg), field_names$groupId)]))
 
-  control.totals.list <- llply(
+  control.totals.list <- plyr::llply(
     control.terms.list,
     function(control.terms) {
-      laply(control.terms, `[[`, 'control', .drop=TRUE)
+      plyr::laply(control.terms, `[[`, 'control', .drop=TRUE)
     }
   )
   control.totals <- unlist(unname(control.totals.list), use.names=TRUE)

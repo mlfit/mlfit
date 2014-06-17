@@ -23,14 +23,15 @@
 import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config.xml") {
   stopifnot(length(path) == 1)
 
-  require(XML)
-  require(plyr)
-  require(kimisc)
+
+  requireNamespace("XML")
+  requireNamespace("plyr")
+  requireNamespace("kimisc")
 
   rl <- function(n) file.path(path, n)
 
   xml_file <- rl(config_name)
-  config <- .xmlToList(xmlTreeParse(xml_file))
+  config <- .xmlToList(XML::xmlTreeParse(xml_file))
 
   fileExtension <-  config$fileExtension
   fx <- function(n) rl(sprintf("%s.%s", n, fileExtension))
@@ -43,10 +44,10 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
 
   fieldNames <- config$fieldNames
 
-  controls <- llply(
+  controls <- plyr::llply(
     setNames(nm=c("individual", "group")),
     function(type) {
-      llply(
+      plyr::llply(
         setNames(nm=unlist(config$controls[[type]])),
         function (control) {
           control.df <- rd(control)
@@ -60,10 +61,10 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
     }
   )
 
-  control.columns <- llply(
+  control.columns <- plyr::llply(
     controls,
     function(control.type) {
-      llply(
+      plyr::llply(
         control.type,
         function(control)
           names(control)
@@ -77,7 +78,7 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
 
   algorithms <- setNames(nm=unlist(config$algorithms))
 
-  weights <- llply(
+  weights <- plyr::llply(
     algorithms,
     function (algo) {
       subdir_paths <- dir(path, pattern=glob2rx(sprintf("*-%s", algo)),
@@ -97,7 +98,7 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
         if (!all_weights)
           csv_paths <- csv_paths[which.max(csv_numbers)]
 
-        llply(
+        plyr::llply(
           csv_paths,
           function(csv_path) {
             weights <- read.csv(csv_path)
@@ -112,7 +113,7 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
   )
 
   structure(
-    nlist(refSample, controls, fieldNames, algorithms, weights),
+    kimisc::nlist(refSample, controls, fieldNames, algorithms, weights),
     class = "IPAF_result"
   )
 }
@@ -120,22 +121,22 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
 .xmlToList <- function (node, addAttributes = TRUE, simplify = FALSE)
 {
   if (is.character(node))
-    node = xmlParse(node)
+    node = XML::xmlParse(node)
   if (inherits(node, "XMLAbstractDocument"))
-    node = xmlRoot(node)
+    node = XML::xmlRoot(node)
   if (any(inherits(node, c("XMLTextNode", "XMLInternalTextNode"))))
-    xmlValue(node)
-  else if (xmlSize(node) == 0)
-    xmlAttrs(node)
+    XML::xmlValue(node)
+  else if (XML::xmlSize(node) == 0)
+    XML::xmlAttrs(node)
   else {
     tmp = vals = (if (simplify)
-      xmlSApply
-                  else xmlApply)(node, .xmlToList, addAttributes)
-    tt = xmlSApply(node, inherits, c("XMLTextNode", "XMLInternalTextNode"))
+      XML::xmlSApply
+                  else XML::xmlApply)(node, .xmlToList, addAttributes)
+    tt = XML::xmlSApply(node, inherits, c("XMLTextNode", "XMLInternalTextNode"))
     vals[tt] = (if (simplify)
       sapply
                 else lapply)(vals[tt], function(x) x[[1]])
-    if (length(attrs <- xmlAttrs(node)) > 0) {
+    if (length(attrs <- XML::xmlAttrs(node)) > 0) {
       if (addAttributes)
         vals[[".attrs"]] = attrs
       else attributes(vals) = as.list(attrs)
