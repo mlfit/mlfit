@@ -1,3 +1,6 @@
+- allow additional arguments for the algorithms; `ml_fit_entropy_o` now accepts
+  a named list `BBsolve_args` that is passed to `BB::BBsolve`
+
 - Faster internal data preparation for `ml_fit_entropy_o`
 
 v0.0.7 (2014-06-17)

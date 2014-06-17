@@ -21,7 +21,6 @@ Type 'q()' to quit R.
 > source(file.path(R.home("share"), "R", "examples-header.R"))
 > options(warn = 1)
 > library('MultiLevelIPF')
-Loading required package: BB
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
@@ -55,10 +54,9 @@ Loading required package: BB
 > ### ** Examples
 > 
 > path <- system.file("extdata/minitoy", package="MultiLevelIPF")
->   ml_fit(ref_sample = import_IPAF_results(path))
-Loading required package: XML
-Loading required package: plyr
-Loading required package: kimisc
+> ml_fit(ref_sample = import_IPAF_results(path))
+Loading required namespace: XML
+Loading required namespace: kimisc
   Successful convergence.
 $weights
  [1]  8.937470  8.937470  8.937470 23.448579 23.448579  2.613950  2.613950
@@ -122,7 +120,7 @@ attr(,"class")
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  0.69 0.019 0.72 0 0 
+Time elapsed:  0.485 0.01 0.497 0 0 
 > grDevices::dev.off()
 null device 
           1 

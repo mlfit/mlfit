@@ -4,13 +4,17 @@
 #' aggregate controls using an entropy optimization method.
 #'
 #' @inheritParams ml_fit
+#' @param BBsolve_args Additional arguments (as a named list) passed to the
+#'   \code{\link[BB]{BBsolve}} function used internally for the optimization.
 #' @return An object of classes \code{ml_fit_entropy_o} and \code{ml_fit},
 #'   essentially a named list.
+#' @seealso \code{\link[BB]{BBsolve}}
 #' @export
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
 #' ml_fit(ref_sample = import_IPAF_results(path))
-ml_fit_entropy_o <- function(ref_sample, controls, field_names) {
+ml_fit_entropy_o <- function(ref_sample, controls, field_names,
+                             BBsolve_args = list()) {
   .patch_ml_fit_args()
 
   control.terms.list <- plyr::llply(
@@ -75,9 +79,10 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names) {
   }
 
   par <- rep(0, length(control.totals))
-  bbout <- BB::BBsolve(
-    par=par,
-    fn=dss.objective.m(x=ref_sample.agg.m, control.totals=control.totals, F=exp))
+  bbout <- do.call(BB::BBsolve,
+                   c(list(par=par,
+                          fn=dss.objective.m(x=ref_sample.agg.m, control.totals=control.totals, F=exp)),
+                     BBsolve_args))
 
   weights <- dss.weights.from.lambda.m(x=ref_sample.agg.m, F=exp)(bbout$par)
   weights.ref_sample <- weights[match(ref_sample[[field_names$groupId]], ref_sample.agg[[field_names$groupId]])]
