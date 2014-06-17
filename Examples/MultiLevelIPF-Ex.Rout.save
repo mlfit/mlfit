@@ -1,0 +1,134 @@
+
+R version 3.1.0 (2014-04-10) -- "Spring Dance"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "MultiLevelIPF"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('MultiLevelIPF')
+Loading required package: BB
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("MultiLevelIPF-package")
+> ### * MultiLevelIPF-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: MultiLevelIPF-package
+> ### Title: Implementation of algorithms that extend IPF to nested
+> ###   structures
+> ### Aliases: MultiLevelIPF MultiLevelIPF-package
+> ### Keywords: package
+> 
+> ### ** Examples
+> 
+> ## Not run: import_IPAF_results("path/to/results")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ml_fit_entropy_o")
+> ### * ml_fit_entropy_o
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ml_fit_entropy_o
+> ### Title: Estimate weights using an entropy optimization approach
+> ### Aliases: ml_fit_entropy_o
+> 
+> ### ** Examples
+> 
+> path <- system.file("extdata/minitoy", package="MultiLevelIPF")
+>   ml_fit(ref_sample = import_IPAF_results(path))
+Loading required package: XML
+Loading required package: plyr
+Loading required package: kimisc
+  Successful convergence.
+$weights
+ [1]  8.937470  8.937470  8.937470 23.448579 23.448579  2.613950  2.613950
+ [8]  2.613950 25.899223 25.899223 25.899223 14.347802 14.347802 14.347802
+[15] 11.009562 11.009562  2.733852  2.733852  2.733852  2.733852  2.733852
+[22] 11.009562 11.009562
+
+$success
+[1] TRUE
+
+$residuals
+      WKSTAT1       WKSTAT2       WKSTAT3          CAR0          CAR1 
+ 1.066705e-07 -6.185748e-08 -1.233589e-07 -3.812949e-08  3.850336e-08 
+
+$ref_sample.agg.m
+        [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
+WKSTAT1    1    1    2    1    0    1    2    1
+WKSTAT2    1    0    1    0    2    1    1    1
+WKSTAT3    1    1    0    2    1    0    2    0
+CAR0       1    1    1    0    0    0    0    0
+CAR1       0    0    0    1    1    1    1    1
+
+$control_totals
+WKSTAT1 WKSTAT2 WKSTAT3    CAR0    CAR1 
+     91      65     104      35      65 
+
+$bbout
+$bbout$par
+    WKSTAT1     WKSTAT2     WKSTAT3        CAR0        CAR1 
+-1.28394419 -0.96455733 -0.05455427  4.49330836  4.64726568 
+
+$bbout$residual
+[1] 8.168074e-08
+
+$bbout$fn.reduction
+[1] 27.52761
+
+$bbout$feval
+[1] 225
+
+$bbout$iter
+[1] 114
+
+$bbout$convergence
+[1] 0
+
+$bbout$message
+[1] "Successful convergence"
+
+$bbout$cpar
+method      M     NM 
+     2     50      1 
+
+
+attr(,"class")
+[1] "ml_fit_entropy_o" "ml_fit"          
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  0.69 0.019 0.72 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')
