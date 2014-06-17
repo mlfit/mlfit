@@ -1,3 +1,6 @@
+v0.0.8 (2014-06-17)
+===
+
 - Add example for `ml_fit` (#11)
 
 - allow additional arguments for the algorithms; `ml_fit_entropy_o` now accepts
