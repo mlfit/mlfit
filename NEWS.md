@@ -1,3 +1,6 @@
+v0.0.7 (2014-06-17)
+===
+
 - Fix dependency issues (#13, #14)
 
 - Add example for `ml_ipf_entropy_o` (#11)
