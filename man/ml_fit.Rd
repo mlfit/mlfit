@@ -25,4 +25,8 @@ An object of class \code{ml_fit}, essentially a named list.
 This function reweights a reference sample to match constraints given by
 aggregate controls using an algorithm given as parameter.
 }
+\examples{
+path <- system.file("extdata/minitoy", package="MultiLevelIPF")
+ml_fit(algorithm = "entropy_o", ref_sample = import_IPAF_results(path))
+}
 

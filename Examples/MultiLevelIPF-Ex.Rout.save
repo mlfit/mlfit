@@ -42,6 +42,81 @@ Type 'q()' to quit R.
 > 
 > 
 > cleanEx()
+> nameEx("ml_fit")
+> ### * ml_fit
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ml_fit
+> ### Title: Estimate weights using a given algorithm
+> ### Aliases: ml_fit
+> 
+> ### ** Examples
+> 
+> path <- system.file("extdata/minitoy", package="MultiLevelIPF")
+> ml_fit(algorithm = "entropy_o", ref_sample = import_IPAF_results(path))
+Loading required namespace: XML
+Loading required namespace: kimisc
+  Successful convergence.
+$weights
+ [1]  8.937470  8.937470  8.937470 23.448579 23.448579  2.613950  2.613950
+ [8]  2.613950 25.899223 25.899223 25.899223 14.347802 14.347802 14.347802
+[15] 11.009562 11.009562  2.733852  2.733852  2.733852  2.733852  2.733852
+[22] 11.009562 11.009562
+
+$success
+[1] TRUE
+
+$residuals
+      WKSTAT1       WKSTAT2       WKSTAT3          CAR0          CAR1 
+ 1.066705e-07 -6.185748e-08 -1.233589e-07 -3.812949e-08  3.850336e-08 
+
+$ref_sample.agg.m
+        [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
+WKSTAT1    1    1    2    1    0    1    2    1
+WKSTAT2    1    0    1    0    2    1    1    1
+WKSTAT3    1    1    0    2    1    0    2    0
+CAR0       1    1    1    0    0    0    0    0
+CAR1       0    0    0    1    1    1    1    1
+
+$control_totals
+WKSTAT1 WKSTAT2 WKSTAT3    CAR0    CAR1 
+     91      65     104      35      65 
+
+$bbout
+$bbout$par
+    WKSTAT1     WKSTAT2     WKSTAT3        CAR0        CAR1 
+-1.28394419 -0.96455733 -0.05455427  4.49330836  4.64726568 
+
+$bbout$residual
+[1] 8.168074e-08
+
+$bbout$fn.reduction
+[1] 27.52761
+
+$bbout$feval
+[1] 225
+
+$bbout$iter
+[1] 114
+
+$bbout$convergence
+[1] 0
+
+$bbout$message
+[1] "Successful convergence"
+
+$bbout$cpar
+method      M     NM 
+     2     50      1 
+
+
+attr(,"class")
+[1] "ml_fit_entropy_o" "ml_fit"          
+> 
+> 
+> 
+> cleanEx()
 > nameEx("ml_fit_entropy_o")
 > ### * ml_fit_entropy_o
 > 
@@ -54,9 +129,7 @@ Type 'q()' to quit R.
 > ### ** Examples
 > 
 > path <- system.file("extdata/minitoy", package="MultiLevelIPF")
-> ml_fit(ref_sample = import_IPAF_results(path))
-Loading required namespace: XML
-Loading required namespace: kimisc
+> ml_fit_entropy_o(ref_sample = import_IPAF_results(path))
   Successful convergence.
 $weights
  [1]  8.937470  8.937470  8.937470 23.448579 23.448579  2.613950  2.613950
@@ -120,7 +193,7 @@ attr(,"class")
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  0.485 0.01 0.497 0 0 
+Time elapsed:  0.535 0.011 0.55 0 0 
 > grDevices::dev.off()
 null device 
           1 

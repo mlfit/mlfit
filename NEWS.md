@@ -1,3 +1,5 @@
+- Add example for `ml_fit` (#11)
+
 - allow additional arguments for the algorithms; `ml_fit_entropy_o` now accepts
   a named list `BBsolve_args` that is passed to `BB::BBsolve`
 
@@ -8,7 +10,7 @@ v0.0.7 (2014-06-17)
 
 - Fix dependency issues (#13, #14)
 
-- Add example for `ml_ipf_entropy_o` (#11)
+- Add example for `ml_fit_entropy_o` (#11)
 
 - Print more helpful error message if control totals and reference sample
   categories do not overlap (#11)

@@ -14,6 +14,9 @@
 #' @param ... Further parameters passed to the algorithm
 #' @return An object of class \code{ml_fit}, essentially a named list.
 #' @export
+#' @examples
+#' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
+#' ml_fit(algorithm = "entropy_o", ref_sample = import_IPAF_results(path))
 ml_fit <- function(algorithm = c("entropy_o"),
                    ref_sample, controls, field_names, ...) {
   algorithm <- match.arg(algorithm)
