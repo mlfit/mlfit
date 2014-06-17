@@ -6,7 +6,9 @@ context("import")
 test_that("import toy examples", {
   require(plyr)
   require(kimisc)
-  results <- llply(setNames(nm=c("minitoy", "toy", "dummytoy", "multitoy")), import_IPAF_results)
+  test_names <- c("minitoy", "toy", "dummytoy", "multitoy")
+  test_paths <- system.file(file.path("extdata", test_names), package = "MultiLevelIPF")
+  results <- llply(setNames(test_paths, nm=test_names), import_IPAF_results)
   
   TOL <- list(total=2e-3, individual=0.6, group=0.8)
   
@@ -59,8 +61,10 @@ test_that("import toy examples", {
 test_that("import all weights", {
   require(plyr)
   require(kimisc)
-  results <- llply(setNames(nm=c("minitoy", "toy", "dummytoy", "multitoy")), import_IPAF_results, all_weights = TRUE)
-  
+  test_names <- c("minitoy", "toy", "dummytoy", "multitoy")
+  test_paths <- system.file(file.path("extdata", test_names), package = "MultiLevelIPF")
+  results <- llply(setNames(test_paths, nm=test_names), import_IPAF_results)
+
   llply(
     results,
     function(result) {
@@ -86,7 +90,8 @@ test_that("import with more than one control of each type", {
     function(gi) {
       dirname <- if (all(gi == 1)) "minitoy" else
         do.call(sprintf, c(list("minitoy-%sx%s"), gi))
-      config <- import_IPAF_results(dirname, all_weights = FALSE)
+      result_path <- system.file(file.path("extdata", dirname), package = "MultiLevelIPF")
+      config <- import_IPAF_results(result_path, all_weights = FALSE)
       expect_equal(length(config$controls), 2)
       expect_equal(length(config$controls$individual), gi[[1]])
       expect_equal(length(config$controls$group), gi[[2]])
