@@ -1,9 +1,9 @@
 #' Imports results from a run of the original Python implementation
-#' 
+#'
 #' This helper function imports input, data and results from a run of the
 #' original Python implementation into a named list.  The file `config.xml`
 #' is read and interpreted.
-#' 
+#'
 #' @param path Path to the directory that contains the input/output files
 #' @param all_weights Should all weights be loaded, or only the final ones
 #'   (default)?
@@ -121,7 +121,7 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
 {
   if (is.character(node))
     node = xmlParse(node)
-  if (inherits(node, "XMLAbstractDocument")) 
+  if (inherits(node, "XMLAbstractDocument"))
     node = xmlRoot(node)
   if (any(inherits(node, c("XMLTextNode", "XMLInternalTextNode"))))
     xmlValue(node)

@@ -1,7 +1,7 @@
 #' Estimate weights using an entropy optimization approach
-#' 
-#' 
-#' 
+#'
+#'
+#'
 #' @param path Path to the directory that contains the input/output files
 #' @param all_weights Should all weights be loaded, or only the final ones
 #'   (default)?

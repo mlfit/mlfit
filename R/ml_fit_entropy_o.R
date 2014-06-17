@@ -22,13 +22,13 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names) {
           control.names <- setdiff(colnames(control), field_names$count)
           control.levels <- vapply(
             control[control.names], function(f) length(levels(f)), integer(1))
-          
+
           control.term <- paste(control.names[control.levels > 1], collapse=':')
-          
+
           control.mm <- model.matrix(
             as.formula(sprintf("~%s-1", control.term)),
             control)
-          
+
           list(
             term=control.term,
             control=(control[[field_names$count]] %*% control.mm)[1,]
@@ -78,15 +78,15 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names) {
          paste(setdiff(rownames(ref_sample.agg.m), names(control.totals)), collapse=", "), "\n"
     )
   }
-  
+
   par <- rep(0, length(control.totals))
   bbout <- BBsolve(
     par=par,
     fn=dss.objective.m(x=ref_sample.agg.m, control.totals=control.totals, F=exp))
-  
+
   weights <- dss.weights.from.lambda.m(x=ref_sample.agg.m, F=exp)(bbout$par)
   weights.ref_sample <- weights[match(ref_sample[[field_names$groupId]], ref_sample.agg[[field_names$groupId]])]
-  
+
   structure(
     list(
       weights=weights.ref_sample,

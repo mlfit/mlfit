@@ -1,8 +1,8 @@
 #' Estimate weights using a given algorithm
-#' 
+#'
 #' This function reweights a reference sample to match constraints given by
 #' aggregate controls using an algorithm given as parameter.
-#' 
+#'
 #' @usage
 #' ml_fit(algorithm, ref_sample, controls, field_names)
 #' @param algorithm Algorithm to use
