@@ -1,3 +1,5 @@
+- Faster internal data preparation for `ml_fit_entropy_o`
+
 v0.0.7 (2014-06-17)
 ===
 

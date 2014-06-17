@@ -52,13 +52,8 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names) {
   ref_sample_ind.mm <- as.data.frame(model.matrix(
     as.formula(sprintf("~%s+%s-1", field_names$groupId, control.formulae$individual)),
     ref_sample))
-  ref_sample_ind.agg <- plyr::ddply(
-    ref_sample_ind.mm,
-    field_names$groupId,
-    function(group) {
-      plyr::quickdf(plyr::llply(group[setdiff(colnames(group), field_names$groupId)], sum))
-  })
-
+  ref_sample_ind.agg <- aggregate(as.formula(sprintf(".~%s", field_names$groupId)),
+                                  ref_sample_ind.mm, FUN=sum)
   ref_sample.agg <- merge(ref_sample_ind.agg, ref_sample_grp.agg,
                           by=field_names$groupId)
   ref_sample.agg.m <- t(as.matrix(ref_sample.agg[
