@@ -61,12 +61,12 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names,
   ref_sample.agg <- merge(ref_sample_ind.agg, ref_sample_grp.agg,
                           by=field_names$groupId)
 
-  ref_sample.agg <- aggregate(as.formula(sprintf("%s~.", field_names$groupId)),
-                              ref_sample.agg, FUN=identity)
-  w <- vapply(ref_sample.agg[, field_names$groupId], length, integer(1))
+  ref_sample.agg.agg <- aggregate(as.formula(sprintf("%s~.", field_names$groupId)),
+                                  ref_sample.agg, FUN=identity)
+  w <- vapply(ref_sample.agg.agg[, field_names$groupId], length, integer(1))
 
-  ref_sample.agg.m <- t(as.matrix(ref_sample.agg[
-    , setdiff(colnames(ref_sample.agg), field_names$groupId)]))
+  ref_sample.agg.agg.m <- t(as.matrix(ref_sample.agg.agg[
+    , setdiff(colnames(ref_sample.agg.agg), field_names$groupId)]))
 
   control.totals.list <- plyr::llply(
     control.terms.list,
@@ -75,17 +75,17 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names,
     }
   )
   control.totals <- unlist(unname(control.totals.list), use.names=TRUE)
-  if (any(names(control.totals) != rownames(ref_sample.agg.m))) {
+  if (any(names(control.totals) != rownames(ref_sample.agg.agg.m))) {
     stop("  The following controls do not have any corresponding observation in the reference sample:\n    ",
-         paste(setdiff(names(control.totals), rownames(ref_sample.agg.m)), collapse=", "), "\n",
+         paste(setdiff(names(control.totals), rownames(ref_sample.agg.agg.m)), collapse=", "), "\n",
          "  The following categories in the reference sample do not have a corresponding control:\n    ",
-         paste(setdiff(rownames(ref_sample.agg.m), names(control.totals)), collapse=", "), "\n"
+         paste(setdiff(rownames(ref_sample.agg.agg.m), names(control.totals)), collapse=", "), "\n"
     )
   }
 
   par <- rep(0, length(control.totals))
   BBsolve_args$par <- par
-  BBsolve_args$fn <- dss.objective.m(x=ref_sample.agg.m, control.totals=control.totals, F=exp, d=w)
+  BBsolve_args$fn <- dss.objective.m(x=ref_sample.agg.agg.m, control.totals=control.totals, F=exp, d=w)
   BBsolve_args$control$M <- 1
 
   # Testing evaluation
@@ -93,9 +93,9 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names,
 
   bbout <- do.call(BB::dfsane, BBsolve_args)
 
-  weights.agg <- dss.weights.from.lambda.m(x=ref_sample.agg.m, F=exp, d=w)(bbout$par) / w
+  weights.agg <- dss.weights.from.lambda.m(x=ref_sample.agg.agg.m, F=exp, d=w)(bbout$par) / w
 
-  agg.map <- (function(x) unlist(setNames(x, paste0(seq_along(x), "."))))(ref_sample.agg[, field_names$groupId])
+  agg.map <- (function(x) unlist(setNames(x, paste0(seq_along(x), "."))))(ref_sample.agg.agg[, field_names$groupId])
   agg.map.idx <- floor(as.numeric(names(agg.map)))
   weights <- weights.agg[agg.map.idx[match(ref_sample.agg[[field_names$groupId]], agg.map)]]
 
@@ -105,8 +105,8 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names,
     list(
       weights=weights.ref_sample,
       success=(bbout$message == "Successful convergence"),
-      residuals=(ref_sample.agg.m %*% weights.agg)[,1] - control.totals,
-      ref_sample.agg.m=ref_sample.agg.m,
+      residuals=(ref_sample.agg.agg.m %*% weights.agg)[,1] - control.totals,
+      ref_sample.agg.agg.m=ref_sample.agg.agg.m,
       control_totals=control.totals,
       bbout=bbout
     ),
