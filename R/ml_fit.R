@@ -38,3 +38,11 @@ ml_fit <- function(algorithm = c("entropy_o"),
       target.env=parent.frame())
   }
 }
+
+.patch_verbose <- function() {
+  verbose <- get("verbose", parent.frame())
+  if (!verbose) {
+    kimisc::export.list(list(message=invisible),
+      target.env=parent.frame())
+  }
+}

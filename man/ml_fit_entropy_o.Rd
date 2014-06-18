@@ -3,7 +3,8 @@
 \alias{ml_fit_entropy_o}
 \title{Estimate weights using an entropy optimization approach}
 \usage{
-ml_fit_entropy_o(ref_sample, controls, field_names, BBsolve_args = list())
+ml_fit_entropy_o(ref_sample, controls, field_names, verbose = FALSE,
+  BBsolve_args = list())
 }
 \arguments{
 \item{ref_sample}{Reference sample.  Alternatively, a configuration as
@@ -13,6 +14,8 @@ arguments are ignored.}
 \item{controls}{Control totals}
 
 \item{field_names}{Names of special columns in the data}
+
+\item{verbose}{If \code{TRUE}, print diagnostic output.}
 
 \item{BBsolve_args}{Additional arguments (as a named list) passed to the
 \code{\link[BB]{BBsolve}} function used internally for the optimization.}
