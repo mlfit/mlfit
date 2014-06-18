@@ -101,7 +101,7 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names,
   )
 }
 
-# Equation 2.1
+# Equation 2.1 in Deville et al. (1993)
 dss.weights.from.lambda.m <- function(x, F) {
   function(lambda) {
     apply(x, 2, function(xk) {
