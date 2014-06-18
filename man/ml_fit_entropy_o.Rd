@@ -4,7 +4,7 @@
 \title{Estimate weights using an entropy optimization approach}
 \usage{
 ml_fit_entropy_o(ref_sample, controls, field_names, verbose = FALSE,
-  BBsolve_args = list())
+  dfsane_args = list())
 }
 \arguments{
 \item{ref_sample}{Reference sample.  Alternatively, a configuration as
@@ -17,8 +17,8 @@ arguments are ignored.}
 
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
 
-\item{BBsolve_args}{Additional arguments (as a named list) passed to the
-\code{\link[BB]{BBsolve}} function used internally for the optimization.}
+\item{dfsane_args}{Additional arguments (as a named list) passed to the
+\code{\link[BB]{dfsane}} function used internally for the optimization.}
 }
 \value{
 An object of classes \code{ml_fit_entropy_o} and \code{ml_fit},
@@ -33,6 +33,6 @@ path <- system.file("extdata/minitoy", package="MultiLevelIPF")
 ml_fit_entropy_o(ref_sample = import_IPAF_results(path))
 }
 \seealso{
-\code{\link[BB]{BBsolve}}
+\code{\link[BB]{dfsane}}
 }
 

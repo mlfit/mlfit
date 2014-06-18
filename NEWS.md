@@ -1,3 +1,5 @@
+- function `ml_fit_entropy_o`: rename argument `BBsolve_args` to `dfsane_args`
+
 - function `ml_fit_entropy_o`: new parameter `verbose`
 
 - aggregate identical household types, implement prior weights (so far only

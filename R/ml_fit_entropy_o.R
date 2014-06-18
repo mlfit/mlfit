@@ -5,17 +5,17 @@
 #'
 #' @inheritParams ml_fit
 #' @param verbose If \code{TRUE}, print diagnostic output.
-#' @param BBsolve_args Additional arguments (as a named list) passed to the
-#'   \code{\link[BB]{BBsolve}} function used internally for the optimization.
+#' @param dfsane_args Additional arguments (as a named list) passed to the
+#'   \code{\link[BB]{dfsane}} function used internally for the optimization.
 #' @return An object of classes \code{ml_fit_entropy_o} and \code{ml_fit},
 #'   essentially a named list.
-#' @seealso \code{\link[BB]{BBsolve}}
+#' @seealso \code{\link[BB]{dfsane}}
 #' @export
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
 #' ml_fit_entropy_o(ref_sample = import_IPAF_results(path))
 ml_fit_entropy_o <- function(ref_sample, controls, field_names, verbose = FALSE,
-                             BBsolve_args = list()) {
+                             dfsane_args = list()) {
   .patch_ml_fit_args()
   .patch_verbose()
 
@@ -89,17 +89,17 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names, verbose = FALSE,
   }
 
   par <- rep(0, length(control.totals))
-  BBsolve_args$par <- par
-  BBsolve_args$fn <- dss.objective.m(x=ref_sample.agg.agg.m, control.totals=control.totals, F=exp, d=w)
-  BBsolve_args$control$M <- 1
-  BBsolve_args$control$trace <- verbose
+  dfsane_args$par <- par
+  dfsane_args$fn <- dss.objective.m(x=ref_sample.agg.agg.m, control.totals=control.totals, F=exp, d=w)
+  dfsane_args$control$M <- 1
+  dfsane_args$control$trace <- verbose
 
   # Testing evaluation
   message("Testing evaluation of objective function")
-  BBsolve_args$fn(BBsolve_args$par)
+  dfsane_args$fn(dfsane_args$par)
 
   message("Searching for solution of optimization problem")
-  bbout <- do.call(BB::dfsane, BBsolve_args)
+  bbout <- do.call(BB::dfsane, dfsane_args)
 
   message("Computing reference sample weights")
   weights.agg <- dss.weights.from.lambda.m(x=ref_sample.agg.agg.m, F=exp, d=w)(bbout$par) / w
