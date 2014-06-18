@@ -79,10 +79,11 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names,
   }
 
   par <- rep(0, length(control.totals))
-  bbout <- do.call(BB::BBsolve,
-                   c(list(par=par,
-                          fn=dss.objective.m(x=ref_sample.agg.m, control.totals=control.totals, F=exp)),
-                     BBsolve_args))
+  BBsolve_args$par <- par
+  BBsolve_args$fn <- dss.objective.m(x=ref_sample.agg.m, control.totals=control.totals, F=exp)
+  BBsolve_args$control$M <- 1
+
+  bbout <- do.call(BB::dfsane, BBsolve_args)
 
   weights <- dss.weights.from.lambda.m(x=ref_sample.agg.m, F=exp)(bbout$par)
   weights.ref_sample <- weights[match(ref_sample[[field_names$groupId]], ref_sample.agg[[field_names$groupId]])]
