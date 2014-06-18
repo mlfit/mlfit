@@ -60,6 +60,11 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names,
                                   ref_sample_ind.mm, FUN=sum)
   ref_sample.agg <- merge(ref_sample_ind.agg, ref_sample_grp.agg,
                           by=field_names$groupId)
+
+  ref_sample.agg <- aggregate(as.formula(sprintf("%s~.", field_names$groupId)),
+                              ref_sample.agg, FUN=identity)
+  w <- vapply(ref_sample.agg[, field_names$groupId], length, integer(1))
+
   ref_sample.agg.m <- t(as.matrix(ref_sample.agg[
     , setdiff(colnames(ref_sample.agg), field_names$groupId)]))
 
@@ -80,7 +85,7 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names,
 
   par <- rep(0, length(control.totals))
   BBsolve_args$par <- par
-  BBsolve_args$fn <- dss.objective.m(x=ref_sample.agg.m, control.totals=control.totals, F=exp)
+  BBsolve_args$fn <- dss.objective.m(x=ref_sample.agg.m, control.totals=control.totals, F=exp, d=w)
   BBsolve_args$control$M <- 1
 
   # Testing evaluation
@@ -88,14 +93,19 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names,
 
   bbout <- do.call(BB::dfsane, BBsolve_args)
 
-  weights <- dss.weights.from.lambda.m(x=ref_sample.agg.m, F=exp)(bbout$par)
+  weights.agg <- dss.weights.from.lambda.m(x=ref_sample.agg.m, F=exp, d=w)(bbout$par) / w
+
+  agg.map <- (function(x) unlist(setNames(x, paste0(seq_along(x), "."))))(ref_sample.agg[, field_names$groupId])
+  agg.map.idx <- floor(as.numeric(names(agg.map)))
+  weights <- weights.agg[agg.map.idx[match(ref_sample.agg[[field_names$groupId]], agg.map)]]
+
   weights.ref_sample <- weights[match(ref_sample[[field_names$groupId]], ref_sample.agg[[field_names$groupId]])]
 
   structure(
     list(
       weights=weights.ref_sample,
       success=(bbout$message == "Successful convergence"),
-      residuals=(ref_sample.agg.m %*% weights)[,1] - control.totals,
+      residuals=(ref_sample.agg.m %*% weights.agg)[,1] - control.totals,
       ref_sample.agg.m=ref_sample.agg.m,
       control_totals=control.totals,
       bbout=bbout
@@ -105,36 +115,36 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names,
 }
 
 # Equation 2.1 in Deville et al. (1993)
-dss.weights.from.lambda.m <- function(x, F) {
+dss.weights.from.lambda.m <- function(x, F, d) {
   function(lambda) {
     apply(x, 2, function(xk) {
       F(sum(xk * lambda))
-    })
+    }) * d
   }
 }
 
 # left-hand side of equation 2.2
 # (right-hand side is control totals)
-dss.lhs.orig.m <- function(x, F) {
+dss.lhs.orig.m <- function(x, F, d) {
   function(lambda) {
     dss.lhs.matrix <- apply(x, 2, function(xk) {
       F(sum(xk * lambda)) * xk
-    })
+    }) * rep(d, each = length(lambda))
     apply(dss.lhs.matrix, 1, sum)
   }
 }
 
 # left-hand side of equation 2.2 using weights from equation 2.1
 # equivalent to dss.lhs.orig.m, but surprisingly a bit faster when using in the solver
-dss.lhs.using.w.m <- function(x, F) {
-  dss.weights.from.lambda <- dss.weights.from.lambda.m(x, F)
+dss.lhs.using.w.m <- function(x, F, d) {
+  dss.weights.from.lambda <- dss.weights.from.lambda.m(x, F, d)
   dss.lhs.using.w.f <- function(lambda) {
     (x %*% dss.weights.from.lambda(lambda))[,1]
   }
 }
 
-dss.objective.m <- function(x, control.totals, F, dss.lhs.m=dss.lhs.using.w.m) {
-  dss.lhs.orig.f <- dss.lhs.m(x, F)
+dss.objective.m <- function(x, control.totals, F, d, dss.lhs.m=dss.lhs.using.w.m) {
+  dss.lhs.orig.f <- dss.lhs.m(x, F, d)
   function(lambda) {
     dss.lhs.orig.f(lambda) - control.totals
   }

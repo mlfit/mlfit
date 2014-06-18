@@ -1,3 +1,6 @@
+- aggregate identical household types, implement prior weights (so far only
+  internally)
+
 v0.0.8 (2014-06-17)
 ===
 
