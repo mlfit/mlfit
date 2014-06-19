@@ -4,7 +4,6 @@
 #' aggregate controls using an entropy optimization method.
 #'
 #' @inheritParams ml_fit
-#' @param verbose If \code{TRUE}, print diagnostic output.
 #' @param dfsane_args Additional arguments (as a named list) passed to the
 #'   \code{\link[BB]{dfsane}} function used internally for the optimization.
 #' @return An object of classes \code{ml_fit_entropy_o} and \code{ml_fit},
