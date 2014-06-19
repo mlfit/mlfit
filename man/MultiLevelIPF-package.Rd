@@ -14,8 +14,8 @@ provided.
 \tabular{ll}{
   Package: \tab MultiLevelIPF\cr
   Type: \tab Package\cr
-  Version: \tab 0.0.8\cr
-  Date: \tab 2014-06-17\cr
+  Version: \tab 0.0.9\cr
+  Date: \tab 2014-06-19\cr
   License: \tab GPL v3\cr
 } ~~
 An overview of how to use the package, including the most

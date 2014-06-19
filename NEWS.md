@@ -1,3 +1,6 @@
+v0.0.9 (2014-06-19)
+===
+
 - new function `flatten_ml_fit_problem`: transform representation as returned
   by `import_IPAF_result` into a matrix, a control vector and a weights vector
 
