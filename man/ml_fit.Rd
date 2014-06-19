@@ -3,7 +3,7 @@
 \alias{ml_fit}
 \title{Estimate weights using a given algorithm}
 \usage{
-ml_fit(algorithm, ref_sample, controls, field_names, ...)
+ml_fit(algorithm, ref_sample, controls, field_names, verbose, ...)
 }
 \arguments{
 \item{algorithm}{Algorithm to use}
@@ -15,6 +15,8 @@ arguments are ignored.}
 \item{controls}{Control totals}
 
 \item{field_names}{Names of special columns in the data}
+
+\item{verbose}{If \code{TRUE}, print diagnostic output.}
 
 \item{...}{Further parameters passed to the algorithm}
 }

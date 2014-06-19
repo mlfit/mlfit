@@ -1,3 +1,14 @@
+- new function `flatten_ml_fit_problem`: transform representation as returned
+  by `import_IPAF_result` into a matrix, a control vector and a weights vector
+
+- function `ml_fit_entropy_o`: use `BB::dfsane` instead of `BB::BBsolve` for
+  solving the optimization problem; rename argument `BBsolve_args` to `dfsane_args`
+
+- function `ml_fit`: new parameter `verbose`
+
+- aggregate identical household types, implement prior weights (so far only
+  internally)
+
 v0.0.8 (2014-06-17)
 ===
 
