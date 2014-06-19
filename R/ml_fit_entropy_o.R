@@ -18,78 +18,12 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names, verbose = FALSE,
   .patch_ml_fit_args()
   .patch_verbose()
 
-  message("Preparing controls")
-  control.terms.list <- plyr::llply(
-    controls,
-    function(control.list) {
-      control.columns <- plyr::llply(
-        control.list,
-        function(control) {
-          control.names <- setdiff(colnames(control), field_names$count)
-          control.levels <- vapply(
-            control[control.names], function(f) length(levels(f)), integer(1))
+  flat <- flatten_ml_fit_problem(ref_sample = ref_sample, controls = controls,
+                                 field_names = field_names, verbose = verbose)
 
-          control.term <- paste(control.names[control.levels > 1], collapse=':')
-
-          control.mm <- model.matrix(
-            as.formula(sprintf("~%s-1", control.term)),
-            control)
-
-          list(
-            term=control.term,
-            control=(control[[field_names$count]] %*% control.mm)[1,]
-          )
-        }
-      )
-    }
-  )
-
-  control.formulae <- plyr::llply(
-    control.terms.list,
-    function(control.terms) {
-      paste(plyr::laply(control.terms, `[[`, 'term'), collapse='+')
-    }
-  )
-
-  message("Flattening reference sample")
-  ref_sample_grp.mm <- as.data.frame(model.matrix(
-    as.formula(sprintf("~%s+%s-1", field_names$groupId, control.formulae$group)),
-    ref_sample))
-  ref_sample_grp.agg <- ref_sample_grp.mm[c(TRUE, diff(ref_sample_grp.mm[[field_names$groupId]]) != 0), ]
-  ref_sample_ind.mm <- as.data.frame(model.matrix(
-    as.formula(sprintf("~%s+%s-1", field_names$groupId, control.formulae$individual)),
-    ref_sample))
-  ref_sample_ind.agg <- aggregate(as.formula(sprintf(".~%s", field_names$groupId)),
-                                  ref_sample_ind.mm, FUN=sum)
-  ref_sample.agg <- merge(ref_sample_ind.agg, ref_sample_grp.agg,
-                          by=field_names$groupId)
-
-  ref_sample.agg.agg <- aggregate(as.formula(sprintf("%s~.", field_names$groupId)),
-                                  ref_sample.agg, FUN=identity)
-  w <- vapply(ref_sample.agg.agg[, field_names$groupId], length, integer(1))
-
-  ref_sample.agg.agg.m <- t(as.matrix(ref_sample.agg.agg[
-    , setdiff(colnames(ref_sample.agg.agg), field_names$groupId)]))
-
-  message("Flattening controls")
-  control.totals.list <- plyr::llply(
-    control.terms.list,
-    function(control.terms) {
-      plyr::laply(control.terms, `[[`, 'control', .drop=TRUE)
-    }
-  )
-  control.totals <- unlist(unname(control.totals.list), use.names=TRUE)
-  if (any(names(control.totals) != rownames(ref_sample.agg.agg.m))) {
-    stop("  The following controls do not have any corresponding observation in the reference sample:\n    ",
-         paste(setdiff(names(control.totals), rownames(ref_sample.agg.agg.m)), collapse=", "), "\n",
-         "  The following categories in the reference sample do not have a corresponding control:\n    ",
-         paste(setdiff(rownames(ref_sample.agg.agg.m), names(control.totals)), collapse=", "), "\n"
-    )
-  }
-
-  par <- rep(0, length(control.totals))
+  par <- rep(0, length(flat$control_totals))
   dfsane_args$par <- par
-  dfsane_args$fn <- dss.objective.m(x=ref_sample.agg.agg.m, control.totals=control.totals, F=exp, d=w)
+  dfsane_args$fn <- dss.objective.m(x=flat$ref_sample, control.totals=flat$control_totals, F=exp, d=flat$weights)
   dfsane_args$control$M <- 1
   dfsane_args$control$trace <- verbose
 
@@ -101,22 +35,17 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names, verbose = FALSE,
   bbout <- do.call(BB::dfsane, dfsane_args)
 
   message("Computing reference sample weights")
-  weights.agg <- dss.weights.from.lambda.m(x=ref_sample.agg.agg.m, F=exp, d=w)(bbout$par) / w
+  weights.agg <- dss.weights.from.lambda.m(x=flat$ref_sample, F=exp, d=flat$weights)(bbout$par) / flat$weights
 
-  agg.map <- (function(x) unlist(setNames(x, paste0(seq_along(x), "."))))(ref_sample.agg.agg[, field_names$groupId])
-  agg.map.idx <- floor(as.numeric(names(agg.map)))
-  weights <- weights.agg[agg.map.idx[match(ref_sample.agg[[field_names$groupId]], agg.map)]]
-
-  weights.ref_sample <- weights[match(ref_sample[[field_names$groupId]], ref_sample.agg[[field_names$groupId]])]
+  weights.ref_sample <- weights.agg[flat$rev_weights_map]
 
   message("Done!")
   structure(
     list(
-      weights=weights.ref_sample,
+      weights=unname(weights.ref_sample),
       success=(bbout$message == "Successful convergence"),
-      residuals=(ref_sample.agg.agg.m %*% weights.agg)[,1] - control.totals,
-      ref_sample.agg.agg.m=ref_sample.agg.agg.m,
-      control_totals=control.totals,
+      residuals=(flat$ref_sample %*% weights.agg)[,1] - flat$control_totals,
+      flat=flat,
       bbout=bbout
     ),
     class=c("ml_fit_entropy_o", "ml_fit")
