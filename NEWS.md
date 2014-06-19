@@ -1,7 +1,8 @@
 - new function `flatten_ml_fit_problem`: transform representation as returned
   by `import_IPAF_result` into a matrix, a control vector and a weights vector
 
-- function `ml_fit_entropy_o`: rename argument `BBsolve_args` to `dfsane_args`
+- function `ml_fit_entropy_o`: use `BB::dfsane` instead of `BB::BBsolve` for
+  solving the optimization problem; rename argument `BBsolve_args` to `dfsane_args`
 
 - function `ml_fit`: new parameter `verbose`
 
