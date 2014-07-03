@@ -25,8 +25,9 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
 
   message("Preparing controls")
   control.terms.list <- plyr::llply(
-    controls,
-    function(control.list) {
+    names(controls),
+    function(control.name) {
+      control.list <- controls[[control.name]]
       control.columns <- plyr::llply(
         control.list,
         function(control) {
