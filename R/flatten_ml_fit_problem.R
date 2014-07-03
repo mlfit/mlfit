@@ -78,7 +78,7 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
     }
   )
   control.totals <- unlist(unname(control.totals.list), use.names=TRUE)
-  if (any(names(control.totals) != rownames(ref_sample.agg.agg.m))) {
+  if (!identical(names(control.totals), rownames(ref_sample.agg.agg.m))) {
     stop("  The following controls do not have any corresponding observation in the reference sample:\n    ",
          paste(setdiff(names(control.totals), rownames(ref_sample.agg.agg.m)), collapse=", "), "\n",
          "  The following categories in the reference sample do not have a corresponding control:\n    ",
