@@ -1,0 +1,23 @@
+<config>
+    <algorithms>
+    </algorithms>
+    <fileExtension>dat</fileExtension>
+    <separator>\t</separator>
+    <refSample>RS</refSample>
+    <controls>
+        <individual>
+            <control>IND1</control>
+            <control>IND2</control>
+        </individual>
+        <group>
+            <control>GROUP1</control>
+            <control>GROUP2</control>
+        </group>
+    </controls>
+    <fieldNames>
+        <groupId>HHNR</groupId>
+        <individualId>PNR</individualId>
+        <individualsPerGroup>APER</individualsPerGroup>
+        <count>N</count>
+    </fieldNames>
+</config>
