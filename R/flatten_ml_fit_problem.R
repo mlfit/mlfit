@@ -25,20 +25,23 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
 
   message("Preparing controls")
   control.terms.list <- plyr::llply(
-    names(controls),
-    function(control.name) {
-      control.list <- controls[[control.name]]
+    setNames(nm=names(controls)),
+    function(control.type) {
+      control.list <- controls[[control.type]]
       control.columns <- plyr::llply(
         control.list,
-        function(control) {
-          control.names <- setdiff(colnames(control), field_names$count)
-          control.levels <- vapply(
-            control[control.names], function(f) length(levels(f)), integer(1))
+        control.type = control.type,
+        function(control, control.type) {
+          control.and.count.names <- setNames(nm=colnames(control))
+          control.names <- setdiff(control.and.count.names, field_names$count)
+          new.control.names <- sprintf("%s_%s_", control.names, substr(control.type, 1, 1))
+          control.and.count.names[control.names] <- new.control.names
+          colnames(control) <- control.and.count.names
 
-          control.term <- paste(control.names[control.levels > 1], collapse=':')
+          control.term <- paste0(new.control.names, collapse='*')
 
           control.mm <- model.matrix(
-            as.formula(sprintf("~%s-1", control.term)),
+            as.formula(sprintf("~%s", control.term)),
             control)
 
           list(
