@@ -55,13 +55,18 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
     as.formula(sprintf("~%s+%s-1", field_names$groupId, control.formulae$group)),
     ref_sample))
   ref_sample_grp.agg <- ref_sample_grp.mm[c(TRUE, diff(ref_sample_grp.mm[[field_names$groupId]]) != 0), ]
-  ref_sample_ind.mm <- as.data.frame(model.matrix(
-    as.formula(sprintf("~%s+%s-1", field_names$groupId, control.formulae$individual)),
-    ref_sample))
-  ref_sample_ind.agg <- aggregate(as.formula(sprintf(".~%s", field_names$groupId)),
-                                  ref_sample_ind.mm, FUN=sum)
-  ref_sample.agg <- merge(ref_sample_ind.agg, ref_sample_grp.agg,
-                          by=field_names$groupId)
+
+  if (nchar(control.formulae$individual) > 0) {
+    ref_sample_ind.mm <- as.data.frame(model.matrix(
+      as.formula(sprintf("~%s+%s-1", field_names$groupId, control.formulae$individual)),
+      ref_sample))
+    ref_sample_ind.agg <- aggregate(as.formula(sprintf(".~%s", field_names$groupId)),
+                                    ref_sample_ind.mm, FUN=sum)
+    ref_sample.agg <- merge(ref_sample_ind.agg, ref_sample_grp.agg,
+                            by=field_names$groupId)
+  } else {
+    ref_sample.agg <- ref_sample_grp.agg
+  }
 
   ref_sample.agg.agg <- aggregate(as.formula(sprintf("%s~.", field_names$groupId)),
                                   ref_sample.agg, FUN=identity)
@@ -74,7 +79,7 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
   control.totals.list <- plyr::llply(
     control.terms.list,
     function(control.terms) {
-      plyr::laply(control.terms, `[[`, 'control', .drop=TRUE)
+      unname(plyr::llply(control.terms, `[[`, 'control'))
     }
   )
   control.totals <- unlist(unname(control.totals.list), use.names=TRUE)

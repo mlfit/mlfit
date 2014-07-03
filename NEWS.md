@@ -1,3 +1,5 @@
+- support fitting one-dimensional problems (where only group-level controls are given)
+
 v0.0.9 (2014-06-19)
 ===
 
