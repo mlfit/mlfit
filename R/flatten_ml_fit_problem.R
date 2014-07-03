@@ -17,6 +17,12 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
   .patch_ml_fit_args()
   .patch_verbose()
 
+  message("Computing expected individuals-per-group ratio")
+  IPG <- if (length(controls$group) * length(controls$individual) > 0) {
+    sum(controls$individual[[1]][[field_names$count]]) / sum(controls$group[[1]][[field_names$count]])
+  } else
+    NULL
+
   message("Preparing controls")
   control.terms.list <- plyr::llply(
     controls,
