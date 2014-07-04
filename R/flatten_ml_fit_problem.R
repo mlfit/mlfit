@@ -88,7 +88,7 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
   stopifnot(diff(ref_sample_grp.mm[[field_names$groupId]]) >= 0)
   ref_sample_grp.agg <- ref_sample_grp.mm[c(TRUE, diff(ref_sample_grp.mm[[field_names$groupId]]) != 0), ]
 
-  if (nchar(control.formulae$individual) > 0) {
+  if (!is.null(control.formulae$individual) && nchar(control.formulae$individual) > 0) {
     ref_sample_ind.mm <- as.data.frame(model.matrix(
       as.formula(sprintf("~%s+%s", field_names$groupId, control.formulae$individual)),
       plyr::rename(ref_sample[c(field_names$groupId, names(control.names$individual))], control.names$individual)))
