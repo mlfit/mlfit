@@ -2,8 +2,8 @@ Package: MultiLevelIPF
 Type: Package
 Encoding: UTF-8
 Title: Implementation of algorithms that extend IPF to nested structures
-Version: 0.0-9
-Date: 2014-06-19
+Version: 0.0-10
+Date: 2014-07-04
 Author: Kirill Müller
 Maintainer: Kirill Müller <kirill.mueller@ivt.baug.ethz.ch>
 BugReports: https://github.com/krlmlr/MultiLevelIPF/issues

@@ -1,3 +1,6 @@
+v0.0-10 (2014-07-04)
+===
+
 - support multiple controls at individual or group level, also detect conflicting
   control totals
 
