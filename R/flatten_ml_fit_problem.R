@@ -108,6 +108,7 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
                                   ref_sample.agg, FUN=identity)
   w <- vapply(ref_sample.agg.agg[, field_names$groupId], length, integer(1))
 
+  message("Transposing reference sample")
   ref_sample.agg.agg.m <- t(as.matrix(ref_sample.agg.agg[
     , setdiff(colnames(ref_sample.agg.agg), field_names$groupId)]))
 
@@ -138,13 +139,18 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
                   collapse = ", "))
   }
 
-  if (!identical(names(control.totals), rownames(ref_sample.agg.agg.m))) {
+  message("Reordering controls")
+  if (!identical(sort(names(control.totals)), sort(rownames(ref_sample.agg.agg.m)))) {
+    # Code below depends on halting here!
     stop("  The following controls do not have any corresponding observation in the reference sample:\n    ",
          paste(setdiff(names(control.totals), rownames(ref_sample.agg.agg.m)), collapse=", "), "\n",
          "  The following categories in the reference sample do not have a corresponding control:\n    ",
          paste(setdiff(rownames(ref_sample.agg.agg.m), names(control.totals)), collapse=", "), "\n"
     )
   }
+
+  # The following really assumes that controls are identical!
+  control.totals <- control.totals[rownames(ref_sample.agg.agg.m)]
 
   message("Computing reverse weights map")
   agg_map <- (function(x) unlist(setNames(x, paste0(seq_along(x), "."))))(ref_sample.agg.agg[, field_names$groupId])
