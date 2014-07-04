@@ -50,6 +50,8 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
           control.mm <- .rename.intercept(control.mm, control.type)
 
           list(
+            control.names=control.names,
+            new.control.names=new.control.names,
             term=control.term,
             control=(control[[field_names$count]] %*% control.mm)[1,]
           )
@@ -65,24 +67,43 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
     }
   )
 
-  message("Flattening reference sample")
+  # List of "individual" and "group"
+  #   Each item contains a named vector: names are column names in the original
+  #   dataset, values are new names in the mangled dataset
+  control.names <- plyr::llply(
+    control.terms.list,
+    function(control.terms) {
+      control.names <- unlist(plyr::llply(unname(control.terms), function(control.term)
+        setNames(control.term$new.control.names, control.term$control.names)))
+      control.names[!duplicated(control.names)]
+    }
+  )
+
+  message("Preparing reference sample")
   ref_sample_grp.mm <- as.data.frame(model.matrix(
-    as.formula(sprintf("~%s+%s-1", field_names$groupId, control.formulae$group)),
-    ref_sample))
+    as.formula(sprintf("~%s+%s", field_names$groupId, control.formulae$group)),
+    plyr::rename(ref_sample[c(field_names$groupId, names(control.names$group))], control.names$group)))
+  ref_sample_grp.mm <- .rename.intercept(ref_sample_grp.mm, "group")
+
+  stopifnot(diff(ref_sample_grp.mm[[field_names$groupId]]) >= 0)
   ref_sample_grp.agg <- ref_sample_grp.mm[c(TRUE, diff(ref_sample_grp.mm[[field_names$groupId]]) != 0), ]
 
   if (nchar(control.formulae$individual) > 0) {
     ref_sample_ind.mm <- as.data.frame(model.matrix(
-      as.formula(sprintf("~%s+%s-1", field_names$groupId, control.formulae$individual)),
-      ref_sample))
+      as.formula(sprintf("~%s+%s", field_names$groupId, control.formulae$individual)),
+      plyr::rename(ref_sample[c(field_names$groupId, names(control.names$individual))], control.names$individual)))
+    ref_sample_ind.mm <- .rename.intercept(ref_sample_ind.mm, "individual")
     ref_sample_ind.agg <- aggregate(as.formula(sprintf(".~%s", field_names$groupId)),
                                     ref_sample_ind.mm, FUN=sum)
     ref_sample.agg <- merge(ref_sample_ind.agg, ref_sample_grp.agg,
                             by=field_names$groupId)
+
+    stopifnot(ref_sample.agg[[field_names$groupId]] == ref_sample_grp.agg[[field_names$groupId]])
   } else {
     ref_sample.agg <- ref_sample_grp.agg
   }
 
+  message("Flattening reference sample")
   ref_sample.agg.agg <- aggregate(as.formula(sprintf("%s~.", field_names$groupId)),
                                   ref_sample.agg, FUN=identity)
   w <- vapply(ref_sample.agg.agg[, field_names$groupId], length, integer(1))
@@ -97,7 +118,26 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
       unname(plyr::llply(control.terms, `[[`, 'control'))
     }
   )
-  control.totals <- unlist(unname(control.totals.list), use.names=TRUE)
+  control.totals.dup <- unlist(unname(control.totals.list), use.names=TRUE)
+
+  message("Checking controls for conflicts")
+  control.totals.dup.rearrange <- plyr::llply(
+    setNames(nm=unique(names(control.totals.dup))),
+    function (control.name)
+      unname(control.totals.dup[names(control.totals.dup) == control.name])
+  )
+  control.totals <- sapply(control.totals.dup.rearrange, `[[`, 1L)
+  control.totals.conflicts <- sapply(
+    control.totals.dup.rearrange,
+    function(x) !isTRUE(all.equal(x, rep(x[[1L]], length(x))))
+  )
+  stopifnot(names(control.totals) == names(control.totals.conflicts))
+  if (any(control.totals.conflicts)) {
+    warning("  The following controls are conflicting, values will be assumed as follows:\n    ",
+            paste(sprintf("%s=%s", names(control.totals)[control.totals.conflicts], control.totals[control.totals.conflicts]),
+                  collapse = ", "))
+  }
+
   if (!identical(names(control.totals), rownames(ref_sample.agg.agg.m))) {
     stop("  The following controls do not have any corresponding observation in the reference sample:\n    ",
          paste(setdiff(names(control.totals), rownames(ref_sample.agg.agg.m)), collapse=", "), "\n",
