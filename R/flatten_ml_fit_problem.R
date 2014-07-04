@@ -34,7 +34,7 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
         function(control, control.type) {
           control.and.count.names <- setNames(nm=colnames(control))
           control.names <- setdiff(control.and.count.names, field_names$count)
-          new.control.names <- sprintf("%s_%s_", control.names, substr(control.type, 1, 1))
+          new.control.names <- sprintf("%s_%s_", control.names, .control.type.abbrev(control.type))
           control.and.count.names[control.names] <- new.control.names
           colnames(control) <- control.and.count.names
 
@@ -119,3 +119,5 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
     class=c("flat_ml_fit_problem")
   )
 }
+
+.control.type.abbrev <- function(control.type) substr(control.type, 1, 1)
