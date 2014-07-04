@@ -43,6 +43,7 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
           control.mm <- model.matrix(
             as.formula(sprintf("~%s", control.term)),
             control)
+          control.mm <- .rename.intercept(control.mm, control.type)
 
           list(
             term=control.term,
@@ -121,3 +122,8 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
 }
 
 .control.type.abbrev <- function(control.type) substr(control.type, 1, 1)
+.rename.intercept <- function(data, control.type) {
+  colnames(data) <- plyr::revalue(colnames(data),
+                                  c(`(Intercept)`=sprintf("(Intercept)_%s", .control.type.abbrev(control.type))))
+  data
+}
