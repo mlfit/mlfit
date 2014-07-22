@@ -152,6 +152,21 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
   # The following really assumes that controls are identical!
   control.totals <- control.totals[rownames(ref_sample.agg.agg.m)]
 
+  message("Checking zero-valued controls")
+  zero.control.totals <- (control.totals == 0)
+  if (any(zero.control.totals)) {
+    zero.observations <- apply(ref_sample.agg.agg.m, 2, function(x) any(x[zero.control.totals] > 0))
+    zero.observation.weights <- sum(w[zero.observations])
+    warning(
+      "  Removing ", sum(zero.observations), " distinct entries from the reference sample ",
+      "with a total weight of ", sum(zero.observation.weights))
+    ref_sample.agg.agg.m <- ref_sample.agg.agg.m[!zero.control.totals, !zero.observations]
+    control.totals <- control.totals[!zero.control.totals]
+    w <- w[!zero.observations]
+  } else
+    message("  No zero-valued controls")
+  stopifnot(control.totals > 0)
+
   message("Computing reverse weights map")
   agg_map <- (function(x) unlist(setNames(x, paste0(seq_along(x), "."))))(ref_sample.agg.agg[, field_names$groupId])
   agg_map_idx <- floor(as.numeric(names(agg_map)))
