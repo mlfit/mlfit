@@ -186,6 +186,9 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
          paste(names(control.totals)[missing.controls], collapse = ", "))
   }
 
+  message("Normalizing weights")
+  w <- w / sum(w) * control.totals["(Intercept)_g"]
+
   message("Computing reverse weights map")
   agg_map <- (function(x) unlist(setNames(x, paste0(seq_along(x), "."))))(ref_sample.agg.agg[, field_names$groupId])
   agg_map_idx <- floor(as.numeric(names(agg_map)))
