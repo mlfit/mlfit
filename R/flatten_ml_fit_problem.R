@@ -155,14 +155,20 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
   message("Checking zero-valued controls")
   zero.control.totals <- (control.totals == 0)
   if (any(zero.control.totals)) {
+    message("  Found zero-valued controls: ",
+            paste(names(control.totals)[zero.control.totals], collapse = ", "))
     zero.observations <- apply(ref_sample.agg.agg.m, 2, function(x) any(x[zero.control.totals] > 0))
-    zero.observation.weights <- sum(w[zero.observations])
-    warning(
-      "  Removing ", sum(zero.observations), " distinct entries from the reference sample ",
-      "with a total weight of ", sum(zero.observation.weights))
+    if (any(zero.observations)) {
+      zero.observation.weights <- sum(w[zero.observations])
+      warning(
+        "  Removing ", sum(zero.observations), " distinct entries from the reference sample ",
+        "with a total weight of ", sum(zero.observation.weights))
+      w <- w[!zero.observations]
+    } else {
+      message("  No observations matching those zero-valued controls.")
+    }
     ref_sample.agg.agg.m <- ref_sample.agg.agg.m[!zero.control.totals, !zero.observations]
     control.totals <- control.totals[!zero.control.totals]
-    w <- w[!zero.observations]
   } else
     message("  No zero-valued controls")
   stopifnot(control.totals > 0)
