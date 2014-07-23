@@ -56,9 +56,10 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names, verbose = FALSE,
 # Equation 2.1 in Deville et al. (1993)
 dss.weights.from.lambda.m <- function(x, F, d) {
   function(lambda) {
-    apply(x, 2, function(xk) {
+    w <- apply(x, 2, function(xk) {
       F(sum(xk * lambda))
-    }) * d
+    })
+    w * d
   }
 }
 
@@ -77,14 +78,14 @@ dss.lhs.orig.m <- function(x, F, d) {
 # equivalent to dss.lhs.orig.m, but surprisingly a bit faster when using in the solver
 dss.lhs.using.w.m <- function(x, F, d) {
   dss.weights.from.lambda <- dss.weights.from.lambda.m(x, F, d)
-  dss.lhs.using.w.f <- function(lambda) {
+  function(lambda) {
     (x %*% dss.weights.from.lambda(lambda))[,1]
   }
 }
 
 dss.objective.m <- function(x, control.totals, F, d, dss.lhs.m=dss.lhs.using.w.m) {
-  dss.lhs.orig.f <- dss.lhs.m(x, F, d)
+  dss.lhs.f <- dss.lhs.m(x, F, d)
   function(lambda) {
-    dss.lhs.orig.f(lambda) - control.totals
+    dss.lhs.f(lambda) - control.totals
   }
 }
