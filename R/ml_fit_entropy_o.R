@@ -23,11 +23,57 @@ ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE,
     fitting_problem
   }
 
-  par <- rep(0, length(flat$control_totals))
-  dfsane_args$par <- par
-  dfsane_args$fn <- dss.objective.m(x=flat$ref_sample, control.totals=flat$control_totals, F=exp, d=flat$weights)
+  tolerance <- dfsane_args$control$tol
+  if (is.null(tolerance))
+    tolerance <- 1e-7
+
+  intermediate_tolerance <- tolerance * 100
+
   dfsane_args$control$M <- 1
   dfsane_args$control$trace <- verbose
+  dfsane_args$control$tol <- intermediate_tolerance
+
+  par <- numeric()
+  i_seq <- unique(seq(from = 50, to = length(flat$control_totals), by = 4), length(flat$control_totals))
+  for (i in i_seq) {
+    message("Subproblem ", i, " of ", length(flat$control_totals))
+    is <- seq_len(i)
+    message(paste(sprintf("%s=%s", names(flat$control_totals)[is], flat$control_totals[is]), collapse = ", "))
+
+    message("Computing initial guess for new lambdas")
+    ins <- seq(from=length(par) + 1, to = i)
+    message(paste(sprintf("%s=%s", names(flat$control_totals)[ins], flat$control_totals[ins]), collapse = ", "))
+
+    dfsane_args$par <- rep(0, length(ins))
+    dfsane_args$fn <- dss.objective.m(x=flat$ref_sample[ins,], control.totals=flat$control_totals[ins], F=exp, d=flat$weights)
+
+    message("Testing evaluation of objective function")
+    dfsane_args$fn(dfsane_args$par)
+
+    message("Searching for solution of optimization problem")
+    bbout <- do.call(BB::dfsane, dfsane_args)
+
+    message(paste(bbout$par, collapse = ", "))
+
+    par <- c(par, bbout$par)
+    stopifnot(length(par) == i)
+    dfsane_args$par <- par
+    dfsane_args$fn <- dss.objective.m(x=flat$ref_sample[is,], control.totals=flat$control_totals[is], F=exp, d=flat$weights)
+
+    # Testing evaluation
+    message("Testing evaluation of objective function")
+    dfsane_args$fn(dfsane_args$par)
+
+    message("Searching for solution of optimization problem")
+    bbout <- do.call(BB::dfsane, dfsane_args)
+
+    par <- bbout$par
+    message(format(par))
+  }
+
+  message("Final optimization")
+  dfsane_args$par <- par
+  dfsane_args$control$tol <- tolerance
 
   # Testing evaluation
   message("Testing evaluation of objective function")
