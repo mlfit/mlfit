@@ -33,7 +33,12 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
         control.type = control.type,
         function(control, control.type) {
           control.and.count.names <- setNames(nm=colnames(control))
-          control.names <- setdiff(control.and.count.names, field_names$count)
+          control.names.unordered <- setdiff(control.and.count.names, field_names$count)
+          control.names <- colnames(ref_sample)[colnames(ref_sample) %in% control.names.unordered]
+          if (length(control.names) != length(control.names.unordered)) {
+            stop("Control variable(s) not found: ",
+                 paste0(setdiff(control.names.unordered, control.names), collapse = ", "))
+          }
           control.levels <- vapply(
             control[control.names], function(f) length(levels(f)), integer(1))
           control.names <- control.names[control.levels > 1]
