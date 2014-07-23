@@ -182,8 +182,13 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
   ref_sample.agg.agg.m.rs <- rowSums(ref_sample.agg.agg.m)
   missing.controls <- (ref_sample.agg.agg.m.rs == 0)
   if (any(missing.controls)) {
-    stop("  Found missing observations for the following non-zero controls: ",
-         paste(names(control.totals)[missing.controls], collapse = ", "))
+    warning(
+      "  Found missing observations for the following non-zero controls: ",
+      paste(sprintf("%s=%s", names(control.totals)[missing.controls], control.totals[missing.controls]), collapse = ", "))
+
+    controls <- controls[!missing.controls]
+    ref_sample.agg.agg.m <- ref_sample.agg.agg.m[, !missing.controls]
+    w <- w[!missing.controls]
   }
 
   message("Computing reverse weights map")
