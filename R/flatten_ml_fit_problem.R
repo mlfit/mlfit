@@ -342,6 +342,17 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     ref_sample.agg.agg.m <- ref_sample.agg.agg.m[!missing.controls, ]
   }
 
+#   message("Adding slack")
+#   slack <- diag(nrow(ref_sample.agg.agg.m))
+#   colnames(slack) <- rownames(ref_sample.agg.agg.m)
+#   slack.weight <- rep(1e-2, nrow(ref_sample.agg.agg.m))
+#   names(slack.weight) <- rownames(ref_sample.agg.agg.m)
+#
+#   ref_sample.agg.agg.m <- cbind(ref_sample.agg.agg.m, slack)
+#   w <- c(w, slack.weight)
+#   stopifnot(length(control.totals) == length(slack.weight))
+#   control.totals <- control.totals + slack.weight
+
   message("Computing reverse weights map")
   reverse_weights_transform <- ( (1 / prior_weights_agg_agg) * Matrix::t(prior_weights * group_size_rescale * weights_transform))
   stopifnot(all.equal(Matrix::diag(reverse_weights_transform %*% weights_transform), rep(1, ncol(weights_transform))))
