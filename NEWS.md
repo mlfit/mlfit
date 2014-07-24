@@ -1,3 +1,5 @@
+- return correct weights -- regression introduced in v0.0.9
+
 - rewrite transformation of weights using sparse matrices and a home-grown
   Moore-Penrose inverse for our (very special) transformation matrix (#17)
 
