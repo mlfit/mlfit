@@ -85,6 +85,7 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
   )
 
   message("Preparing reference sample")
+  stopifnot(is.numeric(ref_sample[[field_names$groupId]]))
   ref_sample_grp.mm <- as.data.frame(model.matrix(
     as.formula(sprintf("~%s+%s", field_names$groupId, control.formulae$group)),
     plyr::rename(ref_sample[c(field_names$groupId, names(control.names$group))], control.names$group)))
