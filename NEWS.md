@@ -1,3 +1,6 @@
+- rewrite transformation of weights using sparse matrices and a home-grown
+  Moore-Penrose inverse for our (very special) transformation matrix (#17)
+
 - warn on missing observations for nonzero controls (#20)
 
 - `ml_fit_entropy_o` also returns flat weights

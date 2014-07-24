@@ -37,7 +37,7 @@ ml_fit_entropy_o <- function(ref_sample, controls, field_names, verbose = FALSE,
   message("Computing reference sample weights")
   weights.agg <- dss.weights.from.lambda.m(x=flat$ref_sample, F=exp, d=flat$weights)(bbout$par) / flat$weights
 
-  weights.ref_sample <- weights.agg[flat$rev_weights_map]
+  weights.ref_sample <- as.vector(weights.agg %*% flat$reverse_weights_transform)
 
   message("Done!")
   structure(
