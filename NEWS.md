@@ -1,3 +1,12 @@
+- warn on missing observations for nonzero controls (#20)
+
+- `ml_fit_entropy_o` also returns flat weights
+
+- allow arbitrary order in control total tables (#19)
+
+- remove observations that correspond to zero-valued control totals, with warning;
+  don't warn if no corresponding observations need to be removed (#16)
+
 v0.0-10 (2014-07-04)
 ===
 
