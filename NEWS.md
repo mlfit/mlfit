@@ -1,3 +1,5 @@
+- normalize weights to get rid of precision problems
+
 v0.0-11 (2014-07-25)
 ===
 
