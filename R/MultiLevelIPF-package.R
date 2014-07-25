@@ -31,6 +31,7 @@
 #'        Congress of the European Regional Science Association, University of
 #'        Barcelona, Barcelona.
 #' @keywords package
+#' @import methods
 #' @examples
 #' \dontrun{import_IPAF_results("path/to/results")}
 NULL
