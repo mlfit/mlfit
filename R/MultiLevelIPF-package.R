@@ -8,8 +8,8 @@
 #' \tabular{ll}{
 #'   Package: \tab MultiLevelIPF\cr
 #'   Type: \tab Package\cr
-#'   Version: \tab 0.0-10\cr
-#'   Date: \tab 2014-07-04\cr
+#'   Version: \tab 0.0-11\cr
+#'   Date: \tab 2014-07-25\cr
 #'   License: \tab GPL v3\cr
 #' } ~~
 #' An overview of how to use the package, including the most

@@ -1,3 +1,6 @@
+v0.0-11 (2014-07-25)
+===
+
 - return correct weights -- regression introduced in v0.0.9
 
 - rewrite transformation of weights using sparse matrices and a home-grown
