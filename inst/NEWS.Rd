@@ -1,6 +1,36 @@
 \name{NEWS}
 \title{News for Package 'MultiLevelIPF'}
 \encoding{UTF-8}
+\section{Changes in MultiLevelIPF version 0.0-11 (2014-07-25)}{
+  \itemize{
+    \item return correct weights -- regression introduced in v0.0.9
+    \item rewrite transformation of weights using sparse matrices and a home-grown
+      Moore-Penrose inverse for our (very special) transformation matrix (#17)
+    \item warn on missing observations for nonzero controls (#20)
+    \item \code{ml_fit_entropy_o} also returns flat weights
+    \item allow arbitrary order in control total tables (#19)
+    \item remove observations that correspond to zero-valued control totals, with warning;
+      don't warn if no corresponding observations need to be removed (#16)
+  }
+}
+\section{Changes in MultiLevelIPF version 0.0-10 (2014-07-04)}{
+  \itemize{
+    \item support multiple controls at individual or group level, also detect conflicting
+      control totals
+    \item support fitting one-dimensional problems (where only group-level controls are given)
+  }
+}
+\section{Changes in MultiLevelIPF version 0.0.9 (2014-06-19)}{
+  \itemize{
+    \item new function \code{flatten_ml_fit_problem}: transform representation as returned
+      by \code{import_IPAF_result} into a matrix, a control vector and a weights vector
+    \item function \code{ml_fit_entropy_o}: use \code{BB::dfsane} instead of \code{BB::BBsolve} for
+      solving the optimization problem; rename argument \code{BBsolve_args} to \code{dfsane_args}
+    \item function \code{ml_fit}: new parameter \code{verbose}
+    \item aggregate identical household types, implement prior weights (so far only
+      internally)
+  }
+}
 \section{Changes in MultiLevelIPF version 0.0.8 (2014-06-17)}{
   \itemize{
     \item Add example for \code{ml_fit} (#11)
