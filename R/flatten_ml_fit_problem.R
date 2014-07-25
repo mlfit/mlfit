@@ -227,6 +227,9 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
   reverse_weights_transform <- ((1/prior_weights_agg_agg) * Matrix::t(prior_weights * group_size_rescale * weights_transform))
   stopifnot(all.equal(Matrix::diag(reverse_weights_transform %*% weights_transform), rep(1, ncol(weights_transform))))
 
+  message("Normalizing weights")
+  prior_weights_agg_agg <- prior_weights_agg_agg / sum(prior_weights_agg_agg) * control.totals[c("(Intercept)_g", "(Intercept)_i")][[1]]
+
   message("Done!")
   structure(
     list(
