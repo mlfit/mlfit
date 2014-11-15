@@ -14,7 +14,7 @@ provided.
 \tabular{ll}{
   Package: \tab MultiLevelIPF\cr
   Type: \tab Package\cr
-  Version: \tab 0.0-11.1\cr
+  Version: \tab 0.0-11.2\cr
   Date: \tab 2014-11-15\cr
   License: \tab GPL v3\cr
 } ~~
