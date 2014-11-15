@@ -1,3 +1,5 @@
+- check for non-factor controls
+
 v0.0-11.1 (2014-11-15)
 ===
 

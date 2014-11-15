@@ -44,6 +44,10 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
           }
           control.levels <- vapply(
             control[control.names], function(f) length(levels(f)), integer(1))
+          if (any(control.levels == 0)) {
+            stop("Non-factor control variable(s) found: ",
+                 paste0(control.names[control.levels == 0], collapse = ", "))
+          }
           control.names <- control.names[control.levels > 1]
 
           new.control.names <- sprintf("%s_%s_", control.names, .control.type.abbrev(control.type))
