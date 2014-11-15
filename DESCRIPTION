@@ -17,7 +17,8 @@ Depends:
 Imports:
     plyr,
     BB,
-    Matrix
+    Matrix,
+    laeken
 Suggests:
     testthat,
     XML,
