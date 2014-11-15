@@ -1,6 +1,11 @@
 \name{NEWS}
 \title{News for Package 'MultiLevelIPF'}
 \encoding{UTF-8}
+\section{Changes in MultiLevelIPF version 0.0-11.2 (2014-11-15)}{
+  \itemize{
+    \item check for non-factor controls
+  }
+}
 \section{Changes in MultiLevelIPF version 0.0-11.1 (2014-11-15)}{
   \itemize{
     \item normalize weights to get rid of precision problems
