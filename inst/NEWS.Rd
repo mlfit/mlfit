@@ -1,6 +1,12 @@
 \name{NEWS}
 \title{News for Package 'MultiLevelIPF'}
 \encoding{UTF-8}
+\section{Changes in MultiLevelIPF version 0.0-11.3 (2014-11-20)}{
+  \itemize{
+    \item new function \code{ml_fit_dss} with an implementation very close to the paper by
+      Deville et al. (1993); implementation in the \code{laeken} package
+  }
+}
 \section{Changes in MultiLevelIPF version 0.0-11.2 (2014-11-15)}{
   \itemize{
     \item check for non-factor controls
