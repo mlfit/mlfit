@@ -1,3 +1,6 @@
+v0.0-11.4 (2014-11-21)
+===
+
 - more precise warning if observations are discarded
 - trim overly long message
 - allow partly uncontrolled attributes and controls without observations in the reference sample (with a warning, #24)
