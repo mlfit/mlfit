@@ -91,19 +91,21 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
     }
   )
 
-  message("Preparing reference sample")
+  message("Preparing reference sample (groups)")
   stopifnot(is.numeric(ref_sample[[field_names$groupId]]))
   ref_sample_grp.mm <- as.data.frame(model.matrix(
     as.formula(sprintf("~%s+%s", field_names$groupId, control.formulae$group)),
     plyr::rename(ref_sample[c(field_names$groupId, names(control.names$group))], control.names$group)))
   ref_sample_grp.mm <- .rename.intercept(ref_sample_grp.mm, "group")
 
+  message("Splitting")
   stopifnot(diff(ref_sample_grp.mm[[field_names$groupId]]) >= 0)
   group_proxy_positions <- c(TRUE, diff(ref_sample_grp.mm[[field_names$groupId]]) != 0)
   group_sizes <- rle(ref_sample_grp.mm[[field_names$groupId]])$lengths
 
   ref_sample_grp.agg <- ref_sample_grp.mm[group_proxy_positions, ]
 
+  message("Transforming weights")
   group_size_rescale <- rep(group_sizes, group_sizes)
 
   weights_transform <- Matrix::sparseMatrix(
@@ -113,12 +115,17 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
   prior_weights_agg <- as.vector(prior_weights %*% weights_transform)
 
   if (!is.null(control.formulae$individual) && nchar(control.formulae$individual) > 0) {
+    message("Preparing reference sample (individuals)")
     ref_sample_ind.mm <- as.data.frame(model.matrix(
       as.formula(sprintf("~%s+%s", field_names$groupId, control.formulae$individual)),
       plyr::rename(ref_sample[c(field_names$groupId, names(control.names$individual))], control.names$individual)))
+
+    message("Aggregating")
     ref_sample_ind.mm <- .rename.intercept(ref_sample_ind.mm, "individual")
     ref_sample_ind.agg <- aggregate(as.formula(sprintf(".~%s", field_names$groupId)),
                                     ref_sample_ind.mm, FUN=sum)
+
+    message("Merging")
     ref_sample.agg <- merge(ref_sample_ind.agg, ref_sample_grp.agg,
                             by=field_names$groupId)
 
