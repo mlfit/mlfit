@@ -1,27 +1,13 @@
-v0.0-11.4 (2014-11-21)
-===
-
-- more precise warning if observations are discarded
-- trim overly long message
-- allow partly uncontrolled attributes and controls without observations in the reference sample (with a warning, #24)
-- clearer error message if group ID column is not found in reference sample
-- more log messages in `flatten_ml_fit_problem`
-
-v0.0-11.3 (2014-11-20)
-===
-
 - new function `ml_fit_dss` with an implementation very close to the paper by
   Deville et al. (1993); implementation in the `laeken` package
 
-v0.0-11.2 (2014-11-15)
-===
-
-- check for non-factor controls
-
-v0.0-11.1 (2014-11-15)
-===
-
 - normalize weights to get rid of precision problems
+
+- allow partly uncontrolled attributes and controls without observations in the reference sample (with a warning, #24)
+
+- better error reporting for non-factor controls and existence of group ID column
+
+- improve warning and progress messages
 
 v0.0-11 (2014-07-25)
 ===
