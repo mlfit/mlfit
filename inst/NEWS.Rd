@@ -1,6 +1,15 @@
 \name{NEWS}
 \title{News for Package 'MultiLevelIPF'}
 \encoding{UTF-8}
+\section{Changes in MultiLevelIPF version 0.0-11.4 (2014-11-21)}{
+  \itemize{
+    \item more precise warning if observations are discarded
+    \item trim overly long message
+    \item allow partly uncontrolled attributes and controls without observations in the reference sample (with a warning, #24)
+    \item clearer error message if group ID column is not found in reference sample
+    \item more log messages in \code{flatten_ml_fit_problem}
+  }
+}
 \section{Changes in MultiLevelIPF version 0.0-11.3 (2014-11-20)}{
   \itemize{
     \item new function \code{ml_fit_dss} with an implementation very close to the paper by
