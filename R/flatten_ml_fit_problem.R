@@ -185,17 +185,22 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
   }
 
   message("Reordering controls")
-  if (!identical(sort(names(control.totals)), sort(rownames(ref_sample.agg.agg.m)))) {
-    # Code below depends on halting here!
-    stop("  The following controls do not have any corresponding observation in the reference sample:\n    ",
-         paste(setdiff(names(control.totals), rownames(ref_sample.agg.agg.m)), collapse=", "), "\n",
-         "  The following categories in the reference sample do not have a corresponding control:\n    ",
-         paste(setdiff(rownames(ref_sample.agg.agg.m), names(control.totals)), collapse=", "), "\n"
-    )
+  intersect_names <- intersect(sort(rownames(ref_sample.agg.agg.m)), names(control.totals))
+
+  if (length(control.totals) > length(intersect_names)) {
+    warning(
+      "  The following controls do not have any corresponding observation in the reference sample:\n    ",
+      paste(setdiff(names(control.totals), intersect_names), collapse=", "))
   }
 
-  # The following really assumes that controls are identical!
-  control.totals <- control.totals[rownames(ref_sample.agg.agg.m)]
+  if (nrow(ref_sample.agg.agg.m) > length(intersect_names)) {
+    warning(
+      "  The following categories in the reference sample do not have a corresponding control:\n    ",
+      paste(setdiff(rownames(ref_sample.agg.agg.m), intersect_names), collapse=", "))
+  }
+
+  ref_sample.agg.agg.m <- ref_sample.agg.agg.m[intersect_names, ]
+  control.totals <- control.totals[intersect_names]
 
   message("Checking zero-valued controls")
   zero.control.totals <- (control.totals == 0)
