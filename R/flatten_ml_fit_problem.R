@@ -205,8 +205,8 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
   message("Checking zero-valued controls")
   zero.control.totals <- (control.totals == 0)
   if (any(zero.control.totals)) {
-    message("  Found zero-valued controls: ",
-            paste(names(control.totals)[zero.control.totals], collapse = ", "))
+    message("  Found zero-valued controls (showing the first 10): ",
+            paste(head(names(control.totals)[zero.control.totals], 10), collapse = ", "))
     zero.observations <- apply(ref_sample.agg.agg.m, 2, function(x) any(x[zero.control.totals] > 0))
     if (any(zero.observations)) {
       zero.observation.weights <- sum(prior_weights_agg_agg[zero.observations])
