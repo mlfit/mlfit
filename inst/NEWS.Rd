@@ -1,29 +1,14 @@
 \name{NEWS}
 \title{News for Package 'MultiLevelIPF'}
 \encoding{UTF-8}
-\section{Changes in MultiLevelIPF version 0.0-11.4 (2014-11-21)}{
-  \itemize{
-    \item more precise warning if observations are discarded
-    \item trim overly long message
-    \item allow partly uncontrolled attributes and controls without observations in the reference sample (with a warning, #24)
-    \item clearer error message if group ID column is not found in reference sample
-    \item more log messages in \code{flatten_ml_fit_problem}
-  }
-}
-\section{Changes in MultiLevelIPF version 0.0-11.3 (2014-11-20)}{
+\section{Changes in MultiLevelIPF version 0.0-12 (2014-11-21)}{
   \itemize{
     \item new function \code{ml_fit_dss} with an implementation very close to the paper by
       Deville et al. (1993); implementation in the \code{laeken} package
-  }
-}
-\section{Changes in MultiLevelIPF version 0.0-11.2 (2014-11-15)}{
-  \itemize{
-    \item check for non-factor controls
-  }
-}
-\section{Changes in MultiLevelIPF version 0.0-11.1 (2014-11-15)}{
-  \itemize{
     \item normalize weights to get rid of precision problems
+    \item allow partly uncontrolled attributes and controls without observations in the reference sample (with a warning, #24)
+    \item better error reporting for non-factor controls and existence of group ID column
+    \item improve warning and progress messages
   }
 }
 \section{Changes in MultiLevelIPF version 0.0-11 (2014-07-25)}{
