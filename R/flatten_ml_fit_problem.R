@@ -212,7 +212,7 @@ flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = 
       zero.observation.weights <- sum(prior_weights_agg_agg[zero.observations])
       warning(
         "  Removing ", sum(zero.observations), " distinct entries from the reference sample ",
-        "with a total weight of ", sum(zero.observation.weights))
+        "(corresponding to zero-valued controls) with a total weight of ", sum(zero.observation.weights))
       prior_weights_agg_agg <- prior_weights_agg_agg[!zero.observations]
 
       nonzero.observations_w <- which(!zero.observations)
