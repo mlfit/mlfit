@@ -1,3 +1,9 @@
+- more precise warning if observations are discarded
+- trim overly long message
+- allow partly uncontrolled attributes and controls without observations in the reference sample (with a warning, #24)
+- clearer error message if group ID column is not found in reference sample
+- more log messages in `flatten_ml_fit_problem`
+
 v0.0-11.3 (2014-11-20)
 ===
 
