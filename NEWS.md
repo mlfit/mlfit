@@ -1,3 +1,6 @@
+v0.0-12 (2014-11-21)
+===
+
 - new function `ml_fit_dss` with an implementation very close to the paper by
   Deville et al. (1993); implementation in the `laeken` package
 
