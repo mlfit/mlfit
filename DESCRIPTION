@@ -2,8 +2,8 @@ Package: MultiLevelIPF
 Type: Package
 Encoding: UTF-8
 Title: Implementation of algorithms that extend IPF to nested structures
-Version: 0.0-12
-Date: 2014-11-21
+Version: 0.0-13
+Date: 2015-04-13
 Authors@R: as.person("Kirill Müller <krlmlr+r@mailbox.org> [aut, cre]")
 BugReports: https://github.com/krlmlr/MultiLevelIPF/issues
 Description: The IPF algorithm operates on count data.  This package offers
