@@ -4,9 +4,9 @@
 ^README\.md$
 ^tools$
 ^\.travis\.yml$
-^Makefile$
 ^NEWS\.md$
 ^NEWS\.md\.tmpl$
 ^wercker\.yml$
 ^\.lintr$
+^Makefile$
 ^makeR
