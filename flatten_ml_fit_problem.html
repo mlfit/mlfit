@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>flatten_ml_fit_problem. MultiLevelIPF 0.0-12</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">MultiLevelIPF 0.0-12</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Return a flattened representation of a multi-level fitting problem instance</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>flatten_ml_fit_problem(ref_sample, controls, field_names, verbose&nbsp;=&nbsp;FALSE)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>ref_sample</dt>
+      <dd>Reference sample.  Alternatively, a configuration as
+returned by <code><a href='import_IPAF_results.html'>import_IPAF_results</a></code>; in this case, the other
+arguments are ignored.</dd>
+      <dt>controls</dt>
+      <dd>Control totals</dd>
+      <dt>field_names</dt>
+      <dd>Names of special columns in the data</dd>
+      <dt>verbose</dt>
+      <dd>If <code>TRUE</code>, print diagnostic output.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+An object of classes <code>flat_ml_fit_problem</code>,
+  essentially a named list.
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>This function transforms a multi-level fitting problem to a representation
+more suitable for applying the algorithms:  A matrix with one row per controlled
+attribute and one column per unique household, a weight vector with one weight
+per household, and a control vector.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>path &lt;- system.file(&quot;extdata/minitoy&quot;, package=&quot;MultiLevelIPF&quot;)
+flatten_ml_fit_problem(ref_sample = import_IPAF_results(path))
+</div>
+<strong class='message'>Loading required namespace: XML</strong>
+<strong class='message'>Loading required namespace: kimisc</strong>
+<div class='output'>$ref_sample
+              [,1] [,2] [,3] [,4] [,5] [,6] [,7]
+CAR_g_1          0    0    0    1    1    1    1
+(Intercept)_g    1    1    1    1    1    1    1
+(Intercept)_i    3    2    3    2    3    3    5
+WKSTAT_i_2       1    0    1    1    2    0    1
+WKSTAT_i_3       0    1    1    0    1    2    2
+
+$weights
+[1] 12.5 12.5 12.5 25.0 12.5 12.5 12.5
+
+$control_totals
+      CAR_g_1 (Intercept)_g (Intercept)_i    WKSTAT_i_2    WKSTAT_i_3 
+           65           100           260            65           104 
+
+$weights_transform
+23 x 7 sparse Matrix of class &quot;dgCMatrix&quot;
+                                                         
+ [1,] .         .   0.3333333 .   .         .         .  
+ [2,] .         .   0.3333333 .   .         .         .  
+ [3,] .         .   0.3333333 .   .         .         .  
+ [4,] .         0.5 .         .   .         .         .  
+ [5,] .         0.5 .         .   .         .         .  
+ [6,] 0.3333333 .   .         .   .         .         .  
+ [7,] 0.3333333 .   .         .   .         .         .  
+ [8,] 0.3333333 .   .         .   .         .         .  
+ [9,] .         .   .         .   .         0.3333333 .  
+[10,] .         .   .         .   .         0.3333333 .  
+[11,] .         .   .         .   .         0.3333333 .  
+[12,] .         .   .         .   0.3333333 .         .  
+[13,] .         .   .         .   0.3333333 .         .  
+[14,] .         .   .         .   0.3333333 .         .  
+[15,] .         .   .         0.5 .         .         .  
+[16,] .         .   .         0.5 .         .         .  
+[17,] .         .   .         .   .         .         0.2
+[18,] .         .   .         .   .         .         0.2
+[19,] .         .   .         .   .         .         0.2
+[20,] .         .   .         .   .         .         0.2
+[21,] .         .   .         .   .         .         0.2
+[22,] .         .   .         0.5 .         .         .  
+[23,] .         .   .         0.5 .         .         .  
+
+$reverse_weights_transform
+7 x 23 sparse Matrix of class &quot;dgCMatrix&quot;
+                                                          
+[1,] . . . . . 1 1 1 . . . . . . .   .   . . . . . .   .  
+[2,] . . . 1 1 . . . . . . . . . .   .   . . . . . .   .  
+[3,] 1 1 1 . . . . . . . . . . . .   .   . . . . . .   .  
+[4,] . . . . . . . . . . . . . . 0.5 0.5 . . . . . 0.5 0.5
+[5,] . . . . . . . . . . . 1 1 1 .   .   . . . . . .   .  
+[6,] . . . . . . . . 1 1 1 . . . .   .   . . . . . .   .  
+[7,] . . . . . . . . . . . . . . .   .   1 1 1 1 1 .   .  
+
+attr(,&quot;class&quot;)
+[1] &quot;flat_ml_fit_problem&quot;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>flatten_ml_fit_problem</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+    <h2>See also</h2>
+    
+<code><a href='ml_fit.html'>ml_fit</a></code>
+
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

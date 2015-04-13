@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>ml_fit_dss. MultiLevelIPF 0.0-12</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">MultiLevelIPF 0.0-12</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Estimate weights using generalized raking</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>ml_fit_dss(ref_sample, controls, field_names, method, verbose&nbsp;=&nbsp;FALSE)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>ref_sample</dt>
+      <dd>Reference sample.  Alternatively, a configuration as
+returned by <code><a href='import_IPAF_results.html'>import_IPAF_results</a></code>; in this case, the other
+arguments are ignored.</dd>
+      <dt>controls</dt>
+      <dd>Control totals</dd>
+      <dt>field_names</dt>
+      <dd>Names of special columns in the data</dd>
+      <dt>method</dt>
+      <dd>a character string specifying the calibration method to be
+used.  Possible values are <code>"linear"</code> for the linear method,
+<code>"raking"</code> for the multiplicative method known as raking and
+<code>"logit"</code> for the logit method.</dd>
+      <dt>verbose</dt>
+      <dd>If <code>TRUE</code>, print diagnostic output.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+An object of classes <code>ml_fit_dss</code> and <code>ml_fit</code>,
+  essentially a named list.
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>This function reweights a reference sample to match constraints given by
+aggregate controls by means of generalized raking.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>Internally, <code>laeken::<a href='http://www.inside-r.org/packages/cran/laeken/docs/calibWeights'>calibWeights</a></code> is called.</p>
+  
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p>Deville, J.-C. and Särndal, C.-E. (1992)
+Calibration estimators in survey sampling. <em>Journal of the American
+Statistical Association</em>, <b>87</b>(418), 376--382.</p>
+  
+      <p>Deville, J.-C., Särndal, C.-E. and Sautory, O. (1993)
+Generalized raking procedures in survey sampling. <em>Journal of the
+American Statistical Association</em>, <b>88</b>(423), 1013--1020.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>path &lt;- system.file(&quot;extdata/minitoy&quot;, package=&quot;MultiLevelIPF&quot;)
+ml_fit_dss(ref_sample = import_IPAF_results(path))
+</div>
+<strong class='error'>Error in match.arg(method): argument &quot;method&quot; is missing, with no default</strong></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>ml_fit_dss</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+    <h2>See also</h2>
+    
+<code><a href='http://www.inside-r.org/packages/cran/laeken/docs/calibWeights'>calibWeights</a></code>
+
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

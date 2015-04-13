@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>import_IPAF_results. MultiLevelIPF 0.0-12</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">MultiLevelIPF 0.0-12</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Imports results from a run of the original Python implementation</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>import_IPAF_results(path, all_weights&nbsp;=&nbsp;FALSE, config_name&nbsp;=&nbsp;"config.xml")</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>path</dt>
+      <dd>Path to the directory that contains the input/output files</dd>
+      <dt>all_weights</dt>
+      <dd>Should all weights be loaded, or only the final ones
+(default)?</dd>
+      <dt>config_name</dt>
+      <dd>Name of the main configuration file, defaults to
+<code>"config.xml"</code></dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+An object of class <code>IPAF_result</code>, essentially a named list with
+  the following components:
+<dl>
+  <dt><code>refSample</code></dt><dd>The reference sample, a <code>data.frame</code>.</dd></p>
+  
+      <p><dt><code>controls</code></dt><dd>A named list with two components, <code>individual</code>
+  and <code>group</code>. Each contains a list of controls as <code>data.frame</code>s.</dd></p>
+  
+      <p><dt><code>fieldNames</code></dt><dd>A named list with the names of special fields.</dd></p>
+  
+      <p><dt><code>algorithms</code></dt><dd>A list of algorithm names.</dd></p>
+  
+      <p><dt><code>weights</code></dt><dd>A named list with weight vectors, one per algorithm.</dd></p>
+  
+      <p></dl></p>
+  
+      <p></dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>This helper function imports input, data and results from a run of the
+original Python implementation into a named list.  The file `config.xml`
+is read and interpreted.</p>
+  
+    </div>
+      </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>import_IPAF_results</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
