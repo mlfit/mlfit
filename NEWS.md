@@ -1,3 +1,5 @@
+- fix example for `ml_fit_dss`
+
 v0.0-12 (2014-11-21)
 ===
 
