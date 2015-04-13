@@ -1,5 +1,4 @@
-MultiLevelIPF [![Build Status](https://travis-ci.org/krlmlr/MultiLevelIPF.png)](https://travis-ci.org/krlmlr/MultiLevelIPF) [![codecov.io](https://codecov.io/github/krlmlr/MultiLevelIPF/coverage.svg?branch=master)](https://codecov.io/github/krlmlr/MultiLevelIPF?branch=master)
-===
+# MultiLevelIPF [![wercker status](https://app.wercker.com/status/4c6df82f657e4fee539c60601da8944d/s/master "wercker status")](https://app.wercker.com/project/bykey/4c6df82f657e4fee539c60601da8944d) [![codecov.io](https://codecov.io/github/krlmlr/MultiLevelIPF/coverage.svg?branch=master)](https://codecov.io/github/krlmlr/MultiLevelIPF?branch=master)
 
 Implementation of algorithms that extend IPF to nested structures.
 
@@ -8,6 +7,5 @@ The IPF algorithm operates on count data.  This package offers implementations f
 Install using
 
 ```s
-library(devtools)
-install_github("krlmlr/MultiLevelIPF")
+devtools::install_github("krlmlr/MultiLevelIPF")
 ```
