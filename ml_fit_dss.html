@@ -103,7 +103,82 @@ American Statistical Association</em>, <b>88</b>(423), 1013--1020.</p>
     <pre class="examples"><div class='input'>path &lt;- system.file(&quot;extdata/minitoy&quot;, package=&quot;MultiLevelIPF&quot;)
 ml_fit_dss(ref_sample = import_IPAF_results(path))
 </div>
-<strong class='error'>Error in match.arg(method): argument &quot;method&quot; is missing, with no default</strong></pre>
+<div class='output'>$weights
+ [1]  8.937470  8.937470  8.937470 23.448579 23.448579  2.613950  2.613950
+ [8]  2.613950 25.899223 25.899223 25.899223 14.347802 14.347802 14.347802
+[15] 11.009562 11.009562  2.733852  2.733852  2.733852  2.733852  2.733852
+[22] 11.009562 11.009562
+
+$success
+[1] TRUE
+
+$residuals
+      CAR_g_1 (Intercept)_g (Intercept)_i    WKSTAT_i_2    WKSTAT_i_3 
+ 2.338014e-08  3.922298e-08  1.613562e-07  3.749784e-08  5.304341e-08 
+
+$flat
+$ref_sample
+              [,1] [,2] [,3] [,4] [,5] [,6] [,7]
+CAR_g_1          0    0    0    1    1    1    1
+(Intercept)_g    1    1    1    1    1    1    1
+(Intercept)_i    3    2    3    2    3    3    5
+WKSTAT_i_2       1    0    1    1    2    0    1
+WKSTAT_i_3       0    1    1    0    1    2    2
+
+$weights
+[1] 12.5 12.5 12.5 25.0 12.5 12.5 12.5
+
+$control_totals
+      CAR_g_1 (Intercept)_g (Intercept)_i    WKSTAT_i_2    WKSTAT_i_3 
+           65           100           260            65           104 
+
+$weights_transform
+23 x 7 sparse Matrix of class &quot;dgCMatrix&quot;
+                                                         
+ [1,] .         .   0.3333333 .   .         .         .  
+ [2,] .         .   0.3333333 .   .         .         .  
+ [3,] .         .   0.3333333 .   .         .         .  
+ [4,] .         0.5 .         .   .         .         .  
+ [5,] .         0.5 .         .   .         .         .  
+ [6,] 0.3333333 .   .         .   .         .         .  
+ [7,] 0.3333333 .   .         .   .         .         .  
+ [8,] 0.3333333 .   .         .   .         .         .  
+ [9,] .         .   .         .   .         0.3333333 .  
+[10,] .         .   .         .   .         0.3333333 .  
+[11,] .         .   .         .   .         0.3333333 .  
+[12,] .         .   .         .   0.3333333 .         .  
+[13,] .         .   .         .   0.3333333 .         .  
+[14,] .         .   .         .   0.3333333 .         .  
+[15,] .         .   .         0.5 .         .         .  
+[16,] .         .   .         0.5 .         .         .  
+[17,] .         .   .         .   .         .         0.2
+[18,] .         .   .         .   .         .         0.2
+[19,] .         .   .         .   .         .         0.2
+[20,] .         .   .         .   .         .         0.2
+[21,] .         .   .         .   .         .         0.2
+[22,] .         .   .         0.5 .         .         .  
+[23,] .         .   .         0.5 .         .         .  
+
+$reverse_weights_transform
+7 x 23 sparse Matrix of class &quot;dgCMatrix&quot;
+                                                          
+[1,] . . . . . 1 1 1 . . . . . . .   .   . . . . . .   .  
+[2,] . . . 1 1 . . . . . . . . . .   .   . . . . . .   .  
+[3,] 1 1 1 . . . . . . . . . . . .   .   . . . . . .   .  
+[4,] . . . . . . . . . . . . . . 0.5 0.5 . . . . . 0.5 0.5
+[5,] . . . . . . . . . . . 1 1 1 .   .   . . . . . .   .  
+[6,] . . . . . . . . 1 1 1 . . . .   .   . . . . . .   .  
+[7,] . . . . . . . . . . . . . . .   .   1 1 1 1 1 .   .  
+
+attr(,&quot;class&quot;)
+[1] &quot;flat_ml_fit_problem&quot;
+
+$flat_weights
+[1]  2.613950 23.448579  8.937470 22.019124 14.347802 25.899223  2.733852
+
+attr(,&quot;class&quot;)
+[1] &quot;ml_fit_dss&quot; &quot;ml_fit&quot;    
+</div></pre>
   </div>
   <div class="span4">
     <!-- <ul>
