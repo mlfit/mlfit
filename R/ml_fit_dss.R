@@ -23,8 +23,10 @@
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
 #' ml_fit_dss(ref_sample = import_IPAF_results(path))
-ml_fit_dss <- function(ref_sample, controls, field_names, method,
-                       verbose = FALSE) {
+ml_fit_dss <- function(ref_sample, controls, field_names,
+                       method = c("raking", "linear", "logit"),
+                       verbose = FALSE)
+{
   .patch_ml_fit_args()
   .patch_verbose()
 
