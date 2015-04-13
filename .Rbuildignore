@@ -7,7 +7,7 @@
 ^Makefile$
 ^NEWS\.md$
 ^/Makefile$
-^/makeR$
-^/Examples$
+^/makeR
+^/Examples
 ^/NEWS\.md\.tmpl$
 ^/wercker\.yml$
