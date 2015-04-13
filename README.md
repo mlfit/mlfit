@@ -10,12 +10,3 @@ Install using
 library(devtools)
 install_github("krlmlr/MultiLevelIPF")
 ```
-
-(requires `devtools` 1.4 or later) or
-
-```s
-library(devtools)
-install_github("MultiLevelIPF", "krlmlr")
-```
-
-My [`kimisc` package](https://github.com/krlmlr/kimisc) is also required.
