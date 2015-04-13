@@ -1,6 +1,11 @@
 \name{NEWS}
 \title{News for Package 'MultiLevelIPF'}
 \encoding{UTF-8}
+\section{Changes in MultiLevelIPF version 0.0-13 (2015-04-13)}{
+  \itemize{
+    \item fix example for \code{ml_fit_dss}
+  }
+}
 \section{Changes in MultiLevelIPF version 0.0-12 (2014-11-21)}{
   \itemize{
     \item new function \code{ml_fit_dss} with an implementation very close to the paper by
