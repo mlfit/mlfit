@@ -6,8 +6,15 @@ git:
 master: git
 	test $$(git rev-parse --abbrev-ref HEAD) = "master"
 
-gh-pages:
-	git subtree split --prefix website --branch gh-pages
+inst/web:
+	git branch gh-pages origin/gh-pages || true
+	git clone --branch gh-pages . inst/web
+
+gh-pages-build: staticdocs
+	cd inst/web && git fetch && git merge --no-edit origin/master --strategy ours && git add . && git commit --amend --no-edit && git push -f origin gh-pages
+
+gh-pages-push:
+	git push origin gh-pages
 
 rd: git
 	Rscript -e "library(methods); devtools::document()"
@@ -63,6 +70,9 @@ lintr:
 
 staticdocs:
 	Rscript -e 'if (!requireNamespace("staticdocs")) devtools::install_github("gaborcsardi/staticdocs@crayon-colors"); staticdocs::build_site()'
+
+view-docs:
+	chromium-browser inst/web/index.html
 
 wercker-build:
 	wercker build --docker-host=unix://var/run/docker.sock --no-remove
