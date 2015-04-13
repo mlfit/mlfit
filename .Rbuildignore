@@ -10,3 +10,4 @@
 ^\.lintr$
 ^Makefile$
 ^makeR
+^Examples
