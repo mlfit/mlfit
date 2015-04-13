@@ -6,5 +6,8 @@
 ^\.travis\.yml$
 ^Makefile$
 ^NEWS\.md$
-/Makefile
-/makeR
+^/Makefile$
+^/makeR$
+^/Examples$
+^/NEWS\.md\.tmpl$
+^/wercker\.yml$
