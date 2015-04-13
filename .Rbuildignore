@@ -6,3 +6,5 @@
 ^\.travis\.yml$
 ^Makefile$
 ^NEWS\.md$
+/Makefile
+/makeR
