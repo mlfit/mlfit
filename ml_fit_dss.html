@@ -41,7 +41,7 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>ml_fit_dss(ref_sample, controls, field_names, method&nbsp;=&nbsp;c("raking", "linear", "logit"), verbose&nbsp;=&nbsp;FALSE)</div></pre>
+    <pre><div>ml_fit_dss(ref_sample, controls, field_names, method&nbsp;=&nbsp;c("raking", "linear", "logit"), ginv&nbsp;=&nbsp;MASS::ginv, verbose&nbsp;=&nbsp;FALSE)</div></pre>
     
     <h2>Arguments</h2>
     <dl>
@@ -58,6 +58,10 @@ arguments are ignored.</dd>
 used.  Possible values are <code>"linear"</code> for the linear method,
 <code>"raking"</code> for the multiplicative method known as raking and
 <code>"logit"</code> for the logit method.</dd>
+      <dt>ginv</dt>
+      <dd>a function that computes the Moore-Penrose generalized
+inverse (default: <code><a href='http://www.inside-r.org/r-doc/MASS/ginv'>ginv</a></code>). In some cases it is possible to
+use a function that computes a "regular" matrix inverse such as <code>{solve.default}</code>.</dd>
       <dt>verbose</dt>
       <dd>If <code>TRUE</code>, print diagnostic output.</dd>
     </dl>
@@ -83,7 +87,7 @@ aggregate controls by means of generalized raking.</p>
     <div class="Details">
       <h2>Details</h2>
 
-      <p>Internally, <code>laeken::<a href='http://www.inside-r.org/packages/cran/laeken/docs/calibWeights'>calibWeights</a></code> is called.</p>
+      <p>Internally, <code>grake::<a href='http://www.inside-r.org/packages/cran/grake/docs/calibWeights'>calibWeights</a></code> is called.</p>
   
     </div>
 
@@ -102,7 +106,7 @@ American Statistical Association</em>, <b>88</b>(423), 1013--1020.</p>
     
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'>path &lt;- system.file(&quot;extdata/minitoy&quot;, package=&quot;MultiLevelIPF&quot;)
-ml_fit_dss(ref_sample = import_IPAF_results(path))
+ml_fit_dss(ref_sample = import_IPAF_results(path), ginv = solve)
 </div>
 <div class='output'>$weights
  [1]  8.937470  8.937470  8.937470 23.448579 23.448579  2.613950  2.613950
@@ -115,7 +119,7 @@ $success
 
 $residuals
       CAR_g_1 (Intercept)_g (Intercept)_i    WKSTAT_i_2    WKSTAT_i_3 
- 2.338014e-08  3.922298e-08  1.613562e-07  3.749784e-08  5.304341e-08 
+ 2.338017e-08  3.922300e-08  1.613564e-07  3.749786e-08  5.304348e-08 
 
 $flat
 $ref_sample
@@ -191,7 +195,7 @@ attr(,&quot;class&quot;)
       
     <h2>See also</h2>
     
-<code><a href='http://www.inside-r.org/packages/cran/laeken/docs/calibWeights'>calibWeights</a></code>
+<code><a href='http://www.inside-r.org/packages/cran/grake/docs/calibWeights'>calibWeights</a></code>
 
         
   </div>
