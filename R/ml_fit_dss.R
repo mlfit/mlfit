@@ -19,7 +19,7 @@
 #'
 #' @seealso \code{\link[grake]{calibWeights}}
 #' @importFrom grake calibWeights
-#' @import MASS ginv
+#' @importFrom MASS ginv
 #' @export
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
