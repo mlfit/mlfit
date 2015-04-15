@@ -5,7 +5,7 @@
 \title{Estimate weights using generalized raking}
 \usage{
 ml_fit_dss(ref_sample, controls, field_names, method = c("raking", "linear",
-  "logit"), verbose = FALSE)
+  "logit"), ginv = MASS::ginv, verbose = FALSE)
 }
 \arguments{
 \item{ref_sample}{Reference sample.  Alternatively, a configuration as
@@ -20,6 +20,10 @@ arguments are ignored.}
 used.  Possible values are \code{"linear"} for the linear method,
 \code{"raking"} for the multiplicative method known as raking and
 \code{"logit"} for the logit method.}
+
+\item{ginv}{a function that computes the Moore-Penrose generalized
+inverse (default: \code{\link[MASS]{ginv}}). In some cases it is possible to
+use a function that computes a "regular" matrix inverse such as \code{{solve.default}}.}
 
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
 }
@@ -36,7 +40,7 @@ Internally, \code{grake::\link[grake]{calibWeights}} is called.
 }
 \examples{
 path <- system.file("extdata/minitoy", package="MultiLevelIPF")
-ml_fit_dss(ref_sample = import_IPAF_results(path))
+ml_fit_dss(ref_sample = import_IPAF_results(path), ginv = solve)
 }
 \references{
 Deville, J.-C. and \enc{Särndal}{Saerndal}, C.-E. (1992)

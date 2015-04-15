@@ -18,13 +18,15 @@
 #' American Statistical Association}, \bold{88}(423), 1013--1020.
 #'
 #' @seealso \code{\link[grake]{calibWeights}}
-#' @import grake
+#' @importFrom grake calibWeights
+#' @import MASS ginv
 #' @export
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
-#' ml_fit_dss(ref_sample = import_IPAF_results(path))
+#' ml_fit_dss(ref_sample = import_IPAF_results(path), ginv = solve)
 ml_fit_dss <- function(ref_sample, controls, field_names,
                        method = c("raking", "linear", "logit"),
+                       ginv = MASS::ginv,
                        verbose = FALSE)
 {
   .patch_ml_fit_args()
@@ -35,7 +37,8 @@ ml_fit_dss <- function(ref_sample, controls, field_names,
 
   message("Calibrating")
   g <- grake::calibWeights(X = t(flat$ref_sample), d = flat$weights,
-                            totals = flat$control_totals, method = method)
+                           totals = flat$control_totals, method = method,
+                           ginv = ginv)
   weights.agg <- g * flat$weights
 
   weights.ref_sample <- as.vector(weights.agg %*% flat$reverse_weights_transform)
