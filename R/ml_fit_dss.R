@@ -3,10 +3,10 @@
 #' This function reweights a reference sample to match constraints given by
 #' aggregate controls by means of generalized raking.
 #'
-#' Internally, \code{laeken::\link[laeken]{calibWeights}} is called.
+#' Internally, \code{grake::\link[grake]{calibWeights}} is called.
 #'
 #' @inheritParams ml_fit
-#' @inheritParams laeken::calibWeights
+#' @inheritParams grake::calibWeights
 #' @return An object of classes \code{ml_fit_dss} and \code{ml_fit},
 #'   essentially a named list.
 #' @references Deville, J.-C. and \enc{Särndal}{Saerndal}, C.-E. (1992)
@@ -17,8 +17,8 @@
 #' Generalized raking procedures in survey sampling. \emph{Journal of the
 #' American Statistical Association}, \bold{88}(423), 1013--1020.
 #'
-#' @seealso \code{\link[laeken]{calibWeights}}
-#' @import laeken
+#' @seealso \code{\link[grake]{calibWeights}}
+#' @import grake
 #' @export
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
@@ -34,7 +34,7 @@ ml_fit_dss <- function(ref_sample, controls, field_names,
                                  field_names = field_names, verbose = verbose)
 
   message("Calibrating")
-  g <- laeken::calibWeights(X = t(flat$ref_sample), d = flat$weights,
+  g <- grake::calibWeights(X = t(flat$ref_sample), d = flat$weights,
                             totals = flat$control_totals, method = method)
   weights.agg <- g * flat$weights
 

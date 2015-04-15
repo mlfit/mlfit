@@ -32,7 +32,7 @@ This function reweights a reference sample to match constraints given by
 aggregate controls by means of generalized raking.
 }
 \details{
-Internally, \code{laeken::\link[laeken]{calibWeights}} is called.
+Internally, \code{grake::\link[grake]{calibWeights}} is called.
 }
 \examples{
 path <- system.file("extdata/minitoy", package="MultiLevelIPF")
@@ -48,6 +48,6 @@ Generalized raking procedures in survey sampling. \emph{Journal of the
 American Statistical Association}, \bold{88}(423), 1013--1020.
 }
 \seealso{
-\code{\link[laeken]{calibWeights}}
+\code{\link[grake]{calibWeights}}
 }
 

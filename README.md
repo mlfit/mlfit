@@ -7,5 +7,6 @@ The IPF algorithm operates on count data.  This package offers implementations f
 Install using
 
 ```s
+devtools::install_github("grake/grake")
 devtools::install_github("krlmlr/MultiLevelIPF")
 ```

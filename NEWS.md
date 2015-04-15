@@ -1,3 +1,5 @@
+- use `grake` package instead of `laeken`
+
 v0.0-13 (2015-04-13)
 ===
 
