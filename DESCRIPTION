@@ -17,7 +17,7 @@ Imports:
     plyr,
     BB,
     Matrix,
-    grake,
+    grake (>= 0.0-2),
     MASS
 Suggests:
     testthat,
