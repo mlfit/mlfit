@@ -1,6 +1,12 @@
 \name{NEWS}
 \title{News for Package 'MultiLevelIPF'}
 \encoding{UTF-8}
+\section{Changes in MultiLevelIPF version 0.0-14 (2015-04-15)}{
+  \itemize{
+    \item use \code{grake} package instead of \code{laeken}
+    \item new argument \code{ginv} to \code{ml_fit_dss}, passed down to calibWeights
+  }
+}
 \section{Changes in MultiLevelIPF version 0.0-13 (2015-04-13)}{
   \itemize{
     \item fix example for \code{ml_fit_dss}
