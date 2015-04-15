@@ -1,3 +1,6 @@
+v0.0-14 (2015-04-15)
+===
+
 - use `grake` package instead of `laeken`
 - new argument `ginv` to `ml_fit_dss`, passed down to calibWeights
 
