@@ -16,16 +16,14 @@
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
 #' ml_fit(algorithm = "entropy_o", ref_sample = import_IPAF_results(path))
 ml_fit <- function(algorithm = c("entropy_o"),
-                   ref_sample, controls, field_names, verbose = FALSE, ...) {
+                   fitting_problem, verbose = FALSE, ...) {
   algorithm <- match.arg(algorithm)
   fun.name <- sprintf("ml_fit_%s", algorithm)
   if (!exists(fun.name))
     stop("Unknown algorithm:", algorithm)
 
   get(fun.name)(
-    ref_sample = ref_sample,
-    controls = controls,
-    field_names = field_names,
+    fitting_problem = fitting_problem,
     verbose = verbose, ...)
 }
 

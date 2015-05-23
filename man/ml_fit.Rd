@@ -9,12 +9,12 @@ ml_fit(algorithm, ref_sample, controls, field_names, verbose, ...)
 \arguments{
 \item{algorithm}{Algorithm to use}
 
+\item{fitting_problem}{A fitting problem created by
+\code{\link{fitting_problem}} or \code{\link{import_IPAF_results}}.}
+
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
 
 \item{...}{Further parameters passed to the algorithm}
-
-\item{fitting_problem}{A fitting problem created by
-\code{\link{fitting_problem}} or \code{\link{import_IPAF_results}}.}
 }
 \value{
 An object of class \code{ml_fit}, essentially a named list.
