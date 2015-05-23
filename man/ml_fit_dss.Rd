@@ -8,6 +8,9 @@ ml_fit_dss(fitting_problem, method = c("raking", "linear", "logit"),
   ginv = MASS::ginv, verbose = FALSE)
 }
 \arguments{
+\item{fitting_problem}{A fitting problem created by
+\code{\link{fitting_problem}} or \code{\link{import_IPAF_results}}.}
+
 \item{method}{a character string specifying the calibration method to be
 used.  Possible values are \code{"linear"} for the linear method,
 \code{"raking"} for the multiplicative method known as raking and

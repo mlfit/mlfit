@@ -7,6 +7,9 @@
 ml_fit_entropy_o(fitting_problem, verbose = FALSE, dfsane_args = list())
 }
 \arguments{
+\item{fitting_problem}{A fitting problem created by
+\code{\link{fitting_problem}} or \code{\link{import_IPAF_results}}.}
+
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
 
 \item{dfsane_args}{Additional arguments (as a named list) passed to the

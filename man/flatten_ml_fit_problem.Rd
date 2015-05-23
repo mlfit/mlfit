@@ -7,6 +7,9 @@
 flatten_ml_fit_problem(fitting_problem, verbose = FALSE)
 }
 \arguments{
+\item{fitting_problem}{A fitting problem created by
+\code{\link{fitting_problem}} or \code{\link{import_IPAF_results}}.}
+
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
 }
 \value{

@@ -6,11 +6,8 @@
 #' @usage
 #' ml_fit(algorithm, ref_sample, controls, field_names, verbose, ...)
 #' @param algorithm Algorithm to use
-#' @param ref_sample Reference sample.  Alternatively, a configuration as
-#'   returned by \code{\link{import_IPAF_results}}; in this case, the other
-#'   arguments are ignored.
-#' @param controls Control totals
-#' @param field_names Names of special columns in the data
+#' @param fitting_problem A fitting problem created by
+#'   \code{\link{fitting_problem}} or \code{\link{import_IPAF_results}}.
 #' @param verbose If \code{TRUE}, print diagnostic output.
 #' @param ... Further parameters passed to the algorithm
 #' @return An object of class \code{ml_fit}, essentially a named list.
