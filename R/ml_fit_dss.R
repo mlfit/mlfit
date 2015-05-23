@@ -29,6 +29,7 @@ ml_fit_dss <- function(fitting_problem,
                        ginv = MASS::ginv,
                        verbose = FALSE)
 {
+  ref_sample <- controls <- field_names <- NULL
   .patch_ml_fit_args()
   .patch_verbose()
 

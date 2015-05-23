@@ -15,6 +15,7 @@
 #' ml_fit_entropy_o(fitting_problem = import_IPAF_results(path))
 ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE,
                              dfsane_args = list()) {
+  ref_sample <- controls <- field_names <- NULL
   .patch_ml_fit_args()
   .patch_verbose()
 
