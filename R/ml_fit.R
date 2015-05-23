@@ -3,8 +3,6 @@
 #' This function reweights a reference sample to match constraints given by
 #' aggregate controls using an algorithm given as parameter.
 #'
-#' @usage
-#' ml_fit(algorithm, ref_sample, controls, field_names, verbose, ...)
 #' @param algorithm Algorithm to use
 #' @param fitting_problem A fitting problem created by
 #'   \code{\link{fitting_problem}} or \code{\link{import_IPAF_results}}.
@@ -15,7 +13,7 @@
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
 #' ml_fit(algorithm = "entropy_o", fitting_problem = import_IPAF_results(path))
-ml_fit <- function(algorithm = c("entropy_o"),
+ml_fit <- function(algorithm = c("entropy_o", "dss"),
                    fitting_problem, verbose = FALSE, ...) {
   algorithm <- match.arg(algorithm)
   fun.name <- sprintf("ml_fit_%s", algorithm)
