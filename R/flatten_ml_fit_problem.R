@@ -12,8 +12,8 @@
 #' @export
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
-#' flatten_ml_fit_problem(ref_sample = import_IPAF_results(path))
-flatten_ml_fit_problem <- function(ref_sample, controls, field_names, verbose = FALSE) {
+#' flatten_ml_fit_problem(fitting_problem = import_IPAF_results(path))
+flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   .patch_ml_fit_args()
   .patch_verbose()
 

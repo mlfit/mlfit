@@ -33,14 +33,16 @@ ml_fit <- function(algorithm = c("entropy_o"),
 }
 
 .patch_ml_fit_args <- function() {
-  config <- get("ref_sample", parent.frame())
-  if (inherits(config, "IPAF_result")) {
-    kimisc::export.list(
-      list(ref_sample=config$refSample,
-           controls=config$controls,
-           field_names=config$fieldNames),
-      target.env=parent.frame())
+  config <- get("fitting_problem", parent.frame())
+  if (!is.fitting_problem(config)) {
+    stop("Please create a fitting problem using the fitting_problem function.")
   }
+
+  kimisc::export.list(
+    list(ref_sample=config$refSample,
+         controls=config$controls,
+         field_names=config$fieldNames),
+    target.env=parent.frame())
 }
 
 .patch_verbose <- function() {

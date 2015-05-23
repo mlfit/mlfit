@@ -17,7 +17,7 @@ test_that("forward and reverse maps", {
     count = "N",
     groupId = "group_id"
   )
-  flat <- flatten_ml_fit_problem(ref_sample, controls, field_names)
+  flat <- flatten_ml_fit_problem(fitting_problem(ref_sample, controls, field_names))
   expect_equal(as.vector(group_id %*% flat$weights_transform %*% flat$reverse_weights_transform),
                group_id)
 })

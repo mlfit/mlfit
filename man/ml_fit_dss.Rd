@@ -4,18 +4,10 @@
 \alias{ml_fit_dss}
 \title{Estimate weights using generalized raking}
 \usage{
-ml_fit_dss(ref_sample, controls, field_names, method = c("raking", "linear",
-  "logit"), ginv = MASS::ginv, verbose = FALSE)
+ml_fit_dss(fitting_problem, method = c("raking", "linear", "logit"),
+  ginv = MASS::ginv, verbose = FALSE)
 }
 \arguments{
-\item{ref_sample}{Reference sample.  Alternatively, a configuration as
-returned by \code{\link{import_IPAF_results}}; in this case, the other
-arguments are ignored.}
-
-\item{controls}{Control totals}
-
-\item{field_names}{Names of special columns in the data}
-
 \item{method}{a character string specifying the calibration method to be
 used.  Possible values are \code{"linear"} for the linear method,
 \code{"raking"} for the multiplicative method known as raking and

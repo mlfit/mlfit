@@ -4,18 +4,9 @@
 \alias{ml_fit_entropy_o}
 \title{Estimate weights using an entropy optimization approach}
 \usage{
-ml_fit_entropy_o(ref_sample, controls, field_names, verbose = FALSE,
-  dfsane_args = list())
+ml_fit_entropy_o(fitting_problem, verbose = FALSE, dfsane_args = list())
 }
 \arguments{
-\item{ref_sample}{Reference sample.  Alternatively, a configuration as
-returned by \code{\link{import_IPAF_results}}; in this case, the other
-arguments are ignored.}
-
-\item{controls}{Control totals}
-
-\item{field_names}{Names of special columns in the data}
-
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
 
 \item{dfsane_args}{Additional arguments (as a named list) passed to the

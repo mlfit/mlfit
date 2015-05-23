@@ -13,13 +13,13 @@
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
 #' ml_fit_entropy_o(ref_sample = import_IPAF_results(path))
-ml_fit_entropy_o <- function(ref_sample, controls, field_names, verbose = FALSE,
+ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE,
                              dfsane_args = list()) {
   .patch_ml_fit_args()
   .patch_verbose()
 
-  flat <- flatten_ml_fit_problem(ref_sample = ref_sample, controls = controls,
-                                 field_names = field_names, verbose = verbose)
+  flat <- flatten_ml_fit_problem(fitting_problem = fitting_problem,
+                                 verbose = verbose)
 
   par <- rep(0, length(flat$control_totals))
   dfsane_args$par <- par

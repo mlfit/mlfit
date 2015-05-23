@@ -4,17 +4,9 @@
 \alias{flatten_ml_fit_problem}
 \title{Return a flattened representation of a multi-level fitting problem instance}
 \usage{
-flatten_ml_fit_problem(ref_sample, controls, field_names, verbose = FALSE)
+flatten_ml_fit_problem(fitting_problem, verbose = FALSE)
 }
 \arguments{
-\item{ref_sample}{Reference sample.  Alternatively, a configuration as
-returned by \code{\link{import_IPAF_results}}; in this case, the other
-arguments are ignored.}
-
-\item{controls}{Control totals}
-
-\item{field_names}{Names of special columns in the data}
-
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
 }
 \value{
@@ -29,7 +21,7 @@ per household, and a control vector.
 }
 \examples{
 path <- system.file("extdata/minitoy", package="MultiLevelIPF")
-flatten_ml_fit_problem(ref_sample = import_IPAF_results(path))
+flatten_ml_fit_problem(fitting_problem = import_IPAF_results(path))
 }
 \seealso{
 \code{\link{ml_fit}}
