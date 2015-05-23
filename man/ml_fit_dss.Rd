@@ -35,7 +35,7 @@ Internally, \code{grake::\link[grake]{calibWeights}} is called.
 }
 \examples{
 path <- system.file("extdata/minitoy", package="MultiLevelIPF")
-ml_fit_dss(ref_sample = import_IPAF_results(path), ginv = solve)
+ml_fit_dss(fitting_problem = import_IPAF_results(path), ginv = solve)
 }
 \references{
 Deville, J.-C. and \enc{Särndal}{Saerndal}, C.-E. (1992)

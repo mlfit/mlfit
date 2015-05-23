@@ -23,7 +23,7 @@
 #' @export
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
-#' ml_fit_dss(ref_sample = import_IPAF_results(path), ginv = solve)
+#' ml_fit_dss(fitting_problem = import_IPAF_results(path), ginv = solve)
 ml_fit_dss <- function(fitting_problem,
                        method = c("raking", "linear", "logit"),
                        ginv = MASS::ginv,

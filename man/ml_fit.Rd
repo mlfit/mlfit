@@ -25,6 +25,6 @@ aggregate controls using an algorithm given as parameter.
 }
 \examples{
 path <- system.file("extdata/minitoy", package="MultiLevelIPF")
-ml_fit(algorithm = "entropy_o", ref_sample = import_IPAF_results(path))
+ml_fit(algorithm = "entropy_o", fitting_problem = import_IPAF_results(path))
 }
 

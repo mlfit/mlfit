@@ -12,7 +12,7 @@
 #' @export
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
-#' ml_fit_entropy_o(ref_sample = import_IPAF_results(path))
+#' ml_fit_entropy_o(fitting_problem = import_IPAF_results(path))
 ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE,
                              dfsane_args = list()) {
   .patch_ml_fit_args()
