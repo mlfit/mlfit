@@ -1,3 +1,6 @@
+v0.1-3 (2015-05-26)
+===
+
 - proper handling of corner cases (reference sample with one row)
 
 v0.1-2 (2015-05-26)
