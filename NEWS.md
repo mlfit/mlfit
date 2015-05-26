@@ -1,3 +1,5 @@
+- support specification of prior weights in construction of fitting problems
+
 v0.1 (2015-05-26)
 ===
 
