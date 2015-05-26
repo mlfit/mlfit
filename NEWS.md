@@ -1,3 +1,4 @@
+- proper handling of corner cases (grand total controls and dummy controls with only one category)
 - explicit error message if reference sample is not sorted
 
 v0.1-1 (2015-05-26)
