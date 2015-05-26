@@ -1,6 +1,11 @@
 \name{NEWS}
 \title{News for Package 'MultiLevelIPF'}
 \encoding{UTF-8}
+\section{Changes in MultiLevelIPF version 0.1-1 (2015-05-26)}{
+  \itemize{
+    \item support specification of prior weights in construction of fitting problems
+  }
+}
 \section{Changes in MultiLevelIPF version 0.1 (2015-05-26)}{
   \itemize{
     \item new functions \code{fitting_problem}, \code{is.fitting_problem}, \code{special_field_names}
