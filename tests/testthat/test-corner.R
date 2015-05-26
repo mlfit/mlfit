@@ -1,61 +1,68 @@
 context("Corner cases")
 
-ref_sample <- data.frame(gid=1:3)
-ref_sample <- plyr::adply(ref_sample, 1, function(chunk)
-  data.frame(iid = seq_len(chunk$gid), n = chunk$gid))
+test_that("Grand totals only", {
+  ref_sample_full <- data.frame(gid=1:3, A=factor("a"))
+  ref_sample_full <- plyr::adply(ref_sample_full, 1, function(chunk)
+    data.frame(iid = seq_len(chunk$gid), n = chunk$gid))
 
-test_that("No controls", {
-  problem <- fitting_problem(
-    ref_sample,
-    field_names = special_field_names("gid", "iid", "n", "N"),
-    individual_controls = list(),
-    group_controls = list()
-  )
-  flat <- flatten_ml_fit_problem(problem, verbose = TRUE)
-  expect_equal(nrow(flat$ref_sample), 0)
-  expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform), rep(1, 6))
-  expect_equal(flat$weights, 3)
-})
+  ref_sample_one <- data.frame(gid=1, iid=1, n=1, A=factor("a"))
 
-test_that("Only grand total for group", {
-  group_control = data.frame(N=3)
-  problem <- fitting_problem(
-    ref_sample,
-    field_names = special_field_names("gid", "iid", "n", "N"),
-    individual_controls = list(),
-    group_controls = list(group_control)
-  )
-  flat <- flatten_ml_fit_problem(problem, verbose = TRUE)
-  expect_equal(nrow(flat$ref_sample), 1)
-  expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform), rep(1, 6))
-  expect_equal(flat$weights, 3)
-})
+  group_control_grand = data.frame(N=3)
+  group_control_dummy = data.frame(N=3, A=factor("a"))
+  individual_control_grand = data.frame(N=6)
+  individual_control_dummy = data.frame(N=6, A=factor("a"))
 
-test_that("Only grand total for individual", {
-  individual_control = data.frame(N=3)
-  problem <- fitting_problem(
-    ref_sample,
-    field_names = special_field_names("gid", "iid", "n", "N"),
-    individual_controls = list(individual_control),
-    group_controls = list()
+  ref_sample_list <- list(
+    ref_sample_full,
+    ref_sample_one
   )
-  flat <- flatten_ml_fit_problem(problem, verbose = TRUE)
-  expect_equal(nrow(flat$ref_sample), 1)
-  expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform), rep(1, 6))
-  expect_equal(flat$weights, rep(1, 3))
-})
+  group_control_list <- list(
+    list(),
+    list(group_control_grand),
+    list(group_control_dummy),
+    list(group_control_dummy, group_control_grand)
+  )
+  individual_control_list <- list(
+    list(),
+    list(individual_control_grand),
+    list(individual_control_dummy),
+    list(individual_control_dummy, individual_control_grand)
+  )
 
-test_that("Grand total for individual and group", {
-  group_control = data.frame(N=3)
-  individual_control = data.frame(N=6)
-  problem <- fitting_problem(
-    ref_sample,
-    field_names = special_field_names("gid", "iid", "n", "N"),
-    individual_controls = list(individual_control),
-    group_controls = list(group_control)
-  )
-  flat <- flatten_ml_fit_problem(problem, verbose = TRUE)
-  expect_equal(nrow(flat$ref_sample), 2)
-  expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform), rep(1, 6))
-  expect_equal(flat$weights, rep(1, 3))
+  for (ref_sample in ref_sample_list) {
+    for (group_controls in group_control_list) {
+      for (individual_controls in individual_control_list) {
+        problem <- fitting_problem(
+          ref_sample,
+          field_names = special_field_names("gid", "iid", "n", "N"),
+          individual_controls = individual_controls,
+          group_controls = group_controls
+        )
+
+        rows <- min(length(individual_controls), 1) + min(length(group_controls), 1)
+
+        base_weight <- if (length(individual_controls) > 0 && length(group_controls) == 0) 2 else 1
+        if (nrow(ref_sample) == 1 && rows > 0) base_weight <- base_weight * 3 / max(ref_sample$gid)
+        orig_weights <- rep(base_weight, nrow(ref_sample))
+
+        weights <- if (nrow(ref_sample) > 1) {
+          if (length(individual_controls) > 0) {
+            if (length(group_controls) > 0) rep(1, max(ref_sample$gid)) else rep(2, max(ref_sample$gid))
+          } else 3
+        } else {
+          if (length(individual_controls) > 0) {
+            if (length(group_controls) > 0) 3 else 6
+          } else {
+            if (length(group_controls) > 0) 3 else 1
+          }
+        }
+
+        flat <- flatten_ml_fit_problem(problem, verbose = TRUE)
+        expect_equal(nrow(flat$ref_sample), rows)
+        expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform),
+                     orig_weights)
+        expect_equal(flat$weights, weights)
+      }
+    }
+  }
 })
