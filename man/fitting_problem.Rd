@@ -7,7 +7,8 @@
 \title{Create an instance of a fitting problem}
 \usage{
 fitting_problem(ref_sample, controls = list(individual = individual_controls,
-  group = group_controls), field_names, individual_controls, group_controls)
+  group = group_controls), field_names, individual_controls, group_controls,
+  prior_weights = NULL)
 
 is.fitting_problem(x)
 
@@ -25,6 +26,8 @@ special_field_names(groupId, individualId, individualsPerGroup, count)
 \item{individual_controls,group_controls}{Control totals at individual
 and group level, given as a list of data frames where each data frame
 defines a control}
+
+\item{prior_weights}{Prior (or design) weights}
 
 \item{x}{An object}
 
