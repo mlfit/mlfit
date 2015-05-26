@@ -35,7 +35,7 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
       ref_sample_w <- cbind(weights_df, ref_sample)
 
       control.list <- controls[[control.type]]
-      control.columns <- plyr::llply(
+      plyr::llply(
         control.list,
         control.type = control.type,
         function(control, control.type) {
