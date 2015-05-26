@@ -13,12 +13,14 @@ test_that("Grand totals only", {
   group_control_list <- list(
     list(),
     list(group_control_grand),
-    list(group_control_dummy)
+    list(group_control_dummy),
+    list(group_control_dummy, group_control_grand)
   )
   individual_control_list <- list(
     list(),
     list(individual_control_grand),
-    list(individual_control_dummy)
+    list(individual_control_dummy),
+    list(individual_control_dummy, individual_control_grand)
   )
 
   for (group_controls in group_control_list) {
@@ -30,13 +32,14 @@ test_that("Grand totals only", {
         group_controls = group_controls
       )
 
+      rows <- min(length(individual_controls), 1) + min(length(group_controls), 1)
       base_weight <- if (length(individual_controls) > 0 && length(group_controls) == 0) 2 else 1
       weights <- if (length(individual_controls) > 0) {
         if (length(group_controls) > 0) rep(1, 3) else rep(2, 3)
       } else 3
 
       flat <- flatten_ml_fit_problem(problem, verbose = TRUE)
-      expect_equal(nrow(flat$ref_sample), length(individual_controls) + length(group_controls))
+      expect_equal(nrow(flat$ref_sample), rows)
       expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform), rep(base_weight, 6))
       expect_equal(flat$weights, weights)
     }
