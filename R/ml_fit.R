@@ -25,17 +25,10 @@ ml_fit <- function(algorithm = c("entropy_o", "dss"),
     verbose = verbose, ...)
 }
 
-.patch_ml_fit_args <- function() {
-  config <- get("fitting_problem", parent.frame())
-  if (!is.fitting_problem(config)) {
+.check_is_fitting_problem <- function(fitting_problem) {
+  if (!is.fitting_problem(fitting_problem)) {
     stop("Please create a fitting problem using the fitting_problem function.")
   }
-
-  kimisc::export.list(
-    list(ref_sample=config$refSample,
-         controls=config$controls,
-         field_names=config$fieldNames),
-    target.env=parent.frame())
 }
 
 .patch_verbose <- function() {

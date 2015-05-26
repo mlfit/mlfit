@@ -14,8 +14,12 @@
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
 #' flatten_ml_fit_problem(fitting_problem = import_IPAF_results(path))
 flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
-  ref_sample <- controls <- field_names <- NULL
-  .patch_ml_fit_args()
+  .check_is_fitting_problem(fitting_problem)
+  ref_sample <- fitting_problem$refSample
+  controls <- fitting_problem$controls
+  field_names <- fitting_problem$fieldNames
+  prior_weights <- fitting_problem$priorWeights
+
   .patch_verbose()
 
   # Assume uniform prior weights
