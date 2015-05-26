@@ -1,6 +1,3 @@
-library(MultiLevelIPF)
-library(testthat)
-
 context("flatten")
 
 test_that("forward and reverse maps", {

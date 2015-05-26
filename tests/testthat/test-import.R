@@ -1,6 +1,3 @@
-library(MultiLevelIPF)
-library(testthat)
-
 context("import")
 
 test_that("import toy examples", {
@@ -9,15 +6,15 @@ test_that("import toy examples", {
   test_names <- c("minitoy", "toy", "dummytoy", "multitoy")
   test_paths <- system.file(file.path("extdata", test_names), package = "MultiLevelIPF")
   results <- llply(setNames(test_paths, nm=test_names), import_IPAF_results)
-  
+
   TOL <- list(total=2e-3, individual=0.6, group=0.8)
-  
+
   llply(
     results,
     function(result) {
       sums_of_weights <- laply(result$weights, function(lw) sum(lw[[1]]))
       l_ply(diff(sums_of_weights), function(s) expect_equal(s, 0, tolerance=TOL$total))
-      
+
       check_control <- function (control, type, weightedRefSample) {
         countVar <- result$fieldNames$count
         controlVars <- setdiff(names(control), countVar)
@@ -36,7 +33,7 @@ test_that("import toy examples", {
           }
         )
       }
-      
+
       l_ply(
         result$weights,
         function (lw) {
