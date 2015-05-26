@@ -1,6 +1,6 @@
 context("Corner cases")
 
-ref_sample <- data.frame(gid=1:3)
+ref_sample <- data.frame(gid=1:3, A=factor("a"))
 ref_sample <- plyr::adply(ref_sample, 1, function(chunk)
   data.frame(iid = seq_len(chunk$gid), n = chunk$gid))
 
