@@ -1,7 +1,10 @@
 context("Corner cases")
 
+ref_sample <- data.frame(gid=1:3)
+ref_sample <- plyr::adply(ref_sample, 1, function(chunk)
+  data.frame(iid = seq_len(chunk$gid), n = chunk$gid))
+
 test_that("No controls", {
-  ref_sample <- data.frame(gid=1:3, iid=1:3, n=1)
   problem <- fitting_problem(
     ref_sample,
     field_names = special_field_names("gid", "iid", "n", "N"),
@@ -10,12 +13,11 @@ test_that("No controls", {
   )
   flat <- flatten_ml_fit_problem(problem, verbose = TRUE)
   expect_equal(nrow(flat$ref_sample), 0)
-  expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform), rep(1, 3))
+  expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform), rep(1, 6))
   expect_equal(flat$weights, 3)
 })
 
 test_that("Only grand total for group", {
-  ref_sample <- data.frame(gid=1:3, iid=1:3, n=1)
   group_control = data.frame(N=3)
   problem <- fitting_problem(
     ref_sample,
@@ -25,12 +27,11 @@ test_that("Only grand total for group", {
   )
   flat <- flatten_ml_fit_problem(problem, verbose = TRUE)
   expect_equal(nrow(flat$ref_sample), 1)
-  expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform), rep(1, 3))
+  expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform), rep(1, 6))
   expect_equal(flat$weights, 3)
 })
 
 test_that("Only grand total for individual", {
-  ref_sample <- data.frame(gid=1:3, iid=1:3, n=1)
   individual_control = data.frame(N=3)
   problem <- fitting_problem(
     ref_sample,
@@ -40,15 +41,11 @@ test_that("Only grand total for individual", {
   )
   flat <- flatten_ml_fit_problem(problem, verbose = TRUE)
   expect_equal(nrow(flat$ref_sample), 1)
-  expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform), rep(1, 3))
-  expect_equal(flat$weights, 3)
+  expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform), rep(1, 6))
+  expect_equal(flat$weights, rep(1, 3))
 })
 
 test_that("Grand total for individual and group", {
-  ref_sample <- data.frame(gid=1:3)
-  ref_sample <- plyr::adply(ref_sample, 1, function(chunk)
-    data.frame(iid = seq_len(chunk$gid), n = chunk$gid))
-
   group_control = data.frame(N=3)
   individual_control = data.frame(N=6)
   problem <- fitting_problem(
