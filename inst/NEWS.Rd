@@ -1,6 +1,11 @@
 \name{NEWS}
 \title{News for Package 'MultiLevelIPF'}
 \encoding{UTF-8}
+\section{Changes in MultiLevelIPF version 0.1-3 (2015-05-26)}{
+  \itemize{
+    \item proper handling of corner cases (reference sample with one row)
+  }
+}
 \section{Changes in MultiLevelIPF version 0.1-2 (2015-05-26)}{
   \itemize{
     \item proper handling of corner cases (grand total controls and dummy controls with only one category)
