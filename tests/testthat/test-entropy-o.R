@@ -1,6 +1,3 @@
-library(MultiLevelIPF)
-library(testthat)
-
 context("entropy_o")
 
 test_that("entropy_o algorithm", {
