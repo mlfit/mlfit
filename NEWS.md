@@ -1,3 +1,4 @@
+- proper handling of corner cases (grand total controls)
 - explicit error message if reference sample is not sorted
 
 v0.1-1 (2015-05-26)
