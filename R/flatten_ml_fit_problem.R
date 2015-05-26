@@ -117,7 +117,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   group_proxy_positions <- c(TRUE, diff(ref_sample_grp.mm[[field_names$groupId]]) != 0)
   group_sizes <- rle(ref_sample_grp.mm[[field_names$groupId]])$lengths
 
-  ref_sample_grp.agg <- ref_sample_grp.mm[group_proxy_positions, ]
+  ref_sample_grp.agg <- ref_sample_grp.mm[group_proxy_positions,, drop = FALSE]
 
   message("Transforming weights")
   group_size_rescale <- rep(group_sizes, group_sizes)
@@ -167,7 +167,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
 
   message("Transposing reference sample")
   ref_sample.agg.agg.m <- t(as.matrix(ref_sample.agg.agg[
-    , setdiff(colnames(ref_sample.agg.agg), field_names$groupId)]))
+    , setdiff(colnames(ref_sample.agg.agg), field_names$groupId), drop = FALSE]))
 
   message("Flattening controls")
   control.totals.list <- plyr::llply(
