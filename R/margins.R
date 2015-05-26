@@ -1,12 +1,16 @@
 #' Compute margins for a weighting of a multi-level fitting problem
 #'
-#' This function allows checking a fit in terms of the original input data.
+#' These functions allows checking a fit in terms of the original input data.
+#'
+#' @details
+#' \code{compute_margins} computes margins in the format used for the input
+#' controls (i.e., as expected by the \code{controls} parameter of the
+#' \code{\link{fitting_problem}} function),
+#' based on a reference sample and a weights vector.
 #'
 #' @inheritParams ml_fit
 #' @param weights A vector with one entry per row of the original reference
 #'   sample
-#' @return Margins of the same format as expected by the \code{controls}
-#'   parameter of the \code{\link{fitting_problem}} function.
 #' @seealso \code{\link{ml_fit}}
 #' @export
 compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
@@ -50,5 +54,35 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
         }
       )
     }
+  )
+}
+
+#' @details
+#' \code{margins_to_df} converts margins to a data frame for easier comparison.
+#'
+#' @rdname compute_margins
+#' @export
+margin_to_df <- function(controls, count, verbose = FALSE) {
+  .patch_verbose()
+
+  message("Converting list structure to data frame")
+  plyr::ldply(
+    setNames(nm=names(controls)),
+    function(control.type) {
+      control.list <- controls[[control.type]]
+      plyr::ldply(
+        control.list,
+        control.type = control.type,
+        function(control, control.type) {
+          non_control <- control[sort(setdiff(names(control), count))]
+          lex_order <- do.call(order, non_control)
+          ret <- data.frame(..id.. = interaction(non_control[lex_order, ]))
+          ret[[count]] <- control[[count]][lex_order]
+          ret
+        },
+        .id = "..control.name.."
+      )
+    },
+    .id = "..control.type.."
   )
 }
