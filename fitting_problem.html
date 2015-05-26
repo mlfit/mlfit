@@ -53,7 +53,7 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>fitting_problem(ref_sample, controls&nbsp;=&nbsp;list(individual&nbsp;=&nbsp;individual_controls, group&nbsp;=&nbsp;group_controls), field_names, individual_controls, group_controls)</div>
+    <pre><div>fitting_problem(ref_sample, controls&nbsp;=&nbsp;list(individual&nbsp;=&nbsp;individual_controls, group&nbsp;=&nbsp;group_controls), field_names, individual_controls, group_controls, prior_weights&nbsp;=&nbsp;NULL)</div>
 <div>is.fitting_problem(x)</div>
 <div>special_field_names(groupId, individualId, individualsPerGroup, count)</div></pre>
     
@@ -71,6 +71,8 @@
       <dd>Control totals at individual
 and group level, given as a list of data frames where each data frame
 defines a control</dd>
+      <dt>prior_weights</dt>
+      <dd>Prior (or design) weights</dd>
       <dt>x</dt>
       <dd>An object</dd>
       <dt>groupId,individualId</dt>
