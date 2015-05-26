@@ -32,7 +32,7 @@ test_that("Only grand total for group", {
 })
 
 test_that("Only grand total for individual", {
-  individual_control = data.frame(N=3)
+  individual_control = data.frame(N=6)
   problem <- fitting_problem(
     ref_sample,
     field_names = special_field_names("gid", "iid", "n", "N"),
@@ -41,8 +41,8 @@ test_that("Only grand total for individual", {
   )
   flat <- flatten_ml_fit_problem(problem, verbose = TRUE)
   expect_equal(nrow(flat$ref_sample), 1)
-  expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform), rep(1, 6))
-  expect_equal(flat$weights, rep(1, 3))
+  expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform), rep(2, 6))
+  expect_equal(flat$weights, rep(2, 3))
 })
 
 test_that("Grand total for individual and group", {
