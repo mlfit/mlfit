@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>import_IPAF_results. MultiLevelIPF 0.1</title>
+<title>fitting_problem. MultiLevelIPF 0.1</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -48,31 +48,47 @@
         
       </header>
       
-      <h1>Imports results from a run of the original Python implementation</h1>
+      <h1>Create an instance of a fitting problem</h1>
 
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>import_IPAF_results(path, all_weights&nbsp;=&nbsp;FALSE, config_name&nbsp;=&nbsp;"config.xml")</div></pre>
+    <pre><div>fitting_problem(ref_sample, controls&nbsp;=&nbsp;list(individual&nbsp;=&nbsp;individual_controls, group&nbsp;=&nbsp;group_controls), field_names, individual_controls, group_controls)</div>
+<div>is.fitting_problem(x)</div>
+<div>special_field_names(groupId, individualId, individualsPerGroup, count)</div></pre>
     
     <h2>Arguments</h2>
     <dl>
-      <dt>path</dt>
-      <dd>Path to the directory that contains the input/output files</dd>
-      <dt>all_weights</dt>
-      <dd>Should all weights be loaded, or only the final ones
-(default)?</dd>
-      <dt>config_name</dt>
-      <dd>Name of the main configuration file, defaults to
-<code>"config.xml"</code></dd>
+      <dt>ref_sample</dt>
+      <dd>The reference sample</dd>
+      <dt>controls</dt>
+      <dd>Control totals, by default initialized from the
+<code>individual_controls</code> and <code>group_controls</code> arguments</dd>
+      <dt>field_names</dt>
+      <dd>Names of special fields, construct using
+<code><a href='fitting_problem.html'>special_field_names</a></code></dd>
+      <dt>individual_controls,group_controls</dt>
+      <dd>Control totals at individual
+and group level, given as a list of data frames where each data frame
+defines a control</dd>
+      <dt>x</dt>
+      <dd>An object</dd>
+      <dt>groupId,individualId</dt>
+      <dd>Name of the column that defines the ID of the
+group or the individual</dd>
+      <dt>individualsPerGroup</dt>
+      <dd>Name of a column that contains the number
+of persons in the group</dd>
+      <dt>count</dt>
+      <dd>Name of control total column in control tables</dd>
     </dl>
     
     <div class="Value">
       <h2>Value</h2>
 
       <p><dl>
-An object of class <code>IPAF_result</code>, essentially a named list with
-  the following components:
+An object of class <code>fitting_problem</code>, essentially a named list
+  with the following components:
 <dl>
   <dt><code>refSample</code></dt><dd>The reference sample, a <code>data.frame</code>.</dd></p>
   
@@ -80,10 +96,6 @@ An object of class <code>IPAF_result</code>, essentially a named list with
   and <code>group</code>. Each contains a list of controls as <code>data.frame</code>s.</dd></p>
   
       <p><dt><code>fieldNames</code></dt><dd>A named list with the names of special fields.</dd></p>
-  
-      <p><dt><code>algorithms</code></dt><dd>A list of algorithm names.</dd></p>
-  
-      <p><dt><code>weights</code></dt><dd>A named list with weight vectors, one per algorithm.</dd></p>
   
       <p></dl></p>
   
@@ -94,15 +106,13 @@ An object of class <code>IPAF_result</code>, essentially a named list with
     <div class="Description">
       <h2>Description</h2>
 
-      <p>This helper function imports input, data and results from a run of the
-original Python implementation into a named list.  The file `config.xml`
-is read and interpreted.</p>
+      <p>Create an instance of a fitting problem</p>
   
     </div>
       </div>
   <div class="span4">
     <!-- <ul>
-      <li>import_IPAF_results</li>
+      <li>fitting_problem</li><li>is.fitting_problem</li><li>special_field_names</li>
     </ul>
     <ul>
       

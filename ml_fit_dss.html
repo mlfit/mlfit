@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>ml_fit_dss. MultiLevelIPF 0.0-14</title>
+<title>ml_fit_dss. MultiLevelIPF 0.1</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">MultiLevelIPF 0.0-14</a>
+      <a class="brand" href="#">MultiLevelIPF 0.1</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -53,18 +53,13 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>ml_fit_dss(ref_sample, controls, field_names, method&nbsp;=&nbsp;c("raking", "linear", "logit"), ginv&nbsp;=&nbsp;MASS::ginv, verbose&nbsp;=&nbsp;FALSE)</div></pre>
+    <pre><div>ml_fit_dss(fitting_problem, method&nbsp;=&nbsp;c("raking", "linear", "logit"), ginv&nbsp;=&nbsp;MASS::ginv, verbose&nbsp;=&nbsp;FALSE)</div></pre>
     
     <h2>Arguments</h2>
     <dl>
-      <dt>ref_sample</dt>
-      <dd>Reference sample.  Alternatively, a configuration as
-returned by <code><a href='import_IPAF_results.html'>import_IPAF_results</a></code>; in this case, the other
-arguments are ignored.</dd>
-      <dt>controls</dt>
-      <dd>Control totals</dd>
-      <dt>field_names</dt>
-      <dd>Names of special columns in the data</dd>
+      <dt>fitting_problem</dt>
+      <dd>A fitting problem created by
+<code><a href='fitting_problem.html'>fitting_problem</a></code> or <code><a href='import_IPAF_results.html'>import_IPAF_results</a></code>.</dd>
       <dt>method</dt>
       <dd>a character string specifying the calibration method to be
 used.  Possible values are <code>"linear"</code> for the linear method,
@@ -118,7 +113,7 @@ American Statistical Association</em>, <b>88</b>(423), 1013--1020.</p>
     
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'>path &lt;- system.file(&quot;extdata/minitoy&quot;, package=&quot;MultiLevelIPF&quot;)
-ml_fit_dss(ref_sample = import_IPAF_results(path), ginv = solve)
+ml_fit_dss(fitting_problem = import_IPAF_results(path), ginv = solve)
 </div>
 <div class='output'>$weights
  [1]  8.937470  8.937470  8.937470 23.448579 23.448579  2.613950  2.613950
