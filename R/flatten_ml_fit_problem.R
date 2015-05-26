@@ -187,7 +187,11 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     function (control.name)
       unname(control.totals.dup[names(control.totals.dup) == control.name])
   )
+
   control.totals <- sapply(control.totals.dup.rearrange, `[[`, 1L)
+  if (length(control.totals) == 0L)
+    control.totals <- numeric()
+
   control.totals.conflicts <- sapply(
     control.totals.dup.rearrange,
     function(x) !isTRUE(all.equal(x, rep(x[[1L]], length(x))))
