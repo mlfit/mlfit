@@ -265,7 +265,10 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   stopifnot(all.equal(Matrix::diag(reverse_weights_transform %*% weights_transform), rep(1, ncol(weights_transform))))
 
   message("Normalizing weights")
-  prior_weights_agg_agg <- prior_weights_agg_agg / sum(prior_weights_agg_agg) * control.totals[c("(Intercept)_g", "(Intercept)_i")][[1]]
+  prior_weights_agg_agg <- prior_weights_agg_agg / sum(prior_weights_agg_agg) *
+    unname(coalesce.na(control.totals["(Intercept)_g"],
+                       control.totals["(Intercept)_i"],
+                       sum(prior_weights_agg_agg)))
 
   message("Done!")
   structure(
