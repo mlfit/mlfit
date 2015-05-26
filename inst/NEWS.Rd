@@ -1,6 +1,12 @@
 \name{NEWS}
 \title{News for Package 'MultiLevelIPF'}
 \encoding{UTF-8}
+\section{Changes in MultiLevelIPF version 0.1-2 (2015-05-26)}{
+  \itemize{
+    \item proper handling of corner cases (grand total controls and dummy controls with only one category)
+    \item explicit error message if reference sample is not sorted
+  }
+}
 \section{Changes in MultiLevelIPF version 0.1-1 (2015-05-26)}{
   \itemize{
     \item support specification of prior weights in construction of fitting problems
