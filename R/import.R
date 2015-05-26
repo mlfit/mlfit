@@ -113,7 +113,7 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
 
   structure(
     kimisc::nlist(refSample, controls, fieldNames, algorithms, weights),
-    class = "IPAF_result"
+    class = c("IPAF_result", "fitting_problem")
   )
 }
 

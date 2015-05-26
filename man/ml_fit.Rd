@@ -4,18 +4,14 @@
 \alias{ml_fit}
 \title{Estimate weights using a given algorithm}
 \usage{
-ml_fit(algorithm, ref_sample, controls, field_names, verbose, ...)
+ml_fit(algorithm = c("entropy_o", "dss"), fitting_problem, verbose = FALSE,
+  ...)
 }
 \arguments{
 \item{algorithm}{Algorithm to use}
 
-\item{ref_sample}{Reference sample.  Alternatively, a configuration as
-returned by \code{\link{import_IPAF_results}}; in this case, the other
-arguments are ignored.}
-
-\item{controls}{Control totals}
-
-\item{field_names}{Names of special columns in the data}
+\item{fitting_problem}{A fitting problem created by
+\code{\link{fitting_problem}} or \code{\link{import_IPAF_results}}.}
 
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
 
@@ -30,6 +26,6 @@ aggregate controls using an algorithm given as parameter.
 }
 \examples{
 path <- system.file("extdata/minitoy", package="MultiLevelIPF")
-ml_fit(algorithm = "entropy_o", ref_sample = import_IPAF_results(path))
+ml_fit(algorithm = "entropy_o", fitting_problem = import_IPAF_results(path))
 }
 

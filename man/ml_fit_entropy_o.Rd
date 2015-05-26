@@ -4,17 +4,11 @@
 \alias{ml_fit_entropy_o}
 \title{Estimate weights using an entropy optimization approach}
 \usage{
-ml_fit_entropy_o(ref_sample, controls, field_names, verbose = FALSE,
-  dfsane_args = list())
+ml_fit_entropy_o(fitting_problem, verbose = FALSE, dfsane_args = list())
 }
 \arguments{
-\item{ref_sample}{Reference sample.  Alternatively, a configuration as
-returned by \code{\link{import_IPAF_results}}; in this case, the other
-arguments are ignored.}
-
-\item{controls}{Control totals}
-
-\item{field_names}{Names of special columns in the data}
+\item{fitting_problem}{A fitting problem created by
+\code{\link{fitting_problem}} or \code{\link{import_IPAF_results}}.}
 
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
 
@@ -31,7 +25,7 @@ aggregate controls using an entropy optimization method.
 }
 \examples{
 path <- system.file("extdata/minitoy", package="MultiLevelIPF")
-ml_fit_entropy_o(ref_sample = import_IPAF_results(path))
+ml_fit_entropy_o(fitting_problem = import_IPAF_results(path))
 }
 \seealso{
 \code{\link[BB]{dfsane}}

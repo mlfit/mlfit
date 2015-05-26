@@ -23,17 +23,19 @@
 #' @export
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
-#' ml_fit_dss(ref_sample = import_IPAF_results(path), ginv = solve)
-ml_fit_dss <- function(ref_sample, controls, field_names,
+#' ml_fit_dss(fitting_problem = import_IPAF_results(path), ginv = solve)
+ml_fit_dss <- function(fitting_problem,
                        method = c("raking", "linear", "logit"),
                        ginv = MASS::ginv,
                        verbose = FALSE)
 {
-  .patch_ml_fit_args()
   .patch_verbose()
 
-  flat <- flatten_ml_fit_problem(ref_sample = ref_sample, controls = controls,
-                                 field_names = field_names, verbose = verbose)
+  flat <- if (is.fitting_problem(fitting_problem)) {
+    flatten_ml_fit_problem(fitting_problem = fitting_problem, verbose = verbose)
+  } else {
+    fitting_problem
+  }
 
   message("Calibrating")
   g <- grake::calibWeights(X = t(flat$ref_sample), d = flat$weights,
