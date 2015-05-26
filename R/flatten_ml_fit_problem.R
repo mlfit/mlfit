@@ -9,6 +9,7 @@
 #' @return An object of classes \code{flat_ml_fit_problem},
 #'   essentially a named list.
 #' @seealso \code{\link{ml_fit}}
+#' @importFrom kimisc coalesce.na
 #' @export
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
@@ -62,6 +63,8 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
           colnames(control) <- control.and.count.names
 
           control.term <- paste0(new.control.names, collapse='*')
+          if (nchar(control.term) == 0)
+            control.term <- "1"
 
           control.mm <- model.matrix(
             as.formula(sprintf("~%s", control.term)),
@@ -72,7 +75,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
             control.names=control.names,
             new.control.names=new.control.names,
             term=control.term,
-            control=(control[[field_names$count]] %*% control.mm)[1,]
+            control=(control[[field_names$count]] %*% control.mm)[1,, drop = TRUE]
           )
         }
       )
@@ -102,8 +105,11 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   if (!(field_names$groupId %in% colnames(ref_sample)))
     stop("Group ID column ", field_names$groupId, " not found in reference sample.")
   stopifnot(is.numeric(ref_sample[[field_names$groupId]]))
-  ref_sample_grp.mm <- as.data.frame(model.matrix(
-    as.formula(sprintf("~%s+%s", field_names$groupId, control.formulae$group)),
+  formula_grp <- sprintf("~%s", field_names$groupId)
+  if (nchar(control.formulae$group) > 0) {
+    formula_grp <- sprintf("%s+%s", formula_grp, control.formulae$group)
+  }
+  ref_sample_grp.mm <- as.data.frame(model.matrix(as.formula(formula_grp),
     plyr::rename(ref_sample[c(field_names$groupId, names(control.names$group))], control.names$group)))
   ref_sample_grp.mm <- .rename.intercept(ref_sample_grp.mm, "group")
 
@@ -114,7 +120,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   group_proxy_positions <- c(TRUE, diff(ref_sample_grp.mm[[field_names$groupId]]) != 0)
   group_sizes <- rle(ref_sample_grp.mm[[field_names$groupId]])$lengths
 
-  ref_sample_grp.agg <- ref_sample_grp.mm[group_proxy_positions, ]
+  ref_sample_grp.agg <- ref_sample_grp.mm[group_proxy_positions,, drop = FALSE]
 
   message("Transforming weights")
   group_size_rescale <- rep(group_sizes, group_sizes)
@@ -147,24 +153,24 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
 
   message("Flattening reference sample")
   ref_sample.agg.agg <- aggregate(as.formula(sprintf("%s~.", field_names$groupId)),
-                                  ref_sample.agg, FUN=identity)
+                                  ref_sample.agg, FUN=identity, simplify = FALSE)
 
-  group_ids <- ref_sample.agg.agg[, field_names$groupId]
+  group_ids <- ref_sample.agg.agg[, field_names$groupId, drop = TRUE]
   group_ids <- setNames(group_ids, nm = sprintf("%d.", seq_along(group_ids)))
   group_ids_u <- unlist(group_ids, use.names = TRUE)
 
-  rows_from <- match(group_ids_u, ref_sample.agg[, field_names$groupId])
+  rows_from <- match(group_ids_u, ref_sample.agg[, field_names$groupId, drop = TRUE])
   rows_to <- trunc(as.numeric(names(group_ids_u)))
 
   agg_agg_weights_transform <- Matrix::sparseMatrix(
-    i=rows_from, j=rows_to, x=1, dimnames=list(ref_sample.agg[, field_names$groupId], NULL))
+    i=rows_from, j=rows_to, x=1, dimnames=list(ref_sample.agg[, field_names$groupId, drop = TRUE], NULL))
 
   weights_transform <- weights_transform %*% agg_agg_weights_transform
   prior_weights_agg_agg <- as.vector(prior_weights_agg %*% agg_agg_weights_transform)
 
   message("Transposing reference sample")
   ref_sample.agg.agg.m <- t(as.matrix(ref_sample.agg.agg[
-    , setdiff(colnames(ref_sample.agg.agg), field_names$groupId)]))
+    , setdiff(colnames(ref_sample.agg.agg), field_names$groupId), drop = FALSE]))
 
   message("Flattening controls")
   control.totals.list <- plyr::llply(
@@ -181,7 +187,11 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     function (control.name)
       unname(control.totals.dup[names(control.totals.dup) == control.name])
   )
+
   control.totals <- sapply(control.totals.dup.rearrange, `[[`, 1L)
+  if (length(control.totals) == 0L)
+    control.totals <- numeric()
+
   control.totals.conflicts <- sapply(
     control.totals.dup.rearrange,
     function(x) !isTRUE(all.equal(x, rep(x[[1L]], length(x))))
@@ -208,7 +218,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
       paste(setdiff(rownames(ref_sample.agg.agg.m), intersect_names), collapse=", "))
   }
 
-  ref_sample.agg.agg.m <- ref_sample.agg.agg.m[intersect_names, ]
+  ref_sample.agg.agg.m <- ref_sample.agg.agg.m[intersect_names,, drop = FALSE]
   control.totals <- control.totals[intersect_names]
 
   message("Checking zero-valued controls")
@@ -255,7 +265,10 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   stopifnot(all.equal(Matrix::diag(reverse_weights_transform %*% weights_transform), rep(1, ncol(weights_transform))))
 
   message("Normalizing weights")
-  prior_weights_agg_agg <- prior_weights_agg_agg / sum(prior_weights_agg_agg) * control.totals[c("(Intercept)_g", "(Intercept)_i")][[1]]
+  prior_weights_agg_agg <- prior_weights_agg_agg / sum(prior_weights_agg_agg) *
+    unname(coalesce.na(control.totals["(Intercept)_g"],
+                       control.totals["(Intercept)_i"],
+                       sum(prior_weights_agg_agg)))
 
   message("Done!")
   structure(
