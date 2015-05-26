@@ -75,7 +75,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
             control.names=control.names,
             new.control.names=new.control.names,
             term=control.term,
-            control=(control[[field_names$count]] %*% control.mm)[1,]
+            control=(control[[field_names$count]] %*% control.mm)[1,, drop = TRUE]
           )
         }
       )
@@ -155,15 +155,15 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   ref_sample.agg.agg <- aggregate(as.formula(sprintf("%s~.", field_names$groupId)),
                                   ref_sample.agg, FUN=identity, simplify = FALSE)
 
-  group_ids <- ref_sample.agg.agg[, field_names$groupId]
+  group_ids <- ref_sample.agg.agg[, field_names$groupId, drop = TRUE]
   group_ids <- setNames(group_ids, nm = sprintf("%d.", seq_along(group_ids)))
   group_ids_u <- unlist(group_ids, use.names = TRUE)
 
-  rows_from <- match(group_ids_u, ref_sample.agg[, field_names$groupId])
+  rows_from <- match(group_ids_u, ref_sample.agg[, field_names$groupId, drop = TRUE])
   rows_to <- trunc(as.numeric(names(group_ids_u)))
 
   agg_agg_weights_transform <- Matrix::sparseMatrix(
-    i=rows_from, j=rows_to, x=1, dimnames=list(ref_sample.agg[, field_names$groupId], NULL))
+    i=rows_from, j=rows_to, x=1, dimnames=list(ref_sample.agg[, field_names$groupId, drop = TRUE], NULL))
 
   weights_transform <- weights_transform %*% agg_agg_weights_transform
   prior_weights_agg_agg <- as.vector(prior_weights_agg %*% agg_agg_weights_transform)
