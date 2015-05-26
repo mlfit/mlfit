@@ -22,8 +22,10 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
 
   .patch_verbose()
 
-  # Assume uniform prior weights
-  prior_weights <- rep(1, nrow(ref_sample))
+  if (is.null(prior_weights)) {
+    # If not given, assume uniform prior weights
+    prior_weights <- rep(1, nrow(ref_sample))
+  }
 
   message("Computing expected individuals-per-group ratio")
   IPG <- if (length(controls$group) * length(controls$individual) > 0) {

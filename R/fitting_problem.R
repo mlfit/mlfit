@@ -8,6 +8,7 @@
 #' @param individual_controls,group_controls Control totals at individual
 #'   and group level, given as a list of data frames where each data frame
 #'   defines a control
+#' @param prior_weights Prior (or design) weights
 #' @return An object of class \code{fitting_problem}, essentially a named list
 #'   with the following components:
 #' \describe{
@@ -21,10 +22,12 @@ fitting_problem <- function(ref_sample,
                             controls = list(individual = individual_controls,
                                             group = group_controls),
                             field_names,
-                            individual_controls, group_controls)
+                            individual_controls, group_controls,
+                            prior_weights = NULL)
 {
   structure(
-    list(refSample = ref_sample, controls = controls, fieldNames = field_names),
+    list(refSample = ref_sample, controls = controls, fieldNames = field_names,
+         priorWeights = prior_weights),
     class = c("fitting_problem")
   )
 }
