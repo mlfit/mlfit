@@ -1,6 +1,12 @@
 \name{NEWS}
 \title{News for Package 'MultiLevelIPF'}
 \encoding{UTF-8}
+\section{Changes in MultiLevelIPF version 0.1 (2015-05-26)}{
+  \itemize{
+    \item new functions \code{fitting_problem}, \code{is.fitting_problem}, \code{special_field_names}
+    \item all fitting functions now expect an object of class \code{fitting_problem} (as returned by the \code{fitting_problem} and \code{import_IPAF_problem} functions); former calls like \code{ml_fit(ref_sample, controls, field_names)} now need to be written as \code{ml_fit(fitting_problem(...))}
+  }
+}
 \section{Changes in MultiLevelIPF version 0.0-14 (2015-04-15)}{
   \itemize{
     \item use \code{grake} package instead of \code{laeken}
