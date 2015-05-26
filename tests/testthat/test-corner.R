@@ -1,10 +1,10 @@
 context("Corner cases")
 
-ref_sample <- data.frame(gid=1:3, A=factor("a"))
-ref_sample <- plyr::adply(ref_sample, 1, function(chunk)
-  data.frame(iid = seq_len(chunk$gid), n = chunk$gid))
-
 test_that("Grand totals only", {
+  ref_sample <- data.frame(gid=1:3, A=factor("a"))
+  ref_sample <- plyr::adply(ref_sample, 1, function(chunk)
+    data.frame(iid = seq_len(chunk$gid), n = chunk$gid))
+
   group_control_grand = data.frame(N=3)
   group_control_dummy = data.frame(N=3, A=factor("a"))
   individual_control_grand = data.frame(N=6)
