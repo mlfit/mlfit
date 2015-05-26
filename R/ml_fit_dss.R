@@ -29,12 +29,13 @@ ml_fit_dss <- function(fitting_problem,
                        ginv = MASS::ginv,
                        verbose = FALSE)
 {
-  ref_sample <- controls <- field_names <- NULL
-  .patch_ml_fit_args()
   .patch_verbose()
 
-  flat <- flatten_ml_fit_problem(fitting_problem = fitting_problem,
-                                 verbose = verbose)
+  flat <- if (is.fitting_problem(fitting_problem)) {
+    flatten_ml_fit_problem(fitting_problem = fitting_problem, verbose = verbose)
+  } else {
+    fitting_problem
+  }
 
   message("Calibrating")
   g <- grake::calibWeights(X = t(flat$ref_sample), d = flat$weights,

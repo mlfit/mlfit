@@ -15,12 +15,13 @@
 #' ml_fit_entropy_o(fitting_problem = import_IPAF_results(path))
 ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE,
                              dfsane_args = list()) {
-  ref_sample <- controls <- field_names <- NULL
-  .patch_ml_fit_args()
   .patch_verbose()
 
-  flat <- flatten_ml_fit_problem(fitting_problem = fitting_problem,
-                                 verbose = verbose)
+  flat <- if (is.fitting_problem(fitting_problem)) {
+    flatten_ml_fit_problem(fitting_problem = fitting_problem, verbose = verbose)
+  } else {
+    fitting_problem
+  }
 
   par <- rep(0, length(flat$control_totals))
   dfsane_args$par <- par
