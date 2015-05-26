@@ -8,6 +8,7 @@ test_that("entropy_o algorithm", {
   results <- llply(setNames(test_paths, nm=test_names), import_IPAF_results)
   llply(results, function(problem) {
     fit <- ml_fit_entropy_o(problem)
+    margins <- compute_margins(problem, fit$weights)
     expect_true(all(abs(fit$residuals) < 1e-6))
   })
 })
