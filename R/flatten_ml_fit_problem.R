@@ -62,6 +62,8 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
           colnames(control) <- control.and.count.names
 
           control.term <- paste0(new.control.names, collapse='*')
+          if (nchar(control.term) == 0)
+            control.term <- "1"
 
           control.mm <- model.matrix(
             as.formula(sprintf("~%s", control.term)),
