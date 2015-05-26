@@ -18,9 +18,9 @@ Imports:
     BB,
     Matrix,
     grake (>= 0.0-2),
-    MASS
+    MASS,
+    kimisc
 Suggests:
     testthat,
-    XML,
-    kimisc
+    XML
 GitHub: https://github.com/krlmlr/MultiLevelIPF

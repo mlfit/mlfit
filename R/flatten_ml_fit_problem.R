@@ -9,6 +9,7 @@
 #' @return An object of classes \code{flat_ml_fit_problem},
 #'   essentially a named list.
 #' @seealso \code{\link{ml_fit}}
+#' @importFrom kimisc coalesce.na
 #' @export
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
