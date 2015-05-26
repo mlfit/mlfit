@@ -1,3 +1,6 @@
+v0.1 (2015-05-26)
+===
+
 - new functions `fitting_problem`, `is.fitting_problem`, `special_field_names`
 - all fitting functions now expect an object of class `fitting_problem` (as returned by the `fitting_problem` and `import_IPAF_problem` functions); former calls like `ml_fit(ref_sample, controls, field_names)` now need to be written as `ml_fit(fitting_problem(...))`
 
