@@ -102,8 +102,11 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   if (!(field_names$groupId %in% colnames(ref_sample)))
     stop("Group ID column ", field_names$groupId, " not found in reference sample.")
   stopifnot(is.numeric(ref_sample[[field_names$groupId]]))
-  ref_sample_grp.mm <- as.data.frame(model.matrix(
-    as.formula(sprintf("~%s+%s", field_names$groupId, control.formulae$group)),
+  formula_grp <- sprintf("~%s", field_names$groupId)
+  if (nchar(control.formulae$group) > 0) {
+    formula_grp <- sprintf("%s+%s", formula_grp, control.formulae$group)
+  }
+  ref_sample_grp.mm <- as.data.frame(model.matrix(as.formula(formula_grp),
     plyr::rename(ref_sample[c(field_names$groupId, names(control.names$group))], control.names$group)))
   ref_sample_grp.mm <- .rename.intercept(ref_sample_grp.mm, "group")
 
@@ -208,7 +211,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
       paste(setdiff(rownames(ref_sample.agg.agg.m), intersect_names), collapse=", "))
   }
 
-  ref_sample.agg.agg.m <- ref_sample.agg.agg.m[intersect_names, ]
+  ref_sample.agg.agg.m <- ref_sample.agg.agg.m[intersect_names,, drop = FALSE]
   control.totals <- control.totals[intersect_names]
 
   message("Checking zero-valued controls")
