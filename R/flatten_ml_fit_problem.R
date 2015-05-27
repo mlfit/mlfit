@@ -10,6 +10,7 @@
 #'   essentially a named list.
 #' @seealso \code{\link{ml_fit}}
 #' @importFrom kimisc coalesce.na
+#' @importFrom plyr laply
 #' @export
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
@@ -88,7 +89,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   control.formulae <- llply(
     control.terms.list,
     function(control.terms) {
-      paste(plyr::laply(control.terms, `[[`, 'term'), collapse='+')
+      paste(laply(control.terms, `[[`, 'term'), collapse='+')
     }
   )
 
