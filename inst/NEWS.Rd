@@ -1,6 +1,12 @@
 \name{NEWS}
 \title{News for Package 'MultiLevelIPF'}
 \encoding{UTF-8}
+\section{Changes in MultiLevelIPF version 0.1-4 (2015-05-27)}{
+  \itemize{
+    \item new functions \code{compute_margins} and \code{margins_to_df} for validation
+    \item don't alter column names of controls if they are of type \code{data.table} (explicitly convert to \code{data.frame})
+  }
+}
 \section{Changes in MultiLevelIPF version 0.1-3 (2015-05-26)}{
   \itemize{
     \item proper handling of corner cases (reference sample with one row)
