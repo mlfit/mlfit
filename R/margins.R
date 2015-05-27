@@ -27,7 +27,7 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
   }
 
   message("Aggregating")
-  plyr::llply(
+  llply(
     setNames(nm=names(controls)),
     function(control.type) {
       weights_df <- data.frame(
@@ -39,7 +39,7 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
       ref_sample_w <- cbind(weights_df, ref_sample)
 
       control.list <- controls[[control.type]]
-      plyr::llply(
+      llply(
         control.list,
         control.type = control.type,
         function(control, control.type) {

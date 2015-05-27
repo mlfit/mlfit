@@ -19,6 +19,7 @@
 #'   \item{\code{algorithms}}{A list of algorithm names.}
 #'   \item{\code{weights}}{A named list with weight vectors, one per algorithm.}
 #' }
+#' @importFrom plyr llply
 #' @export
 import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config.xml") {
   stopifnot(length(path) == 1)
@@ -43,10 +44,10 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
 
   fieldNames <- config$fieldNames
 
-  controls <- plyr::llply(
+  controls <- llply(
     setNames(nm=c("individual", "group")),
     function(type) {
-      plyr::llply(
+      llply(
         setNames(nm=unlist(config$controls[[type]])),
         function (control) {
           control.df <- rd(control)
@@ -60,10 +61,10 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
     }
   )
 
-  control.columns <- plyr::llply(
+  control.columns <- llply(
     controls,
     function(control.type) {
-      plyr::llply(
+      llply(
         control.type,
         function(control)
           names(control)
@@ -77,7 +78,7 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
 
   algorithms <- setNames(nm=unlist(config$algorithms))
 
-  weights <- plyr::llply(
+  weights <- llply(
     algorithms,
     function (algo) {
       subdir_paths <- dir(path, pattern=glob2rx(sprintf("*-%s", algo)),
@@ -97,7 +98,7 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
         if (!all_weights)
           csv_paths <- csv_paths[which.max(csv_numbers)]
 
-        plyr::llply(
+        llply(
           csv_paths,
           function(csv_path) {
             weights <- read.csv(csv_path)

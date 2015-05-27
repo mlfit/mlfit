@@ -35,11 +35,11 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     NULL
 
   message("Preparing controls")
-  control.terms.list <- plyr::llply(
+  control.terms.list <- llply(
     setNames(nm=names(controls)),
     function(control.type) {
       control.list <- controls[[control.type]]
-      control.columns <- plyr::llply(
+      control.columns <- llply(
         control.list,
         control.type = control.type,
         function(control, control.type) {
@@ -85,7 +85,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     }
   )
 
-  control.formulae <- plyr::llply(
+  control.formulae <- llply(
     control.terms.list,
     function(control.terms) {
       paste(plyr::laply(control.terms, `[[`, 'term'), collapse='+')
@@ -95,10 +95,10 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   # List of "individual" and "group"
   #   Each item contains a named vector: names are column names in the original
   #   dataset, values are new names in the mangled dataset
-  control.names <- plyr::llply(
+  control.names <- llply(
     control.terms.list,
     function(control.terms) {
-      control.names <- unlist(plyr::llply(unname(control.terms), function(control.term)
+      control.names <- unlist(llply(unname(control.terms), function(control.term)
         setNames(control.term$new.control.names, control.term$control.names)))
       control.names[!duplicated(control.names)]
     }
@@ -176,16 +176,16 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     , setdiff(colnames(ref_sample.agg.agg), field_names$groupId), drop = FALSE]))
 
   message("Flattening controls")
-  control.totals.list <- plyr::llply(
+  control.totals.list <- llply(
     control.terms.list,
     function(control.terms) {
-      unname(plyr::llply(control.terms, `[[`, 'control'))
+      unname(llply(control.terms, `[[`, 'control'))
     }
   )
   control.totals.dup <- unlist(unname(control.totals.list), use.names=TRUE)
 
   message("Checking controls for conflicts")
-  control.totals.dup.rearrange <- plyr::llply(
+  control.totals.dup.rearrange <- llply(
     setNames(nm=unique(names(control.totals.dup))),
     function (control.name)
       unname(control.totals.dup[names(control.totals.dup) == control.name])
