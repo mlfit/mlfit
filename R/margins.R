@@ -65,16 +65,17 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
 #' @inheritParams special_field_names
 #'
 #' @rdname compute_margins
+#' @importFrom plyr ldply
 #' @export
 margin_to_df <- function(controls, count, verbose = FALSE) {
   .patch_verbose()
 
   message("Converting list structure to data frame")
-  plyr::ldply(
+  ldply(
     setNames(nm=names(controls)),
     function(control.type) {
       control.list <- controls[[control.type]]
-      plyr::ldply(
+      ldply(
         control.list,
         control.type = control.type,
         function(control, control.type) {
