@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>ml_fit. MultiLevelIPF 0.1-3</title>
+<title>ml_fit. MultiLevelIPF 0.1-4</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">MultiLevelIPF 0.1-3</a>
+      <a class="brand" href="#">MultiLevelIPF 0.1-4</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -155,6 +155,123 @@ $reverse_weights_transform
 [5,] . . . . . . . . . . . 1 1 1 .   .   . . . . . .   .  
 [6,] . . . . . . . . 1 1 1 . . . .   .   . . . . . .   .  
 [7,] . . . . . . . . . . . . . . .   .   1 1 1 1 1 .   .  
+
+$fitting_problem
+$refSample
+   HHNR PNR APER CAR WKSTAT
+1     1   1    3   0      1
+2     1   2    3   0      2
+3     1   3    3   0      3
+4     2   4    2   0      1
+5     2   5    2   0      3
+6     3   6    3   0      1
+7     3   7    3   0      1
+8     3   8    3   0      2
+9     4   9    3   1      1
+10    4  10    3   1      3
+11    4  11    3   1      3
+12    5  12    3   1      2
+13    5  13    3   1      2
+14    5  14    3   1      3
+15    6  15    2   1      1
+16    6  16    2   1      2
+17    7  17    5   1      1
+18    7  18    5   1      1
+19    7  19    5   1      2
+20    7  20    5   1      3
+21    7  21    5   1      3
+22    8  22    2   1      1
+23    8  23    2   1      2
+
+$controls
+$controls$individual
+$controls$individual$IND
+  WKSTAT   N
+1      1  91
+2      2  65
+3      3 104
+
+
+$controls$group
+$controls$group$GROUP
+  CAR  N
+1   0 35
+2   1 65
+
+
+
+$fieldNames
+$fieldNames$groupId
+[1] &quot;HHNR&quot;
+
+$fieldNames$individualId
+[1] &quot;PNR&quot;
+
+$fieldNames$individualsPerGroup
+[1] &quot;APER&quot;
+
+$fieldNames$count
+[1] &quot;N&quot;
+
+
+$algorithms
+  entropy_o(1,0)   entropy_o(0,1)   entropy_o(1,1)          entropy 
+&quot;entropy_o(1,0)&quot; &quot;entropy_o(0,1)&quot; &quot;entropy_o(1,1)&quot;        &quot;entropy&quot; 
+          ml_ipf              ipu 
+        &quot;ml_ipf&quot;            &quot;ipu&quot; 
+
+$weights
+$weights$`entropy_o(1,0)`
+$weights$`entropy_o(1,0)`$`1`
+ [1]  8.937470  8.937470  8.937470 23.448579 23.448579  2.613950  2.613950
+ [8]  2.613950 25.899223 25.899223 25.899223 14.347802 14.347802 14.347802
+[15] 11.009562 11.009562  2.733852  2.733852  2.733852  2.733852  2.733852
+[22] 11.009562 11.009562
+
+
+$weights$`entropy_o(0,1)`
+$weights$`entropy_o(0,1)`$`1`
+ [1]  7.094093  7.094093  7.094093 26.003583 26.003583  1.902324  1.902324
+ [8]  1.902324 23.939244 23.939244 23.939244 14.942828 14.942828 14.942828
+[15] 11.038712 11.038712  4.040504  4.040504  4.040504  4.040504  4.040504
+[22] 11.038712 11.038712
+
+
+$weights$`entropy_o(1,1)`
+$weights$`entropy_o(1,1)`$`1`
+ [1]  7.535226  7.535226  7.535226 25.411659 25.411659  2.053116  2.053116
+ [8]  2.053116 24.384874 24.384874 24.384874 14.796533 14.796533 14.796533
+[15] 11.037588 11.037588  3.743417  3.743417  3.743417  3.743417  3.743417
+[22] 11.037588 11.037588
+
+
+$weights$entropy
+$weights$entropy$`216`
+ [1]  8.937493  8.937493  8.937493 23.448483 23.448483  2.614061  2.614061
+ [8]  2.614061 25.899088 25.899088 25.899088 14.347513 14.347513 14.347513
+[15] 11.009707 11.009707  2.733948  2.733948  2.733948  2.733948  2.733948
+[22] 11.009707 11.009707
+
+
+$weights$ml_ipf
+$weights$ml_ipf$`393`
+ [1]  8.109948  8.109948  8.109948 23.938335 23.938335  2.951698  2.951698
+ [8]  2.951698 25.807632 25.807632 25.807632 14.745812 14.745812 14.745812
+[15] 10.825802 10.825802  2.794970  2.794970  2.794970  2.794970  2.794970
+[22] 10.825802 10.825802
+
+
+$weights$ipu
+$weights$ipu$`637`
+ [1]  1.360426  1.360426  1.360426 25.659918 25.659918  7.979121  7.979121
+ [8]  7.979121 27.790582 27.790582 27.790582 18.451714 18.451714 18.451714
+[15]  8.641665  8.641665  1.473389  1.473389  1.473389  1.473389  1.473389
+[22]  8.641665  8.641665
+
+
+
+attr(,&quot;class&quot;)
+[1] &quot;IPAF_result&quot;     &quot;fitting_problem&quot;
 
 attr(,&quot;class&quot;)
 [1] &quot;flat_ml_fit_problem&quot;

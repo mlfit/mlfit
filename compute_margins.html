@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>import_IPAF_results. MultiLevelIPF 0.1-4</title>
+<title>compute_margins. MultiLevelIPF 0.1-4</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -48,66 +48,62 @@
         
       </header>
       
-      <h1>Imports results from a run of the original Python implementation</h1>
+      <h1>Compute margins for a weighting of a multi-level fitting problem</h1>
 
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>import_IPAF_results(path, all_weights&nbsp;=&nbsp;FALSE, config_name&nbsp;=&nbsp;"config.xml")</div></pre>
+    <pre><div>compute_margins(fitting_problem, weights, verbose&nbsp;=&nbsp;FALSE)</div>
+<div>margin_to_df(controls, count, verbose&nbsp;=&nbsp;FALSE)</div></pre>
     
     <h2>Arguments</h2>
     <dl>
-      <dt>path</dt>
-      <dd>Path to the directory that contains the input/output files</dd>
-      <dt>all_weights</dt>
-      <dd>Should all weights be loaded, or only the final ones
-(default)?</dd>
-      <dt>config_name</dt>
-      <dd>Name of the main configuration file, defaults to
-<code>"config.xml"</code></dd>
+      <dt>fitting_problem</dt>
+      <dd>A fitting problem created by
+<code><a href='fitting_problem.html'>fitting_problem</a></code> or <code><a href='import_IPAF_results.html'>import_IPAF_results</a></code>.</dd>
+      <dt>weights</dt>
+      <dd>A vector with one entry per row of the original reference
+sample</dd>
+      <dt>verbose</dt>
+      <dd>If <code>TRUE</code>, print diagnostic output.</dd>
+      <dt>controls</dt>
+      <dd>Margins as returned by <code>compute_margins</code> or as passed
+to the <code>controls</code> parameter of <code><a href='fitting_problem.html'>fitting_problem</a></code>.</dd>
+      <dt>count</dt>
+      <dd>Name of control total column in control tables</dd>
     </dl>
     
-    <div class="Value">
-      <h2>Value</h2>
-
-      <p><dl>
-An object of class <code>IPAF_result</code>, essentially a named list with
-  the following components:
-<dl>
-  <dt><code>refSample</code></dt><dd>The reference sample, a <code>data.frame</code>.</dd></p>
-  
-      <p><dt><code>controls</code></dt><dd>A named list with two components, <code>individual</code>
-  and <code>group</code>. Each contains a list of controls as <code>data.frame</code>s.</dd></p>
-  
-      <p><dt><code>fieldNames</code></dt><dd>A named list with the names of special fields.</dd></p>
-  
-      <p><dt><code>algorithms</code></dt><dd>A list of algorithm names.</dd></p>
-  
-      <p><dt><code>weights</code></dt><dd>A named list with weight vectors, one per algorithm.</dd></p>
-  
-      <p></dl></p>
-  
-      <p></dl></p>
-  
-    </div>
-
     <div class="Description">
       <h2>Description</h2>
 
-      <p>This helper function imports input, data and results from a run of the
-original Python implementation into a named list.  The file `config.xml`
-is read and interpreted.</p>
+      <p>These functions allows checking a fit in terms of the original input data.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p><code>compute_margins</code> computes margins in the format used for the input
+controls (i.e., as expected by the <code>controls</code> parameter of the
+<code><a href='fitting_problem.html'>fitting_problem</a></code> function),
+based on a reference sample and a weights vector.</p>
+  
+      <p><code>margins_to_df</code> converts margins to a data frame for easier comparison.</p>
   
     </div>
       </div>
   <div class="span4">
     <!-- <ul>
-      <li>import_IPAF_results</li>
+      <li>compute_margins</li><li>margin_to_df</li>
     </ul>
     <ul>
       
     </ul> -->
       
+    <h2>See also</h2>
+    
+<code><a href='ml_fit.html'>ml_fit</a></code>
+
         
   </div>
 </div>
