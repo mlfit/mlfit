@@ -10,7 +10,7 @@
 #'   essentially a named list.
 #' @seealso \code{\link{ml_fit}}
 #' @importFrom kimisc coalesce.na
-#' @importFrom plyr laply
+#' @importFrom plyr laply adply
 #' @export
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")

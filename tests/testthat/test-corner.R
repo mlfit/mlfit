@@ -2,7 +2,7 @@ context("Corner cases")
 
 test_that("Grand totals only", {
   ref_sample_full <- data.frame(gid=1:3, A=factor("a"))
-  ref_sample_full <- plyr::adply(ref_sample_full, 1, function(chunk)
+  ref_sample_full <- adply(ref_sample_full, 1, function(chunk)
     data.frame(iid = seq_len(chunk$gid), n = chunk$gid))
 
   ref_sample_one <- data.frame(gid=1, iid=1, n=1, A=factor("a"))
