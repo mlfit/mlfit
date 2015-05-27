@@ -1,3 +1,6 @@
+v0.1-4 (2015-05-27)
+===
+
 - new functions `compute_margins` and `margins_to_df` for validation
 - don't alter column names of controls if they are of type `data.table` (explicitly convert to `data.frame`)
 
