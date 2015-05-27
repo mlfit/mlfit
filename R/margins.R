@@ -60,6 +60,10 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
 #' @details
 #' \code{margins_to_df} converts margins to a data frame for easier comparison.
 #'
+#' @param controls Margins as returned by \code{compute_margins} or as passed
+#'   to the \code{controls} parameter of \code{\link{fitting_problem}}.
+#' @inheritParams special_field_names
+#'
 #' @rdname compute_margins
 #' @export
 margin_to_df <- function(controls, count, verbose = FALSE) {

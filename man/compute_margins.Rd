@@ -17,6 +17,11 @@ margin_to_df(controls, count, verbose = FALSE)
 sample}
 
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
+
+\item{controls}{Margins as returned by \code{compute_margins} or as passed
+to the \code{controls} parameter of \code{\link{fitting_problem}}.}
+
+\item{count}{Name of control total column in control tables}
 }
 \description{
 These functions allows checking a fit in terms of the original input data.
