@@ -288,9 +288,14 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   )
 }
 
-.control.type.abbrev <- function(control.type) substr(control.type, 1, 1)
+.control.type.abbrev <- function(control.type) {
+  substr(control.type, 1, 1)
+}
+
+#' @importFrom plyr revalue
 .rename.intercept <- function(data, control.type) {
-  colnames(data) <- plyr::revalue(colnames(data),
-                                  c(`(Intercept)`=sprintf("(Intercept)_%s", .control.type.abbrev(control.type))))
+  colnames(data) <- revalue(
+    colnames(data),
+    c(`(Intercept)`=sprintf("(Intercept)_%s", .control.type.abbrev(control.type))))
   data
 }
