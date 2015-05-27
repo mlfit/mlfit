@@ -43,6 +43,9 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
         control.list,
         control.type = control.type,
         function(control, control.type) {
+          # Secure against data.table
+          control <- as.data.frame(control)
+
           control.and.count.names <- setNames(nm=colnames(control))
           control.names.unordered <- setdiff(control.and.count.names, field_names$count)
           control.names <- colnames(ref_sample)[colnames(ref_sample) %in% control.names.unordered]
@@ -277,7 +280,8 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
       weights=prior_weights_agg_agg,
       control_totals=control.totals,
       weights_transform=weights_transform,
-      reverse_weights_transform=reverse_weights_transform
+      reverse_weights_transform=reverse_weights_transform,
+      fitting_problem=fitting_problem
     ),
     class=c("flat_ml_fit_problem")
   )
