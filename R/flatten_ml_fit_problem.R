@@ -29,12 +29,6 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     prior_weights <- rep(1, nrow(ref_sample))
   }
 
-  message("Computing expected individuals-per-group ratio")
-  IPG <- if (length(controls$group) * length(controls$individual) > 0) {
-    sum(controls$individual[[1]][[field_names$count]]) / sum(controls$group[[1]][[field_names$count]])
-  } else
-    NULL
-
   message("Preparing controls")
   control.terms.list <- llply(
     setNames(nm=names(controls)),
