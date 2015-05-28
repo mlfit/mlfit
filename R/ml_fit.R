@@ -35,7 +35,7 @@ ml_fit <- function(algorithm = c("entropy_o", "dss"),
 .patch_verbose <- function() {
   verbose <- get("verbose", parent.frame())
   if (!verbose) {
-    export.list(list(message=invisible),
+    export.list(list(message=function(...) invisible(NULL)),
       target.env=parent.frame())
   }
 }
