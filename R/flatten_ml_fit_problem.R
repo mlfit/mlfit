@@ -66,7 +66,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
           control.and.count.names[control.names] <- new.control.names
           colnames(control) <- control.and.count.names
 
-          control.term <- paste0(new.control.names, collapse='*')
+          control.term <- paste0(new.control.names, collapse="*")
           if (nchar(control.term) == 0)
             control.term <- "1"
 
@@ -89,7 +89,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   control.formulae <- llply(
     control.terms.list,
     function(control.terms) {
-      paste(laply(control.terms, `[[`, 'term'), collapse='+')
+      paste(laply(control.terms, `[[`, "term"), collapse="+")
     }
   )
 
@@ -180,7 +180,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   control.totals.list <- llply(
     control.terms.list,
     function(control.terms) {
-      unname(llply(control.terms, `[[`, 'control'))
+      unname(llply(control.terms, `[[`, "control"))
     }
   )
   control.totals.dup <- unlist(unname(control.totals.list), use.names=TRUE)

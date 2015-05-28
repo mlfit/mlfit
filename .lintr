@@ -4,7 +4,5 @@ linters: with_defaults(
     line_length_linter = NULL, # 60
     assignment_linter = NULL, # 16
     spaces_left_parentheses_linter = NULL, # 6
-    object_usage_linter = NULL, # 4
-    single_quotes_linter = NULL, # 4
     NULL
   )
