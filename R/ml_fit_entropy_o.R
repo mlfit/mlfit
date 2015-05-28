@@ -45,8 +45,8 @@ ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE,
   structure(
     list(
       weights=unname(weights.ref_sample),
-      success=(bbout$message == "Successful convergence"),
-      residuals=(flat$ref_sample %*% weights.agg)[,1] - flat$control_totals,
+      success = (bbout$message == "Successful convergence"),
+      residuals = (flat$ref_sample %*% weights.agg)[,1] - flat$control_totals,
       flat=flat,
       flat_weights=weights.agg,
       bbout=bbout
@@ -71,7 +71,8 @@ dss.lhs.orig.m <- function(x, F, d) {
   function(lambda) {
     dss.lhs.matrix <- apply(x, 2, function(xk) {
       F(sum(xk * lambda)) * xk
-    }) * rep(d, each = length(lambda))
+    })
+    dss.lhs.matrix <- dss.lhs.matrix * rep(d, each = length(lambda))
     apply(dss.lhs.matrix, 1, sum)
   }
 }

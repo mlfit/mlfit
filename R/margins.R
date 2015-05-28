@@ -18,7 +18,6 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
   ref_sample <- fitting_problem$refSample
   controls <- fitting_problem$controls
   field_names <- fitting_problem$fieldNames
-  prior_weights <- fitting_problem$priorWeights
 
   .patch_verbose()
 

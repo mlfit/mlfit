@@ -23,8 +23,7 @@ fitting_problem <- function(ref_sample,
                                             group = group_controls),
                             field_names,
                             individual_controls, group_controls,
-                            prior_weights = NULL)
-{
+                            prior_weights = NULL) {
   structure(
     list(refSample = ref_sample, controls = controls, fieldNames = field_names,
          priorWeights = prior_weights),

@@ -66,12 +66,12 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
           control.and.count.names[control.names] <- new.control.names
           colnames(control) <- control.and.count.names
 
-          control.term <- paste0(new.control.names, collapse='*')
+          control.term <- paste0(new.control.names, collapse="*")
           if (nchar(control.term) == 0)
             control.term <- "1"
 
           control.mm <- model.matrix(
-            as.formula(sprintf("~%s", control.term)),
+            as.formula(sprintf("~%s", control.term)), # nolint
             control)
           control.mm <- .rename.intercept(control.mm, control.type)
 
@@ -79,7 +79,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
             control.names=control.names,
             new.control.names=new.control.names,
             term=control.term,
-            control=(control[[field_names$count]] %*% control.mm)[1,, drop = TRUE]
+            control = (control[[field_names$count]] %*% control.mm)[1,, drop = TRUE]
           )
         }
       )
@@ -89,7 +89,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   control.formulae <- llply(
     control.terms.list,
     function(control.terms) {
-      paste(laply(control.terms, `[[`, 'term'), collapse='+')
+      paste(laply(control.terms, `[[`, "term"), collapse="+")
     }
   )
 
@@ -109,7 +109,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   if (!(field_names$groupId %in% colnames(ref_sample)))
     stop("Group ID column ", field_names$groupId, " not found in reference sample.")
   stopifnot(is.numeric(ref_sample[[field_names$groupId]]))
-  formula_grp <- sprintf("~%s", field_names$groupId)
+  formula_grp <- sprintf("~%s", field_names$groupId) # nolint
   if (nchar(control.formulae$group) > 0) {
     formula_grp <- sprintf("%s+%s", formula_grp, control.formulae$group)
   }
@@ -138,7 +138,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   if (!is.null(control.formulae$individual) && nchar(control.formulae$individual) > 0) {
     message("Preparing reference sample (individuals)")
     ref_sample_ind.mm <- as.data.frame(model.matrix(
-      as.formula(sprintf("~%s+%s", field_names$groupId, control.formulae$individual)),
+      as.formula(sprintf("~%s+%s", field_names$groupId, control.formulae$individual)), # nolint
       plyr::rename(ref_sample[c(field_names$groupId, names(control.names$individual))], control.names$individual)))
 
     message("Aggregating")
@@ -180,7 +180,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   control.totals.list <- llply(
     control.terms.list,
     function(control.terms) {
-      unname(llply(control.terms, `[[`, 'control'))
+      unname(llply(control.terms, `[[`, "control"))
     }
   )
   control.totals.dup <- unlist(unname(control.totals.list), use.names=TRUE)
@@ -265,7 +265,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   }
 
   message("Computing reverse weights map")
-  reverse_weights_transform <- ((1/prior_weights_agg_agg) * Matrix::t(prior_weights * group_size_rescale * weights_transform))
+  reverse_weights_transform <- ( (1 / prior_weights_agg_agg) * Matrix::t(prior_weights * group_size_rescale * weights_transform))
   stopifnot(all.equal(Matrix::diag(reverse_weights_transform %*% weights_transform), rep(1, ncol(weights_transform))))
 
   message("Normalizing weights")
