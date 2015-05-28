@@ -12,7 +12,7 @@ fitting_problem(ref_sample, controls = list(individual = individual_controls,
 
 is.fitting_problem(x)
 
-special_field_names(groupId, individualId, individualsPerGroup, count)
+special_field_names(groupId, individualId, individualsPerGroup, count = NULL)
 }
 \arguments{
 \item{ref_sample}{The reference sample}
@@ -37,7 +37,8 @@ group or the individual}
 \item{individualsPerGroup}{Name of a column that contains the number
 of persons in the group}
 
-\item{count}{Name of control total column in control tables}
+\item{count}{Name of control total column in control tables (use first numeric
+  column in each control by default).}
 }
 \value{
 An object of class \code{fitting_problem}, essentially a named list

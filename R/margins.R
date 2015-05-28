@@ -61,7 +61,7 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
 #'
 #' @param controls Margins as returned by \code{compute_margins} or as passed
 #'   to the \code{controls} parameter of \code{\link{fitting_problem}}.
-#' @inheritParams special_field_names
+#' @param count Name of control total column.
 #'
 #' @rdname compute_margins
 #' @importFrom plyr ldply

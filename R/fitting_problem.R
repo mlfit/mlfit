@@ -40,11 +40,13 @@ is.fitting_problem <- function(x) inherits(x, "fitting_problem")
 #'   group or the individual
 #' @param individualsPerGroup Name of a column that contains the number
 #'   of persons in the group
-#' @param count Name of control total column in control tables
+#' @param count Name of control total column in control tables (use first numeric
+#'   column in each control by default).
 #'
 #' @importFrom kimisc nlist
 #' @export
 #' @rdname fitting_problem
-special_field_names <- function(groupId, individualId, individualsPerGroup, count) {
+special_field_names <- function(groupId, individualId, individualsPerGroup,
+                                count = NULL) {
   nlist(groupId, individualId, individualsPerGroup, count)
 }

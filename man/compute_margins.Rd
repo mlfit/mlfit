@@ -21,7 +21,7 @@ sample}
 \item{controls}{Margins as returned by \code{compute_margins} or as passed
 to the \code{controls} parameter of \code{\link{fitting_problem}}.}
 
-\item{count}{Name of control total column in control tables}
+\item{count}{Name of control total column.}
 }
 \description{
 These functions allows checking a fit in terms of the original input data.
