@@ -29,12 +29,6 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     prior_weights <- rep(1, nrow(ref_sample))
   }
 
-  message("Computing expected individuals-per-group ratio")
-  IPG <- if (length(controls$group) * length(controls$individual) > 0) {
-    sum(controls$individual[[1]][[field_names$count]]) / sum(controls$group[[1]][[field_names$count]])
-  } else
-    NULL
-
   message("Preparing controls")
   control.terms.list <- llply(
     setNames(nm=names(controls)),
@@ -46,9 +40,10 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
         function(control, control.type) {
           # Secure against data.table
           control <- as.data.frame(control)
+          count_name <- get_count_field_name(control, field_names$count, message)
 
           control.and.count.names <- setNames(nm=colnames(control))
-          control.names.unordered <- setdiff(control.and.count.names, field_names$count)
+          control.names.unordered <- setdiff(control.and.count.names, count_name)
           control.names <- colnames(ref_sample)[colnames(ref_sample) %in% control.names.unordered]
           if (length(control.names) != length(control.names.unordered)) {
             stop("Control variable(s) not found: ",
@@ -87,7 +82,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
             control.names=control.names,
             new.control.names=new.control.names,
             term=control.term,
-            control = (control[[field_names$count]] %*% control.mm)[1,, drop = TRUE]
+            control = (control[[count_name]] %*% control.mm)[1,, drop = TRUE]
           )
         }
       )
@@ -306,4 +301,26 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     colnames(data),
     c(`(Intercept)`=sprintf("(Intercept)_%s", .control.type.abbrev(control.type))))
   data
+}
+
+get_count_field_name <- function(control, name, message) {
+  if (is.null(name)) {
+    classes <- vapply(control, function(x) class(x)[[1L]], character(1))
+    numerics <- which(classes %in% c("integer", "numeric"))
+
+    if (length(numerics) == 0) {
+      stop("No numeric column found among control columns ",
+           paste(names(control), collapse = ", "), ".")
+    }
+
+    if (length(numerics) > 1) {
+      numerics <- numerics[[1L]]
+    }
+
+    message("Using ", names(control)[numerics],
+            " as count column for ",
+            paste(names(control)[-numerics], collapse = ", "), ".")
+    name <- names(control)[numerics]
+  }
+  name
 }
