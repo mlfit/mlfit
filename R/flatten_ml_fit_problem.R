@@ -71,7 +71,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
             control.term <- "1"
 
           control.mm <- model.matrix(
-            as.formula(sprintf("~%s", control.term)),
+            as.formula(sprintf("~%s", control.term)), # nolint
             control)
           control.mm <- .rename.intercept(control.mm, control.type)
 
@@ -109,7 +109,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   if (!(field_names$groupId %in% colnames(ref_sample)))
     stop("Group ID column ", field_names$groupId, " not found in reference sample.")
   stopifnot(is.numeric(ref_sample[[field_names$groupId]]))
-  formula_grp <- sprintf("~%s", field_names$groupId)
+  formula_grp <- sprintf("~%s", field_names$groupId) # nolint
   if (nchar(control.formulae$group) > 0) {
     formula_grp <- sprintf("%s+%s", formula_grp, control.formulae$group)
   }
@@ -138,7 +138,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   if (!is.null(control.formulae$individual) && nchar(control.formulae$individual) > 0) {
     message("Preparing reference sample (individuals)")
     ref_sample_ind.mm <- as.data.frame(model.matrix(
-      as.formula(sprintf("~%s+%s", field_names$groupId, control.formulae$individual)),
+      as.formula(sprintf("~%s+%s", field_names$groupId, control.formulae$individual)), # nolint
       plyr::rename(ref_sample[c(field_names$groupId, names(control.names$individual))], control.names$individual)))
 
     message("Aggregating")
