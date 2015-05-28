@@ -24,10 +24,6 @@
 import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config.xml") {
   stopifnot(length(path) == 1)
 
-
-  requireNamespace("XML")
-  requireNamespace("kimisc")
-
   rl <- function(n) file.path(path, n)
 
   xml_file <- rl(config_name)
