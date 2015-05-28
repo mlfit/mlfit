@@ -42,13 +42,14 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
         control.list,
         control.type = control.type,
         function(control, control.type) {
+          count_name <- get_count_field_name(control, field_names$count, message = message)
           plyr::rename(
             plyr::count(
               ref_sample_w,
-              setdiff(names(control), field_names[["count"]]),
+              setdiff(names(control), count_name),
               "..w.."
             ),
-            c("freq" = field_names[["count"]])
+            c("freq" = count_name)
           )
         }
       )
@@ -61,12 +62,12 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
 #'
 #' @param controls Margins as returned by \code{compute_margins} or as passed
 #'   to the \code{controls} parameter of \code{\link{fitting_problem}}.
-#' @param count Name of control total column.
+#' @param count Name of control total column, autodetected by default.
 #'
 #' @rdname compute_margins
 #' @importFrom plyr ldply
 #' @export
-margin_to_df <- function(controls, count, verbose = FALSE) {
+margin_to_df <- function(controls, count = NULL, verbose = FALSE) {
   .patch_verbose()
 
   message("Converting list structure to data frame")
@@ -78,11 +79,13 @@ margin_to_df <- function(controls, count, verbose = FALSE) {
         control.list,
         control.type = control.type,
         function(control, control.type) {
+          count = get_count_field_name(control, count, message)
           non_control <- control[sort(setdiff(names(control), count))]
           lex_order <- do.call(order, non_control)
-          ret <- data.frame(..id.. = interaction(non_control[lex_order, ]))
-          ret[[count]] <- control[[count]][lex_order]
-          ret
+          data.frame(
+            ..id.. = interaction(non_control[lex_order, ]),
+            ..count.. = control[[count]][lex_order]
+          )
         },
         .id = "..control.name.."
       )

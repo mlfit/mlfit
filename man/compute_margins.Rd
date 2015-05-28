@@ -7,7 +7,7 @@
 \usage{
 compute_margins(fitting_problem, weights, verbose = FALSE)
 
-margin_to_df(controls, count, verbose = FALSE)
+margin_to_df(controls, count = NULL, verbose = FALSE)
 }
 \arguments{
 \item{fitting_problem}{A fitting problem created by
@@ -21,7 +21,7 @@ sample}
 \item{controls}{Margins as returned by \code{compute_margins} or as passed
 to the \code{controls} parameter of \code{\link{fitting_problem}}.}
 
-\item{count}{Name of control total column.}
+\item{count}{Name of control total column, autodetected by default.}
 }
 \description{
 These functions allows checking a fit in terms of the original input data.
