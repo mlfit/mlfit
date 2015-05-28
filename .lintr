@@ -1,13 +1,13 @@
-with_defaults(
-  camel_case_linter = NULL, # 83
-  multiple_dots_linter = NULL, # 73
-  line_length_linter = NULL, # 60
-  absolute_paths_linter = NULL, # 16
-  spaces_left_parentheses_linter = NULL, # 6
-  object_usage_linter = NULL, # 4
-  single_quotes_linter = NULL, # 4
-  open_curly_linter = NULL, # 3
-  closed_curly_linter = NULL, # 1
-  infix_spaces_linter = NULL, # 1
-  NULL
-)
+linters: with_defaults(
+    camel_case_linter = NULL, # 83
+    multiple_dots_linter = NULL, # 73
+    line_length_linter = NULL, # 60
+    absolute_paths_linter = NULL, # 16
+    spaces_left_parentheses_linter = NULL, # 6
+    object_usage_linter = NULL, # 4
+    single_quotes_linter = NULL, # 4
+    open_curly_linter = NULL, # 3
+    closed_curly_linter = NULL, # 1
+    infix_spaces_linter = NULL, # 1
+    NULL
+  )
