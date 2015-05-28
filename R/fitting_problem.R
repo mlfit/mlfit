@@ -43,8 +43,9 @@ is.fitting_problem <- function(x) inherits(x, "fitting_problem")
 #'   of persons in the group
 #' @param count Name of control total column in control tables
 #'
+#' @importFrom kimisc nlist
 #' @export
 #' @rdname fitting_problem
 special_field_names <- function(groupId, individualId, individualsPerGroup, count) {
-  kimisc::nlist(groupId, individualId, individualsPerGroup, count)
+  nlist(groupId, individualId, individualsPerGroup, count)
 }

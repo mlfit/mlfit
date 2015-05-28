@@ -31,10 +31,11 @@ ml_fit <- function(algorithm = c("entropy_o", "dss"),
   }
 }
 
+#' @importFrom kimisc export.list
 .patch_verbose <- function() {
   verbose <- get("verbose", parent.frame())
   if (!verbose) {
-    kimisc::export.list(list(message=invisible),
+    export.list(list(message=invisible),
       target.env=parent.frame())
   }
 }
