@@ -1,3 +1,5 @@
+- if name of count column in controls is not specified, it is determined automatically (with a message in verbose mode)
+
 v0.1-7 (2015-05-28)
 ===
 
