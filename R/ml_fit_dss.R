@@ -27,8 +27,7 @@
 ml_fit_dss <- function(fitting_problem,
                        method = c("raking", "linear", "logit"),
                        ginv = MASS::ginv,
-                       verbose = FALSE)
-{
+                       verbose = FALSE) {
   .patch_verbose()
 
   flat <- if (is.fitting_problem(fitting_problem)) {

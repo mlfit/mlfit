@@ -71,7 +71,8 @@ dss.lhs.orig.m <- function(x, F, d) {
   function(lambda) {
     dss.lhs.matrix <- apply(x, 2, function(xk) {
       F(sum(xk * lambda)) * xk
-    }) * rep(d, each = length(lambda))
+    })
+    dss.lhs.matrix <- dss.lhs.matrix * rep(d, each = length(lambda))
     apply(dss.lhs.matrix, 1, sum)
   }
 }

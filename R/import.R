@@ -114,8 +114,7 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
   )
 }
 
-.xmlToList <- function (node, addAttributes = TRUE, simplify = FALSE)
-{
+.xmlToList <- function (node, addAttributes = TRUE, simplify = FALSE) {
   if (is.character(node))
     node = XML::xmlParse(node)
   if (inherits(node, "XMLAbstractDocument"))
