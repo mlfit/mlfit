@@ -1,8 +1,6 @@
 context("import")
 
 test_that("import toy examples", {
-  require(plyr)
-  require(kimisc)
   test_names <- c("minitoy", "toy", "dummytoy", "multitoy")
   test_paths <- system.file(file.path("extdata", test_names), package = "MultiLevelIPF")
   results <- llply(setNames(test_paths, nm=test_names), import_IPAF_results)
@@ -56,8 +54,6 @@ test_that("import toy examples", {
 })
 
 test_that("import all weights", {
-  require(plyr)
-  require(kimisc)
   test_names <- c("minitoy", "toy", "dummytoy", "multitoy")
   test_paths <- system.file(file.path("extdata", test_names), package = "MultiLevelIPF")
   results <- llply(setNames(test_paths, nm=test_names), import_IPAF_results)
@@ -80,8 +76,6 @@ test_that("import all weights", {
 })
 
 test_that("import with more than one control of each type", {
-  require(plyr)
-  require(kimisc)
   l_ply(
     list(c(1,1), c(2,2), c(1,3), c(2,3)),
     function(gi) {
