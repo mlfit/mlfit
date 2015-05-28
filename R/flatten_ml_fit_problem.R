@@ -40,7 +40,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
         function(control, control.type) {
           # Secure against data.table
           control <- as.data.frame(control)
-          count_name <- count_field_name(control, field_names, message)
+          count_name <- count_field_name(control, field_names$count, message)
 
           control.and.count.names <- setNames(nm=colnames(control))
           control.names.unordered <- setdiff(control.and.count.names, count_name)
@@ -303,8 +303,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   data
 }
 
-count_field_name <- function(control, field_names, message) {
-  name <- field_names$count
+count_field_name <- function(control, name, message) {
   if (is.null(name)) {
     classes <- vapply(control, function(x) class(x)[[1L]], character(1))
     numerics <- which(classes %in% c("integer", "numeric"))
