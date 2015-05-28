@@ -1,3 +1,5 @@
+- allow character variables (in addition to factors) as control variables
+
 v0.1-6 (2015-05-28)
 ===
 
