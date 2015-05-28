@@ -1,6 +1,11 @@
 \name{NEWS}
 \title{News for Package 'MultiLevelIPF'}
 \encoding{UTF-8}
+\section{Changes in MultiLevelIPF version 0.1-5 (2015-05-28)}{
+  \itemize{
+    \item straighten out imports, use \code{importFrom} instead of \code{::}
+  }
+}
 \section{Changes in MultiLevelIPF version 0.1-4 (2015-05-27)}{
   \itemize{
     \item new functions \code{compute_margins} and \code{margins_to_df} for validation
