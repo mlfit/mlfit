@@ -49,7 +49,7 @@ ml_fit_dss <- function(fitting_problem,
     list(
       weights=unname(weights.ref_sample),
       success=TRUE,
-      residuals=(flat$ref_sample %*% weights.agg)[,1] - flat$control_totals,
+      residuals = (flat$ref_sample %*% weights.agg)[,1] - flat$control_totals,
       flat=flat,
       flat_weights=weights.agg
     ),

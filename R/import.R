@@ -114,6 +114,7 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
   )
 }
 
+# nolint start
 .xmlToList <- function (node, addAttributes = TRUE, simplify = FALSE) {
   if (is.character(node))
     node = XML::xmlParse(node)
@@ -141,3 +142,4 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
     else vals
   }
 }
+# nolint end

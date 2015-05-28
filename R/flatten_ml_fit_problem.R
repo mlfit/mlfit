@@ -79,7 +79,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
             control.names=control.names,
             new.control.names=new.control.names,
             term=control.term,
-            control=(control[[field_names$count]] %*% control.mm)[1,, drop = TRUE]
+            control = (control[[field_names$count]] %*% control.mm)[1,, drop = TRUE]
           )
         }
       )
@@ -265,7 +265,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   }
 
   message("Computing reverse weights map")
-  reverse_weights_transform <- ((1 / prior_weights_agg_agg) * Matrix::t(prior_weights * group_size_rescale * weights_transform))
+  reverse_weights_transform <- ( (1 / prior_weights_agg_agg) * Matrix::t(prior_weights * group_size_rescale * weights_transform))
   stopifnot(all.equal(Matrix::diag(reverse_weights_transform %*% weights_transform), rep(1, ncol(weights_transform))))
 
   message("Normalizing weights")

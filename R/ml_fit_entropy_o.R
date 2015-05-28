@@ -45,8 +45,8 @@ ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE,
   structure(
     list(
       weights=unname(weights.ref_sample),
-      success=(bbout$message == "Successful convergence"),
-      residuals=(flat$ref_sample %*% weights.agg)[,1] - flat$control_totals,
+      success = (bbout$message == "Successful convergence"),
+      residuals = (flat$ref_sample %*% weights.agg)[,1] - flat$control_totals,
       flat=flat,
       flat_weights=weights.agg,
       bbout=bbout

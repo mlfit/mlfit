@@ -3,6 +3,5 @@ linters: with_defaults(
     multiple_dots_linter = NULL, # 73
     line_length_linter = NULL, # 60
     assignment_linter = NULL, # 16
-    spaces_left_parentheses_linter = NULL, # 6
     NULL
   )
