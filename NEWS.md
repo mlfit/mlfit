@@ -1,3 +1,6 @@
+v0.1-5 (2015-05-28)
+===
+
 - straighten out imports, use `importFrom` instead of `::`
 
 v0.1-4 (2015-05-27)
