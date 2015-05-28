@@ -1,6 +1,11 @@
 \name{NEWS}
 \title{News for Package 'MultiLevelIPF'}
 \encoding{UTF-8}
+\section{Changes in MultiLevelIPF version 0.1-8 (2015-05-28)}{
+  \itemize{
+    \item if name of count column in controls is not specified, it is determined automatically (with a message in verbose mode)
+  }
+}
 \section{Changes in MultiLevelIPF version 0.1-7 (2015-05-28)}{
   \itemize{
     \item allow character variables (in addition to factors) as control variables
