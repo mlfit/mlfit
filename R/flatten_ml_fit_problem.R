@@ -54,10 +54,18 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
             stop("Control variable(s) not found: ",
                  paste0(setdiff(control.names.unordered, control.names), collapse = ", "))
           }
+
+          # Avoids error: "contrasts can be applied only to factors with 2 or more levels"
           control.levels <- vapply(
-            control[control.names], function(f) length(levels(f)), integer(1))
+            control[control.names],
+            function(f) {
+              if (is.character(f)) length(unique(f))
+              else length(levels(f))
+            },
+            integer(1))
           if (any(control.levels == 0)) {
-            stop("Non-factor control variable(s) found: ",
+            stop("All control variables must be factors or characters.
+                 Offending control variable(s): ",
                  paste0(control.names[control.levels == 0], collapse = ", "))
           }
           control.names <- control.names[control.levels > 1]
