@@ -42,12 +42,10 @@ ml_fit_dss <- function(fitting_problem,
                            ginv = ginv)
   weights.agg <- g * flat$weights
 
-  weights.ref_sample <- as.vector(weights.agg %*% flat$reverse_weights_transform)
-
   message("Done!")
   structure(
     list(
-      weights=unname(weights.ref_sample),
+      weights=expand_weights(weights.agg, flat),
       success=TRUE,
       residuals = (flat$ref_sample %*% weights.agg)[,1] - flat$control_totals,
       flat=flat,

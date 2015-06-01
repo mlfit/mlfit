@@ -324,3 +324,8 @@ get_count_field_name <- function(control, name, message) {
   }
   name
 }
+
+expand_weights <- function(flat_weights, flat) {
+  requireNamespace("Matrix")
+  unname(as.vector(flat_weights %*% flat$reverse_weights_transform))
+}
