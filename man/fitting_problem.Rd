@@ -27,7 +27,9 @@ special_field_names(groupId, individualId, individualsPerGroup, count = NULL)
 and group level, given as a list of data frames where each data frame
 defines a control}
 
-\item{prior_weights}{Prior (or design) weights}
+\item{prior_weights}{Prior (or design) weights at group level; by default
+a vector of ones will be used, which corresponds to random sampling of
+groups}
 
 \item{x}{An object}
 
