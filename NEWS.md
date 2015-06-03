@@ -1,3 +1,6 @@
+- clarify documentation
+- expansion of weights loads `Matrix` package if necessary
+
 v0.1-8 (2015-05-28)
 ===
 

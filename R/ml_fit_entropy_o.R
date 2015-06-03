@@ -39,12 +39,10 @@ ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE,
   message("Computing reference sample weights")
   weights.agg <- dss.weights.from.lambda.m(x=flat$ref_sample, F=exp, d=flat$weights)(bbout$par)
 
-  weights.ref_sample <- as.vector(weights.agg %*% flat$reverse_weights_transform)
-
   message("Done!")
   structure(
     list(
-      weights=unname(weights.ref_sample),
+      weights = expand_weights(weights.agg, flat),
       success = (bbout$message == "Successful convergence"),
       residuals = (flat$ref_sample %*% weights.agg)[,1] - flat$control_totals,
       flat=flat,

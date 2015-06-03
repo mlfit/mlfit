@@ -8,7 +8,9 @@
 #' @param individual_controls,group_controls Control totals at individual
 #'   and group level, given as a list of data frames where each data frame
 #'   defines a control
-#' @param prior_weights Prior (or design) weights
+#' @param prior_weights Prior (or design) weights at group level; by default
+#'   a vector of ones will be used, which corresponds to random sampling of
+#'   groups
 #' @return An object of class \code{fitting_problem}, essentially a named list
 #'   with the following components:
 #' \describe{
