@@ -10,6 +10,7 @@ test_that("import toy examples", {
   llply(
     results,
     function(result) {
+      # Check total weights
       sums_of_weights <- laply(result$weights, function(lw) sum(lw[[1]]))
       l_ply(diff(sums_of_weights), function(s) expect_equal(s, 0, tolerance=TOL$total))
 
@@ -38,6 +39,15 @@ test_that("import toy examples", {
           expect_equal(length(lw), 1)
           weightedRefSample <- result$refSample
           weightedRefSample$w <- lw[[1]]
+
+          d_ply(
+            weightedRefSample,
+            c(result$fieldNames$groupId),
+            function(group) {
+              expect_equal(group$w, rep(group$w[[1L]], nrow(group)))
+            }
+          )
+
           l_ply(
             c("individual", "group"),
             function(type) l_ply(
