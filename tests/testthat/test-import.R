@@ -40,13 +40,13 @@ test_that("import toy examples", {
           weightedRefSample <- result$refSample
           weightedRefSample$w <- lw[[1]]
 
-          d_ply(
-            weightedRefSample,
-            c(result$fieldNames$groupId),
-            function(group) {
-              expect_equal(group$w, rep(group$w[[1L]], nrow(group)))
-            }
-          )
+          weightedRefSampleSorted <-
+            plyr::arrange(weightedRefSample, get(result$fieldNames$groupId))
+
+          group_id <- weightedRefSampleSorted[[result$fieldNames$groupId]]
+          expect_identical(
+            rle(group_id)$lengths,
+            rle(as.integer(interaction(group_id, weightedRefSampleSorted$w)))$lengths)
 
           l_ply(
             c("individual", "group"),
