@@ -11,3 +11,5 @@
 ^Makefile$
 ^makeR
 ^Examples
+^Makefile\.in$
+^makeR$
