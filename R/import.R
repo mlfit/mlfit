@@ -34,7 +34,9 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
   fx <- function(n) rl(sprintf("%s.%s", n, fileExtension))
 
   separator <- config$separator
-  if (separator == "\\t") separator = "\t"
+  if (separator == "\\t") {
+    separator <- "\t"
+  }
   rd <- function(n) read.table(file=fx(n), header=TRUE, sep=separator)
 
   refSample <- rd(config$refSample)
