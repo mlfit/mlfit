@@ -20,6 +20,7 @@
 #'   \item{\code{weights}}{A named list with weight vectors, one per algorithm.}
 #' }
 #' @importFrom plyr llply l_ply d_ply
+#' @importFrom utils setNames
 #' @export
 import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config.xml") {
   stopifnot(length(path) == 1)
@@ -97,11 +98,12 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
         llply(
           csv_paths,
           function(csv_path) {
-            weights <- read.csv(csv_path)
-            refSampleNew <- merge(refSample, weights, all.x=TRUE)
-            if (any(is.na(refSampleNew$w)))
+            weights_table <- read.csv(csv_path)
+            weights <- setNames(weights_table$w, weights_table[[config$fieldNames$individualId]])
+            ret_weights <- unname(weights[as.character(refSample[[config$fieldNames$individualId]])])
+            if (any(is.na(ret_weights)))
               warning("Missing weights for algorithm ", algo)
-            refSampleNew$w
+            ret_weights
           }
         )
       }
