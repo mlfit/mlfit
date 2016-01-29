@@ -10,6 +10,7 @@ test_that("import toy examples", {
   llply(
     results,
     function(result) {
+      # Check total weights
       sums_of_weights <- laply(result$weights, function(lw) sum(lw[[1]]))
       l_ply(diff(sums_of_weights), function(s) expect_equal(s, 0, tolerance=TOL$total))
 
@@ -38,6 +39,15 @@ test_that("import toy examples", {
           expect_equal(length(lw), 1)
           weightedRefSample <- result$refSample
           weightedRefSample$w <- lw[[1]]
+
+          weightedRefSampleSorted <-
+            plyr::arrange(weightedRefSample, get(result$fieldNames$groupId))
+
+          group_id <- weightedRefSampleSorted[[result$fieldNames$groupId]]
+          expect_identical(
+            rle(group_id)$lengths,
+            rle(as.integer(interaction(group_id, weightedRefSampleSorted$w)))$lengths)
+
           l_ply(
             c("individual", "group"),
             function(type) l_ply(

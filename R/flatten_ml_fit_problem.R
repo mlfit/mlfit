@@ -108,6 +108,10 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     }
   )
 
+  if (is.null(control.names$group)) {
+    stop("Need at least one control at group level.", call. = FALSE)
+  }
+
   message("Preparing reference sample (groups)")
   if (!(field_names$groupId %in% colnames(ref_sample)))
     stop("Group ID column ", field_names$groupId, " not found in reference sample.")
