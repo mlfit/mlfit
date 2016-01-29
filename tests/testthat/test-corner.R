@@ -57,11 +57,16 @@ test_that("Grand totals only", {
           }
         }
 
-        flat <- flatten_ml_fit_problem(problem, verbose = TRUE)
-        expect_equal(nrow(flat$ref_sample), rows)
-        expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform),
-                     orig_weights)
-        expect_equal(flat$weights, weights)
+        if (length(group_controls) == 0L) {
+          expect_error(flatten_ml_fit_problem(problem, verbose = TRUE),
+                       "at least one control at group")
+        } else {
+          flat <- flatten_ml_fit_problem(problem, verbose = TRUE)
+          expect_equal(nrow(flat$ref_sample), rows)
+          expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform),
+                       orig_weights)
+          expect_equal(flat$weights, weights)
+        }
       }
     }
   }
