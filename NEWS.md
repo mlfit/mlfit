@@ -1,63 +1,20 @@
-Version 0.1-11 (2016-01-30)
+Version 0.2 (2016-01-30)
 ===
 
-- Internal changes.
-
-
-Version 0.1-10 (2016-01-30)
-===
-
+- New functions `compute_margins()` and `margins_to_df()` for validation
+- Support specification of prior weights in construction of fitting problems
 - Use `survey::grake()` instead of `grake::calibWeights()`.
 - Adapt to change of undocumented behavior in base R.
+- Don't alter column names of controls if they are of type `data.table` (explicitly convert to `data.frame`)
+- Proper handling of corner cases (reference sample with one row, and grand total controls and dummy controls with only one category)
+- Allow character variables (in addition to factors) as control variables
+- Explicit error message if reference sample is not sorted
+- If name of count column in controls is not specified, it is determined automatically (with a message in verbose mode)
+- Expansion of weights loads `Matrix` package if necessary
+- Clarify documentation
+- Straighten out imports, use `importFrom` instead of `::`
 
 
-v0.1-9 (2015-06-03)
-===
-
-- clarify documentation
-- expansion of weights loads `Matrix` package if necessary
-
-v0.1-8 (2015-05-28)
-===
-
-- if name of count column in controls is not specified, it is determined automatically (with a message in verbose mode)
-
-v0.1-7 (2015-05-28)
-===
-
-- allow character variables (in addition to factors) as control variables
-
-v0.1-6 (2015-05-28)
-===
-
-- lintr
-
-v0.1-5 (2015-05-28)
-===
-
-- straighten out imports, use `importFrom` instead of `::`
-
-v0.1-4 (2015-05-27)
-===
-
-- new functions `compute_margins` and `margins_to_df` for validation
-- don't alter column names of controls if they are of type `data.table` (explicitly convert to `data.frame`)
-
-v0.1-3 (2015-05-26)
-===
-
-- proper handling of corner cases (reference sample with one row)
-
-v0.1-2 (2015-05-26)
-===
-
-- proper handling of corner cases (grand total controls and dummy controls with only one category)
-- explicit error message if reference sample is not sorted
-
-v0.1-1 (2015-05-26)
-===
-
-- support specification of prior weights in construction of fitting problems
 
 v0.1 (2015-05-26)
 ===
