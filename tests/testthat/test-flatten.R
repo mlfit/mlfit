@@ -27,7 +27,7 @@ test_that("factors", {
       data.frame(group = LETTERS[1:3], N = 2:4, stringsAsFactors = FALSE)
     ),
     individual = list(
-      data.frame(ind = LETTERS[1:2], N = 4:5, stringsAsFactors = FALSE)
+      data.frame(ind = letters[1:2], N = 4:5, stringsAsFactors = FALSE)
     )
   )
   field_names <- list(

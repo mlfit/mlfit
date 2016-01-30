@@ -1,3 +1,10 @@
+Version 0.1-10 (2016-01-30)
+===
+
+- Use `survey::grake()` instead of `grake::calibWeights()`.
+- Adapt to change of undocumented behavior in base R.
+
+
 v0.1-9 (2015-06-03)
 ===
 
