@@ -20,7 +20,7 @@
 #'   \item{\code{weights}}{A named list with weight vectors, one per algorithm.}
 #' }
 #' @importFrom plyr llply l_ply d_ply
-#' @importFrom utils setNames
+#' @importFrom stats setNames
 #' @export
 import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config.xml") {
   stopifnot(length(path) == 1)
