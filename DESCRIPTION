@@ -24,3 +24,4 @@ Suggests:
     testthat,
     XML
 GitHub: https://github.com/krlmlr/MultiLevelIPF
+RoxygenNote: 5.0.1
