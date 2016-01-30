@@ -15,5 +15,6 @@ License: GPL-3
 Depends: methods
 Imports: plyr, BB, Matrix, survey, MASS, kimisc
 Suggests: testthat, XML
-GitHub: https://github.com/krlmlr/MultiLevelIPF
+URL: http://krlmlr.github.io/MultiLevelIPF
+URLNote: https://github.com/krlmlr/MultiLevelIPF
 RoxygenNote: 5.0.1
