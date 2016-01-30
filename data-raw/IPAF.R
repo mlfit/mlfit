@@ -22,6 +22,11 @@
 #' @importFrom plyr llply l_ply d_ply
 #' @importFrom stats setNames
 #' @export
+#' @examples
+#' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
+#' fitting_problem <- import_IPAF_results(path)
+#' names(fitting_problem)
+#' fitting_problem$controls
 import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config.xml") {
   stopifnot(length(path) == 1)
 
