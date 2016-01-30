@@ -1,27 +1,19 @@
 Package: MultiLevelIPF
 Type: Package
 Encoding: UTF-8
-Title: Implementation of algorithms that extend IPF to nested structures
-Version: 0.1-9
-Date: 2015-06-03
+Title: Implementation of algorithms that extend IPF to nested
+        structures
+Version: 0.1-10
+Date: 2016-01-30
 Authors@R: as.person("Kirill Müller <krlmlr+r@mailbox.org> [aut, cre]")
 BugReports: https://github.com/krlmlr/MultiLevelIPF/issues
-Description: The IPF algorithm operates on count data.  This package offers
-    implementations for several algorithms that extend this to nested
-    structures: "parent" and "child" items for both of which constraints can be
-    provided.
+Description: The IPF algorithm operates on count data.  This package
+        offers implementations for several algorithms that extend this
+        to nested structures: "parent" and "child" items for both of
+        which constraints can be provided.
 License: GPL-3
-Depends:
-    methods
-Imports:
-    plyr,
-    BB,
-    Matrix,
-    survey,
-    MASS,
-    kimisc
-Suggests:
-    testthat,
-    XML
+Depends: methods
+Imports: plyr, BB, Matrix, survey, MASS, kimisc
+Suggests: testthat, XML
 GitHub: https://github.com/krlmlr/MultiLevelIPF
 RoxygenNote: 5.0.1
