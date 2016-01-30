@@ -5,7 +5,11 @@ test_that("entropy_o algorithm", {
   test_paths <- system.file(file.path("extdata", test_names), package = "MultiLevelIPF")
   results <- llply(setNames(test_paths, nm=test_names), import_IPAF_results)
   llply(results, function(problem) {
-    fit <- ml_fit_entropy_o(problem)
+    flat <- flatten_ml_fit_problem(problem)
+    fit <- ml_fit_entropy_o(flat)
+    fit_dss <- ml_fit_dss(flat)
+    expect_equivalent(fit$flat_weights, fit_dss$flat_weights)
+
     margins <- compute_margins(problem, fit$weights)
     control_df <- margin_to_df(problem$controls)
     expect_message(margin_df <- margin_to_df(margins, verbose = TRUE), "as count column for")

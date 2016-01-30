@@ -17,10 +17,11 @@ Imports:
     plyr,
     BB,
     Matrix,
-    grake (>= 0.0-2),
+    survey,
     MASS,
     kimisc
 Suggests:
     testthat,
     XML
 GitHub: https://github.com/krlmlr/MultiLevelIPF
+RoxygenNote: 5.0.1
