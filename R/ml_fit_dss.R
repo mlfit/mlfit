@@ -3,10 +3,14 @@
 #' This function reweights a reference sample to match constraints given by
 #' aggregate controls by means of generalized raking.
 #'
-#' Internally, \code{grake::\link[grake]{calibWeights}} is called.
+#' Internally, \code{survey::\link[survey]{grake}} is called.
 #'
 #' @inheritParams ml_fit
-#' @inheritParams grake::calibWeights
+#' @param method Calibration method, one of \code{"raking"} (default),
+#'   \code{"linear"}, or \code{"logit"}
+#' @param ginv Function that computes the Moore-Penrose pseudoinverse,
+#'   currently only the default value \code{MASS::\link[MASS]{ginv}} is
+#'   accepted.
 #' @return An object of classes \code{ml_fit_dss} and \code{ml_fit},
 #'   essentially a named list.
 #' @references Deville, J.-C. and \enc{Särndal}{Saerndal}, C.-E. (1992)
@@ -17,9 +21,7 @@
 #' Generalized raking procedures in survey sampling. \emph{Journal of the
 #' American Statistical Association}, \bold{88}(423), 1013--1020.
 #'
-#' @seealso \code{\link[grake]{calibWeights}}
-#' @importFrom grake calibWeights
-#' @importFrom MASS ginv
+#' @seealso \code{\link[survey]{grake}}
 #' @export
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
@@ -37,9 +39,20 @@ ml_fit_dss <- function(fitting_problem,
   }
 
   message("Calibrating")
-  g <- grake::calibWeights(X = t(flat$ref_sample), d = flat$weights,
-                           totals = flat$control_totals, method = method,
-                           ginv = ginv)
+  method <- match.arg(method)
+  calfun <- switch(method,
+                   linear=survey::cal.linear,
+                   raking=survey::cal.raking,
+                   logit=survey::cal.logit)
+
+  if (!identical(ginv, MASS::ginv)) {
+    stop("Currently, only ginv = MASS::ginv is supported.", call. = FALSE)
+  }
+
+  g <- survey::grake(mm = t(flat$ref_sample), ww = flat$weights,
+                     calfun = calfun, bounds = c(-Inf, Inf),
+                     population = flat$control_totals,
+                     epsilon = 1e-7, verbose = FALSE, maxit = 50)
   weights.agg <- g * flat$weights
 
   message("Done!")

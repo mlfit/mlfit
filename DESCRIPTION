@@ -17,7 +17,7 @@ Imports:
     plyr,
     BB,
     Matrix,
-    grake (>= 0.0-2),
+    survey,
     MASS,
     kimisc
 Suggests:
