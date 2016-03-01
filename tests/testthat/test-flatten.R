@@ -47,7 +47,7 @@ test_that("auto controls", {
       data.frame(group = LETTERS[1:3], groups = 2:4)
     ),
     individual = list(
-      data.frame(ind = LETTERS[1:2], individuals = 4:5)
+      data.frame(ind = letters[1:2], individuals = 4:5)
     )
   )
   field_names <- list(
