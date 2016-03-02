@@ -3,9 +3,10 @@ Type: Package
 Encoding: UTF-8
 Title: Implementation of algorithms that extend IPF to nested
         structures
-Version: 0.2
-Date: 2016-01-30
-Authors@R: as.person("Kirill Müller <krlmlr+r@mailbox.org> [aut, cre]")
+Version: 0.2-1
+Date: 2016-03-02
+Authors@R: person(given = "Kirill", family = "Müller", role = c("aut",
+        "cre"), email = "krlmlr+r@mailbox.org")
 BugReports: https://github.com/krlmlr/MultiLevelIPF/issues
 Description: The IPF algorithm operates on count data.  This package
         offers implementations for several algorithms that extend this
