@@ -24,6 +24,11 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
 
   .patch_verbose()
 
+  if (length(controls$individual) + length(controls$group) == 0L) {
+    stop("Need at least one control at individual or group level.",
+         call. = FALSE)
+  }
+
   if (is.null(prior_weights)) {
     # If not given, assume uniform prior weights
     prior_weights <- rep(1, nrow(ref_sample))
@@ -59,11 +64,22 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
             },
             integer(1))
           if (any(control.levels == 0)) {
-            stop("All control variables must be factors or characters.
-                 Offending control variable(s): ",
+            stop("All control variables must be factors or characters. ",
+                 "Offending control variable(s): ",
                  paste0(control.names[control.levels == 0], collapse = ", "))
           }
           control.names <- control.names[control.levels > 1]
+
+          # Avoids hard-to-understand errors if categories are NA
+          control.category.na <- vapply(
+            control[control.names],
+            function(f) any(is.na(f)),
+            logical(1))
+          if (any(control.category.na)) {
+            stop("NA values in control variables not supported. ",
+                 "Offending control variable(s): ",
+                 paste0(control.names[control.category.na], collapse = ", "))
+          }
 
           new.control.names <- sprintf("%s_%s_", control.names, .control.type.abbrev(control.type))
           control.and.count.names[control.names] <- new.control.names
@@ -108,21 +124,21 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     }
   )
 
-  if (is.null(control.names$group)) {
-    stop("Need at least one control at group level.", call. = FALSE)
+  if (!is.null(control.formulae$group) && nchar(control.formulae$group) > 0) {
+    message("Preparing reference sample (groups)")
+    if (!(field_names$groupId %in% colnames(ref_sample)))
+      stop("Group ID column ", field_names$groupId, " not found in reference sample.")
+    stopifnot(is.numeric(ref_sample[[field_names$groupId]]))
+    formula_grp <- sprintf("~%s", field_names$groupId) # nolint
+    if (nchar(control.formulae$group) > 0) {
+      formula_grp <- sprintf("%s+%s", formula_grp, control.formulae$group)
+    }
+    ref_sample_grp.mm <- as.data.frame(model.matrix(as.formula(formula_grp),
+      plyr::rename(ref_sample[c(field_names$groupId, names(control.names$group))], control.names$group)))
+    ref_sample_grp.mm <- .rename.intercept(ref_sample_grp.mm, "group")
+  } else {
+    ref_sample_grp.mm <- ref_sample[, field_names$groupId, drop = FALSE]
   }
-
-  message("Preparing reference sample (groups)")
-  if (!(field_names$groupId %in% colnames(ref_sample)))
-    stop("Group ID column ", field_names$groupId, " not found in reference sample.")
-  stopifnot(is.numeric(ref_sample[[field_names$groupId]]))
-  formula_grp <- sprintf("~%s", field_names$groupId) # nolint
-  if (nchar(control.formulae$group) > 0) {
-    formula_grp <- sprintf("%s+%s", formula_grp, control.formulae$group)
-  }
-  ref_sample_grp.mm <- as.data.frame(model.matrix(as.formula(formula_grp),
-    plyr::rename(ref_sample[c(field_names$groupId, names(control.names$group))], control.names$group)))
-  ref_sample_grp.mm <- .rename.intercept(ref_sample_grp.mm, "group")
 
   message("Splitting")
   if (any(diff(ref_sample_grp.mm[[field_names$groupId]]) < 0)) {
