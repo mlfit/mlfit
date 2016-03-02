@@ -57,9 +57,9 @@ test_that("Grand totals only", {
           }
         }
 
-        if (length(group_controls) == 0L) {
+        if (length(group_controls) + length(individual_controls) == 0L) {
           expect_error(flatten_ml_fit_problem(problem, verbose = TRUE),
-                       "at least one control at group")
+                       "at least one")
         } else {
           flat <- flatten_ml_fit_problem(problem, verbose = TRUE)
           expect_equal(nrow(flat$ref_sample), rows)
