@@ -1,3 +1,12 @@
+Version 0.2-1 (2016-03-02)
+===
+
+- Allow problems with individual-only controls.
+- Use factors internally.
+- Check for correspondence of levels between sample and controls.
+- Check for `NA` values in controls.
+
+
 Version 0.2 (2016-01-30)
 ===
 
