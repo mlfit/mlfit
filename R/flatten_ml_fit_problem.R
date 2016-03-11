@@ -13,7 +13,7 @@
 #' @importFrom plyr laply adply
 #' @export
 #' @examples
-#' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
+#' path <- toy_example("minitoy")
 #' flatten_ml_fit_problem(fitting_problem = import_IPAF_results(path))
 flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   .check_is_fitting_problem(fitting_problem)

@@ -11,7 +11,7 @@
 #' @return An object of class \code{ml_fit}, essentially a named list.
 #' @export
 #' @examples
-#' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
+#' path <- toy_example("minitoy")
 #' ml_fit(algorithm = "entropy_o", fitting_problem = import_IPAF_results(path))
 ml_fit <- function(algorithm = c("entropy_o", "dss"),
                    fitting_problem, verbose = FALSE, ...) {

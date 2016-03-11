@@ -11,7 +11,7 @@
 #' @seealso \code{\link[BB]{dfsane}}
 #' @export
 #' @examples
-#' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
+#' path <- toy_example("minitoy")
 #' ml_fit_entropy_o(fitting_problem = import_IPAF_results(path))
 ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE,
                              dfsane_args = list()) {

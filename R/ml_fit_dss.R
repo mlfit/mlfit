@@ -24,7 +24,7 @@
 #' @seealso \code{\link[sampling]{calib}}
 #' @export
 #' @examples
-#' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
+#' path <- toy_example("minitoy")
 #' ml_fit_dss(fitting_problem = import_IPAF_results(path))
 #' \dontrun{ml_fit_dss(fitting_problem = import_IPAF_results(path), ginv = solve)}
 ml_fit_dss <- function(fitting_problem,
