@@ -39,6 +39,8 @@ ct2 <-
 
 root <- "inst/extdata/flat"
 
-fitting_problem(rs, field_names = special_field_names("HHNR", "PNR", "APER", "N"),
-                individual_controls = NULL,
-                group_controls = list(ct1, ct2))
+fp <- fitting_problem(rs, field_names = special_field_names("HHNR", "PNR", "APER", "N"),
+                      individual_controls = NULL,
+                      group_controls = list(ct1, ct2))
+
+ml_fit_dss(fp, method = "raking")
