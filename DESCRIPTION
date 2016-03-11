@@ -14,7 +14,7 @@ Description: The IPF algorithm operates on count data.  This package
         which constraints can be provided.
 License: GPL-3
 Depends: methods
-Imports: plyr, BB, Matrix, survey, MASS, kimisc
+Imports: plyr, BB, Matrix, sampling, MASS, kimisc
 Suggests: testthat, XML
 URL: http://krlmlr.github.io/MultiLevelIPF
 URLNote: https://github.com/krlmlr/MultiLevelIPF

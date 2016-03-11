@@ -3,7 +3,7 @@
 #' This function reweights a reference sample to match constraints given by
 #' aggregate controls by means of generalized raking.
 #'
-#' Internally, \code{survey::\link[survey]{grake}} is called.
+#' Internally, \code{sampling::\link[sampling]{calib}} is called.
 #'
 #' @inheritParams ml_fit
 #' @param method Calibration method, one of \code{"raking"} (default),
@@ -21,7 +21,7 @@
 #' Generalized raking procedures in survey sampling. \emph{Journal of the
 #' American Statistical Association}, \bold{88}(423), 1013--1020.
 #'
-#' @seealso \code{\link[survey]{grake}}
+#' @seealso \code{\link[sampling]{calib}}
 #' @export
 #' @examples
 #' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
@@ -41,19 +41,17 @@ ml_fit_dss <- function(fitting_problem,
 
   message("Calibrating")
   method <- match.arg(method)
-  calfun <- switch(method,
-                   linear=survey::cal.linear,
-                   raking=survey::cal.raking,
-                   logit=survey::cal.logit)
 
   if (!identical(ginv, MASS::ginv)) {
     stop("Currently, only ginv = MASS::ginv is supported.", call. = FALSE)
   }
 
-  g <- survey::grake(mm = t(flat$ref_sample), ww = flat$weights,
-                     calfun = calfun, bounds = c(-Inf, Inf),
-                     population = flat$control_totals,
-                     epsilon = 1e-7, verbose = FALSE, maxit = 50)
+  g <- sampling::calib(
+    Xs = t(flat$ref_sample),
+    d = flat$weights,
+    total = flat$control_totals,
+    method = method,
+    max_iter = 50)
   weights.agg <- g * flat$weights
 
   message("Done!")
