@@ -30,7 +30,8 @@ rs <- xt %>%
 
 ct1 <-
   ct1 %>%
-  gather(WKSTAT, N)
+  gather(WKSTAT, N) %>%
+  mutate(WKSTAT = kimisc::ofactor(WKSTAT))
 
 ct2 <-
   ct2 %>%
