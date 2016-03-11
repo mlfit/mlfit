@@ -32,12 +32,12 @@ fitting_problem <- function(ref_sample,
   )
 }
 
-new_fitting_problem <- S3::make_new("fitting_problem")
+new_fitting_problem <- make_new("fitting_problem")
 
 #' @export
 #' @rdname fitting_problem
 #' @param x An object
-is.fitting_problem <- S3::make_is("fitting_problem")
+is.fitting_problem <- make_is("fitting_problem")
 
 #' @export
 #' @rdname fitting_problem
@@ -55,7 +55,7 @@ format.fitting_problem <- function(x, ...) {
 
 #' @export
 #' @rdname fitting_problem
-print.fitting_problem <- S3::default_print
+print.fitting_problem <- default_print
 
 #' @param groupId,individualId Name of the column that defines the ID of the
 #'   group or the individual
