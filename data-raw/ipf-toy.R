@@ -19,7 +19,9 @@ rs <- xt %>%
   as.table %>%
   as.data.frame %>%
   as_data_frame %>%
-  rename(WKSTAT = Var1, AGE = Var2) %>%
+  mutate_each(funs(ofactor = kimisc::ofactor(.)), Var1, Var2) %>%
+  select(-Var1, -Var2) %>%
+  rename(WKSTAT = Var1_ofactor, AGE = Var2_ofactor) %>%
   {.[rep(seq_along(.$Freq), .$Freq), ] } %>%
   select(-Freq) %>%
   `rownames<-`(NULL) %>%
