@@ -2,7 +2,7 @@ context("import")
 
 test_that("import toy examples", {
   test_names <- c("minitoy", "toy", "dummytoy", "multitoy")
-  test_paths <- system.file(file.path("extdata", test_names), package = "MultiLevelIPF")
+  test_paths <- toy_example(test_names)
   results <- llply(setNames(test_paths, nm=test_names), import_IPAF_results)
 
   TOL <- list(total=2e-3, individual=0.6, group=0.8)
@@ -91,7 +91,7 @@ test_that("import with more than one control of each type", {
     function(gi) {
       dirname <- if (all(gi == 1)) "minitoy" else
         do.call(sprintf, c(list("minitoy-%sx%s"), gi))
-      result_path <- system.file(file.path("extdata", dirname), package = "MultiLevelIPF")
+      result_path <- toy_example(dirname)
       config <- import_IPAF_results(result_path, all_weights = FALSE)
       expect_equal(length(config$controls), 2)
       expect_equal(length(config$controls$individual), gi[[1]])
