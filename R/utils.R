@@ -1,1 +1,1 @@
-`%+%` <- paste0
+`%+%` <- function(x, y) paste0(x, y)

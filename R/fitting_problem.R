@@ -41,7 +41,7 @@ is.fitting_problem <- S3::make_is("fitting_problem")
 
 #' @export
 #' @rdname fitting_problem
-#' @param x An object
+#' @param ... Ignored.
 format.fitting_problem <- function(x, ...) {
   c(
     "An object of class fitting_problem",
@@ -55,7 +55,6 @@ format.fitting_problem <- function(x, ...) {
 
 #' @export
 #' @rdname fitting_problem
-#' @param x An object
 print.fitting_problem <- S3::default_print
 
 #' @param groupId,individualId Name of the column that defines the ID of the

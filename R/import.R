@@ -153,7 +153,7 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
 #' Returns the paths to all available toy examples, or to a specific toy
 #' example.  Load via \code{\link{import_IPAF_results}}.
 #'
-#' @param Name of the example, default: return all
+#' @param name Name of the example, default: return all
 #' @return A named vector of file system paths.
 #'
 #' @export
