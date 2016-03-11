@@ -13,3 +13,4 @@
 ^Examples
 ^Makefile\.in$
 ^makeR$
+^data-raw$
