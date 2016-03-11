@@ -40,7 +40,7 @@ ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE,
   weights.agg <- dss.weights.from.lambda.m(x=flat$ref_sample, F=exp, d=flat$weights)(bbout$par)
 
   message("Done!")
-  structure(
+  new_ml_fit_entropy_o(
     list(
       weights = expand_weights(weights.agg, flat),
       success = (bbout$message == "Successful convergence"),
@@ -48,10 +48,11 @@ ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE,
       flat=flat,
       flat_weights=weights.agg,
       bbout=bbout
-    ),
-    class=c("ml_fit_entropy_o", "ml_fit")
+    )
   )
 }
+
+new_ml_fit_entropy_o <- make_new(c("ml_fit_entropy_o", "ml_fit"))
 
 # Equation 2.1 in Deville et al. (1993)
 dss.weights.from.lambda.m <- function(x, F, d) {
