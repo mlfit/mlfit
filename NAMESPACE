@@ -2,8 +2,10 @@
 
 S3method(format,fitting_problem)
 S3method(format,flat_ml_fit_problem)
+S3method(format,ml_fit)
 S3method(print,fitting_problem)
 S3method(print,flat_ml_fit_problem)
+S3method(print,ml_fit)
 export(compute_margins)
 export(fitting_problem)
 export(flatten_ml_fit_problem)
