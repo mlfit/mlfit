@@ -37,7 +37,7 @@ ct2 <-
   gather(AGE, N)
 
 root <- "inst/extdata/flat"
-dir.create(root, showWarnings = FALSE)
-write.table(rs, file.path(root, "RS.dat"), sep = "\t", row.names = FALSE, quote = FALSE)
-write.table(ct1, file.path(root, "GROUP1.dat"), sep = "\t", row.names = FALSE, quote = FALSE)
-write.table(ct2, file.path(root, "GROUP2.dat"), sep = "\t", row.names = FALSE, quote = FALSE)
+
+fitting_problem(rs, field_names = special_field_names("HHNR", "PNR", "APER", "N"),
+                individual_controls = NULL,
+                group_controls = list(ct1, ct2))
