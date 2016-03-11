@@ -405,3 +405,15 @@ expand_weights <- function(flat_weights, flat) {
 }
 
 new_flat_ml_fit_problem <- make_new("flat_ml_fit_problem")
+
+#' @export
+format.flat_ml_fit_problem <- function(x, ...) {
+  c(
+    "An object of class flat_ml_fit_problem",
+    "  Original fitting problem:",
+    "  " %+% format(x$fitting_problem)
+  )
+}
+
+#' @export
+print.flat_ml_fit_problem <- default_print
