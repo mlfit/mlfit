@@ -26,17 +26,37 @@ fitting_problem <- function(ref_sample,
                             field_names,
                             individual_controls, group_controls,
                             prior_weights = NULL) {
-  structure(
+  new_fitting_problem(
     list(refSample = ref_sample, controls = controls, fieldNames = field_names,
-         priorWeights = prior_weights),
-    class = c("fitting_problem")
+         priorWeights = prior_weights)
+  )
+}
+
+new_fitting_problem <- S3::make_new("fitting_problem")
+
+#' @export
+#' @rdname fitting_problem
+#' @param x An object
+is.fitting_problem <- S3::make_is("fitting_problem")
+
+#' @export
+#' @rdname fitting_problem
+#' @param x An object
+format.fitting_problem <- function(x, ...) {
+  c(
+    "An object of class fitting_problem",
+    "  Reference sample: " %+% nrow(x$refSample) %+% " observations",
+    "  Control totals: " %+% length(x$controls$individual) %+%
+      " at individual, and " %+% length(x$controls$group) %+% " at group level",
+    if (length(x$algorithms) > 0L)
+      "  Results for algorithms: " %+% paste(x$algorithms, collapse = ", ")
   )
 }
 
 #' @export
 #' @rdname fitting_problem
 #' @param x An object
-is.fitting_problem <- function(x) inherits(x, "fitting_problem")
+print.fitting_problem <- S3::default_print
 
 #' @param groupId,individualId Name of the column that defines the ID of the
 #'   group or the individual
