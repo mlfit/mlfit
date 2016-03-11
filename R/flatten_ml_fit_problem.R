@@ -410,6 +410,8 @@ new_flat_ml_fit_problem <- make_new("flat_ml_fit_problem")
 format.flat_ml_fit_problem <- function(x, ...) {
   c(
     "An object of class flat_ml_fit_problem",
+    "  Dimensions: " %+% ncol(x$ref_sample) %+% " unique groups, " %+%
+      nrow(x$ref_sample) %+% " controls",
     "  Original fitting problem:",
     "  " %+% format(x$fitting_problem)
   )
