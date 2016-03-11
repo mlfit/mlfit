@@ -39,3 +39,27 @@ ml_fit <- function(algorithm = c("entropy_o", "dss"),
       target.env=parent.frame())
   }
 }
+
+get_algo <- function(x) {
+  other_classes <- grep("^ml_fit_", class(x), value = TRUE)
+  if (length(other_classes) == 0L)
+    "(unknown)"
+  else
+    paste(gsub("^ml_fit_", "", other_classes), collapse = ", ")
+}
+
+#' @export
+format.ml_fit <- function(x, ...) {
+  c(
+    "An object of class ml_fit",
+    "  Algorithm: " %+% get_algo(x),
+    "  Success: " %+% x$success,
+    "  Residuals: min = " %+% format(min(x$residuals), ...) %+%
+      ", max = " %+% format(max(x$residuals), ...),
+    "  Flat problem:",
+    "  " %+% format(x$flat)
+  )
+}
+
+#' @export
+print.ml_fit <- default_print

@@ -353,7 +353,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
                        sum(prior_weights_agg_agg)))
 
   message("Done!")
-  structure(
+  new_flat_ml_fit_problem(
     list(
       ref_sample=ref_sample.agg.agg.m,
       weights=prior_weights_agg_agg,
@@ -361,8 +361,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
       weights_transform=weights_transform,
       reverse_weights_transform=reverse_weights_transform,
       fitting_problem=fitting_problem
-    ),
-    class=c("flat_ml_fit_problem")
+    )
   )
 }
 
@@ -404,3 +403,19 @@ expand_weights <- function(flat_weights, flat) {
   requireNamespace("Matrix")
   unname(as.vector(flat_weights %*% flat$reverse_weights_transform))
 }
+
+new_flat_ml_fit_problem <- make_new("flat_ml_fit_problem")
+
+#' @export
+format.flat_ml_fit_problem <- function(x, ...) {
+  c(
+    "An object of class flat_ml_fit_problem",
+    "  Dimensions: " %+% ncol(x$ref_sample) %+% " unique groups, " %+%
+      nrow(x$ref_sample) %+% " controls",
+    "  Original fitting problem:",
+    "  " %+% format(x$fitting_problem)
+  )
+}
+
+#' @export
+print.flat_ml_fit_problem <- default_print

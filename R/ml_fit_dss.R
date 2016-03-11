@@ -55,14 +55,15 @@ ml_fit_dss <- function(fitting_problem,
   weights.agg <- g * flat$weights
 
   message("Done!")
-  structure(
+  new_ml_fit_dss(
     list(
       weights=expand_weights(weights.agg, flat),
       success=TRUE,
       residuals = (flat$ref_sample %*% weights.agg)[,1] - flat$control_totals,
       flat=flat,
       flat_weights=weights.agg
-    ),
-    class=c("ml_fit_dss", "ml_fit")
+    )
   )
 }
+
+new_ml_fit_dss <- make_new(c("ml_fit_dss", "ml_fit"))
