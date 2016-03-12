@@ -37,10 +37,8 @@ ct2 <-
   ct2 %>%
   gather(AGE, N)
 
-root <- "inst/extdata/flat"
-
 fp <- fitting_problem(rs, field_names = special_field_names("HHNR", "PNR", "APER", "N"),
                       individual_controls = NULL,
                       group_controls = list(ct1, ct2))
 
-ml_fit_dss(fp, method = "raking")
+rextdata::use_extdata(flat = fp)
