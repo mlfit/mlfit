@@ -5,14 +5,14 @@
 #'
 #' @param algorithm Algorithm to use
 #' @param fitting_problem A fitting problem created by
-#'   \code{\link{fitting_problem}} or \code{\link{import_IPAF_results}}.
+#'   \code{\link{fitting_problem}}.
 #' @param verbose If \code{TRUE}, print diagnostic output.
 #' @param ... Further parameters passed to the algorithm
 #' @return An object of class \code{ml_fit}, essentially a named list.
 #' @export
 #' @examples
 #' path <- toy_example("minitoy")
-#' ml_fit(algorithm = "entropy_o", fitting_problem = import_IPAF_results(path))
+#' ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
 ml_fit <- function(algorithm = c("entropy_o", "dss"),
                    fitting_problem, verbose = FALSE, ...) {
   algorithm <- match.arg(algorithm)

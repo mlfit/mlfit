@@ -149,22 +149,10 @@ new_IPAF_result <- make_new(c("IPAF_result", "fitting_problem"))
 }
 # nolint end
 
-#' Access to toy examples bundled in this package
-#'
-#' Returns the paths to all available toy examples, or to a specific toy
-#' example.  Load via \code{\link{import_IPAF_results}}.
-#'
-#' @param name Name of the example, default: return all
-#' @return A named vector of file system paths.
-#'
-#' @export
-#' @importFrom stats setNames
-toy_example <- function(name = NULL) {
-  root <- system.file("extdata", package="MultiLevelIPF")
-  if (is.null(name)) {
-    name <- dir(root)
-  }
+ex <- toy_example()
 
-  path <- normalizePath(file.path(root, name), mustWork = TRUE)
-  setNames(path, name)
-}
+exd <- lapply(ex, import_IPAF_results, all_weights = TRUE)
+
+names(exd) <- file.path("inst/extdata", paste0(names(exd), ".rds"))
+
+mapply(saveRDS, exd, names(exd))

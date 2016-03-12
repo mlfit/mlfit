@@ -3,7 +3,7 @@ context("entropy_o")
 test_that("entropy_o algorithm", {
   test_names <- c("minitoy", "toy", "dummytoy", "multitoy", "onetoy", "bitoy")
   test_paths <- toy_example(test_names)
-  results <- llply(setNames(test_paths, nm=test_names), import_IPAF_results)
+  results <- llply(setNames(test_paths, nm=test_names), readRDS)
   llply(results, function(problem) {
     flat <- flatten_ml_fit_problem(problem)
     fit <- ml_fit_entropy_o(flat)

@@ -13,6 +13,7 @@
 #'   sample
 #' @seealso \code{\link{ml_fit}}
 #' @export
+#' @importFrom plyr llply
 compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
   .check_is_fitting_problem(fitting_problem)
   ref_sample <- fitting_problem$refSample
