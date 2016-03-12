@@ -163,6 +163,7 @@ toy_example <- function(name = NULL) {
   root <- system.file("extdata", package="MultiLevelIPF")
   if (is.null(name)) {
     name <- dir(root)
+    name <- name[file.info(file.path(root, name))$isdir]
   }
 
   path <- normalizePath(file.path(root, name), mustWork = TRUE)
