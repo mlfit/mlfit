@@ -14,7 +14,7 @@
 #' @export
 #' @examples
 #' path <- toy_example("minitoy")
-#' flatten_ml_fit_problem(fitting_problem = import_IPAF_results(path))
+#' flatten_ml_fit_problem(fitting_problem = readRDS(path))
 flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   .check_is_fitting_problem(fitting_problem)
   ref_sample <- fitting_problem$refSample

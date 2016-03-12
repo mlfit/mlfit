@@ -15,6 +15,5 @@
 #'        Barcelona, Barcelona.
 #' @keywords package
 #' @import methods
-#' @examples
-#' \dontrun{import_IPAF_results("path/to/results")}
+#' @importFrom plyr l_ply d_ply
 NULL
