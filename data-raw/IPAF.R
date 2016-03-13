@@ -112,11 +112,12 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
     }
   )
 
-  structure(
-    nlist(refSample, controls, fieldNames, algorithms, weights),
-    class = c("IPAF_result", "fitting_problem")
+  new_IPAF_result(
+    nlist(refSample, controls, fieldNames, algorithms, weights)
   )
 }
+
+new_IPAF_result <- make_new(c("IPAF_result", "fitting_problem"))
 
 # nolint start
 .xmlToList <- function (node, addAttributes = TRUE, simplify = FALSE) {
@@ -147,3 +148,11 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
   }
 }
 # nolint end
+
+ex <- toy_example()
+
+exd <- lapply(ex, import_IPAF_results, all_weights = TRUE)
+
+names(exd) <- file.path("inst/extdata", paste0(names(exd), ".rds"))
+
+mapply(saveRDS, exd, names(exd))

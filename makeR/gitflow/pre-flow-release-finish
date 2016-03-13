@@ -18,6 +18,12 @@ BRANCH=$3
 
 # Implement your script here.
 
+sed '1,3D;/^$/N;/\n$/q' NEWS.md | xclip -se c
+
+if ! git remote | grep ^origin | egrep -q "github[.]com"; then
+  exit 0
+fi
+
 hub ci-status -v
 HUB_EXIT=$?
 if [ $HUB_EXIT -eq 0 ]; then exit 0; fi
