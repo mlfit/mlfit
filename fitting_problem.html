@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>fitting_problem. MultiLevelIPF 0.2-1</title>
+<title>fitting_problem. MultiLevelIPF 0.2-2</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">MultiLevelIPF 0.2-1</a>
+      <a class="brand" href="#">MultiLevelIPF 0.2-2</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -55,6 +55,8 @@
     <h2>Usage</h2>
     <pre><div>fitting_problem(ref_sample, controls&nbsp;=&nbsp;list(individual&nbsp;=&nbsp;individual_controls, group&nbsp;=&nbsp;group_controls), field_names, individual_controls, group_controls, prior_weights&nbsp;=&nbsp;NULL)</div>
 <div>is.fitting_problem(x)</div>
+<div>"format"(x, ...)</div>
+<div>"print"(x, ...)</div>
 <div>special_field_names(groupId, individualId, individualsPerGroup, count&nbsp;=&nbsp;NULL)</div></pre>
     
     <h2>Arguments</h2>
@@ -77,6 +79,8 @@ a vector of ones will be used, which corresponds to random sampling of
 groups</dd>
       <dt>x</dt>
       <dd>An object</dd>
+      <dt>...</dt>
+      <dd>Ignored.</dd>
       <dt>groupId, individualId</dt>
       <dd>Name of the column that defines the ID of the
 group or the individual</dd>
@@ -117,7 +121,7 @@ An object of class <code>fitting_problem</code>, essentially a named list
       </div>
   <div class="span4">
     <!-- <ul>
-      <li>fitting_problem</li><li>is.fitting_problem</li><li>special_field_names</li>
+      <li>fitting_problem</li><li>format.fitting_problem</li><li>is.fitting_problem</li><li>print.fitting_problem</li><li>special_field_names</li>
     </ul>
     <ul>
       

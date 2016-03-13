@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>ml_fit_entropy_o. MultiLevelIPF 0.2-2</title>
+<title>toy_example. MultiLevelIPF 0.2-2</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -48,31 +48,24 @@
         
       </header>
       
-      <h1>Estimate weights using an entropy optimization approach</h1>
+      <h1>Access to toy examples bundled in this package</h1>
 
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>ml_fit_entropy_o(fitting_problem, verbose&nbsp;=&nbsp;FALSE, dfsane_args&nbsp;=&nbsp;list())</div></pre>
+    <pre><div>toy_example(name&nbsp;=&nbsp;NULL)</div></pre>
     
     <h2>Arguments</h2>
     <dl>
-      <dt>fitting_problem</dt>
-      <dd>A fitting problem created by
-<code><a href='fitting_problem.html'>fitting_problem</a></code>.</dd>
-      <dt>verbose</dt>
-      <dd>If <code>TRUE</code>, print diagnostic output.</dd>
-      <dt>dfsane_args</dt>
-      <dd>Additional arguments (as a named list) passed to the
-<code><a href='http://www.inside-r.org/packages/cran/BB/docs/dfsane'>dfsane</a></code> function used internally for the optimization.</dd>
+      <dt>name</dt>
+      <dd>Name of the example, default: return all</dd>
     </dl>
     
     <div class="Value">
       <h2>Value</h2>
 
       <p><dl>
-An object of classes <code>ml_fit_entropy_o</code> and <code>ml_fit</code>,
-  essentially a named list.
+A named vector of file system paths.
 </dl></p>
   
     </div>
@@ -80,41 +73,19 @@ An object of classes <code>ml_fit_entropy_o</code> and <code>ml_fit</code>,
     <div class="Description">
       <h2>Description</h2>
 
-      <p>This function reweights a reference sample to match constraints given by
-aggregate controls using an entropy optimization method.</p>
+      <p>Returns the paths to all available toy examples, or to a specific toy
+example.  Load via <code><a href='http://www.inside-r.org/r-doc/base/readRDS'>readRDS</a></code>.</p>
   
     </div>
-    
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>path &lt;- toy_example(&quot;minitoy&quot;)
-ml_fit_entropy_o(fitting_problem = readRDS(path))
-</div>
-<div class='output'>An object of class ml_fit
-  Algorithm: entropy_o
-  Success: TRUE
-  Residuals: min = -7.508794e-08, max = 4.291337e-08
-  Flat problem:
-  An object of class flat_ml_fit_problem
-    Dimensions: 7 unique groups, 5 controls
-    Original fitting problem:
-    An object of class fitting_problem
-      Reference sample: 23 observations
-      Control totals: 1 at individual, and 1 at group level
-      Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu
-</div></pre>
-  </div>
+      </div>
   <div class="span4">
     <!-- <ul>
-      <li>ml_fit_entropy_o</li>
+      <li>toy_example</li>
     </ul>
     <ul>
       
     </ul> -->
       
-    <h2>See also</h2>
-    
-<code><a href='http://www.inside-r.org/packages/cran/BB/docs/dfsane'>dfsane</a></code>
-
         
   </div>
 </div>
