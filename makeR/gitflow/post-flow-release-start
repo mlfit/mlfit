@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 
-autoroxy::rox_on()
+if (file.exists("R/aaa-autoroxy.R")) autoroxy::rox_on()
 
 library(magrittr)
 
