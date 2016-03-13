@@ -1,3 +1,14 @@
+Version 0.2-2 (2016-03-13)
+===
+
+- Include flat problem (group size = 1 for all groups).
+- Move legacy format (IPAF) and related functions to `data-raw` directory.
+- Toy examples now load with `readRDS()`.
+- `format()` and `print()` methods for classes `fitting_problem`, `flat_ml_fit_problem` and `ml_fit`.
+- New `toy_example()` allows easier access to bundled examples.
+- Use `sampling::calib()` instead of `survey::grake()`, because the latter forcibly attaches `MASS`.
+
+
 Version 0.2-1 (2016-03-02)
 ===
 
