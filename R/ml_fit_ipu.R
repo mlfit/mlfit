@@ -16,41 +16,21 @@
 #' path <- toy_example("minitoy")
 #' ml_fit_ipu(fitting_problem = readRDS(path))
 #' \dontrun{ml_fit_ipu(fitting_problem = readRDS(path), ginv = solve)}
-ml_fit_ipu <- function(fitting_problem,
-                       verbose = FALSE) {
+ml_fit_ipu <- function(fitting_problem, verbose = FALSE) {
   .patch_verbose()
 
-  flat <- if (is.fitting_problem(fitting_problem)) {
-    flatten_ml_fit_problem(fitting_problem = fitting_problem, verbose = verbose)
-  } else {
-    fitting_problem
-  }
+  .check_is_fitting_problem(fitting_problem)
 
-  message("Calibrating")
-  method <- match.arg(method)
+  flat_ipu <- flatten_for_ipu(fitting_problem)
 
-  if (!identical(ginv, MASS::ginv)) {
-    stop("Currently, only ginv = MASS::ginv is supported.", call. = FALSE)
-  }
+  ref_sample <- fitting_problem$refSample
+  controls <-
 
-  g <- sampling::calib(
-    Xs = t(flat$ref_sample),
-    d = flat$weights,
-    total = flat$control_totals,
-    method = method,
-    max_iter = 50)
-  weights.agg <- g * flat$weights
-
-  message("Done!")
-  new_ml_fit_dss(
-    list(
-      weights=expand_weights(weights.agg, flat),
-      success=TRUE,
-      residuals = (flat$ref_sample %*% weights.agg)[,1] - flat$control_totals,
-      flat=flat,
-      flat_weights=weights.agg
-    )
-  )
+  browser()
 }
 
-new_ml_fit_dss <- make_new(c("ml_fit_dss", "ml_fit"))
+#' @import dplyr
+flatten_for_ipu <- function(fitting_problem) {
+  browser()
+  fitting_problem$ref
+}
