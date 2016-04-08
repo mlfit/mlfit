@@ -49,7 +49,7 @@ ml_fit_dss <- function(fitting_problem,
   g <- sampling::calib(
     Xs = t(flat$ref_sample),
     d = flat$weights,
-    total = flat$control_totals,
+    total = flat$target_values,
     method = method,
     max_iter = 50)
   weights.agg <- g * flat$weights
@@ -59,7 +59,7 @@ ml_fit_dss <- function(fitting_problem,
     list(
       weights=expand_weights(weights.agg, flat),
       success=TRUE,
-      residuals = (flat$ref_sample %*% weights.agg)[,1] - flat$control_totals,
+      residuals = (flat$ref_sample %*% weights.agg)[,1] - flat$target_values,
       flat=flat,
       flat_weights=weights.agg
     )

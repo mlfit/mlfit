@@ -357,7 +357,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     list(
       ref_sample=ref_sample.agg.agg.m,
       weights=prior_weights_agg_agg,
-      control_totals=control.totals,
+      target_values=control.totals,
       weights_transform=weights_transform,
       reverse_weights_transform=reverse_weights_transform,
       fitting_problem=fitting_problem
