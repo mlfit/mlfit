@@ -57,7 +57,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
           if (nchar(control.term) == 0)
             control.term <- "1"
 
-          control.mm <- .model_matrix(sprintf("~%s", control.term), control)
+          control.mm <- .model_matrix(control.term, control)
           control.mm <- .rename.intercept(control.mm, control.type)
 
           count_name <- get_count_field_name(control, field_names$count, message)
@@ -72,11 +72,12 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     }
   )
 
-  control.formulae <- llply(
+  control_formula_components <- lapply(
     control.terms.list,
-    function(control.terms) {
-      paste(laply(control.terms, `[[`, "term"), collapse="+")
-    }
+    vapply,
+    `[[`,
+    character(1L),
+    "term"
   )
 
   # List of "individual" and "group"
@@ -91,9 +92,9 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     }
   )
 
-  if (!is.null(control.formulae$group) && nchar(control.formulae$group) > 0) {
+  if (length(control_formula_components$group) > 0L) {
     message("Preparing reference sample (groups)")
-    formula_grp <- sprintf("~%s+%s", field_names$groupId, control.formulae$group)
+    formula_grp <- c(field_names$groupId, control_formula_components$group)
     ref_sample_grp.mm <- as.data.frame(.model_matrix(formula_grp,
       plyr::rename(ref_sample[c(field_names$groupId, names(control.names$group))], control.names$group)))
     ref_sample_grp.mm <- .rename.intercept(ref_sample_grp.mm, "group")
@@ -121,10 +122,10 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
 
   prior_weights_agg <- as.vector(prior_weights %*% weights_transform)
 
-  if (!is.null(control.formulae$individual) && nchar(control.formulae$individual) > 0) {
+  if (length(control_formula_components$individual) > 0) {
     message("Preparing reference sample (individuals)")
-    ref_sample_ind.mm <- as.data.frame(.model_matrix(
-      sprintf("~%s+%s", field_names$groupId, control.formulae$individual),
+    formula_ind <- c(field_names$groupId, control_formula_components$individual)
+    ref_sample_ind.mm <- as.data.frame(.model_matrix(formula_ind,
       plyr::rename(ref_sample[c(field_names$groupId, names(control.names$individual))], control.names$individual)))
 
     message("Aggregating")
@@ -434,7 +435,8 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   substr(control.type, 1, 1)
 }
 
-.model_matrix <- function(formula_as_character, data) {
+.model_matrix <- function(formula_components, data) {
+  formula_as_character <- paste0("~", paste(formula_components, collapse = "+"))
   stats::model.matrix(as.formula(formula_as_character), data)
 }
 
