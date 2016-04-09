@@ -93,11 +93,15 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     }
   )
 
+  if (!(field_names$groupId %in% colnames(ref_sample)))
+    stop("Group ID column ", field_names$groupId, " not found in reference sample.")
+  stopifnot(is.numeric(ref_sample[[field_names$groupId]]))
+  if (any(diff(ref_sample_grp.mm[[field_names$groupId]]) < 0)) {
+    stop("Reference sample needs to be sorted by group ID column ", field_names$groupId, ".")
+  }
+
   if (!is.null(control.formulae$group) && nchar(control.formulae$group) > 0) {
     message("Preparing reference sample (groups)")
-    if (!(field_names$groupId %in% colnames(ref_sample)))
-      stop("Group ID column ", field_names$groupId, " not found in reference sample.")
-    stopifnot(is.numeric(ref_sample[[field_names$groupId]]))
     formula_grp <- sprintf("~%s", field_names$groupId) # nolint
     if (nchar(control.formulae$group) > 0) {
       formula_grp <- sprintf("%s+%s", formula_grp, control.formulae$group)
@@ -110,9 +114,6 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   }
 
   message("Splitting")
-  if (any(diff(ref_sample_grp.mm[[field_names$groupId]]) < 0)) {
-    stop("Reference sample needs to be sorted by group ID column ", field_names$groupId, ".")
-  }
   group_proxy_positions <- c(TRUE, diff(ref_sample_grp.mm[[field_names$groupId]]) != 0)
   group_sizes <- rle(ref_sample_grp.mm[[field_names$groupId]])$lengths
 
