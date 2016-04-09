@@ -435,10 +435,29 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   substr(control.type, 1, 1)
 }
 
-.model_matrix <- function(formula_components, data) {
+.model_matrix_combined <- function(formula_components, data) {
   formula_as_character <- paste0("~", paste(formula_components, collapse = "+"))
   stats::model.matrix(as.formula(formula_as_character), data)
 }
+
+.model_matrix_separate <- function(formula_components, data) {
+  matrices <- lapply(formula_components, .model_matrix_one, data)
+
+  if (any(duplicated(sapply(matrices, colnames)))) browser()
+
+  do.call(cbind, matrices)
+}
+
+.model_matrix_one <- function(formula_component, data) {
+  if (formula_component == "1")
+    formula_as_character <- "~1"
+  else
+    formula_as_character <- paste0("~", formula_component, "-1")
+
+  stats::model.matrix(as.formula(formula_as_character), data)
+}
+
+.model_matrix <- .model_matrix_combined
 
 #' @importFrom plyr revalue
 .rename.intercept <- function(data, control.type) {
