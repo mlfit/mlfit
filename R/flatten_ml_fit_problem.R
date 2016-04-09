@@ -399,7 +399,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   if (!(field_names$groupId %in% colnames(ref_sample)))
     stop("Group ID column ", field_names$groupId, " not found in reference sample.")
   stopifnot(is.numeric(ref_sample[[field_names$groupId]]))
-  if (any(diff(ref_sample_grp.mm[[field_names$groupId]]) < 0)) {
+  if (any(diff(ref_sample[[field_names$groupId]]) < 0)) {
     stop("Reference sample needs to be sorted by group ID column ", field_names$groupId, ".")
   }
 
