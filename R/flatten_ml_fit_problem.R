@@ -64,7 +64,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
 
   message("Splitting")
   if (any(diff(ref_sample_grp.mm[[field_names$groupId]]) < 0)) {
-    stop("Reference sample not sorted by group ID column ", field_names$groupId, ".")
+    stop("Reference sample needs to be sorted by group ID column ", field_names$groupId, ".")
   }
   group_proxy_positions <- c(TRUE, diff(ref_sample_grp.mm[[field_names$groupId]]) != 0)
   group_sizes <- rle(ref_sample_grp.mm[[field_names$groupId]])$lengths
