@@ -74,10 +74,10 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
 
   control_formula_components <- lapply(
     control.terms.list,
-    vapply,
-    `[[`,
-    character(1L),
-    "term"
+    function(control.term) {
+      formula_components <- vapply(control.term, `[[`, character(1L), "term")
+      unique(formula_components)
+    }
   )
 
   # List of "individual" and "group"
