@@ -152,7 +152,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     ref_sample.agg <- ref_sample_grp.agg
   }
 
-  message("Flattening reference sample")
+  message("Collapsing identical observations in reference sample")
   ref_sample.agg.agg <- aggregate(as.formula(sprintf("%s~.", field_names$groupId)),
                                   ref_sample.agg, FUN=identity, simplify = FALSE)
 
