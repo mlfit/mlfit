@@ -27,11 +27,6 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   control_names <- prepared_ref_sample$control_names
   control.terms.list <- prepared_ref_sample$control_terms_list
 
-  if (is.null(prior_weights)) {
-    # If not given, assume uniform prior weights
-    prior_weights <- rep(1, nrow(ref_sample))
-  }
-
   control.formulae <- llply(
     control.terms.list,
     function(control.terms) {
@@ -78,6 +73,11 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
 
   message("Transforming weights")
   group_size_rescale <- rep(group_sizes, group_sizes)
+
+  if (is.null(prior_weights)) {
+    # If not given, assume uniform prior weights
+    prior_weights <- rep(1, nrow(ref_sample))
+  }
 
   weights_transform <- Matrix::sparseMatrix(
     i=seq_along(group_proxy_positions), j=rep(seq_along(group_sizes), group_sizes),
