@@ -18,13 +18,13 @@
 flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   .check_is_fitting_problem(fitting_problem)
   field_names <- fitting_problem$fieldNames
-  controls <- fitting_problem$controls
   prior_weights <- fitting_problem$priorWeights
 
   .patch_verbose()
 
   prepared_ref_sample <- .prepare_ref_sample_and_controls(fitting_problem, verbose = verbose)
   ref_sample <- prepared_ref_sample$ref_sample
+  controls <- prepared_ref_sample$controls
   control_names <- prepared_ref_sample$control_names
 
   message("Preparing controls")
@@ -44,32 +44,6 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
           control.names.unordered <- setdiff(control.and.count.names, count_name)
           control.names <- colnames(ref_sample)[colnames(ref_sample) %in% control.names.unordered]
           stopifnot(length(control.names) == length(control.names.unordered))
-
-          control[control.names] <- lapply(
-            control[, control.names, drop = FALSE],
-            as.factor
-          )
-
-          control_levels <- lapply(control[control.names], levels)
-          ref_sample_levels <- lapply(ref_sample[control.names], levels)
-          if (!identical(control_levels, ref_sample_levels)) {
-            levels_identical <-
-              mapply(identical, control_levels, ref_sample_levels)
-            stop(
-              "Factor level mismatch between control and reference sample:\n",
-              paste0(
-                "- ", control.names[!levels_identical], " (",
-                vapply(control_levels[!levels_identical],
-                       paste, collapse = ", ",
-                       character(1L)),
-                " vs. ",
-                vapply(ref_sample_levels[!levels_identical],
-                       paste, collapse = ", ",
-                       character(1L)),
-                ")",
-                collapse = "\n")
-            )
-          }
 
           # Avoids error: "contrasts can be applied only to factors with 2 or more levels"
           control.levels <- vapply(
@@ -379,7 +353,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   }
 
   message("Preparing controls")
-  control_terms_list <- llply(
+  prepared_controls <- llply(
     setNames(nm=names(controls)),
     function(control.type) {
       control.list <- controls[[control.type]]
@@ -447,25 +421,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
                  paste0(control.names[control.category.na], collapse = ", "))
           }
 
-          new.control.names <- sprintf("%s_%s_", control.names, .control.type.abbrev(control.type))
-          control.and.count.names[control.names] <- new.control.names
-          colnames(control) <- control.and.count.names
-
-          control.term <- paste0(new.control.names, collapse="*")
-          if (nchar(control.term) == 0)
-            control.term <- "1"
-
-          control.mm <- model.matrix(
-            as.formula(sprintf("~%s", control.term)), # nolint
-            control)
-          control.mm <- .rename.intercept(control.mm, control.type)
-
-          list(
-            control.names=control.names,
-            new.control.names=new.control.names,
-            term=control.term,
-            control = (control[[count_name]] %*% control.mm)[1,, drop = TRUE]
-          )
+          control
         }
       )
     }
@@ -473,6 +429,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
 
   list(
     ref_sample = ref_sample,
+    controls = prepared_controls,
     control_names = control_names
   )
 }
