@@ -459,11 +459,9 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
 
 .model_matrix <- .model_matrix_combined
 
-#' @importFrom plyr revalue
 .rename.intercept <- function(data, control.type) {
-  colnames(data) <- revalue(
-    colnames(data),
-    c(`(Intercept)`=sprintf("(Intercept)_%s", .control.type.abbrev(control.type))))
+  new_intercept_name <- paste0("(Intercept)_", .control.type.abbrev(control.type))
+  colnames(data)[colnames(data) == "(Intercept)"] <- new_intercept_name
   data
 }
 
