@@ -57,9 +57,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
           if (nchar(control.term) == 0)
             control.term <- "1"
 
-          control.mm <- model.matrix(
-            as.formula(sprintf("~%s", control.term)), # nolint
-            control)
+          control.mm <- .model_matrix(sprintf("~%s", control.term), control)
           control.mm <- .rename.intercept(control.mm, control.type)
 
           count_name <- get_count_field_name(control, field_names$count, message)
@@ -99,7 +97,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     if (nchar(control.formulae$group) > 0) {
       formula_grp <- sprintf("%s+%s", formula_grp, control.formulae$group)
     }
-    ref_sample_grp.mm <- as.data.frame(model.matrix(as.formula(formula_grp),
+    ref_sample_grp.mm <- as.data.frame(.model_matrix(formula_grp,
       plyr::rename(ref_sample[c(field_names$groupId, names(control.names$group))], control.names$group)))
     ref_sample_grp.mm <- .rename.intercept(ref_sample_grp.mm, "group")
   } else {
@@ -128,8 +126,8 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
 
   if (!is.null(control.formulae$individual) && nchar(control.formulae$individual) > 0) {
     message("Preparing reference sample (individuals)")
-    ref_sample_ind.mm <- as.data.frame(model.matrix(
-      as.formula(sprintf("~%s+%s", field_names$groupId, control.formulae$individual)), # nolint
+    ref_sample_ind.mm <- as.data.frame(.model_matrix(
+      sprintf("~%s+%s", field_names$groupId, control.formulae$individual),
       plyr::rename(ref_sample[c(field_names$groupId, names(control.names$individual))], control.names$individual)))
 
     message("Aggregating")
@@ -437,6 +435,10 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
 
 .control.type.abbrev <- function(control.type) {
   substr(control.type, 1, 1)
+}
+
+.model_matrix <- function(formula_as_character, data) {
+  stats::model.matrix(as.formula(formula_as_character), data)
 }
 
 #' @importFrom plyr revalue
