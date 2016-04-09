@@ -156,7 +156,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   ref_sample.agg.agg <- aggregate(as.formula(sprintf("%s~.", field_names$groupId)),
                                   ref_sample.agg, FUN=identity, simplify = FALSE)
 
-  group_ids <- ref_sample.agg.agg[, field_names$groupId, drop = TRUE]
+  group_ids <- ref_sample.agg.agg[[field_names$groupId]]
   group_ids <- setNames(group_ids, nm = sprintf("%d.", seq_along(group_ids)))
   group_ids_u <- unlist(group_ids, use.names = TRUE)
 
