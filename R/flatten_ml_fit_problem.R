@@ -24,14 +24,14 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
 
   .patch_verbose()
 
-  if (length(controls$individual) + length(controls$group) == 0L) {
-    stop("Need at least one control at individual or group level.",
-         call. = FALSE)
-  }
-
   if (is.null(prior_weights)) {
     # If not given, assume uniform prior weights
     prior_weights <- rep(1, nrow(ref_sample))
+  }
+
+  if (length(controls$individual) + length(controls$group) == 0L) {
+    stop("Need at least one control at individual or group level.",
+         call. = FALSE)
   }
 
   message("Collecting controls")
