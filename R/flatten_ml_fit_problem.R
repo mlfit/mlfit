@@ -38,12 +38,8 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
         function(control, control.type) {
           # Secure against data.table
           control <- as.data.frame(control)
-          count_name <- get_count_field_name(control, field_names$count, message)
 
-          control.and.count.names <- setNames(nm=colnames(control))
-          control.names.unordered <- setdiff(control.and.count.names, count_name)
-          control.names <- colnames(ref_sample)[colnames(ref_sample) %in% control.names.unordered]
-          stopifnot(length(control.names) == length(control.names.unordered))
+          control.names <- .ordered_control_names(ref_sample, control, field_names)
 
           # Avoids error: "contrasts can be applied only to factors with 2 or more levels"
           control.levels <- vapply(
@@ -52,27 +48,10 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
               length(levels(f))
             },
             integer(1))
-          if (any(control.levels == 0)) {
-            stop("All control variables must be factors or characters. ",
-                 "Offending control variable(s): ",
-                 paste0(control.names[control.levels == 0], collapse = ", "))
-          }
           control.names <- control.names[control.levels > 1]
 
-          # Avoids hard-to-understand errors if categories are NA
-          control.category.na <- vapply(
-            control[control.names],
-            function(f) any(is.na(f)),
-            logical(1))
-          if (any(control.category.na)) {
-            stop("NA values in control variables not supported. ",
-                 "Offending control variable(s): ",
-                 paste0(control.names[control.category.na], collapse = ", "))
-          }
-
           new.control.names <- sprintf("%s_%s_", control.names, .control.type.abbrev(control.type))
-          control.and.count.names[control.names] <- new.control.names
-          colnames(control) <- control.and.count.names
+          colnames(control) <- .updated_control_colnames(control, control.names, new.control.names)
 
           control.term <- paste0(new.control.names, collapse="*")
           if (nchar(control.term) == 0)
@@ -83,6 +62,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
             control)
           control.mm <- .rename.intercept(control.mm, control.type)
 
+          count_name <- get_count_field_name(control, field_names$count, message)
           list(
             control.names=control.names,
             new.control.names=new.control.names,
@@ -352,7 +332,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
          paste0(control_names[has_na], collapse = ", "))
   }
 
-  message("Preparing controls")
+  message("Checking controls")
   prepared_controls <- llply(
     setNames(nm=names(controls)),
     function(control.type) {
@@ -363,12 +343,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
         function(control, control.type) {
           # Secure against data.table
           control <- as.data.frame(control)
-          count_name <- get_count_field_name(control, field_names$count, message)
-
-          control.and.count.names <- setNames(nm=colnames(control))
-          control.names.unordered <- setdiff(control.and.count.names, count_name)
-          control.names <- colnames(ref_sample)[colnames(ref_sample) %in% control.names.unordered]
-          stopifnot(length(control.names) == length(control.names.unordered))
+          control.names <- .ordered_control_names(ref_sample, control, field_names)
 
           control[control.names] <- lapply(
             control[, control.names, drop = FALSE],
@@ -408,7 +383,6 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
                  "Offending control variable(s): ",
                  paste0(control.names[control.levels == 0], collapse = ", "))
           }
-          control.names <- control.names[control.levels > 1]
 
           # Avoids hard-to-understand errors if categories are NA
           control.category.na <- vapply(
@@ -433,6 +407,31 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     control_names = control_names
   )
 }
+
+
+
+
+
+.ordered_control_names <- function(ref_sample, control, field_names) {
+  count_name <- get_count_field_name(control, field_names$count, message)
+  control.and.count.names <- setNames(nm=colnames(control))
+  control.names.unordered <- setdiff(control.and.count.names, count_name)
+  control.names <- colnames(ref_sample)[colnames(ref_sample) %in% control.names.unordered]
+  stopifnot(length(control.names) == length(control.names.unordered))
+  control.names
+}
+
+
+
+
+.updated_control_colnames <- function(control, control_names, new_control_names) {
+  control_and_count_names <- setNames(nm=colnames(control))
+  control_and_count_names[control_names] <- new_control_names
+  control_and_count_names
+}
+
+
+
 
 .control.type.abbrev <- function(control.type) {
   substr(control.type, 1, 1)
