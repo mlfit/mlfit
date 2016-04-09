@@ -93,10 +93,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
 
   if (!is.null(control.formulae$group) && nchar(control.formulae$group) > 0) {
     message("Preparing reference sample (groups)")
-    formula_grp <- sprintf("~%s", field_names$groupId) # nolint
-    if (nchar(control.formulae$group) > 0) {
-      formula_grp <- sprintf("%s+%s", formula_grp, control.formulae$group)
-    }
+    formula_grp <- sprintf("~%s+%s", field_names$groupId, control.formulae$group)
     ref_sample_grp.mm <- as.data.frame(.model_matrix(formula_grp,
       plyr::rename(ref_sample[c(field_names$groupId, names(control.names$group))], control.names$group)))
     ref_sample_grp.mm <- .rename.intercept(ref_sample_grp.mm, "group")
