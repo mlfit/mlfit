@@ -72,9 +72,8 @@ run_ipu <- function(flat, tol, maxiter, verbose) {
       ref_sample_entries <- nonzero_ref_sample[[row]]
 
       valid_weights <- weights[col_indexes]
-      current_value <- valid_weights * ref_sample_entries
-      target_value <- current_value / sum(current_value) * target_values[[row]]
-      weights[col_indexes] <- target_value / ref_sample_entries
+      current_value <- sum(valid_weights * ref_sample_entries)
+      weights[col_indexes] <- valid_weights / current_value * target_values[[row]]
     }
   }
 
