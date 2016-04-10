@@ -81,3 +81,28 @@ test_that("error with auto controls", {
   expect_error(flat <- flatten_ml_fit_problem(problem, verbose = TRUE),
                  "among control columns")
 })
+
+test_that("identical households", {
+  group_id <- c(1, 2, 2, 3, 3, 3)
+  ref_sample <- data.frame(group_id=group_id, ind=letters[1:2], group=LETTERS[group_id])
+  ref_sample <- ref_sample %>%
+    bind_rows(ref_sample %>% filter(group_id >= 2) %>% mutate(group_id = group_id + 2)) %>%
+    bind_rows(ref_sample %>% filter(group_id >= 3) %>% mutate(group_id = group_id + 3))
+
+  controls <- list(
+    group = list(
+      data.frame(group = LETTERS[1:3], N = 2:4)
+    )
+  )
+  field_names <- list(
+    count = "N",
+    groupId = "group_id"
+  )
+  problem <- fitting_problem(ref_sample, controls, field_names, prior_weights = ref_sample$group_id)
+  flat <- flatten_ml_fit_problem(problem)
+  expect_equal(flat$fitting_problem, problem)
+  test_weights <- ref_sample$group_id
+  test_weights_flat <- test_weights %*% flat$weights_transform %>% as.vector
+  expect_equal(as.vector(test_weights_flat %*% flat$reverse_weights_transform %*% flat$weights_transform),
+               test_weights_flat)
+})

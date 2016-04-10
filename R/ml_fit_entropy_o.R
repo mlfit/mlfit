@@ -17,11 +17,7 @@ ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE,
                              dfsane_args = list()) {
   .patch_verbose()
 
-  flat <- if (is.fitting_problem(fitting_problem)) {
-    flatten_ml_fit_problem(fitting_problem = fitting_problem, verbose = verbose)
-  } else {
-    fitting_problem
-  }
+  flat <- as.flat_ml_fit_problem(fitting_problem, verbose = verbose)
 
   par <- rep(0, length(flat$target_values))
   dfsane_args$par <- par
