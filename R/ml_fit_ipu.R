@@ -45,7 +45,7 @@ run_ipu <- function(flat, tol, maxiter, verbose) {
   message("Preparing IPU data")
   ref_sample <- flat$ref_sample
   target_values <- flat$target_values
-  weights <- rep(1, ncol(ref_sample))
+  weights <- flat$weights
 
   nonzero_col_index <- lapply(
     seq_len(nrow(ref_sample)),
