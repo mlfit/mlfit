@@ -278,12 +278,13 @@ flatten_ml_fit_problem <- function(fitting_problem,
   message("Done!")
   new_flat_ml_fit_problem(
     list(
-      ref_sample=ref_sample.agg.agg.m,
-      weights=prior_weights_agg_agg,
-      target_values=control.totals,
-      weights_transform=weights_transform,
-      reverse_weights_transform=reverse_weights_transform,
-      fitting_problem=fitting_problem
+      ref_sample = ref_sample.agg.agg.m,
+      weights = prior_weights_agg_agg,
+      target_values = control.totals,
+      weights_transform = weights_transform,
+      reverse_weights_transform = reverse_weights_transform,
+      model_matrix_type = model_matrix_type,
+      fitting_problem = fitting_problem
     )
   )
 }
@@ -521,6 +522,7 @@ format.flat_ml_fit_problem <- function(x, ...) {
     "An object of class flat_ml_fit_problem",
     "  Dimensions: " %+% ncol(x$ref_sample) %+% " unique groups, " %+%
       nrow(x$ref_sample) %+% " controls",
+    "  Model matrix type: " %+% x$model_matrix_type,
     "  Original fitting problem:",
     "  " %+% format(x$fitting_problem)
   )
