@@ -5,7 +5,16 @@
 #' attribute and one column per unique household, a weight vector with one weight
 #' per household, and a control vector.
 #'
+#' @details
+#' The standard way to build a model matrix (\code{model_matrix = "combined"})
+#' is to include intercepts and avoid repeating redundant attributes.
+#' An simpler model matrix specification, available via \code{model_matrix = "separate"},
+#' is used by Ye et al. (2009):
+#' Here, simply one column per target value is used, which.
+#' results in a larger model matrix if more than one control is given.
+#'
 #' @inheritParams ml_fit
+#' @param model_matrix_type Which model matrix building strategy to use? See details.
 #' @return An object of classes \code{flat_ml_fit_problem},
 #'   essentially a named list.
 #' @seealso \code{\link{ml_fit}}
@@ -15,10 +24,15 @@
 #' @examples
 #' path <- toy_example("minitoy")
 #' flatten_ml_fit_problem(fitting_problem = readRDS(path))
-flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
+flatten_ml_fit_problem <- function(fitting_problem,
+                                   model_matrix_type = c("combined", "separate"),
+                                   verbose = FALSE) {
   .check_is_fitting_problem(fitting_problem)
   field_names <- fitting_problem$fieldNames
   prior_weights <- fitting_problem$priorWeights
+
+  model_matrix_type <- match.arg(model_matrix_type)
+  model_matrix <- .get_model_matrix_fun(model_matrix_type)
 
   .patch_verbose()
 
@@ -57,7 +71,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
           if (nchar(control.term) == 0)
             control.term <- "1"
 
-          control.mm <- .model_matrix(control.term, control)
+          control.mm <- model_matrix(control.term, control)
           control.mm <- .rename.intercept(control.mm, control.type)
 
           count_name <- get_count_field_name(control, field_names$count, message)
@@ -95,7 +109,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   if (length(control_formula_components$group) > 0L) {
     message("Preparing reference sample (groups)")
     formula_grp <- c(field_names$groupId, control_formula_components$group)
-    ref_sample_grp.mm <- as.data.frame(.model_matrix(formula_grp,
+    ref_sample_grp.mm <- as.data.frame(model_matrix(formula_grp,
       plyr::rename(ref_sample[c(field_names$groupId, names(control.names$group))], control.names$group)))
     ref_sample_grp.mm <- .rename.intercept(ref_sample_grp.mm, "group")
   } else {
@@ -125,7 +139,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   if (length(control_formula_components$individual) > 0) {
     message("Preparing reference sample (individuals)")
     formula_ind <- c(field_names$groupId, control_formula_components$individual)
-    ref_sample_ind.mm <- as.data.frame(.model_matrix(formula_ind,
+    ref_sample_ind.mm <- as.data.frame(model_matrix(formula_ind,
       plyr::rename(ref_sample[c(field_names$groupId, names(control.names$individual))], control.names$individual)))
 
     message("Aggregating")
@@ -457,7 +471,14 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   stats::model.matrix(as.formula(formula_as_character), data)
 }
 
-.model_matrix <- .model_matrix_combined
+.get_model_matrix_fun <- function(model_matrix) {
+  switch(
+    model_matrix,
+    combined = .model_matrix_combined,
+    separate = .model_matrix_separate,
+    stop("Unknown model matrix function: ", model_matrix, call. = FALSE)
+  )
+}
 
 .rename.intercept <- function(data, control.type) {
   new_intercept_name <- paste0("(Intercept)_", .control.type.abbrev(control.type))
