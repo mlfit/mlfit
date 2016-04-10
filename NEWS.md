@@ -1,3 +1,10 @@
+# MultiLevelIPF 0.2-5 (2016-04-10)
+
+- New `as.flat_ml_fit_problem()` is used to coerce input for the `ml_fit_` functions.
+- Flattened problems store the type of model matrix used, it is also shown with the `format()` and `print()` methods.
+- Specific test for households with the same signature.
+
+
 # MultiLevelIPF 0.2-4 (2016-04-10)
 
 - Extract `.prepare_ref_sample_and_controls()` from `flatten_ml_fit_problem()`.
