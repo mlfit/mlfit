@@ -27,6 +27,7 @@ ml_fit_ipu <- function(fitting_problem, tol = 1e-6, maxiter = 5000, verbose = FA
 
   res <- run_ipu(flat, tol, maxiter, verbose)
 
+  message("Done!")
   new_ml_fit_ipu(
     list(
       weights = expand_weights(res$weights, flat),
@@ -40,6 +41,8 @@ ml_fit_ipu <- function(fitting_problem, tol = 1e-6, maxiter = 5000, verbose = FA
 
 run_ipu <- function(flat, tol, maxiter, verbose) {
   .patch_verbose()
+
+  message("Preparing IPU data")
   ref_sample <- flat$ref_sample
   target_values <- flat$target_values
   weights <- rep(1, ncol(ref_sample))
@@ -54,11 +57,16 @@ run_ipu <- function(flat, tol, maxiter, verbose) {
     function(row) ref_sample[row, nonzero_col_index[[row]] ]
   )
 
+  message("Start")
+
   success <- FALSE
   for (iter in seq.int(2L, maxiter + 1)) {
+    if (iter %% 100 == 0)
+      message("Iteration ", iter)
     residuals <- ref_sample %*% weights - target_values
     if (all(abs(residuals) < tol)) {
       success <- TRUE
+      message("Success")
       break
     }
 
