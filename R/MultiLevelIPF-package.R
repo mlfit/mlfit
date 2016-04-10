@@ -15,5 +15,6 @@
 #'        Barcelona, Barcelona.
 #' @keywords package
 #' @import methods
+#' @import dplyr
 #' @importFrom plyr l_ply d_ply
 NULL
