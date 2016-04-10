@@ -98,7 +98,7 @@ test_that("identical households", {
     count = "N",
     groupId = "group_id"
   )
-  problem <- fitting_problem(ref_sample, controls, field_names)
+  problem <- fitting_problem(ref_sample, controls, field_names, prior_weights = ref_sample$group_id)
   flat <- flatten_ml_fit_problem(problem)
   expect_equal(flat$fitting_problem, problem)
   test_weights <- ref_sample$group_id
