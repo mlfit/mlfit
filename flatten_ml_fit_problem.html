@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>flatten_ml_fit_problem. MultiLevelIPF 0.2-3</title>
+<title>flatten_ml_fit_problem. MultiLevelIPF 0.2-5</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">MultiLevelIPF 0.2-3</a>
+      <a class="brand" href="#">MultiLevelIPF 0.2-5</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -53,15 +53,22 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>flatten_ml_fit_problem(fitting_problem, verbose&nbsp;=&nbsp;FALSE)</div></pre>
+    <pre><div>flatten_ml_fit_problem(fitting_problem, model_matrix_type&nbsp;=&nbsp;c("combined", "separate"), verbose&nbsp;=&nbsp;FALSE)</div>
+<div>as.flat_ml_fit_problem(x, model_matrix_type&nbsp;=&nbsp;c("combined", "separate"), ...)</div></pre>
     
     <h2>Arguments</h2>
     <dl>
       <dt>fitting_problem</dt>
       <dd>A fitting problem created by
 <code><a href='fitting_problem.html'>fitting_problem</a></code>.</dd>
+      <dt>model_matrix_type</dt>
+      <dd>Which model matrix building strategy to use? See details.</dd>
       <dt>verbose</dt>
       <dd>If <code>TRUE</code>, print diagnostic output.</dd>
+      <dt>x</dt>
+      <dd>An object</dd>
+      <dt>...</dt>
+      <dd>Further parameters passed to the algorithm</dd>
     </dl>
     
     <div class="Value">
@@ -83,6 +90,18 @@ attribute and one column per unique household, a weight vector with one weight
 per household, and a control vector.</p>
   
     </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>The standard way to build a model matrix (<code>model_matrix = "combined"</code>)
+is to include intercepts and avoid repeating redundant attributes.
+An simpler model matrix specification, available via <code>model_matrix = "separate"</code>,
+is used by Ye et al. (2009):
+Here, simply one column per target value is used, which.
+results in a larger model matrix if more than one control is given.</p>
+  
+    </div>
     
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'>path &lt;- toy_example(&quot;minitoy&quot;)
@@ -90,6 +109,7 @@ flatten_ml_fit_problem(fitting_problem = readRDS(path))
 </div>
 <div class='output'>An object of class flat_ml_fit_problem
   Dimensions: 7 unique groups, 5 controls
+  Model matrix type: combined
   Original fitting problem:
   An object of class fitting_problem
     Reference sample: 23 observations
@@ -99,7 +119,7 @@ flatten_ml_fit_problem(fitting_problem = readRDS(path))
   </div>
   <div class="span4">
     <!-- <ul>
-      <li>flatten_ml_fit_problem</li>
+      <li>as.flat_ml_fit_problem</li><li>flatten_ml_fit_problem</li>
     </ul>
     <ul>
       
