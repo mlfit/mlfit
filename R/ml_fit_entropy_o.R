@@ -23,9 +23,9 @@ ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE,
     fitting_problem
   }
 
-  par <- rep(0, length(flat$control_totals))
+  par <- rep(0, length(flat$target_values))
   dfsane_args$par <- par
-  dfsane_args$fn <- dss.objective.m(x=flat$ref_sample, control.totals=flat$control_totals, F=exp, d=flat$weights)
+  dfsane_args$fn <- dss.objective.m(x=flat$ref_sample, control.totals=flat$target_values, F=exp, d=flat$weights)
   dfsane_args$control$M <- 1
   dfsane_args$control$trace <- verbose
 
@@ -44,7 +44,7 @@ ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE,
     list(
       weights = expand_weights(weights.agg, flat),
       success = (bbout$message == "Successful convergence"),
-      residuals = (flat$ref_sample %*% weights.agg)[,1] - flat$control_totals,
+      residuals = (flat$ref_sample %*% weights.agg)[,1] - flat$target_values,
       flat=flat,
       flat_weights=weights.agg,
       bbout=bbout

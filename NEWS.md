@@ -1,3 +1,10 @@
+# MultiLevelIPF 0.2-4 (2016-04-10)
+
+- Extract `.prepare_ref_sample_and_controls()` from `flatten_ml_fit_problem()`.
+- `flatten_ml_fit_problem()` gains new `model_matrix_type` argument that allows selecting an alternative model matrix building method.
+- Use `target_values` instead of `control_totals` in code.
+
+
 # MultiLevelIPF 0.2-3 (2016-04-08)
 
 - Enhance example.

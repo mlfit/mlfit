@@ -8,7 +8,7 @@ test_that("entropy_o algorithm", {
     flat <- flatten_ml_fit_problem(problem)
     fit <- ml_fit_entropy_o(flat)
     fit_dss <- ml_fit_dss(flat)
-    expect_equivalent(fit$flat_weights, fit_dss$flat_weights)
+    expect_lt(max(abs(fit$flat_weights - fit_dss$flat_weights)), 1e-5)
 
     margins <- compute_margins(problem, fit$weights)
     control_df <- margin_to_df(problem$controls)

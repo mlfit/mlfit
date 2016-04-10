@@ -5,7 +5,16 @@
 #' attribute and one column per unique household, a weight vector with one weight
 #' per household, and a control vector.
 #'
+#' @details
+#' The standard way to build a model matrix (\code{model_matrix = "combined"})
+#' is to include intercepts and avoid repeating redundant attributes.
+#' An simpler model matrix specification, available via \code{model_matrix = "separate"},
+#' is used by Ye et al. (2009):
+#' Here, simply one column per target value is used, which.
+#' results in a larger model matrix if more than one control is given.
+#'
 #' @inheritParams ml_fit
+#' @param model_matrix_type Which model matrix building strategy to use? See details.
 #' @return An object of classes \code{flat_ml_fit_problem},
 #'   essentially a named list.
 #' @seealso \code{\link{ml_fit}}
@@ -15,57 +24,22 @@
 #' @examples
 #' path <- toy_example("minitoy")
 #' flatten_ml_fit_problem(fitting_problem = readRDS(path))
-flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
+flatten_ml_fit_problem <- function(fitting_problem,
+                                   model_matrix_type = c("combined", "separate"),
+                                   verbose = FALSE) {
   .check_is_fitting_problem(fitting_problem)
-  ref_sample <- fitting_problem$refSample
-  controls <- fitting_problem$controls
   field_names <- fitting_problem$fieldNames
   prior_weights <- fitting_problem$priorWeights
 
+  model_matrix_type <- match.arg(model_matrix_type)
+  model_matrix <- .get_model_matrix_fun(model_matrix_type)
+
   .patch_verbose()
 
-  if (length(controls$individual) + length(controls$group) == 0L) {
-    stop("Need at least one control at individual or group level.",
-         call. = FALSE)
-  }
-
-  if (is.null(prior_weights)) {
-    # If not given, assume uniform prior weights
-    prior_weights <- rep(1, nrow(ref_sample))
-  }
-
-  message("Collecting controls")
-  control.names.list <- llply(
-    controls,
-    function(control.list) {
-      control.columns <- llply(
-        control.list,
-        function(control) {
-          # Secure against data.table
-          control <- as.data.frame(control)
-          count_name <- get_count_field_name(control, field_names$count, message)
-          setdiff(colnames(control), count_name)
-        }
-      )
-    }
-  )
-
-  control_names <- unique(unlist(control.names.list, recursive = TRUE))
-
-  if (!all(control_names %in% colnames(ref_sample))) {
-    stop("Control variable(s) not found: ",
-         paste0(setdiff(control_names, colnames(ref_sample)), collapse = ", "))
-  }
-
-  message("Converting to factor")
-  ref_sample[control_names] <-
-    lapply(ref_sample[, control_names, drop = FALSE], as.factor)
-
-  has_na <- vapply(ref_sample[control_names], anyNA, logical(1L))
-  if (any(has_na)) {
-    stop("NA values for control variables in reference sample: ",
-         paste0(control_names[has_na], collapse = ", "))
-  }
+  prepared_ref_sample <- .prepare_ref_sample_and_controls(fitting_problem, verbose = verbose)
+  ref_sample <- prepared_ref_sample$ref_sample
+  controls <- prepared_ref_sample$controls
+  control_names <- prepared_ref_sample$control_names
 
   message("Preparing controls")
   control.terms.list <- llply(
@@ -78,38 +52,8 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
         function(control, control.type) {
           # Secure against data.table
           control <- as.data.frame(control)
-          count_name <- get_count_field_name(control, field_names$count, message)
 
-          control.and.count.names <- setNames(nm=colnames(control))
-          control.names.unordered <- setdiff(control.and.count.names, count_name)
-          control.names <- colnames(ref_sample)[colnames(ref_sample) %in% control.names.unordered]
-          stopifnot(length(control.names) == length(control.names.unordered))
-
-          control[control.names] <- lapply(
-            control[, control.names, drop = FALSE],
-            as.factor
-          )
-
-          control_levels <- lapply(control[control.names], levels)
-          ref_sample_levels <- lapply(ref_sample[control.names], levels)
-          if (!identical(control_levels, ref_sample_levels)) {
-            levels_identical <-
-              mapply(identical, control_levels, ref_sample_levels)
-            stop(
-              "Factor level mismatch between control and reference sample:\n",
-              paste0(
-                "- ", control.names[!levels_identical], " (",
-                vapply(control_levels[!levels_identical],
-                       paste, collapse = ", ",
-                       character(1L)),
-                " vs. ",
-                vapply(ref_sample_levels[!levels_identical],
-                       paste, collapse = ", ",
-                       character(1L)),
-                ")",
-                collapse = "\n")
-            )
-          }
+          control.names <- .ordered_control_names(ref_sample, control, field_names)
 
           # Avoids error: "contrasts can be applied only to factors with 2 or more levels"
           control.levels <- vapply(
@@ -118,37 +62,19 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
               length(levels(f))
             },
             integer(1))
-          if (any(control.levels == 0)) {
-            stop("All control variables must be factors or characters. ",
-                 "Offending control variable(s): ",
-                 paste0(control.names[control.levels == 0], collapse = ", "))
-          }
           control.names <- control.names[control.levels > 1]
 
-          # Avoids hard-to-understand errors if categories are NA
-          control.category.na <- vapply(
-            control[control.names],
-            function(f) any(is.na(f)),
-            logical(1))
-          if (any(control.category.na)) {
-            stop("NA values in control variables not supported. ",
-                 "Offending control variable(s): ",
-                 paste0(control.names[control.category.na], collapse = ", "))
-          }
-
           new.control.names <- sprintf("%s_%s_", control.names, .control.type.abbrev(control.type))
-          control.and.count.names[control.names] <- new.control.names
-          colnames(control) <- control.and.count.names
+          colnames(control) <- .updated_control_colnames(control, control.names, new.control.names)
 
           control.term <- paste0(new.control.names, collapse="*")
           if (nchar(control.term) == 0)
             control.term <- "1"
 
-          control.mm <- model.matrix(
-            as.formula(sprintf("~%s", control.term)), # nolint
-            control)
+          control.mm <- model_matrix(control.term, control)
           control.mm <- .rename.intercept(control.mm, control.type)
 
+          count_name <- get_count_field_name(control, field_names$count, message)
           list(
             control.names=control.names,
             new.control.names=new.control.names,
@@ -160,10 +86,11 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     }
   )
 
-  control.formulae <- llply(
+  control_formula_components <- lapply(
     control.terms.list,
-    function(control.terms) {
-      paste(laply(control.terms, `[[`, "term"), collapse="+")
+    function(control.term) {
+      formula_components <- vapply(control.term, `[[`, character(1L), "term")
+      unique(formula_components)
     }
   )
 
@@ -179,16 +106,10 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     }
   )
 
-  if (!is.null(control.formulae$group) && nchar(control.formulae$group) > 0) {
+  if (length(control_formula_components$group) > 0L) {
     message("Preparing reference sample (groups)")
-    if (!(field_names$groupId %in% colnames(ref_sample)))
-      stop("Group ID column ", field_names$groupId, " not found in reference sample.")
-    stopifnot(is.numeric(ref_sample[[field_names$groupId]]))
-    formula_grp <- sprintf("~%s", field_names$groupId) # nolint
-    if (nchar(control.formulae$group) > 0) {
-      formula_grp <- sprintf("%s+%s", formula_grp, control.formulae$group)
-    }
-    ref_sample_grp.mm <- as.data.frame(model.matrix(as.formula(formula_grp),
+    formula_grp <- c(field_names$groupId, control_formula_components$group)
+    ref_sample_grp.mm <- as.data.frame(model_matrix(formula_grp,
       plyr::rename(ref_sample[c(field_names$groupId, names(control.names$group))], control.names$group)))
     ref_sample_grp.mm <- .rename.intercept(ref_sample_grp.mm, "group")
   } else {
@@ -196,9 +117,6 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   }
 
   message("Splitting")
-  if (any(diff(ref_sample_grp.mm[[field_names$groupId]]) < 0)) {
-    stop("Reference sample not sorted by group ID column ", field_names$groupId, ".")
-  }
   group_proxy_positions <- c(TRUE, diff(ref_sample_grp.mm[[field_names$groupId]]) != 0)
   group_sizes <- rle(ref_sample_grp.mm[[field_names$groupId]])$lengths
 
@@ -207,16 +125,21 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   message("Transforming weights")
   group_size_rescale <- rep(group_sizes, group_sizes)
 
+  if (is.null(prior_weights)) {
+    # If not given, assume uniform prior weights
+    prior_weights <- rep(1, nrow(ref_sample))
+  }
+
   weights_transform <- Matrix::sparseMatrix(
     i=seq_along(group_proxy_positions), j=rep(seq_along(group_sizes), group_sizes),
     x=1 / group_size_rescale)
 
   prior_weights_agg <- as.vector(prior_weights %*% weights_transform)
 
-  if (!is.null(control.formulae$individual) && nchar(control.formulae$individual) > 0) {
+  if (length(control_formula_components$individual) > 0) {
     message("Preparing reference sample (individuals)")
-    ref_sample_ind.mm <- as.data.frame(model.matrix(
-      as.formula(sprintf("~%s+%s", field_names$groupId, control.formulae$individual)), # nolint
+    formula_ind <- c(field_names$groupId, control_formula_components$individual)
+    ref_sample_ind.mm <- as.data.frame(model_matrix(formula_ind,
       plyr::rename(ref_sample[c(field_names$groupId, names(control.names$individual))], control.names$individual)))
 
     message("Aggregating")
@@ -233,11 +156,11 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     ref_sample.agg <- ref_sample_grp.agg
   }
 
-  message("Flattening reference sample")
+  message("Collapsing identical observations in reference sample")
   ref_sample.agg.agg <- aggregate(as.formula(sprintf("%s~.", field_names$groupId)),
                                   ref_sample.agg, FUN=identity, simplify = FALSE)
 
-  group_ids <- ref_sample.agg.agg[, field_names$groupId, drop = TRUE]
+  group_ids <- ref_sample.agg.agg[[field_names$groupId]]
   group_ids <- setNames(group_ids, nm = sprintf("%d.", seq_along(group_ids)))
   group_ids_u <- unlist(group_ids, use.names = TRUE)
 
@@ -357,7 +280,7 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
     list(
       ref_sample=ref_sample.agg.agg.m,
       weights=prior_weights_agg_agg,
-      control_totals=control.totals,
+      target_values=control.totals,
       weights_transform=weights_transform,
       reverse_weights_transform=reverse_weights_transform,
       fitting_problem=fitting_problem
@@ -365,15 +288,201 @@ flatten_ml_fit_problem <- function(fitting_problem, verbose = FALSE) {
   )
 }
 
+
+
+
+.prepare_ref_sample_and_controls <- function(fitting_problem, verbose) {
+  .patch_verbose()
+
+  ref_sample <- fitting_problem$refSample
+  controls <- fitting_problem$controls
+  field_names <- fitting_problem$fieldNames
+
+  if (length(controls$individual) + length(controls$group) == 0L) {
+    stop("Need at least one control at individual or group level.",
+         call. = FALSE)
+  }
+
+  message("Collecting controls")
+  control.names.list <- llply(
+    controls,
+    function(control.list) {
+      control.columns <- llply(
+        control.list,
+        function(control) {
+          # Secure against data.table
+          control <- as.data.frame(control)
+          count_name <- get_count_field_name(control, field_names$count, message)
+          setdiff(colnames(control), count_name)
+        }
+      )
+    }
+  )
+
+  control_names <- unique(unlist(control.names.list, recursive = TRUE))
+
+  if (!all(control_names %in% colnames(ref_sample))) {
+    stop("Control variable(s) not found: ",
+         paste0(setdiff(control_names, colnames(ref_sample)), collapse = ", "))
+  }
+
+  message("Converting to factor")
+  ref_sample[control_names] <-
+    lapply(ref_sample[, control_names, drop = FALSE], as.factor)
+
+  has_na <- vapply(ref_sample[control_names], anyNA, logical(1L))
+  if (any(has_na)) {
+    stop("NA values for control variables in reference sample: ",
+         paste0(control_names[has_na], collapse = ", "))
+  }
+
+  message("Checking controls")
+  prepared_controls <- llply(
+    setNames(nm=names(controls)),
+    function(control.type) {
+      control.list <- controls[[control.type]]
+      control.columns <- llply(
+        control.list,
+        control.type = control.type,
+        function(control, control.type) {
+          # Secure against data.table
+          control <- as.data.frame(control)
+          control.names <- .ordered_control_names(ref_sample, control, field_names)
+
+          control[control.names] <- lapply(
+            control[, control.names, drop = FALSE],
+            as.factor
+          )
+
+          control_levels <- lapply(control[control.names], levels)
+          ref_sample_levels <- lapply(ref_sample[control.names], levels)
+          if (!identical(control_levels, ref_sample_levels)) {
+            levels_identical <-
+              mapply(identical, control_levels, ref_sample_levels)
+            stop(
+              "Factor level mismatch between control and reference sample:\n",
+              paste0(
+                "- ", control.names[!levels_identical], " (",
+                vapply(control_levels[!levels_identical],
+                       paste, collapse = ", ",
+                       character(1L)),
+                " vs. ",
+                vapply(ref_sample_levels[!levels_identical],
+                       paste, collapse = ", ",
+                       character(1L)),
+                ")",
+                collapse = "\n")
+            )
+          }
+
+          # Avoids error: "contrasts can be applied only to factors with 2 or more levels"
+          control.levels <- vapply(
+            control[control.names],
+            function(f) {
+              length(levels(f))
+            },
+            integer(1))
+          if (any(control.levels == 0)) {
+            stop("All control variables must be factors or characters. ",
+                 "Offending control variable(s): ",
+                 paste0(control.names[control.levels == 0], collapse = ", "))
+          }
+
+          # Avoids hard-to-understand errors if categories are NA
+          control.category.na <- vapply(
+            control[control.names],
+            function(f) any(is.na(f)),
+            logical(1))
+          if (any(control.category.na)) {
+            stop("NA values in control variables not supported. ",
+                 "Offending control variable(s): ",
+                 paste0(control.names[control.category.na], collapse = ", "))
+          }
+
+          control
+        }
+      )
+    }
+  )
+
+  message("Checking group ID column")
+  if (!(field_names$groupId %in% colnames(ref_sample)))
+    stop("Group ID column ", field_names$groupId, " not found in reference sample.")
+  stopifnot(is.numeric(ref_sample[[field_names$groupId]]))
+  if (any(diff(ref_sample[[field_names$groupId]]) < 0)) {
+    stop("Reference sample needs to be sorted by group ID column ", field_names$groupId, ".")
+  }
+
+  list(
+    ref_sample = ref_sample,
+    controls = prepared_controls,
+    control_names = control_names
+  )
+}
+
+
+
+
+
+.ordered_control_names <- function(ref_sample, control, field_names) {
+  count_name <- get_count_field_name(control, field_names$count, message)
+  control.and.count.names <- setNames(nm=colnames(control))
+  control.names.unordered <- setdiff(control.and.count.names, count_name)
+  control.names <- colnames(ref_sample)[colnames(ref_sample) %in% control.names.unordered]
+  stopifnot(length(control.names) == length(control.names.unordered))
+  control.names
+}
+
+
+
+
+.updated_control_colnames <- function(control, control_names, new_control_names) {
+  control_and_count_names <- setNames(nm=colnames(control))
+  control_and_count_names[control_names] <- new_control_names
+  control_and_count_names
+}
+
+
+
+
 .control.type.abbrev <- function(control.type) {
   substr(control.type, 1, 1)
 }
 
-#' @importFrom plyr revalue
+.model_matrix_combined <- function(formula_components, data) {
+  formula_as_character <- paste0("~", paste(formula_components, collapse = "+"))
+  stats::model.matrix(as.formula(formula_as_character), data)
+}
+
+.model_matrix_separate <- function(formula_components, data) {
+  matrices <- lapply(formula_components, .model_matrix_one, data)
+
+  if (any(duplicated(sapply(matrices, colnames)))) browser()
+
+  do.call(cbind, matrices)
+}
+
+.model_matrix_one <- function(formula_component, data) {
+  if (formula_component == "1")
+    formula_as_character <- "~1"
+  else
+    formula_as_character <- paste0("~", formula_component, "-1")
+
+  stats::model.matrix(as.formula(formula_as_character), data)
+}
+
+.get_model_matrix_fun <- function(model_matrix) {
+  switch(
+    model_matrix,
+    combined = .model_matrix_combined,
+    separate = .model_matrix_separate,
+    stop("Unknown model matrix function: ", model_matrix, call. = FALSE)
+  )
+}
+
 .rename.intercept <- function(data, control.type) {
-  colnames(data) <- revalue(
-    colnames(data),
-    c(`(Intercept)`=sprintf("(Intercept)_%s", .control.type.abbrev(control.type))))
+  new_intercept_name <- paste0("(Intercept)_", .control.type.abbrev(control.type))
+  colnames(data)[colnames(data) == "(Intercept)"] <- new_intercept_name
   data
 }
 
