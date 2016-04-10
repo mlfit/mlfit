@@ -27,7 +27,15 @@ ml_fit_ipu <- function(fitting_problem, tol = 1e-6, maxiter = 5000, verbose = FA
 
   res <- run_ipu(flat, tol, maxiter, verbose)
 
-  res
+  new_ml_fit_ipu(
+    list(
+      weights = expand_weights(res$weights, flat),
+      success = res$success,
+      residuals = res$residuals,
+      flat = flat,
+      flat_weights = res$weights
+    )
+  )
 }
 
 run_ipu <- function(flat, tol, maxiter, verbose) {
