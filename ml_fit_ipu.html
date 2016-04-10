@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>ml_fit_dss. MultiLevelIPF 0.2-7</title>
+<title>ml_fit_ipu. MultiLevelIPF 0.2-7</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -48,25 +48,23 @@
         
       </header>
       
-      <h1>Estimate weights using generalized raking</h1>
+      <h1>Estimate weights using Iterative Proportional Updating</h1>
 
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>ml_fit_dss(fitting_problem, method&nbsp;=&nbsp;c("raking", "linear", "logit"), ginv&nbsp;=&nbsp;MASS::ginv, verbose&nbsp;=&nbsp;FALSE)</div></pre>
+    <pre><div>ml_fit_ipu(fitting_problem, tol&nbsp;=&nbsp;1e-06, maxiter&nbsp;=&nbsp;5000, verbose&nbsp;=&nbsp;FALSE)</div></pre>
     
     <h2>Arguments</h2>
     <dl>
       <dt>fitting_problem</dt>
       <dd>A fitting problem created by
 <code><a href='fitting_problem.html'>fitting_problem</a></code>.</dd>
-      <dt>method</dt>
-      <dd>Calibration method, one of <code>"raking"</code> (default),
-<code>"linear"</code>, or <code>"logit"</code></dd>
-      <dt>ginv</dt>
-      <dd>Function that computes the Moore-Penrose pseudoinverse,
-currently only the default value <code>MASS::<a href='http://www.inside-r.org/r-doc/MASS/ginv'>ginv</a></code> is
-accepted.</dd>
+      <dt>tol</dt>
+      <dd>Tolerance, the algorithm stops when all target values are reached
+within this tolerance.</dd>
+      <dt>maxiter</dt>
+      <dd>Maximum number of iterations.</dd>
       <dt>verbose</dt>
       <dd>If <code>TRUE</code>, print diagnostic output.</dd>
     </dl>
@@ -75,8 +73,7 @@ accepted.</dd>
       <h2>Value</h2>
 
       <p><dl>
-An object of classes <code>ml_fit_dss</code> and <code>ml_fit</code>,
-  essentially a named list.
+An object of classes <code>ml_fit_ipu</code> and <code>ml_fit</code>.
 </dl></p>
   
     </div>
@@ -85,63 +82,50 @@ An object of classes <code>ml_fit_dss</code> and <code>ml_fit</code>,
       <h2>Description</h2>
 
       <p>This function reweights a reference sample to match constraints given by
-aggregate controls by means of generalized raking.</p>
-  
-    </div>
-
-    <div class="Details">
-      <h2>Details</h2>
-
-      <p>Internally, <code>sampling::<a href='http://www.inside-r.org/packages/cran/sampling/docs/calib'>calib</a></code> is called.</p>
+aggregate controls by means of Iterative Proportional Updating.</p>
   
     </div>
 
     <div class="References">
       <h2>References</h2>
 
-      <p>Deville, J.-C. and Särndal, C.-E. (1992)
-Calibration estimators in survey sampling. <em>Journal of the American
-Statistical Association</em>, <b>87</b>(418), 376--382.</p>
-  
-      <p>Deville, J.-C., Särndal, C.-E. and Sautory, O. (1993)
-Generalized raking procedures in survey sampling. <em>Journal of the
-American Statistical Association</em>, <b>88</b>(423), 1013--1020.</p>
+      <p>Ye, X., K. Konduri, R. M. Pendyala, B. Sana and P. A. Waddell (2009)
+A methodology to match distributions of both household and person attributes
+in the generation of synthetic populations, paper presented at the <em>88th
+Annual Meeting of the Transportation Research Board</em>, Washington, D.C.,
+January 2009.</p>
   
     </div>
     
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'>path &lt;- toy_example(&quot;minitoy&quot;)
-ml_fit_dss(fitting_problem = readRDS(path))
+ml_fit_ipu(fitting_problem = readRDS(path))
 </div>
 <div class='output'>An object of class ml_fit
-  Algorithm: dss
+  Algorithm: ipu
   Success: TRUE
-  Residuals: min = 2.338014e-08, max = 1.613562e-07
+  Residuals: min = -9.97811e-07, max = 0
   Flat problem:
   An object of class flat_ml_fit_problem
     Dimensions: 7 unique groups, 5 controls
-    Model matrix type: combined
+    Model matrix type: separate
     Original fitting problem:
     An object of class fitting_problem
       Reference sample: 23 observations
       Control totals: 1 at individual, and 1 at group level
       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu
 </div>
-<div class='input'>## Not run: ml_fit_dss(fitting_problem = readRDS(path), ginv = solve)
+<div class='input'>## Not run: ml_fit_ipu(fitting_problem = readRDS(path), ginv = solve)
 </div></pre>
   </div>
   <div class="span4">
     <!-- <ul>
-      <li>ml_fit_dss</li>
+      <li>ml_fit_ipu</li>
     </ul>
     <ul>
       
     </ul> -->
       
-    <h2>See also</h2>
-    
-<code><a href='http://www.inside-r.org/packages/cran/sampling/docs/calib'>calib</a></code>
-
         
   </div>
 </div>
