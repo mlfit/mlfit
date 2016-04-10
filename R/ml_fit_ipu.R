@@ -56,7 +56,7 @@ run_ipu <- function(flat, tol, maxiter, verbose) {
   message("Start")
 
   success <- FALSE
-  for (iter in seq.int(2L, maxiter + 1)) {
+  for (iter in seq.int(from = 2L, to = maxiter + 1, by = 1L)) {
     if (iter %% 100 == 0)
       message("Iteration ", iter)
     residuals <- ref_sample %*% weights - target_values
