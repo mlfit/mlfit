@@ -33,11 +33,7 @@ ml_fit_dss <- function(fitting_problem,
                        verbose = FALSE) {
   .patch_verbose()
 
-  flat <- if (is.fitting_problem(fitting_problem)) {
-    flatten_ml_fit_problem(fitting_problem = fitting_problem, verbose = verbose)
-  } else {
-    fitting_problem
-  }
+  flat <- as.flat_ml_fit_problem(fitting_problem, verbose = verbose)
 
   message("Calibrating")
   method <- match.arg(method)

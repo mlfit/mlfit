@@ -517,6 +517,28 @@ expand_weights <- function(flat_weights, flat) {
 new_flat_ml_fit_problem <- make_new("flat_ml_fit_problem")
 
 #' @export
+#' @rdname flatten_ml_fit_problem
+#' @param x An object
+as.flat_ml_fit_problem <- function(x, model_matrix_type = c("combined", "separate"), ...)
+  UseMethod("as.flat_ml_fit_problem", x)
+
+#' @export
+as.flat_ml_fit_problem.flat_ml_fit_problem <- function(x, model_matrix_type = c("combined", "separate"), ...) {
+  model_matrix_type <- match.arg(model_matrix_type, several.ok = TRUE)
+  if (!(x$model_matrix_type %in% model_matrix_type)) {
+    stop("Need flat problem with model matrix type ", paste(model_matrix_type, collapse = ", "),
+         ", got ", x$model_matrix_type, ".", call. = FALSE)
+  }
+  x
+}
+
+#' @export
+as.flat_ml_fit_problem.fitting_problem <- function(x, model_matrix_type = c("combined", "separate"), verbose = FALSE, ...) {
+  model_matrix_type <- match.arg(model_matrix_type, several.ok = TRUE)[[1L]]
+  flatten_ml_fit_problem(x, model_matrix_type = model_matrix_type, verbose = verbose)
+}
+
+#' @export
 format.flat_ml_fit_problem <- function(x, ...) {
   c(
     "An object of class flat_ml_fit_problem",
