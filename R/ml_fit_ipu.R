@@ -12,6 +12,9 @@
 #' January 2009.
 #'
 #' @export
+#' @param tol Tolerance, the algorithm stops when all target values are reached
+#'   within this tolerance.
+#' @param maxiter Maximum number of iterations.
 #' @examples
 #' path <- toy_example("minitoy")
 #' ml_fit_ipu(fitting_problem = readRDS(path))

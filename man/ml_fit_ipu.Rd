@@ -10,6 +10,11 @@ ml_fit_ipu(fitting_problem, tol = 1e-06, maxiter = 5000, verbose = FALSE)
 \item{fitting_problem}{A fitting problem created by
 \code{\link{fitting_problem}}.}
 
+\item{tol}{Tolerance, the algorithm stops when all target values are reached
+within this tolerance.}
+
+\item{maxiter}{Maximum number of iterations.}
+
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
 }
 \value{

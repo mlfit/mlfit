@@ -1,3 +1,8 @@
+# MultiLevelIPF 0.2-7 (2016-04-10)
+
+- Fix package checks.
+
+
 # MultiLevelIPF 0.2-6 (2016-04-10)
 
 - Implement IPU algorithm.
