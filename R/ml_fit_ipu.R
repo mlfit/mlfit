@@ -41,7 +41,7 @@ run_ipu <- function(flat, tol, maxiter, verbose) {
   message("Preparing IPU data")
   ref_sample <- flat$ref_sample
   target_values <- flat$target_values
-  weights <- flat$weights
+  prior_weights <- flat$weights
 
   nonzero_col_index <- lapply(
     seq_len(nrow(ref_sample)),
@@ -55,6 +55,7 @@ run_ipu <- function(flat, tol, maxiter, verbose) {
 
   message("Start")
 
+  weights <- prior_weights
   success <- FALSE
   for (iter in seq.int(from = 2L, to = maxiter + 1, by = 1L)) {
     if (iter %% 100 == 0)
