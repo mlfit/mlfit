@@ -1,3 +1,8 @@
+# MultiLevelIPF 0.2-6 (2016-04-10)
+
+- Implement IPU algorithm.
+
+
 # MultiLevelIPF 0.2-5 (2016-04-10)
 
 - New `as.flat_ml_fit_problem()` is used to coerce input for the `ml_fit_` functions.
