@@ -144,8 +144,11 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
     message("Aggregating")
     ref_sample_ind.mm <- .rename.intercept(ref_sample_ind.mm, "individual")
-    ref_sample_ind.agg <- aggregate(as.formula(sprintf(".~%s", field_names$groupId)),
-                                    ref_sample_ind.mm, FUN=sum)
+    ref_sample_ind.agg <-
+      ref_sample_ind.mm %>%
+      group_by_(field_names$groupId) %>%
+      summarize_each_(funs(sum), setdiff(current_vars(), field_names$groupId)) %>%
+      ungroup
 
     message("Merging")
     ref_sample.agg <- merge(ref_sample_ind.agg, ref_sample_grp.agg,
