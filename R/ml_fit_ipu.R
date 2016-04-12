@@ -18,7 +18,6 @@
 #' @examples
 #' path <- toy_example("minitoy")
 #' ml_fit_ipu(fitting_problem = readRDS(path))
-#' \dontrun{ml_fit_ipu(fitting_problem = readRDS(path), ginv = solve)}
 ml_fit_ipu <- function(fitting_problem, tol = 1e-6, maxiter = 5000, verbose = FALSE) {
   .patch_verbose()
 
