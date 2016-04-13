@@ -180,9 +180,9 @@ flatten_ml_fit_problem <- function(fitting_problem,
   weights_transform <- weights_transform %*% agg_agg_weights_transform
   prior_weights_agg_agg <- as.vector(prior_weights_agg %*% agg_agg_weights_transform)
 
-  message("Transposing reference sample")
-  ref_sample.agg.agg.m <- t(as.matrix(ref_sample.agg.agg[
-    , setdiff(colnames(ref_sample.agg.agg), field_names$groupId), drop = FALSE]))
+  message("Converting reference sample to matrix")
+  ref_sample.agg.agg.m <- as.matrix(ref_sample.agg.agg[
+    , setdiff(colnames(ref_sample.agg.agg), field_names$groupId), drop = FALSE])
 
   message("Flattening controls")
   control.totals.list <- llply(
@@ -216,7 +216,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
   }
 
   message("Reordering controls")
-  intersect_names <- intersect(sort(rownames(ref_sample.agg.agg.m)), names(control.totals))
+  intersect_names <- intersect(sort(colnames(ref_sample.agg.agg.m)), names(control.totals))
 
   if (length(control.totals) > length(intersect_names)) {
     warning(
@@ -224,13 +224,13 @@ flatten_ml_fit_problem <- function(fitting_problem,
       paste(setdiff(names(control.totals), intersect_names), collapse=", "))
   }
 
-  if (nrow(ref_sample.agg.agg.m) > length(intersect_names)) {
+  if (ncol(ref_sample.agg.agg.m) > length(intersect_names)) {
     warning(
       "  The following categories in the reference sample do not have a corresponding control:\n    ",
-      paste(setdiff(rownames(ref_sample.agg.agg.m), intersect_names), collapse=", "))
+      paste(setdiff(colnames(ref_sample.agg.agg.m), intersect_names), collapse=", "))
   }
 
-  ref_sample.agg.agg.m <- ref_sample.agg.agg.m[intersect_names,, drop = FALSE]
+  ref_sample.agg.agg.m <- ref_sample.agg.agg.m[, intersect_names, drop = FALSE]
   control.totals <- control.totals[intersect_names]
 
   message("Checking zero-valued controls")
@@ -238,7 +238,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
   if (any(zero.control.totals)) {
     message("  Found zero-valued controls (showing the first 10): ",
             paste(head(names(control.totals)[zero.control.totals], 10), collapse = ", "))
-    zero.observations <- apply(ref_sample.agg.agg.m, 2, function(x) any(x[zero.control.totals] > 0))
+    zero.observations <- apply(ref_sample.agg.agg.m, 1, function(x) any(x[zero.control.totals] > 0))
     if (any(zero.observations)) {
       zero.observation.weights <- sum(prior_weights_agg_agg[zero.observations])
       warning(
@@ -254,14 +254,14 @@ flatten_ml_fit_problem <- function(fitting_problem,
     } else {
       message("  No observations matching those zero-valued controls.")
     }
-    ref_sample.agg.agg.m <- ref_sample.agg.agg.m[!zero.control.totals, !zero.observations]
+    ref_sample.agg.agg.m <- ref_sample.agg.agg.m[!zero.observations, !zero.control.totals]
     control.totals <- control.totals[!zero.control.totals]
   } else
     message("  No zero-valued controls")
   stopifnot(control.totals > 0)
 
   message("Checking missing observations")
-  ref_sample.agg.agg.m.rs <- rowSums(ref_sample.agg.agg.m)
+  ref_sample.agg.agg.m.rs <- colSums(ref_sample.agg.agg.m)
   missing.controls <- (ref_sample.agg.agg.m.rs == 0)
   if (any(missing.controls)) {
     warning(
@@ -269,7 +269,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
       paste(sprintf("%s=%s", names(control.totals)[missing.controls], control.totals[missing.controls]), collapse = ", "))
 
     control.totals <- control.totals[!missing.controls]
-    ref_sample.agg.agg.m <- ref_sample.agg.agg.m[!missing.controls, ]
+    ref_sample.agg.agg.m <- ref_sample.agg.agg.m[, !missing.controls]
   }
 
   message("Computing reverse weights map")
