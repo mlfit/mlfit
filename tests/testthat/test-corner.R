@@ -48,7 +48,7 @@ test_that("Grand totals only", {
         weights <- if (nrow(ref_sample) > 1) {
           if (length(individual_controls) > 0) {
             if (length(group_controls) > 0) rep(1, max(ref_sample$gid)) else rep(2, max(ref_sample$gid))
-          } else 3
+          } else rep(1, max(ref_sample$gid))
         } else {
           if (length(individual_controls) > 0) {
             if (length(group_controls) > 0) 3 else 6

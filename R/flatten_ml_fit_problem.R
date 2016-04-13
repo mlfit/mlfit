@@ -2,7 +2,7 @@
 #'
 #' This function transforms a multi-level fitting problem to a representation
 #' more suitable for applying the algorithms:  A matrix with one row per controlled
-#' attribute and one column per unique household, a weight vector with one weight
+#' attribute and one column per household, a weight vector with one weight
 #' per household, and a control vector.
 #'
 #' @details
@@ -159,36 +159,15 @@ flatten_ml_fit_problem <- function(fitting_problem,
     ref_sample.agg <- ref_sample_grp.agg
   }
 
-
-  message("Collapsing identical observations in reference sample")
-  ref_sample.agg.agg <-
-    ref_sample.agg %>%
-    group_by_(.dots = as_names(setdiff(colnames(ref_sample.agg), field_names$groupId))) %>%
-    summarize_(.dots = stats::setNames(paste0("list(", field_names$groupId, ")"), field_names$groupId)) %>%
-    ungroup
-
-  group_ids <- ref_sample.agg.agg[[field_names$groupId]]
-  group_ids <- setNames(group_ids, nm = sprintf("%d.", seq_along(group_ids)))
-  group_ids_u <- unlist(group_ids, use.names = TRUE)
-
-  rows_from <- match(group_ids_u, ref_sample.agg[, field_names$groupId, drop = TRUE])
-  rows_to <- trunc(as.numeric(names(group_ids_u)))
-
-  agg_agg_weights_transform <- Matrix::sparseMatrix(
-    i=rows_from, j=rows_to, x=1, dimnames=list(ref_sample.agg[, field_names$groupId, drop = TRUE], NULL))
-
-  weights_transform <- weights_transform %*% agg_agg_weights_transform
-  prior_weights_agg_agg <- as.vector(prior_weights_agg %*% agg_agg_weights_transform)
-
   control.totals <- .flatten_controls(control.terms.list = control.terms.list,
                                       verbose = verbose)
 
   message("Converting reference sample to matrix")
-  ref_sample.agg.agg.m <- as.matrix(ref_sample.agg.agg[
-    , setdiff(colnames(ref_sample.agg.agg), field_names$groupId), drop = FALSE])
+  ref_sample.agg.m <- as.matrix(ref_sample.agg[
+    , setdiff(colnames(ref_sample.agg), field_names$groupId), drop = FALSE])
 
   message("Reordering controls")
-  intersect_names <- intersect(sort(colnames(ref_sample.agg.agg.m)), names(control.totals))
+  intersect_names <- intersect(sort(colnames(ref_sample.agg.m)), names(control.totals))
 
   if (length(control.totals) > length(intersect_names)) {
     warning(
@@ -196,13 +175,13 @@ flatten_ml_fit_problem <- function(fitting_problem,
       paste(setdiff(names(control.totals), intersect_names), collapse=", "))
   }
 
-  if (ncol(ref_sample.agg.agg.m) > length(intersect_names)) {
+  if (ncol(ref_sample.agg.m) > length(intersect_names)) {
     warning(
       "  The following categories in the reference sample do not have a corresponding control:\n    ",
-      paste(setdiff(colnames(ref_sample.agg.agg.m), intersect_names), collapse=", "))
+      paste(setdiff(colnames(ref_sample.agg.m), intersect_names), collapse=", "))
   }
 
-  ref_sample.agg.agg.m <- ref_sample.agg.agg.m[, intersect_names, drop = FALSE]
+  ref_sample.agg.m <- ref_sample.agg.m[, intersect_names, drop = FALSE]
   control.totals <- control.totals[intersect_names]
 
   message("Checking zero-valued controls")
@@ -210,13 +189,13 @@ flatten_ml_fit_problem <- function(fitting_problem,
   if (any(zero.control.totals)) {
     message("  Found zero-valued controls (showing the first 10): ",
             paste(head(names(control.totals)[zero.control.totals], 10), collapse = ", "))
-    zero.observations <- apply(ref_sample.agg.agg.m, 1, function(x) any(x[zero.control.totals] > 0))
+    zero.observations <- apply(ref_sample.agg.m, 1, function(x) any(x[zero.control.totals] > 0))
     if (any(zero.observations)) {
-      zero.observation.weights <- sum(prior_weights_agg_agg[zero.observations])
+      zero.observation.weights <- sum(prior_weights_agg[zero.observations])
       warning(
         "  Removing ", sum(zero.observations), " distinct entries from the reference sample ",
         "(corresponding to zero-valued controls) with a total weight of ", sum(zero.observation.weights))
-      prior_weights_agg_agg <- prior_weights_agg_agg[!zero.observations]
+      prior_weights_agg <- prior_weights_agg[!zero.observations]
 
       nonzero.observations_w <- which(!zero.observations)
 
@@ -226,39 +205,39 @@ flatten_ml_fit_problem <- function(fitting_problem,
     } else {
       message("  No observations matching those zero-valued controls.")
     }
-    ref_sample.agg.agg.m <- ref_sample.agg.agg.m[!zero.observations, !zero.control.totals]
+    ref_sample.agg.m <- ref_sample.agg.m[!zero.observations, !zero.control.totals]
     control.totals <- control.totals[!zero.control.totals]
   } else
     message("  No zero-valued controls")
   stopifnot(control.totals > 0)
 
   message("Checking missing observations")
-  ref_sample.agg.agg.m.rs <- colSums(ref_sample.agg.agg.m)
-  missing.controls <- (ref_sample.agg.agg.m.rs == 0)
+  ref_sample.agg.m.rs <- colSums(ref_sample.agg.m)
+  missing.controls <- (ref_sample.agg.m.rs == 0)
   if (any(missing.controls)) {
     warning(
       "  Found missing observations for the following non-zero controls: ",
       paste(sprintf("%s=%s", names(control.totals)[missing.controls], control.totals[missing.controls]), collapse = ", "))
 
     control.totals <- control.totals[!missing.controls]
-    ref_sample.agg.agg.m <- ref_sample.agg.agg.m[, !missing.controls]
+    ref_sample.agg.m <- ref_sample.agg.m[, !missing.controls]
   }
 
   message("Computing reverse weights map")
-  reverse_weights_transform <- ( (1 / prior_weights_agg_agg) * Matrix::t(prior_weights * group_size_rescale * weights_transform))
+  reverse_weights_transform <- ( (1 / prior_weights_agg) * Matrix::t(prior_weights * group_size_rescale * weights_transform))
   stopifnot(all.equal(Matrix::diag(reverse_weights_transform %*% weights_transform), rep(1, ncol(weights_transform))))
 
   message("Normalizing weights")
-  prior_weights_agg_agg <- prior_weights_agg_agg / sum(prior_weights_agg_agg) *
+  prior_weights_agg <- prior_weights_agg / sum(prior_weights_agg) *
     unname(coalesce.na(control.totals["(Intercept)_g"],
                        control.totals["(Intercept)_i"],
-                       sum(prior_weights_agg_agg)))
+                       sum(prior_weights_agg)))
 
   message("Done!")
   new_flat_ml_fit_problem(
     list(
-      ref_sample = ref_sample.agg.agg.m,
-      weights = prior_weights_agg_agg,
+      ref_sample = ref_sample.agg.m,
+      weights = prior_weights_agg,
       target_values = control.totals,
       weights_transform = weights_transform,
       reverse_weights_transform = reverse_weights_transform,
@@ -562,7 +541,7 @@ as.flat_ml_fit_problem.fitting_problem <- function(x, model_matrix_type = c("com
 format.flat_ml_fit_problem <- function(x, ...) {
   c(
     "An object of class flat_ml_fit_problem",
-    "  Dimensions: " %+% ncol(x$ref_sample) %+% " unique groups, " %+%
+    "  Dimensions: " %+% ncol(x$ref_sample) %+% " groups, " %+%
       nrow(x$ref_sample) %+% " target values",
     "  Model matrix type: " %+% x$model_matrix_type,
     "  Original fitting problem:",
