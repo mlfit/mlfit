@@ -80,7 +80,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
     mutate_(iidx = ~seq_along(gid)) %>%
     mutate_(canonical = ~match(gid, gid)) %>%
     mutate_(proxy = ~!duplicated(canonical)) %>%
-    mutate_(gidx = ~cumsum(proxy)) %>%
+    mutate_(gidx = ~cumsum(proxy)[canonical]) %>%
     select_(~-canonical) %>%
     group_by_(~gid) %>%
     mutate_(n = ~length(gid)) %>%
