@@ -404,10 +404,6 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
 
 
-.control.type.abbrev <- function(control.type) {
-  substr(control.type, 1, 1)
-}
-
 .model_matrix_combined <- function(formula_components, data) {
   formula_as_character <- paste0("~", paste(formula_components, collapse = "+"))
   stats::model.matrix(as.formula(formula_as_character), data)
@@ -443,6 +439,10 @@ flatten_ml_fit_problem <- function(fitting_problem,
   new_intercept_name <- paste0("(Intercept)_", .control.type.abbrev(control.type))
   colnames(data)[colnames(data) == "(Intercept)"] <- new_intercept_name
   data
+}
+
+.control.type.abbrev <- function(control.type) {
+  substr(control.type, 1, 1)
 }
 
 .flatten_controls <- function(control.terms.list, verbose) {
