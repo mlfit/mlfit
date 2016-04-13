@@ -147,7 +147,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
     ref_sample_ind.agg <-
       ref_sample_ind.mm %>%
       group_by_(field_names$groupId) %>%
-      summarize_each_(funs(sum), setdiff(current_vars(), field_names$groupId)) %>%
+      summarize_each_(funs(sum), setdiff(colnames(ref_sample_ind.mm), field_names$groupId)) %>%
       ungroup
 
     message("Merging")
