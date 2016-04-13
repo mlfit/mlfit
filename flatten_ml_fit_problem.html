@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>flatten_ml_fit_problem. MultiLevelIPF 0.2-8</title>
+<title>flatten_ml_fit_problem. MultiLevelIPF 0.2-9</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">MultiLevelIPF 0.2-8</a>
+      <a class="brand" href="#">MultiLevelIPF 0.2-9</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -86,7 +86,7 @@ An object of classes <code>flat_ml_fit_problem</code>,
 
       <p>This function transforms a multi-level fitting problem to a representation
 more suitable for applying the algorithms:  A matrix with one row per controlled
-attribute and one column per unique household, a weight vector with one weight
+attribute and one column per household, a weight vector with one weight
 per household, and a control vector.</p>
   
     </div>
@@ -108,7 +108,7 @@ results in a larger model matrix if more than one control is given.</p>
 flatten_ml_fit_problem(fitting_problem = readRDS(path))
 </div>
 <div class='output'>An object of class flat_ml_fit_problem
-  Dimensions: 7 unique groups, 5 controls
+  Dimensions: 5 groups, 8 target values
   Model matrix type: combined
   Original fitting problem:
   An object of class fitting_problem
