@@ -24,7 +24,7 @@ test_that("trivially correlated variables", {
 
   problem <- fitting_problem(
     rs,
-    field_names = special_field_names("id", "id", "", "N"),
+    field_names = special_field_names("id", "id", count = "N"),
     individual_controls = list(x2c, x5c, x10c),
     group_controls = list())
 

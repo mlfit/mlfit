@@ -49,7 +49,6 @@ ye_ind <- tibble::tibble(
 
 ye_problem <- fitting_problem(ref_sample = ye,
                 field_names = special_field_names(groupId = "HHNR", individualId = "PNR",
-                                                  individualsPerGroup = "APER",
                                                   count = "N"),
                 group_controls = list(ye_hh),
                 individual_controls = list(ye_ind))
