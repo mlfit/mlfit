@@ -493,6 +493,9 @@ flatten_ml_fit_problem <- function(fitting_problem,
   control.totals
 }
 
+
+# Utils -------------------------------------------------------------------
+
 as_names <- function(x) {
   lapply(x, as.name)
 }
@@ -523,6 +526,9 @@ expand_weights <- function(flat_weights, flat) {
   requireNamespace("Matrix")
   unname(as.vector(flat_weights %*% flat$reverse_weights_transform))
 }
+
+
+# S3 ----------------------------------------------------------------------
 
 new_flat_ml_fit_problem <- make_new("flat_ml_fit_problem")
 
