@@ -34,7 +34,7 @@ test_that("Grand totals only", {
       for (individual_controls in individual_control_list) {
         problem <- fitting_problem(
           ref_sample,
-          field_names = special_field_names("gid", "iid", "n", "N"),
+          field_names = special_field_names("gid", "iid", count = "N"),
           individual_controls = individual_controls,
           group_controls = group_controls
         )

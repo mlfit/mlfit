@@ -59,15 +59,17 @@ print.fitting_problem <- default_print
 
 #' @param groupId,individualId Name of the column that defines the ID of the
 #'   group or the individual
-#' @param individualsPerGroup Name of a column that contains the number
-#'   of persons in the group
+#' @param individualsPerGroup Obsolete.
 #' @param count Name of control total column in control tables (use first numeric
 #'   column in each control by default).
 #'
 #' @importFrom kimisc nlist
 #' @export
 #' @rdname fitting_problem
-special_field_names <- function(groupId, individualId, individualsPerGroup,
+special_field_names <- function(groupId, individualId, individualsPerGroup = NULL,
                                 count = NULL) {
-  nlist(groupId, individualId, individualsPerGroup, count)
+  if (!is.null(individualsPerGroup)) {
+    warning("The individualsPerGroup argument is obsolete.", call. = FALSE)
+  }
+  nlist(groupId, individualId, count)
 }
