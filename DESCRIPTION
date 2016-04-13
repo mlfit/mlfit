@@ -17,7 +17,7 @@ Imports:
     dplyr,
     BB,
     Matrix,
-    grake,
+    grake (>= 0.1),
     kimisc
 Suggests:
     testthat,
