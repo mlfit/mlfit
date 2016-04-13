@@ -26,8 +26,9 @@ test_that("import toy examples", {
             subWeightedRefSample <- merge(control1, weightedRefSample)
             subWeights <- if (type == "individual") {
               subWeightedRefSample$w
-            } else
-              subWeightedRefSample$w / subWeightedRefSample[[result$fieldNames$individualsPerGroup]]
+            } else {
+              ifelse(duplicated(subWeightedRefSample[[result$fieldNames$groupId]]), 0, subWeightedRefSample$w)
+            }
             expect_equal(sum(subWeights), control1[[countVar]], tolerance=TOL[[type]])
           }
         )

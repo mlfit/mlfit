@@ -34,7 +34,7 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
         ..w.. = if (control.type == "individual") {
           weights
         } else {
-          weights / ref_sample[[field_names$individualsPerGroup]]
+          ifelse(duplicated(ref_sample[[field_names$groupId]]), 0, weights)
         })
       ref_sample_w <- cbind(weights_df, ref_sample)
 

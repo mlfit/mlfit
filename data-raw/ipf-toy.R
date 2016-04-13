@@ -37,7 +37,7 @@ ct2 <-
   ct2 %>%
   gather(AGE, N)
 
-fp <- fitting_problem(rs, field_names = special_field_names("HHNR", "PNR", "APER", "N"),
+fp <- fitting_problem(rs, field_names = special_field_names("HHNR", "PNR", count = "N"),
                       individual_controls = NULL,
                       group_controls = list(ct1, ct2))
 

@@ -18,7 +18,8 @@ is.fitting_problem(x)
 
 \method{print}{fitting_problem}(x, ...)
 
-special_field_names(groupId, individualId, individualsPerGroup, count = NULL)
+special_field_names(groupId, individualId, individualsPerGroup = NULL,
+  count = NULL)
 }
 \arguments{
 \item{ref_sample}{The reference sample}
@@ -44,8 +45,7 @@ groups}
 \item{groupId, individualId}{Name of the column that defines the ID of the
 group or the individual}
 
-\item{individualsPerGroup}{Name of a column that contains the number
-of persons in the group}
+\item{individualsPerGroup}{Obsolete.}
 
 \item{count}{Name of control total column in control tables (use first numeric
 column in each control by default).}

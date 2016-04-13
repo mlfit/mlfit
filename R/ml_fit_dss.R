@@ -39,7 +39,7 @@ ml_fit_dss <- function(fitting_problem,
   method <- match.arg(method)
 
   g <- grake::dss(
-    X = t(flat$ref_sample),
+    X = flat$ref_sample,
     d = flat$weights,
     total = flat$target_values,
     method = method,
@@ -51,7 +51,7 @@ ml_fit_dss <- function(fitting_problem,
     list(
       weights=expand_weights(weights.agg, flat),
       success=TRUE,
-      residuals = (flat$ref_sample %*% weights.agg)[,1] - flat$target_values,
+      residuals = (weights.agg %*% flat$ref_sample)[1,] - flat$target_values,
       flat=flat,
       flat_weights=weights.agg
     )

@@ -106,3 +106,33 @@ test_that("identical households", {
   expect_equal(as.vector(test_weights_flat %*% flat$reverse_weights_transform %*% flat$weights_transform),
                test_weights_flat)
 })
+
+test_that("don't need to sort by group id", {
+  group_id <- c(1, 2, 3, 3, 2, 3) + 3
+  ref_sample <- data.frame(group_id=group_id, ind=letters[1:2], group=LETTERS[group_id])
+
+  controls <- list(
+    group = list(
+      data.frame(group = LETTERS[4:6], N = 1:3)
+    ),
+    individual = list(
+      data.frame(ind = letters[1:2], N = 1:2)
+    )
+  )
+  field_names <- list(
+    count = "N",
+    groupId = "group_id"
+  )
+
+  problem <- fitting_problem(ref_sample, controls, field_names, prior_weights = ref_sample$group_id)
+  problem_sorted <- fitting_problem(arrange_(ref_sample, ~group_id), controls, field_names, prior_weights = sort(ref_sample$group_id))
+  flat <- flatten_ml_fit_problem(problem)
+  flat_sorted <- flatten_ml_fit_problem(problem_sorted)
+
+  expect_identical(flat$ref_sample, flat_sorted$ref_sample)
+  expect_identical(flat$target_values, flat_sorted$target_values)
+
+  expect_identical(group_id %*% flat$weights_transform, sort(group_id) %*% flat_sorted$weights_transform)
+  expect_identical(as.vector(group_id %*% flat$weights_transform %*% flat_sorted$reverse_weights_transform), sort(group_id))
+  expect_identical(as.vector(sort(group_id) %*% flat_sorted$weights_transform %*% flat$reverse_weights_transform), group_id)
+})

@@ -29,7 +29,7 @@ An object of classes \code{flat_ml_fit_problem},
 \description{
 This function transforms a multi-level fitting problem to a representation
 more suitable for applying the algorithms:  A matrix with one row per controlled
-attribute and one column per unique household, a weight vector with one weight
+attribute and one column per household, a weight vector with one weight
 per household, and a control vector.
 }
 \details{

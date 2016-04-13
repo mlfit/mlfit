@@ -46,14 +46,14 @@ run_ipu <- function(flat, tol, maxiter, verbose) {
   target_values <- flat$target_values
   prior_weights <- flat$weights
 
-  nonzero_col_index <- lapply(
-    seq_len(nrow(ref_sample)),
-    function(row) which(ref_sample[row, ] != 0)
+  nonzero_row_index <- lapply(
+    seq_len(ncol(ref_sample)),
+    function(col) which(ref_sample[, col] != 0)
   )
 
   nonzero_ref_sample <- lapply(
-    seq_len(nrow(ref_sample)),
-    function(row) ref_sample[row, nonzero_col_index[[row]] ]
+    seq_len(ncol(ref_sample)),
+    function(col) ref_sample[nonzero_row_index[[col]], col ]
   )
 
   message("Start")
@@ -63,20 +63,20 @@ run_ipu <- function(flat, tol, maxiter, verbose) {
   for (iter in seq.int(from = 2L, to = maxiter + 1, by = 1L)) {
     if (iter %% 100 == 0)
       message("Iteration ", iter)
-    residuals <- ref_sample %*% weights - target_values
+    residuals <- weights %*% ref_sample  - target_values
     if (all(abs(residuals) < tol)) {
       success <- TRUE
       message("Success")
       break
     }
 
-    for (row in seq_len(nrow(ref_sample))) {
-      col_indexes <- nonzero_col_index[[row]]
-      ref_sample_entries <- nonzero_ref_sample[[row]]
+    for (col in seq_len(ncol(ref_sample))) {
+      row_indexes <- nonzero_row_index[[col]]
+      ref_sample_entries <- nonzero_ref_sample[[col]]
 
-      valid_weights <- weights[col_indexes]
+      valid_weights <- weights[row_indexes]
       current_value <- sum(valid_weights * ref_sample_entries)
-      weights[col_indexes] <- valid_weights / current_value * target_values[[row]]
+      weights[row_indexes] <- valid_weights / current_value * target_values[[col]]
     }
   }
 

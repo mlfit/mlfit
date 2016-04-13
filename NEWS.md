@@ -1,3 +1,12 @@
+# MultiLevelIPF 0.2-9 (2016-04-14)
+
+- Flattened reference sample now contains observations in rows, and controls in columns (#26).
+- Duplicate rows are kept in the reference sample.
+- Reference sample doesn't need to be ordered by group ID anymore.
+- Some cleanup of `flatten_ml_fit_problem()`.
+- Remove `individualsPerGroup` special variable.
+
+
 # MultiLevelIPF 0.2-8 (2016-04-13)
 
 - Use `grake` package again for calibration, because the alternatives are worse: `sampling` uses a too low tolerance, `survey` forcibly loads `MASS`, and `laeken` could work but is unrelated (which is the reason `grake` has been started in the first place).
