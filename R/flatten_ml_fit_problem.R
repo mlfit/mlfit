@@ -147,7 +147,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
     ref_sample_ind.agg <-
       ref_sample_ind.mm %>%
       group_by_(field_names$groupId) %>%
-      summarize_each_(funs(sum), setdiff(colnames(ref_sample_ind.mm), field_names$groupId)) %>%
+      summarize_each_(funs(sum), as_names(setdiff(colnames(ref_sample_ind.mm), field_names$groupId))) %>%
       ungroup
 
     message("Merging")
@@ -163,7 +163,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
   message("Collapsing identical observations in reference sample")
   ref_sample.agg.agg <-
     ref_sample.agg %>%
-    group_by_(.dots = lapply(setdiff(colnames(ref_sample.agg), field_names$groupId), as.name)) %>%
+    group_by_(.dots = as_names(setdiff(colnames(ref_sample.agg), field_names$groupId))) %>%
     summarize_(.dots = stats::setNames(paste0("list(", field_names$groupId, ")"), field_names$groupId)) %>%
     ungroup
 
@@ -492,6 +492,10 @@ flatten_ml_fit_problem <- function(fitting_problem,
   new_intercept_name <- paste0("(Intercept)_", .control.type.abbrev(control.type))
   colnames(data)[colnames(data) == "(Intercept)"] <- new_intercept_name
   data
+}
+
+as_names <- function(x) {
+  lapply(x, as.name)
 }
 
 get_count_field_name <- function(control, name, message) {
