@@ -18,7 +18,6 @@ Imports:
     BB,
     Matrix,
     grake,
-    MASS,
     kimisc
 Suggests:
     testthat,
