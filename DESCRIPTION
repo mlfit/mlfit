@@ -17,12 +17,12 @@ Imports:
     dplyr,
     BB,
     Matrix,
-    sampling,
-    MASS,
+    grake (>= 0.1),
     kimisc
 Suggests:
     testthat,
     XML
+Remotes: grake/grake
 Encoding: UTF-8
 RoxygenNote: 5.0.1
 URLNote: https://github.com/krlmlr/MultiLevelIPF
