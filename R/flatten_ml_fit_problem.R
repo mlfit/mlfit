@@ -180,40 +180,12 @@ flatten_ml_fit_problem <- function(fitting_problem,
   weights_transform <- weights_transform %*% agg_agg_weights_transform
   prior_weights_agg_agg <- as.vector(prior_weights_agg %*% agg_agg_weights_transform)
 
+  control.totals <- .flatten_controls(control.terms.list = control.terms.list,
+                                      verbose = verbose)
+
   message("Converting reference sample to matrix")
   ref_sample.agg.agg.m <- as.matrix(ref_sample.agg.agg[
     , setdiff(colnames(ref_sample.agg.agg), field_names$groupId), drop = FALSE])
-
-  message("Flattening controls")
-  control.totals.list <- llply(
-    control.terms.list,
-    function(control.terms) {
-      unname(llply(control.terms, `[[`, "control"))
-    }
-  )
-  control.totals.dup <- unlist(unname(control.totals.list), use.names=TRUE)
-
-  message("Checking controls for conflicts")
-  control.totals.dup.rearrange <- llply(
-    setNames(nm=unique(names(control.totals.dup))),
-    function (control.name)
-      unname(control.totals.dup[names(control.totals.dup) == control.name])
-  )
-
-  control.totals <- sapply(control.totals.dup.rearrange, `[[`, 1L)
-  if (length(control.totals) == 0L)
-    control.totals <- numeric()
-
-  control.totals.conflicts <- sapply(
-    control.totals.dup.rearrange,
-    function(x) !isTRUE(all.equal(x, rep(x[[1L]], length(x))))
-  )
-  stopifnot(names(control.totals) == names(control.totals.conflicts))
-  if (any(control.totals.conflicts)) {
-    warning("  The following controls are conflicting, values will be assumed as follows:\n    ",
-            paste(sprintf("%s=%s", names(control.totals)[control.totals.conflicts], control.totals[control.totals.conflicts]),
-                  collapse = ", "))
-  }
 
   message("Reordering controls")
   intersect_names <- intersect(sort(colnames(ref_sample.agg.agg.m)), names(control.totals))
@@ -492,6 +464,43 @@ flatten_ml_fit_problem <- function(fitting_problem,
   new_intercept_name <- paste0("(Intercept)_", .control.type.abbrev(control.type))
   colnames(data)[colnames(data) == "(Intercept)"] <- new_intercept_name
   data
+}
+
+.flatten_controls <- function(control.terms.list, verbose) {
+  .patch_verbose()
+
+  message("Flattening controls")
+  control.totals.list <- llply(
+    control.terms.list,
+    function(control.terms) {
+      unname(llply(control.terms, `[[`, "control"))
+    }
+  )
+  control.totals.dup <- unlist(unname(control.totals.list), use.names=TRUE)
+
+  message("Checking controls for conflicts")
+  control.totals.dup.rearrange <- llply(
+    setNames(nm=unique(names(control.totals.dup))),
+    function (control.name)
+      unname(control.totals.dup[names(control.totals.dup) == control.name])
+  )
+
+  control.totals <- sapply(control.totals.dup.rearrange, `[[`, 1L)
+  if (length(control.totals) == 0L)
+    control.totals <- numeric()
+
+  control.totals.conflicts <- sapply(
+    control.totals.dup.rearrange,
+    function(x) !isTRUE(all.equal(x, rep(x[[1L]], length(x))))
+  )
+  stopifnot(names(control.totals) == names(control.totals.conflicts))
+  if (any(control.totals.conflicts)) {
+    warning("  The following controls are conflicting, values will be assumed as follows:\n    ",
+            paste(sprintf("%s=%s", names(control.totals)[control.totals.conflicts], control.totals[control.totals.conflicts]),
+                  collapse = ", "))
+  }
+
+  control.totals
 }
 
 as_names <- function(x) {
