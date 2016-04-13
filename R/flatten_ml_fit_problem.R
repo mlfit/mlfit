@@ -75,23 +75,29 @@ flatten_ml_fit_problem <- function(fitting_problem,
   }
 
   message("Splitting")
-  group_proxy_positions <- c(TRUE, diff(ref_sample_grp.mm[[field_names$groupId]]) != 0)
-  group_sizes <- rle(ref_sample_grp.mm[[field_names$groupId]])$lengths
+  gid_lookup <-
+    data_frame(gid = ref_sample[[field_names$groupId]]) %>%
+    mutate_(iidx = ~seq_along(gid)) %>%
+    mutate_(canonical = ~match(gid, gid)) %>%
+    mutate_(proxy = ~!duplicated(canonical)) %>%
+    mutate_(gidx = ~cumsum(proxy)) %>%
+    select(-canonical) %>%
+    group_by_(~gid) %>%
+    mutate_(n = ~length(gid)) %>%
+    ungroup
 
-  ref_sample_grp.agg <- ref_sample_grp.mm[group_proxy_positions,, drop = FALSE]
+  ref_sample_grp.agg <- ref_sample_grp.mm[gid_lookup$proxy,, drop = FALSE]
+
+  weights_transform <- Matrix::sparseMatrix(
+    i = gid_lookup$iidx,
+    j = gid_lookup$gidx,
+    x = 1 / gid_lookup$n)
 
   message("Transforming weights")
-  group_size_rescale <- rep(group_sizes, group_sizes)
-
   if (is.null(prior_weights)) {
     # If not given, assume uniform prior weights
     prior_weights <- rep(1, nrow(ref_sample))
   }
-
-  weights_transform <- Matrix::sparseMatrix(
-    i=seq_along(group_proxy_positions), j=rep(seq_along(group_sizes), group_sizes),
-    x=1 / group_size_rescale)
-
   prior_weights_agg <- as.vector(prior_weights %*% weights_transform)
 
   if (length(control_formula_components$individual) > 0) {
@@ -184,7 +190,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
   }
 
   message("Computing reverse weights map")
-  reverse_weights_transform <- ( (1 / prior_weights_agg) * Matrix::t(prior_weights * group_size_rescale * weights_transform))
+  reverse_weights_transform <- ( (1 / prior_weights_agg) * Matrix::t(prior_weights * gid_lookup$n * weights_transform))
   stopifnot(all.equal(Matrix::diag(reverse_weights_transform %*% weights_transform), rep(1, ncol(weights_transform))))
 
   message("Normalizing weights")
@@ -331,10 +337,6 @@ flatten_ml_fit_problem <- function(fitting_problem,
   message("Checking group ID column")
   if (!(field_names$groupId %in% colnames(ref_sample)))
     stop("Group ID column ", field_names$groupId, " not found in reference sample.")
-  stopifnot(is.numeric(ref_sample[[field_names$groupId]]))
-  if (any(diff(ref_sample[[field_names$groupId]]) < 0)) {
-    stop("Reference sample needs to be sorted by group ID column ", field_names$groupId, ".")
-  }
 
   list(
     ref_sample = ref_sample,
