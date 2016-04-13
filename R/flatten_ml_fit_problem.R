@@ -554,7 +554,7 @@ format.flat_ml_fit_problem <- function(x, ...) {
   c(
     "An object of class flat_ml_fit_problem",
     "  Dimensions: " %+% ncol(x$ref_sample) %+% " unique groups, " %+%
-      nrow(x$ref_sample) %+% " controls",
+      nrow(x$ref_sample) %+% " target values",
     "  Model matrix type: " %+% x$model_matrix_type,
     "  Original fitting problem:",
     "  " %+% format(x$fitting_problem)
