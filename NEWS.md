@@ -1,3 +1,9 @@
+# MultiLevelIPF 0.2-8 (2016-04-13)
+
+- Use `grake` package again for calibration, because the alternatives are worse: `sampling` uses a too low tolerance, `survey` forcibly loads `MASS`, and `laeken` could work but is unrelated (which is the reason `grake` has been started in the first place).
+- Use `dplyr` functions instead of `aggregate()` for performance.
+
+
 # MultiLevelIPF 0.2-7 (2016-04-10)
 
 - Fix package checks.

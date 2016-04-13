@@ -3,7 +3,7 @@
 #' This function reweights a reference sample to match constraints given by
 #' aggregate controls by means of generalized raking.
 #'
-#' Internally, \code{sampling::\link[sampling]{calib}} is called.
+#' Internally, \code{grake::\link[grake]{dss}} is called.
 #'
 #' @inheritParams ml_fit
 #' @param method Calibration method, one of \code{"raking"} (default),
@@ -21,7 +21,7 @@
 #' Generalized raking procedures in survey sampling. \emph{Journal of the
 #' American Statistical Association}, \bold{88}(423), 1013--1020.
 #'
-#' @seealso \code{\link[sampling]{calib}}
+#' @seealso \code{\link[grake]{dss}}
 #' @export
 #' @examples
 #' path <- toy_example("minitoy")
@@ -29,7 +29,7 @@
 #' \dontrun{ml_fit_dss(fitting_problem = readRDS(path), ginv = solve)}
 ml_fit_dss <- function(fitting_problem,
                        method = c("raking", "linear", "logit"),
-                       ginv = MASS::ginv,
+                       ginv = grake::gginv(),
                        verbose = FALSE) {
   .patch_verbose()
 
@@ -38,16 +38,12 @@ ml_fit_dss <- function(fitting_problem,
   message("Calibrating")
   method <- match.arg(method)
 
-  if (!identical(ginv, MASS::ginv)) {
-    stop("Currently, only ginv = MASS::ginv is supported.", call. = FALSE)
-  }
-
-  g <- sampling::calib(
-    Xs = t(flat$ref_sample),
+  g <- grake::dss(
+    X = t(flat$ref_sample),
     d = flat$weights,
     total = flat$target_values,
     method = method,
-    max_iter = 50)
+    ginv = ginv)
   weights.agg <- g * flat$weights
 
   message("Done!")
