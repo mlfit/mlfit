@@ -17,7 +17,7 @@ Imports:
     dplyr,
     BB,
     Matrix,
-    sampling,
+    grake,
     MASS,
     kimisc
 Suggests:
