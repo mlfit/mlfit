@@ -159,9 +159,13 @@ flatten_ml_fit_problem <- function(fitting_problem,
     ref_sample.agg <- ref_sample_grp.agg
   }
 
+
   message("Collapsing identical observations in reference sample")
-  ref_sample.agg.agg <- aggregate(as.formula(sprintf("%s~.", field_names$groupId)),
-                                  ref_sample.agg, FUN=identity, simplify = FALSE)
+  ref_sample.agg.agg <-
+    ref_sample.agg %>%
+    group_by_(.dots = lapply(setdiff(colnames(ref_sample.agg), field_names$groupId), as.name)) %>%
+    summarize_(.dots = stats::setNames(paste0("list(", field_names$groupId, ")"), field_names$groupId)) %>%
+    ungroup
 
   group_ids <- ref_sample.agg.agg[[field_names$groupId]]
   group_ids <- setNames(group_ids, nm = sprintf("%d.", seq_along(group_ids)))
