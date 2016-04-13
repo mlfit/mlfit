@@ -41,50 +41,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
   controls <- prepared_ref_sample$controls
   control_names <- prepared_ref_sample$control_names
 
-  message("Preparing controls")
-  control.terms.list <- llply(
-    setNames(nm=names(controls)),
-    function(control.type) {
-      control.list <- controls[[control.type]]
-      control.columns <- llply(
-        control.list,
-        control.type = control.type,
-        function(control, control.type) {
-          # Secure against data.table
-          control <- as.data.frame(control)
-
-          control.names <- .ordered_control_names(ref_sample, control, field_names)
-
-          # Avoids error: "contrasts can be applied only to factors with 2 or more levels"
-          control.levels <- vapply(
-            control[control.names],
-            function(f) {
-              length(levels(f))
-            },
-            integer(1))
-          control.names <- control.names[control.levels > 1]
-
-          new.control.names <- sprintf("%s_%s_", control.names, .control.type.abbrev(control.type))
-          colnames(control) <- .updated_control_colnames(control, control.names, new.control.names)
-
-          control.term <- paste0(new.control.names, collapse="*")
-          if (nchar(control.term) == 0)
-            control.term <- "1"
-
-          control.mm <- model_matrix(control.term, control)
-          control.mm <- .rename.intercept(control.mm, control.type)
-
-          count_name <- get_count_field_name(control, field_names$count, message)
-          list(
-            control.names=control.names,
-            new.control.names=new.control.names,
-            term=control.term,
-            control = (control[[count_name]] %*% control.mm)[1,, drop = TRUE]
-          )
-        }
-      )
-    }
-  )
+  control.terms.list <- .get_control_terms_list(controls, model_matrix, verbose)
 
   control_formula_components <- lapply(
     control.terms.list,
@@ -360,7 +317,9 @@ flatten_ml_fit_problem <- function(fitting_problem,
                  paste0(control.names[control.category.na], collapse = ", "))
           }
 
-          control
+          # Make sure count column is at position 1
+          count_name <- get_count_field_name(control, field_names$count, message)
+          control[c(count_name, control.names)]
         }
       )
     }
@@ -394,6 +353,57 @@ flatten_ml_fit_problem <- function(fitting_problem,
   control_and_count_names <- setNames(nm=colnames(control))
   control_and_count_names[control_names] <- new_control_names
   control_and_count_names
+}
+
+# Control terms -----------------------------------------------------------
+
+.get_control_terms_list <- function(controls, model_matrix, verbose) {
+  .patch_verbose()
+
+  message("Preparing controls")
+  control.terms.list <- llply(
+    setNames(nm=names(controls)),
+    function(control.type) {
+      control.list <- controls[[control.type]]
+      control.columns <- llply(
+        control.list,
+        control.type = control.type,
+        function(control, control.type) {
+          # Secure against data.table
+          control <- as.data.frame(control)
+
+          control.names <- colnames(control)[-1]
+          count_name <- colnames(control)[[1]]
+
+          # Avoids error: "contrasts can be applied only to factors with 2 or more levels"
+          control.levels <- vapply(
+            control[control.names],
+            function(f) {
+              length(levels(f))
+            },
+            integer(1))
+          control.names <- control.names[control.levels > 1]
+
+          new.control.names <- sprintf("%s_%s_", control.names, .control.type.abbrev(control.type))
+          colnames(control) <- .updated_control_colnames(control, control.names, new.control.names)
+
+          control.term <- paste0(new.control.names, collapse="*")
+          if (nchar(control.term) == 0)
+            control.term <- "1"
+
+          control.mm <- model_matrix(control.term, control)
+          control.mm <- .rename.intercept(control.mm, control.type)
+
+          list(
+            control.names=control.names,
+            new.control.names=new.control.names,
+            term=control.term,
+            control = (control[[count_name]] %*% control.mm)[1,, drop = TRUE]
+          )
+        }
+      )
+    }
+  )
 }
 
 # Model matrix ------------------------------------------------------------
