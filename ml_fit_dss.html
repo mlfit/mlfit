@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>ml_fit_dss. MultiLevelIPF 0.2-7</title>
+<title>ml_fit_dss. MultiLevelIPF 0.2-8</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">MultiLevelIPF 0.2-7</a>
+      <a class="brand" href="#">MultiLevelIPF 0.2-8</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -53,7 +53,7 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>ml_fit_dss(fitting_problem, method&nbsp;=&nbsp;c("raking", "linear", "logit"), ginv&nbsp;=&nbsp;MASS::ginv, verbose&nbsp;=&nbsp;FALSE)</div></pre>
+    <pre><div>ml_fit_dss(fitting_problem, method&nbsp;=&nbsp;c("raking", "linear", "logit"), ginv&nbsp;=&nbsp;grake::gginv(), verbose&nbsp;=&nbsp;FALSE)</div></pre>
     
     <h2>Arguments</h2>
     <dl>
@@ -92,7 +92,7 @@ aggregate controls by means of generalized raking.</p>
     <div class="Details">
       <h2>Details</h2>
 
-      <p>Internally, <code>sampling::<a href='http://www.inside-r.org/packages/cran/sampling/docs/calib'>calib</a></code> is called.</p>
+      <p>Internally, <code>grake::<a href='http://www.inside-r.org/packages/cran/grake/docs/dss'>dss</a></code> is called.</p>
   
     </div>
 
@@ -116,7 +116,7 @@ ml_fit_dss(fitting_problem = readRDS(path))
 <div class='output'>An object of class ml_fit
   Algorithm: dss
   Success: TRUE
-  Residuals: min = 2.338014e-08, max = 1.613562e-07
+  Residuals: min = 2.33802e-08, max = 1.613564e-07
   Flat problem:
   An object of class flat_ml_fit_problem
     Dimensions: 7 unique groups, 5 controls
@@ -140,7 +140,7 @@ ml_fit_dss(fitting_problem = readRDS(path))
       
     <h2>See also</h2>
     
-<code><a href='http://www.inside-r.org/packages/cran/sampling/docs/calib'>calib</a></code>
+<code><a href='http://www.inside-r.org/packages/cran/grake/docs/dss'>dss</a></code>
 
         
   </div>
