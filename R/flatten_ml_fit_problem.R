@@ -250,6 +250,8 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
 
 
+# Prepare ref sample and controls -----------------------------------------
+
 .prepare_ref_sample_and_controls <- function(fitting_problem, verbose) {
   .patch_verbose()
 
@@ -379,10 +381,6 @@ flatten_ml_fit_problem <- function(fitting_problem,
   )
 }
 
-
-
-
-
 .ordered_control_names <- function(ref_sample, control, field_names) {
   count_name <- get_count_field_name(control, field_names$count, message)
   control.and.count.names <- setNames(nm=colnames(control))
@@ -392,17 +390,13 @@ flatten_ml_fit_problem <- function(fitting_problem,
   control.names
 }
 
-
-
-
 .updated_control_colnames <- function(control, control_names, new_control_names) {
   control_and_count_names <- setNames(nm=colnames(control))
   control_and_count_names[control_names] <- new_control_names
   control_and_count_names
 }
 
-
-
+# Model matrix ------------------------------------------------------------
 
 .model_matrix_combined <- function(formula_components, data) {
   formula_as_character <- paste0("~", paste(formula_components, collapse = "+"))
@@ -434,6 +428,10 @@ flatten_ml_fit_problem <- function(fitting_problem,
     stop("Unknown model matrix function: ", model_matrix, call. = FALSE)
   )
 }
+
+
+
+# Flattening controls -----------------------------------------------------
 
 .rename.intercept <- function(data, control.type) {
   new_intercept_name <- paste0("(Intercept)_", .control.type.abbrev(control.type))
