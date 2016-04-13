@@ -66,9 +66,10 @@ flatten_ml_fit_problem <- function(fitting_problem,
   if (length(control_formula_components$group) > 0L) {
     message("Preparing reference sample (groups)")
     formula_grp <- c(field_names$groupId, control_formula_components$group)
-    ref_sample_grp.mm <- as.data.frame(model_matrix(formula_grp,
-      plyr::rename(ref_sample[c(field_names$groupId, names(control.names$group))], control.names$group)))
-    ref_sample_grp.mm <- .rename.intercept(ref_sample_grp.mm, "group")
+    ref_sample_grp.mm <- model_matrix(formula_grp,
+      plyr::rename(ref_sample[c(field_names$groupId, names(control.names$group))], control.names$group),
+      "group") %>%
+      as.data.frame
   } else {
     ref_sample_grp.mm <- ref_sample[, field_names$groupId, drop = FALSE]
   }
@@ -96,8 +97,10 @@ flatten_ml_fit_problem <- function(fitting_problem,
   if (length(control_formula_components$individual) > 0) {
     message("Preparing reference sample (individuals)")
     formula_ind <- c(field_names$groupId, control_formula_components$individual)
-    ref_sample_ind.mm <- as.data.frame(model_matrix(formula_ind,
-      plyr::rename(ref_sample[c(field_names$groupId, names(control.names$individual))], control.names$individual)))
+    ref_sample_ind.mm <- model_matrix(formula_ind,
+      plyr::rename(ref_sample[c(field_names$groupId, names(control.names$individual))], control.names$individual),
+      "individual") %>%
+      as.data.frame
 
     message("Aggregating")
     ref_sample_ind.mm <- .rename.intercept(ref_sample_ind.mm, "individual")
@@ -391,8 +394,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
           if (nchar(control.term) == 0)
             control.term <- "1"
 
-          control.mm <- model_matrix(control.term, control)
-          control.mm <- .rename.intercept(control.mm, control.type)
+          control.mm <- model_matrix(control.term, control, control.type)
 
           list(
             control.names=control.names,
@@ -406,14 +408,16 @@ flatten_ml_fit_problem <- function(fitting_problem,
   )
 }
 
+
 # Model matrix ------------------------------------------------------------
 
-.model_matrix_combined <- function(formula_components, data) {
+.model_matrix_combined <- function(formula_components, data, control.type) {
   formula_as_character <- paste0("~", paste(formula_components, collapse = "+"))
-  stats::model.matrix(as.formula(formula_as_character), data)
+  mm <- stats::model.matrix(as.formula(formula_as_character), data)
+  .rename.intercept(mm, control.type)
 }
 
-.model_matrix_separate <- function(formula_components, data) {
+.model_matrix_separate <- function(formula_components, data, control.type) {
   matrices <- lapply(formula_components, .model_matrix_one, data)
 
   if (any(duplicated(sapply(matrices, colnames)))) browser()
@@ -439,10 +443,6 @@ flatten_ml_fit_problem <- function(fitting_problem,
   )
 }
 
-
-
-# Flattening controls -----------------------------------------------------
-
 .rename.intercept <- function(data, control.type) {
   new_intercept_name <- paste0("(Intercept)_", .control.type.abbrev(control.type))
   colnames(data)[colnames(data) == "(Intercept)"] <- new_intercept_name
@@ -452,6 +452,9 @@ flatten_ml_fit_problem <- function(fitting_problem,
 .control.type.abbrev <- function(control.type) {
   substr(control.type, 1, 1)
 }
+
+
+# Flattening controls -----------------------------------------------------
 
 .flatten_controls <- function(control.terms.list, verbose) {
   .patch_verbose()
