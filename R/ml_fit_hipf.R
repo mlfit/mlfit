@@ -9,16 +9,35 @@
 #' @export
 #' @examples
 #' path <- toy_example("minitoy")
-#' ml_fit_ipu(fitting_problem = readRDS(path))
+#' ml_fit_hipf(fitting_problem = readRDS(path))
 ml_fit_hipf <- function(fitting_problem, tol = 1e-6, maxiter = 5000, verbose = FALSE) {
   .patch_verbose()
 
-  flat <- as.flat_ml_fit_problem(fitting_problem, model_matrix_type = "separate", verbose = verbose)
+  fitting_problem_ind <- fitting_problem(
+    ref_sample = fitting_problem$refSample,
+    individual_controls = list(),
+    group_controls = fitting_problem$controls$individual,
+    field_names = special_field_names(fitting_problem$fieldNames$individualId,
+                                      fitting_problem$fieldNames$individualId,
+                                      count = fitting_problem$fieldNames$count)
+  )
+  flat_ind <- as.flat_ml_fit_problem(fitting_problem_ind, model_matrix_type = "separate", verbose = verbose)
+  stopifnot(ncol(flat_ind$ref_sample) == nrow(fitting_problem$refSample))
 
-  res <- run_ipu(flat, tol, maxiter, verbose)
+  fitting_problem_group <- fitting_problem(
+    ref_sample = fitting_problem$refSample,
+    individual_controls = list(),
+    group_controls = fitting_problem$controls$group,
+    field_names = special_field_names(fitting_problem$fieldNames$groupId,
+                                      fitting_problem$fieldNames$groupId,
+                                      count = fitting_problem$fieldNames$count)
+  )
+  flat_group <- as.flat_ml_fit_problem(fitting_problem_group, model_matrix_type = "separate", verbose = verbose)
+
+  res <- run_hipf(flat_group, flat_ind, tol, maxiter, verbose)
 
   message("Done!")
-  new_ml_fit_ipu(
+  new_ml_fit_hipf(
     list(
       weights = expand_weights(res$weights, flat),
       success = res$success,
@@ -29,39 +48,33 @@ ml_fit_hipf <- function(fitting_problem, tol = 1e-6, maxiter = 5000, verbose = F
   )
 }
 
-run_ipu <- function(flat, tol, maxiter, verbose) {
+run_ipu <- function(flat_group, flat_individual, tol, maxiter, verbose) {
   .patch_verbose()
 
-  message("Preparing IPU data")
-  ref_sample <- flat$ref_sample
-  target_values <- flat$target_values
-  prior_weights <- flat$weights
+  ind_ref_sample <- flat_ind$ref_sample
+  ind_target_values <- flat_ind$target_values
+  ind_weights <- flat_ind$weights
 
-  nonzero_col_index <- lapply(
-    seq_len(nrow(ref_sample)),
-    function(row) which(ref_sample[row, ] != 0)
-  )
-
-  nonzero_ref_sample <- lapply(
-    seq_len(nrow(ref_sample)),
-    function(row) ref_sample[row, nonzero_col_index[[row]] ]
-  )
+  group_ref_sample <- flat_group$ref_sample
+  group_target_values <- flat_group$target_values
 
   message("Start")
 
-  weights <- prior_weights
   success <- FALSE
-  for (iter in seq.int(from = 2L, to = maxiter + 1, by = 1L)) {
+  for (iter in seq.int(from = 1L, to = maxiter + 1, by = 1L)) {
     if (iter %% 100 == 0)
       message("Iteration ", iter)
-    residuals <- ref_sample %*% weights - target_values
-    if (all(abs(residuals) < tol)) {
-      success <- TRUE
-      message("Success")
-      break
+
+    if (iter > 1) {
+      residuals <- ind_ref_sample %*% weights - target_values
+      if (all(abs(residuals) < tol)) {
+        success <- TRUE
+        message("Success")
+        break
+      }
     }
 
-    for (row in seq_len(nrow(ref_sample))) {
+    for (row in seq_len(nrow(ind_ref_sample))) {
       col_indexes <- nonzero_col_index[[row]]
       ref_sample_entries <- nonzero_ref_sample[[row]]
 
@@ -78,4 +91,4 @@ run_ipu <- function(flat, tol, maxiter, verbose) {
   )
 }
 
-new_ml_fit_ipu <- make_new(c("ml_fit_ipu", "ml_fit"))
+new_ml_fit_hipf <- make_new(c("ml_fit_hipf", "ml_fit"))
