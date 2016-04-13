@@ -39,16 +39,16 @@ test_that("Grand totals only", {
           group_controls = group_controls
         )
 
-        rows <- min(length(individual_controls), 1) + min(length(group_controls), 1)
+        cols <- min(length(individual_controls), 1) + min(length(group_controls), 1)
 
         base_weight <- if (length(individual_controls) > 0 && length(group_controls) == 0) 2 else 1
-        if (nrow(ref_sample) == 1 && rows > 0) base_weight <- base_weight * 3 / max(ref_sample$gid)
+        if (nrow(ref_sample) == 1 && cols > 0) base_weight <- base_weight * 3 / max(ref_sample$gid)
         orig_weights <- rep(base_weight, nrow(ref_sample))
 
         weights <- if (nrow(ref_sample) > 1) {
           if (length(individual_controls) > 0) {
             if (length(group_controls) > 0) rep(1, max(ref_sample$gid)) else rep(2, max(ref_sample$gid))
-          } else 3
+          } else rep(1, max(ref_sample$gid))
         } else {
           if (length(individual_controls) > 0) {
             if (length(group_controls) > 0) 3 else 6
@@ -62,7 +62,7 @@ test_that("Grand totals only", {
                        "at least one")
         } else {
           flat <- flatten_ml_fit_problem(problem, verbose = TRUE)
-          expect_equal(nrow(flat$ref_sample), rows)
+          expect_equal(ncol(flat$ref_sample), cols)
           expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform),
                        orig_weights)
           expect_equal(flat$weights, weights)
