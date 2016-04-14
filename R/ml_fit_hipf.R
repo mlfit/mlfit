@@ -7,6 +7,11 @@
 #' @inheritParams ml_fit_ipu
 #' @return An object of classes \code{ml_fit_hipf} and \code{ml_fit}.
 #'
+#' @references
+#'    Müller, K. and Axhausen, K. W. (2011), Hierarchical IPF: Generating a
+#'        synthetic population for Switzerland, paper presented at the 51st
+#'        Congress of the European Regional Science Association, University of
+#'        Barcelona, Barcelona.
 #' @export
 #' @examples
 #' path <- toy_example("minitoy")
