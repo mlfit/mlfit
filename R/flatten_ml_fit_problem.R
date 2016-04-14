@@ -428,12 +428,35 @@ flatten_ml_fit_problem <- function(fitting_problem,
 }
 
 .model_matrix_one <- function(formula_component, data) {
-  if (formula_component == "1")
-    formula_as_character <- "~1"
-  else
-    formula_as_character <- paste0("~", formula_component, "-1")
+  col_names <- strsplit(formula_component, "[:*]")[[1L]]
+  if (length(col_names) <= 1L) {
+    if (formula_component == "1")
+      formula_as_character <- "~1"
+    else
+      formula_as_character <- paste0("~", formula_component, "-1")
 
-  stats::model.matrix(as.formula(formula_as_character), data)
+    stats::model.matrix(as.formula(formula_as_character), data)
+  } else {
+    col_levels <- Map(function(name, value)
+      kimisc::ofactor(paste0(name, levels(value))),
+      col_names, data[col_names])
+    grid <- do.call(expand.grid, col_levels)
+    all_levels <- .combine_levels(grid)
+
+    col_values <- as.data.frame(Map(
+      function(x, new_levels) `levels<-`(x, new_levels),
+      data[col_names],
+      col_levels))
+    all_values <- factor(.combine_levels(col_values), levels = all_levels)
+
+    wide <- Matrix::sparseMatrix(seq_len(nrow(data)), as.integer(all_values), x = 1)
+    colnames(wide) <- all_levels
+    as.matrix(wide)
+  }
+}
+
+.combine_levels <- function(x) {
+  do.call(paste, c(x, list(sep = ":")))
 }
 
 .get_model_matrix_fun <- function(model_matrix) {
