@@ -13,7 +13,7 @@
 #' @examples
 #' path <- toy_example("minitoy")
 #' ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
-ml_fit <- function(algorithm = c("entropy_o", "dss", "ipu"),
+ml_fit <- function(algorithm = c("entropy_o", "dss", "ipu", "hipf"),
                    fitting_problem, verbose = FALSE, ...) {
   algorithm <- match.arg(algorithm)
   fun.name <- sprintf("ml_fit_%s", algorithm)
