@@ -7,9 +7,13 @@ test_that("algorithms", {
   algos <- c("entropy_o", "dss", "ipu")
   mapply(results, names(results), FUN = function(problem, problem_name) {
     l_ply(algos, function(algo) {
-      if (algo == "ipu" && problem_name %in% c("multitoy", "bitoy"))
+      if (algo == "ipu" && problem_name %in% c("bitoy"))
         return()
       fit <- ml_fit(algo, problem)
+      if (!fit$success) {
+        warning("No convergence of ", algo, " for ", problem_name, ".", call. = FALSE)
+        return()
+      }
 
       margins <- compute_margins(problem, fit$weights)
       control_df <- margin_to_df(problem$controls)
