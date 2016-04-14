@@ -11,11 +11,5 @@ implementations for several algorithms that extend this to nested
 structures: "parent" and "child" items for both of which constraints can be
 provided.
 }
-\references{
-Müller, K. and Axhausen, K. W. (2011), Hierarchical IPF: Generating a
-       synthetic population for Switzerland, paper presented at the 51st
-       Congress of the European Regional Science Association, University of
-       Barcelona, Barcelona.
-}
 \keyword{package}
 

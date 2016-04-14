@@ -1,3 +1,9 @@
+# MultiLevelIPF 0.2-10 (2016-04-14)
+
+- Implement HIPF algorithm (#2).
+- Fix creation of "separate" model matrix for controls with two or more variables.
+
+
 # MultiLevelIPF 0.2-9 (2016-04-14)
 
 - Flattened reference sample now contains observations in rows, and controls in columns (#26).

@@ -4,7 +4,7 @@
 \alias{ml_fit_ipu}
 \title{Estimate weights using Iterative Proportional Updating}
 \usage{
-ml_fit_ipu(fitting_problem, tol = 1e-06, maxiter = 5000, verbose = FALSE)
+ml_fit_ipu(fitting_problem, tol = 1e-06, maxiter = 500, verbose = FALSE)
 }
 \arguments{
 \item{fitting_problem}{A fitting problem created by
@@ -27,7 +27,6 @@ aggregate controls by means of Iterative Proportional Updating.
 \examples{
 path <- toy_example("minitoy")
 ml_fit_ipu(fitting_problem = readRDS(path))
-\dontrun{ml_fit_ipu(fitting_problem = readRDS(path), ginv = solve)}
 }
 \references{
 Ye, X., K. Konduri, R. M. Pendyala, B. Sana and P. A. Waddell (2009)

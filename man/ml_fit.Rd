@@ -4,7 +4,7 @@
 \alias{ml_fit}
 \title{Estimate weights using a given algorithm}
 \usage{
-ml_fit(algorithm = c("entropy_o", "dss", "ipu"), fitting_problem,
+ml_fit(algorithm = c("entropy_o", "dss", "ipu", "hipf"), fitting_problem,
   verbose = FALSE, ...)
 }
 \arguments{
