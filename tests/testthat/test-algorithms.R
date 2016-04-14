@@ -10,6 +10,10 @@ test_that("algorithms", {
       if (algo == "ipu" && problem_name %in% c("multitoy", "bitoy"))
         return()
       fit <- ml_fit(algo, problem)
+      if (!fit$success) {
+        warning("No convergence of ", algo, " for ", problem_name, ".", call. = FALSE)
+        return()
+      }
 
       margins <- compute_margins(problem, fit$weights)
       control_df <- margin_to_df(problem$controls)
