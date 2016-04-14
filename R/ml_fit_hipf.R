@@ -150,7 +150,7 @@ run_hipf <- function(flat_group, flat_ind, group_ind_totals, tol, maxiter, verbo
 
   nlist(
     weights = ind_weights,
-    residuals,
+    residuals = ind_weights %*% ind_ref_sample - ind_target_values,
     success
   )
 }
