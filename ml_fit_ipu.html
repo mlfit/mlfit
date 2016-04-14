@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>ml_fit_ipu. MultiLevelIPF 0.2-9</title>
+<title>ml_fit_ipu. MultiLevelIPF 0.2-10</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">MultiLevelIPF 0.2-9</a>
+      <a class="brand" href="#">MultiLevelIPF 0.2-10</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -53,7 +53,7 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>ml_fit_ipu(fitting_problem, tol&nbsp;=&nbsp;1e-06, maxiter&nbsp;=&nbsp;5000, verbose&nbsp;=&nbsp;FALSE)</div></pre>
+    <pre><div>ml_fit_ipu(fitting_problem, tol&nbsp;=&nbsp;1e-06, maxiter&nbsp;=&nbsp;500, verbose&nbsp;=&nbsp;FALSE)</div></pre>
     
     <h2>Arguments</h2>
     <dl>
@@ -103,8 +103,8 @@ ml_fit_ipu(fitting_problem = readRDS(path))
 </div>
 <div class='output'>An object of class ml_fit
   Algorithm: ipu
-  Success: TRUE
-  Residuals: min = -9.97811e-07, max = 0
+  Success: FALSE
+  Residuals: min = -0.004813288, max = -1.421085e-14
   Flat problem:
   An object of class flat_ml_fit_problem
     Dimensions: 5 groups, 8 target values
@@ -114,8 +114,6 @@ ml_fit_ipu(fitting_problem = readRDS(path))
       Reference sample: 23 observations
       Control totals: 1 at individual, and 1 at group level
       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu
-</div>
-<div class='input'>## Not run: ml_fit_ipu(fitting_problem = readRDS(path), ginv = solve)
 </div></pre>
   </div>
   <div class="span4">

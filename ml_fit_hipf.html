@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>compute_margins. MultiLevelIPF 0.2-10</title>
+<title>ml_fit_hipf. MultiLevelIPF 0.2-10</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -48,62 +48,80 @@
         
       </header>
       
-      <h1>Compute margins for a weighting of a multi-level fitting problem</h1>
+      <h1>Estimate weights using Hierarchical Iterative Proportional Fitting</h1>
 
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>compute_margins(fitting_problem, weights, verbose&nbsp;=&nbsp;FALSE)</div>
-<div>margin_to_df(controls, count&nbsp;=&nbsp;NULL, verbose&nbsp;=&nbsp;FALSE)</div></pre>
+    <pre><div>ml_fit_hipf(fitting_problem, tol&nbsp;=&nbsp;1e-06, maxiter&nbsp;=&nbsp;500, verbose&nbsp;=&nbsp;FALSE)</div></pre>
     
     <h2>Arguments</h2>
     <dl>
       <dt>fitting_problem</dt>
       <dd>A fitting problem created by
 <code><a href='fitting_problem.html'>fitting_problem</a></code>.</dd>
-      <dt>weights</dt>
-      <dd>A vector with one entry per row of the original reference
-sample</dd>
+      <dt>tol</dt>
+      <dd>Tolerance, the algorithm stops when all target values are reached
+within this tolerance.</dd>
+      <dt>maxiter</dt>
+      <dd>Maximum number of iterations.</dd>
       <dt>verbose</dt>
       <dd>If <code>TRUE</code>, print diagnostic output.</dd>
-      <dt>controls</dt>
-      <dd>Margins as returned by <code>compute_margins</code> or as passed
-to the <code>controls</code> parameter of <code><a href='fitting_problem.html'>fitting_problem</a></code>.</dd>
-      <dt>count</dt>
-      <dd>Name of control total column, autodetected by default.</dd>
     </dl>
     
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+An object of classes <code>ml_fit_hipf</code> and <code>ml_fit</code>.
+</dl></p>
+  
+    </div>
+
     <div class="Description">
       <h2>Description</h2>
 
-      <p>These functions allows checking a fit in terms of the original input data.</p>
+      <p>This function reweights a reference sample to match constraints given by
+aggregate controls by means of Hierarchical Iterative Proportional Fitting.</p>
   
     </div>
 
-    <div class="Details">
-      <h2>Details</h2>
+    <div class="References">
+      <h2>References</h2>
 
-      <p><code>compute_margins</code> computes margins in the format used for the input
-controls (i.e., as expected by the <code>controls</code> parameter of the
-<code><a href='fitting_problem.html'>fitting_problem</a></code> function),
-based on a reference sample and a weights vector.</p>
-  
-      <p><code>margins_to_df</code> converts margins to a data frame for easier comparison.</p>
+      <p>Müller, K. and Axhausen, K. W. (2011), Hierarchical IPF: Generating a
+       synthetic population for Switzerland, paper presented at the 51st
+       Congress of the European Regional Science Association, University of
+       Barcelona, Barcelona.</p>
   
     </div>
-      </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>path &lt;- toy_example(&quot;minitoy&quot;)
+ml_fit_hipf(fitting_problem = readRDS(path))
+</div>
+<div class='output'>An object of class ml_fit
+  Algorithm: hipf
+  Success: TRUE
+  Residuals: min = -8.090595e-07, max = 9.887824e-07
+  Flat problem:
+  An object of class flat_ml_fit_problem
+    Dimensions: 3 groups, 23 target values
+    Model matrix type: separate
+    Original fitting problem:
+    An object of class fitting_problem
+      Reference sample: 23 observations
+      Control totals: 0 at individual, and 1 at group level
+</div></pre>
+  </div>
   <div class="span4">
     <!-- <ul>
-      <li>compute_margins</li><li>margin_to_df</li>
+      <li>ml_fit_hipf</li>
     </ul>
     <ul>
       
     </ul> -->
       
-    <h2>See also</h2>
-    
-<code><a href='ml_fit.html'>ml_fit</a></code>
-
         
   </div>
 </div>
