@@ -13,9 +13,10 @@
 ml_fit_hipf <- function(fitting_problem, tol = 1e-6, maxiter = 5000, verbose = FALSE) {
   .patch_verbose()
 
+  group_ind_totals <- get_group_ind_totals(fitting_problem, verbose)
   flat_ind <- create_flat_ind(fitting_problem, verbose)
   flat_group <- create_flat_group(fitting_problem, verbose)
-  res <- run_hipf(flat_group, flat_ind, tol, maxiter, verbose)
+  res <- run_hipf(flat_group, flat_ind, group_ind_totals, tol, maxiter, verbose)
 
   message("Done!")
   new_ml_fit_hipf(
@@ -27,6 +28,18 @@ ml_fit_hipf <- function(fitting_problem, tol = 1e-6, maxiter = 5000, verbose = F
       flat_group = flat_group,
       flat_weights = res$weights
     )
+  )
+}
+
+get_group_ind_totals <- function(fitting_problem, verbose) {
+  if (length(fitting_problem$controls$individual) == 0L ||
+      length(fitting_problem$controls$group) == 0L) {
+    stop("Need at least one control at both individual and group levels for HIPF.", call. = FALSE)
+  }
+  flat <- flatten_ml_fit_problem(fitting_problem)
+  list(
+    group = flat$target_values[["(Intercept)_g"]],
+    ind = flat$target_values[["(Intercept)_i"]]
   )
 }
 
@@ -67,7 +80,7 @@ create_flat_group <- function(fitting_problem, verbose) {
   flat_group
 }
 
-run_hipf <- function(flat_group, flat_ind, tol, maxiter, verbose) {
+run_hipf <- function(flat_group, flat_ind, group_ind_totals, tol, maxiter, verbose) {
   .patch_verbose()
 
   message("Preparing")
