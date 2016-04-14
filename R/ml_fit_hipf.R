@@ -105,6 +105,9 @@ run_hipf <- function(flat_group, flat_ind, group_ind_totals, tol, maxiter, verbo
     function(col) which(group_ref_sample[, col] != 0)
   )
 
+  weights_transform_group_to_groupsize <- get_transform_group_to_groupsize(
+    flat_group$reverse_weights_transform)
+
   message("Start")
 
   success <- FALSE
@@ -131,7 +134,8 @@ run_hipf <- function(flat_group, flat_ind, group_ind_totals, tol, maxiter, verbo
 
     group_weights <- as.vector(ind_weights %*% weights_transform_ind_to_group)
 
-    # TODO: fix persons per household ratio
+    group_weights <- rescale_group_weights_for_ind_per_group(
+      group_weights, weights_transform_group_to_groupsize, group_ind_totals)
 
     for (col in seq_len(ncol(group_ref_sample))) {
       row_indexes <- group_nonzero_row_index[[col]]
@@ -150,5 +154,42 @@ run_hipf <- function(flat_group, flat_ind, group_ind_totals, tol, maxiter, verbo
     success
   )
 }
+
+get_transform_group_to_groupsize <- function(group_reverse_weights_transform) {
+  group_sizes <- Matrix::rowSums(group_reverse_weights_transform)
+  Matrix::sparseMatrix(
+    i = seq_along(group_sizes),
+    j = group_sizes,
+    x = 1)
+}
+
+rescale_group_weights_for_ind_per_group <- function(
+  group_weights, weights_transform_group_to_groupsize, group_ind_totals) {
+
+  # Appendix A
+  Fp <- group_weights %*% weights_transform_group_to_groupsize
+  ap <- as.vector(Fp) * (seq_along(Fp) * (group_ind_totals$group / group_ind_totals$ind) - 1)
+  dx <- polyroot(remove_leading_zeros(ap))
+  d <- Re(dx[abs(Im(dx)) < sqrt(.Machine$double.eps)])
+  d <- d[d > 0]
+  stopifnot(length(d) == 1L)
+
+  dp <- d ** seq_along(Fp)
+  c <- group_ind_totals$group / sum(Fp * dp)
+
+  fhprime_by_fh <- c * dp
+
+  group_weights <- group_weights * as.vector(
+    Matrix::tcrossprod(fhprime_by_fh, weights_transform_group_to_groupsize))
+
+  stopifnot(abs(sum(group_weights) / group_ind_totals$group - 1) < 1e-6)
+  stopifnot(abs(sum(as.vector(group_weights %*% weights_transform_group_to_groupsize) * seq_along(Fp)) / group_ind_totals$ind - 1) < 1e-6)
+
+  group_weights
+}
+
+
+
+# S3 ----------------------------------------------------------------------
 
 new_ml_fit_hipf <- make_new(c("ml_fit_hipf", "ml_fit"))
