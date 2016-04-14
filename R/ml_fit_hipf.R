@@ -13,8 +13,8 @@
 ml_fit_hipf <- function(fitting_problem, tol = 1e-6, maxiter = 5000, verbose = FALSE) {
   .patch_verbose()
 
-  flat_ind <- create_flat_ind(fitting_problem)
-  flat_group <- create_flat_group(fitting_problem)
+  flat_ind <- create_flat_ind(fitting_problem, verbose)
+  flat_group <- create_flat_group(fitting_problem, verbose)
   res <- run_hipf(flat_group, flat_ind, tol, maxiter, verbose)
 
   message("Done!")
@@ -30,7 +30,7 @@ ml_fit_hipf <- function(fitting_problem, tol = 1e-6, maxiter = 5000, verbose = F
   )
 }
 
-create_flat_ind <- function(fitting_problem) {
+create_flat_ind <- function(fitting_problem, verbose) {
   fitting_problem_ind <- fitting_problem(
     ref_sample = fitting_problem$refSample,
     individual_controls = list(),
@@ -48,7 +48,7 @@ create_flat_ind <- function(fitting_problem) {
   flat_ind
 }
 
-create_flat_group <- function(fitting_problem) {
+create_flat_group <- function(fitting_problem, verbose) {
   fitting_problem_group <- fitting_problem(
     ref_sample = fitting_problem$refSample,
     individual_controls = list(),
