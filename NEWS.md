@@ -1,72 +1,41 @@
-# MultiLevelIPF 0.2-10 (2016-04-14)
+# MultiLevelIPF 0.3 (2016-04-14)
 
-- Implement HIPF algorithm (#2).
-- Fix creation of "separate" model matrix for controls with two or more variables.
+- Features
+    - New algoritms: HIPF (#2) and IPU.
 
+- Interface
+    - New `as.flat_ml_fit_problem()` is used to coerce input for the `ml_fit_` functions.
+    - `format()` and `print()` methods for classes `fitting_problem`, `flat_ml_fit_problem` and `ml_fit`.
+    - Flattened reference sample now contains observations in rows, and controls in columns (#26).
+    - `flatten_ml_fit_problem()` gains new `model_matrix_type` argument that allows selecting an alternative model matrix building method where all cross-classifications are allocated to a column, regardless of overlaps. Flattened problems store the type of model matrix used, it is also shown with the `format()` and `print()` methods.
 
-# MultiLevelIPF 0.2-9 (2016-04-14)
+- Improvements
+    - Reference sample doesn't need to be ordered by group ID anymore.
+    - Remove `individualsPerGroup` special variable.
+    - Allow problems with individual-only controls.
+    - Check for correspondence of levels between sample and controls.
+    - Check for `NA` values in controls.
 
-- Flattened reference sample now contains observations in rows, and controls in columns (#26).
-- Duplicate rows are kept in the reference sample.
-- Reference sample doesn't need to be ordered by group ID anymore.
-- Some cleanup of `flatten_ml_fit_problem()`.
-- Remove `individualsPerGroup` special variable.
+- Technical changes
+    - Use `grake` package again for calibration, because the alternatives are worse: `sampling` uses a too low tolerance, `survey` forcibly loads `MASS`, and `laeken` could work but is unrelated (which is the reason `grake` has been started in the first place).
+    - Duplicate rows are kept in the reference sample.
+    - Rename `control_totals` to `target_values`.
+    - New `toy_example()` allows easier access to bundled examples, load with `readRDS()`.
+    - Move legacy format (IPAF) and related functions to `data-raw` directory.
+    - Use factors internally.
 
+- Performance
+    - Use `dplyr` functions instead of `aggregate()`.
 
-# MultiLevelIPF 0.2-8 (2016-04-13)
+- Tests
+    - Specific test for households with the same signature.
 
-- Use `grake` package again for calibration, because the alternatives are worse: `sampling` uses a too low tolerance, `survey` forcibly loads `MASS`, and `laeken` could work but is unrelated (which is the reason `grake` has been started in the first place).
-- Use `dplyr` functions instead of `aggregate()` for performance.
+- Documentation
+    - Enhance example.
+    - Include flat example problem (group size = 1 for all groups).
 
-
-# MultiLevelIPF 0.2-7 (2016-04-10)
-
-- Fix package checks.
-
-
-# MultiLevelIPF 0.2-6 (2016-04-10)
-
-- Implement IPU algorithm.
-
-
-# MultiLevelIPF 0.2-5 (2016-04-10)
-
-- New `as.flat_ml_fit_problem()` is used to coerce input for the `ml_fit_` functions.
-- Flattened problems store the type of model matrix used, it is also shown with the `format()` and `print()` methods.
-- Specific test for households with the same signature.
-
-
-# MultiLevelIPF 0.2-4 (2016-04-10)
-
-- Extract `.prepare_ref_sample_and_controls()` from `flatten_ml_fit_problem()`.
-- `flatten_ml_fit_problem()` gains new `model_matrix_type` argument that allows selecting an alternative model matrix building method.
-- Use `target_values` instead of `control_totals` in code.
-
-
-# MultiLevelIPF 0.2-3 (2016-04-08)
-
-- Enhance example.
-- Use `rflow`.
-
-
-Version 0.2-2 (2016-03-13)
-===
-
-- Include flat problem (group size = 1 for all groups).
-- Move legacy format (IPAF) and related functions to `data-raw` directory.
-- Toy examples now load with `readRDS()`.
-- `format()` and `print()` methods for classes `fitting_problem`, `flat_ml_fit_problem` and `ml_fit`.
-- New `toy_example()` allows easier access to bundled examples.
-- Use `sampling::calib()` instead of `survey::grake()`, because the latter forcibly attaches `MASS`.
-
-
-Version 0.2-1 (2016-03-02)
-===
-
-- Allow problems with individual-only controls.
-- Use factors internally.
-- Check for correspondence of levels between sample and controls.
-- Check for `NA` values in controls.
+- Cleanup
+    - Cleanup and split of `flatten_ml_fit_problem()`.
 
 
 Version 0.2 (2016-01-30)
