@@ -10,7 +10,7 @@
 #' @examples
 #' path <- toy_example("minitoy")
 #' ml_fit_hipf(fitting_problem = readRDS(path))
-ml_fit_hipf <- function(fitting_problem, tol = 1e-6, maxiter = 5000, verbose = FALSE) {
+ml_fit_hipf <- function(fitting_problem, tol = 1e-6, maxiter = 500, verbose = FALSE) {
   .patch_verbose()
 
   group_ind_totals <- get_group_ind_totals(fitting_problem, verbose)
