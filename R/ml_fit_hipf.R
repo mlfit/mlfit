@@ -3,6 +3,7 @@
 #' This function reweights a reference sample to match constraints given by
 #' aggregate controls by means of Hierarchical Iterative Proportional Fitting.
 #'
+#' @inheritParams ml_fit
 #' @inheritParams ml_fit_ipu
 #' @return An object of classes \code{ml_fit_hipf} and \code{ml_fit}.
 #'
