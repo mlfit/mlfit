@@ -4,7 +4,7 @@ test_that("algorithms", {
   test_names <- c("minitoy", "toy", "dummytoy", "multitoy", "onetoy", "bitoy")
   test_paths <- toy_example(test_names)
   results <- llply(setNames(test_paths, nm=test_names), readRDS)
-  algos <- c("entropy_o", "dss", "ipu", "hipf")
+  algos <- eval(formals(ml_fit)$algorithm)
   mapply(results, names(results), FUN = function(problem, problem_name) {
     l_ply(algos, function(algo) {
       if (algo == "ipu" && problem_name %in% c("bitoy"))
