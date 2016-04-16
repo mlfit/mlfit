@@ -23,7 +23,7 @@ ml_fit_hipf <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
   group_ind_totals <- get_group_ind_totals(fitting_problem, verbose)
   flat_ind <- create_flat_ind(fitting_problem, verbose)
   flat_group <- create_flat_group(fitting_problem, verbose)
-  hipf_res <- run_hipf(flat_group, flat_ind, group_ind_totals, tol, maxiter, verbose)
+  hipf_res <- run_hipf(flat_group, flat_ind, group_ind_totals, diff_tol, maxiter, verbose)
 
   message("Done!")
   res <- new_ml_fit_hipf(
