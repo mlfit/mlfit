@@ -29,7 +29,8 @@ ml_fit_hipf <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
   res <- new_ml_fit_hipf(
     list(
       flat_ind = flat_ind,
-      flat = flat_group,
+      flat_group = flat_group,
+      flat = group_ind_totals$flat,
       flat_weights = hipf_res$weights
     )
   )
@@ -44,6 +45,7 @@ get_group_ind_totals <- function(fitting_problem, verbose) {
   }
   flat <- flatten_ml_fit_problem(fitting_problem)
   list(
+    flat = flat,
     group = flat$target_values[["(Intercept)_g"]],
     ind = flat$target_values[["(Intercept)_i"]]
   )
