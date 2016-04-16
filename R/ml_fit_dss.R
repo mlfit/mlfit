@@ -30,6 +30,7 @@
 ml_fit_dss <- function(fitting_problem,
                        method = c("raking", "linear", "logit"),
                        ginv = grake::gginv(),
+                       tol = 1e-6,
                        verbose = FALSE) {
   .patch_verbose()
 

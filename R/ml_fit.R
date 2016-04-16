@@ -6,6 +6,8 @@
 #' @param algorithm Algorithm to use
 #' @param fitting_problem A fitting problem created by
 #'   \code{\link{fitting_problem}}.
+#' @param tol Tolerance, the algorithm has succeeded when all target values are
+#'   reached within this tolerance.
 #' @param verbose If \code{TRUE}, print diagnostic output.
 #' @param ... Further parameters passed to the algorithm
 #' @return An object of class \code{ml_fit}, essentially a named list.
@@ -14,7 +16,7 @@
 #' path <- toy_example("minitoy")
 #' ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
 ml_fit <- function(algorithm = c("entropy_o", "dss", "ipu", "hipf"),
-                   fitting_problem, verbose = FALSE, ...) {
+                   fitting_problem, verbose = FALSE, ..., tol = 1e-6) {
   algorithm <- match.arg(algorithm)
   fun.name <- sprintf("ml_fit_%s", algorithm)
   if (!exists(fun.name))
@@ -22,6 +24,7 @@ ml_fit <- function(algorithm = c("entropy_o", "dss", "ipu", "hipf"),
 
   get(fun.name)(
     fitting_problem = fitting_problem,
+    tol = tol,
     verbose = verbose, ...)
 }
 

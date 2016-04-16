@@ -6,8 +6,6 @@
 #' @inheritParams ml_fit
 #' @param diff_tol Tolerance, the algorithm stops when relative difference of
 #'   control values between iterations drops below this value
-#' @param tol Tolerance, the algorithm has succeeded when all target values are
-#'   reached within this tolerance.
 #' @param maxiter Maximum number of iterations.
 #' @return An object of classes \code{ml_fit_ipu} and \code{ml_fit}.
 #' @references Ye, X., K. Konduri, R. M. Pendyala, B. Sana and P. A. Waddell (2009)

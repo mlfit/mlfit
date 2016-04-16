@@ -13,7 +13,7 @@
 #' @examples
 #' path <- toy_example("minitoy")
 #' ml_fit_entropy_o(fitting_problem = readRDS(path))
-ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE,
+ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE, tol = 1e-6,
                              dfsane_args = list()) {
   .patch_verbose()
 
