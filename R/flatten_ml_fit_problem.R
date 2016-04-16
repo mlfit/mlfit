@@ -420,14 +420,14 @@ flatten_ml_fit_problem <- function(fitting_problem,
 }
 
 .model_matrix_separate <- function(formula_components, data, control.type) {
-  matrices <- lapply(formula_components, .model_matrix_one, data)
+  matrices <- lapply(formula_components, .model_matrix_one, data, control.type)
 
   if (any(duplicated(sapply(matrices, colnames)))) browser()
 
   do.call(cbind, matrices)
 }
 
-.model_matrix_one <- function(formula_component, data) {
+.model_matrix_one <- function(formula_component, data, control.type) {
   col_names <- strsplit(formula_component, "[:*]")[[1L]]
   if (length(col_names) <= 1L) {
     if (formula_component == "1")
@@ -435,7 +435,8 @@ flatten_ml_fit_problem <- function(fitting_problem,
     else
       formula_as_character <- paste0("~", formula_component, "-1")
 
-    stats::model.matrix(as.formula(formula_as_character), data)
+    mm <- stats::model.matrix(as.formula(formula_as_character), data)
+    .rename.intercept(mm, control.type)
   } else {
     col_levels <- Map(function(name, value)
       kimisc::ofactor(paste0(name, levels(value))),
