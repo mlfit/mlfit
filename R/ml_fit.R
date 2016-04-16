@@ -49,9 +49,9 @@ get_algo <- function(x) {
 }
 
 tol_reached <- function(last_weights, weights, tol) {
-  last_weights <- last_weights[weights != 0]
-  weights <- weights[weights != 0]
-  all(abs(weights - last_weights) < tol)
+  weights <- weights[last_weights != 0]
+  last_weights <- last_weights[last_weights != 0]
+  all(abs(weights / last_weights - 1) < tol)
 }
 
 set_weights_success_and_residuals <- function(res, tol) {
