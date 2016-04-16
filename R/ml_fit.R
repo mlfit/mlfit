@@ -59,7 +59,7 @@ tol_reached <- function(last_weights, weights, tol) {
 
 set_weights_success_and_residuals <- function(res, tol) {
   res$weights <- expand_weights(res$flat_weights, res$flat)
-  res$flat_weighted_values <- res$flat_weights %*% res$flat$ref_sample
+  res$flat_weighted_values <- as.vector(res$flat_weights %*% res$flat$ref_sample)
   res$residuals <- res$flat_weighted_values - res$flat$target_values
   res$rel_residuals <- res$flat_weighted_values/ res$flat$target_values - 1
   res$success <- all(abs(res$rel_residuals) < tol)
