@@ -1,7 +1,8 @@
 context("return")
 
+algos <- eval(formals(ml_fit)$algorithm)
+
 test_that("success = TRUE", {
-  algos <- eval(formals(ml_fit)$algorithm)
   minitoy <- readRDS(toy_example("minitoy"))
 
   for (algo in algos) {
