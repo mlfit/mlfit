@@ -88,7 +88,7 @@ create_flat_group <- function(fitting_problem, verbose) {
   flat_group
 }
 
-run_hipf <- function(flat_group, flat_ind, group_ind_totals, tol, maxiter, verbose) {
+run_hipf <- function(flat_group, flat_ind, group_ind_totals, diff_tol, maxiter, verbose) {
   .patch_verbose()
 
   message("Preparing")
@@ -146,8 +146,8 @@ run_hipf <- function(flat_group, flat_ind, group_ind_totals, tol, maxiter, verbo
       group_weights[row_indexes] <- valid_weights / current_value * group_target_values[[col]]
     }
 
-    if (all(abs(last_group_weights - group_weights) < tol)) {
-      message("Change less than tol")
+    if (tol_reached(last_group_weights, group_weights, diff_tol)) {
+      message("Weights haven't changed in iteration ", iter, ", exiting.")
       break
     }
   }

@@ -36,7 +36,7 @@ ml_fit_ipu <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
   set_weights_success_and_residuals(res, tol)
 }
 
-run_ipu <- function(flat, tol, maxiter, verbose) {
+run_ipu <- function(flat, diff_tol, maxiter, verbose) {
   .patch_verbose()
 
   message("Preparing IPU data")
@@ -71,7 +71,7 @@ run_ipu <- function(flat, tol, maxiter, verbose) {
       weights[row_indexes] <- valid_weights / current_value * target_values[[col]]
     }
 
-    if (tol_reached(last_weights, weights, tol)) {
+    if (tol_reached(last_weights, weights, diff_tol)) {
       message("Weights haven't changed in iteration ", iter, ", exiting.")
       break
     }
