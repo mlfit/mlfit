@@ -26,6 +26,7 @@ ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE, tol = 1e-6,
   dfsane_args$fn <- dss.objective.m(x=t_ref_sample, control.totals=flat$target_values, F=exp, d=flat$weights)
   dfsane_args$control$M <- 1
   dfsane_args$control$trace <- verbose
+  dfsane_args$alertConvergence <- FALSE
 
   # Testing evaluation
   message("Testing evaluation of objective function")
