@@ -39,16 +39,15 @@ ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE, tol = 1e-6,
   weights.agg <- dss.weights.from.lambda.m(x=t_ref_sample, F=exp, d=flat$weights)(bbout$par)
 
   message("Done!")
-  new_ml_fit_entropy_o(
+  res <- new_ml_fit_entropy_o(
     list(
-      weights = expand_weights(weights.agg, flat),
-      success = (bbout$message == "Successful convergence"),
-      residuals = (weights.agg %*% flat$ref_sample)[1,] - flat$target_values,
       flat=flat,
       flat_weights=weights.agg,
       bbout=bbout
     )
   )
+
+  set_weights_success_and_residuals(res, tol)
 }
 
 new_ml_fit_entropy_o <- make_new(c("ml_fit_entropy_o", "ml_fit"))
