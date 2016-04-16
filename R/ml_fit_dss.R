@@ -44,19 +44,20 @@ ml_fit_dss <- function(fitting_problem,
     d = flat$weights,
     totals = flat$target_values,
     method = method,
-    ginv = ginv)
+    ginv = ginv,
+    tol = tol,
+    attributes = TRUE)
   weights.agg <- g * flat$weights
 
   message("Done!")
-  new_ml_fit_dss(
+  res <- new_ml_fit_dss(
     list(
-      weights=expand_weights(weights.agg, flat),
-      success=TRUE,
-      residuals = (weights.agg %*% flat$ref_sample)[1,] - flat$target_values,
-      flat=flat,
-      flat_weights=weights.agg
+      flat = flat,
+      flat_weights = weights.agg
     )
   )
+
+  set_weights_success_and_residuals(res, tol)
 }
 
 new_ml_fit_dss <- make_new(c("ml_fit_dss", "ml_fit"))
