@@ -176,7 +176,11 @@ rescale_group_weights_for_ind_per_group <- function(
   dx <- polyroot(remove_leading_zeros(ap))
   d <- Re(dx[abs(Im(dx)) < sqrt(.Machine$double.eps)])
   d <- d[d > 0]
-  stopifnot(length(d) == 1L)
+
+  # No root can happen with malformed problems, silently return
+  # and let higher-level routine handle this
+  if (length(d) != 1L)
+    return(group_weights)
 
   dp <- d ** seq_along(Fp)
   c <- group_ind_totals$group / sum(Fp * dp)
