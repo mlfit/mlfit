@@ -48,6 +48,24 @@ get_algo <- function(x) {
     paste(gsub("^ml_fit_", "", other_classes), collapse = ", ")
 }
 
+tol_reached <- function(last_weights, weights, tol) {
+  last_weights <- last_weights[weights != 0]
+  weights <- weights[weights != 0]
+  all(abs(weights - last_weights) < tol)
+}
+
+set_weights_success_and_residuals <- function(res, tol) {
+  res$weights <- expand_weights(res$flat_weights, res$flat)
+  res$flat_weighted_values <- res$flat_weights %*% res$flat$ref_sample
+  res$residuals <- res$flat_weighted_values - res$flat$target_values
+  res$rel_residuals <- res$flat_weighted_values/ res$flat$target_values - 1
+  res$success <- all(abs(res$rel_residuals) < tol)
+  res
+}
+
+
+# S3 ----------------------------------------------------------------------
+
 #' @export
 format.ml_fit <- function(x, ...) {
   c(
