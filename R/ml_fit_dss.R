@@ -42,7 +42,7 @@ ml_fit_dss <- function(fitting_problem,
   g <- grake::dss(
     X = flat$ref_sample,
     d = flat$weights,
-    total = flat$target_values,
+    totals = flat$target_values,
     method = method,
     ginv = ginv)
   weights.agg <- g * flat$weights
