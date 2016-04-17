@@ -8,6 +8,11 @@ test_that("success = TRUE", {
   for (algo in algos) {
     fit <- ml_fit(algo, minitoy)
     expect_true(fit$success, info = algo)
+    expect_equal(length(fit$residuals), 5, info = algo)
+    expect_lt(max(abs(fit$residuals)), 1e-3)
+    expect_equal(length(fit$rel_residuals), 5, info = algo)
+    expect_lt(max(abs(fit$rel_residuals)), 1e-6)
+    expect_equal(length(fit$flat_weighted_values), 5, info = algo)
   }
 })
 
@@ -18,7 +23,6 @@ test_that("success = FALSE", {
       group_controls = list(data_frame(g = 1, n = 4)),
       individual_controls = list(data_frame(i = 1, n = 3)),
       field_names = special_field_names("gid", "iid", count = "n"))
-
 
   for (algo in algos) {
     fit <- ml_fit(algo, bad_problem)
