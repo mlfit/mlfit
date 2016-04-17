@@ -4,13 +4,17 @@
 \alias{ml_fit_entropy_o}
 \title{Estimate weights using an entropy optimization approach}
 \usage{
-ml_fit_entropy_o(fitting_problem, verbose = FALSE, dfsane_args = list())
+ml_fit_entropy_o(fitting_problem, verbose = FALSE, tol = 1e-06,
+  dfsane_args = list())
 }
 \arguments{
 \item{fitting_problem}{A fitting problem created by
 \code{\link{fitting_problem}}.}
 
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
+
+\item{tol}{Tolerance, the algorithm has succeeded when all target values are
+reached within this tolerance.}
 
 \item{dfsane_args}{Additional arguments (as a named list) passed to the
 \code{\link[BB]{dfsane}} function used internally for the optimization.}

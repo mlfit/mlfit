@@ -4,14 +4,18 @@
 \alias{ml_fit_ipu}
 \title{Estimate weights using Iterative Proportional Updating}
 \usage{
-ml_fit_ipu(fitting_problem, tol = 1e-06, maxiter = 500, verbose = FALSE)
+ml_fit_ipu(fitting_problem, diff_tol = 16 * .Machine$double.eps,
+  tol = 1e-06, maxiter = 2000, verbose = FALSE)
 }
 \arguments{
 \item{fitting_problem}{A fitting problem created by
 \code{\link{fitting_problem}}.}
 
-\item{tol}{Tolerance, the algorithm stops when all target values are reached
-within this tolerance.}
+\item{diff_tol}{Tolerance, the algorithm stops when relative difference of
+control values between iterations drops below this value}
+
+\item{tol}{Tolerance, the algorithm has succeeded when all target values are
+reached within this tolerance.}
 
 \item{maxiter}{Maximum number of iterations.}
 

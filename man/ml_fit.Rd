@@ -5,7 +5,7 @@
 \title{Estimate weights using a given algorithm}
 \usage{
 ml_fit(algorithm = c("entropy_o", "dss", "ipu", "hipf"), fitting_problem,
-  verbose = FALSE, ...)
+  verbose = FALSE, ..., tol = 1e-06)
 }
 \arguments{
 \item{algorithm}{Algorithm to use}
@@ -16,6 +16,9 @@ ml_fit(algorithm = c("entropy_o", "dss", "ipu", "hipf"), fitting_problem,
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
 
 \item{...}{Further parameters passed to the algorithm}
+
+\item{tol}{Tolerance, the algorithm has succeeded when all target values are
+reached within this tolerance.}
 }
 \value{
 An object of class \code{ml_fit}, essentially a named list.

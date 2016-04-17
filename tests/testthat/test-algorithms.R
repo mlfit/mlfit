@@ -4,7 +4,7 @@ test_that("algorithms", {
   test_names <- c("minitoy", "toy", "dummytoy", "multitoy", "onetoy", "bitoy")
   test_paths <- toy_example(test_names)
   results <- llply(setNames(test_paths, nm=test_names), readRDS)
-  algos <- c("entropy_o", "dss", "ipu", "hipf")
+  algos <- eval(formals(ml_fit)$algorithm)
   mapply(results, names(results), FUN = function(problem, problem_name) {
     l_ply(algos, function(algo) {
       if (algo == "ipu" && problem_name %in% c("bitoy"))
@@ -20,8 +20,9 @@ test_that("algorithms", {
       margins <- compute_margins(problem, fit$weights)
       control_df <- margin_to_df(problem$controls)
       expect_message(margin_df <- margin_to_df(margins, verbose = TRUE), "as count column for")
-      expect_equal(control_df[["..count.."]], margin_df[["..count.."]])
-      expect_true(all(abs(fit$residuals) < 1e-6))
+      expect_equal(control_df[["..count.."]] / margin_df[["..count.."]], rep(1, nrow(margin_df)),
+                   tolerance = 1e-6)
+      expect_true(all(abs(fit$rel_residuals) < 1e-6))
     })
   })
 })

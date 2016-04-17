@@ -5,7 +5,7 @@
 \title{Estimate weights using generalized raking}
 \usage{
 ml_fit_dss(fitting_problem, method = c("raking", "linear", "logit"),
-  ginv = grake::gginv(), verbose = FALSE)
+  ginv = grake::gginv(), tol = 1e-06, verbose = FALSE)
 }
 \arguments{
 \item{fitting_problem}{A fitting problem created by
@@ -17,6 +17,9 @@ ml_fit_dss(fitting_problem, method = c("raking", "linear", "logit"),
 \item{ginv}{Function that computes the Moore-Penrose pseudoinverse,
 currently only the default value \code{MASS::\link[MASS]{ginv}} is
 accepted.}
+
+\item{tol}{Tolerance, the algorithm has succeeded when all target values are
+reached within this tolerance.}
 
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
 }
