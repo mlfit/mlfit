@@ -33,7 +33,7 @@ ml_fit_ipu <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
     )
   )
 
-  set_weights_success_and_residuals(res, tol)
+  set_weights_success_and_residuals(res, tol, ipu_res$iter)
 }
 
 run_ipu <- function(flat, tol, diff_tol, maxiter, verbose) {

@@ -57,7 +57,7 @@ ml_fit_dss <- function(fitting_problem,
     )
   )
 
-  set_weights_success_and_residuals(res, tol)
+  set_weights_success_and_residuals(res, tol, attr(g, "iterations"))
 }
 
 new_ml_fit_dss <- make_new(c("ml_fit_dss", "ml_fit"))

@@ -38,7 +38,7 @@ ml_fit_hipf <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
     )
   )
 
-  set_weights_success_and_residuals(res, tol)
+  set_weights_success_and_residuals(res, tol, hipf_res$iter)
 }
 
 get_group_ind_totals <- function(flat, verbose) {
