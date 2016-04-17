@@ -52,6 +52,7 @@ get_algo <- function(x) {
 }
 
 set_weights_success_and_residuals <- function(res, tol) {
+  res$tol <- tol
   res$weights <- expand_weights(res$flat_weights, res$flat)
 
   res2 <- get_success_and_residuals(
