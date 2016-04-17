@@ -1,3 +1,13 @@
+# MultiLevelIPF 0.3-1 (2016-04-17)
+
+- Fitting result contains `iterations` and `tol` members (#28).
+- Fixed model matrix of "separate" type if only grand totals are given.
+- `ml_fit()` gains `tol` argument, which determines the success of a fitting operation.
+- `ml_fit` objects have new members `success`, `rel_residuals`, and `flat_weighted_values` (#28).
+- HIPF and IPU stop iterating if tolerance is reached.
+- IPU and HIPF abort iteration when the weights do not change measurably between two iterations (#27).
+
+
 # MultiLevelIPF 0.3 (2016-04-14)
 
 - Features
