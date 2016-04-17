@@ -20,17 +20,20 @@ ml_fit_hipf <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
                         tol = 1e-6, maxiter = 200, verbose = FALSE) {
   .patch_verbose()
 
-  group_ind_totals <- get_group_ind_totals(fitting_problem, verbose)
+  flat <- flatten_ml_fit_problem(fitting_problem)
+  group_ind_totals <- get_group_ind_totals(flat, verbose)
+
   flat_ind <- create_flat_ind(fitting_problem, verbose)
   flat_group <- create_flat_group(fitting_problem, verbose)
-  hipf_res <- run_hipf(flat_group, flat_ind, group_ind_totals, diff_tol, maxiter, verbose)
+  hipf_res <- run_hipf(flat, flat_group, flat_ind, group_ind_totals,
+                       tol, diff_tol, maxiter, verbose)
 
   message("Done!")
   res <- new_ml_fit_hipf(
     list(
       flat_ind = flat_ind,
       flat_group = flat_group,
-      flat = group_ind_totals$flat,
+      flat = flat,
       flat_weights = hipf_res$weights
     )
   )
@@ -38,17 +41,17 @@ ml_fit_hipf <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
   set_weights_success_and_residuals(res, tol)
 }
 
-get_group_ind_totals <- function(fitting_problem, verbose) {
-  if (length(fitting_problem$controls$individual) == 0L ||
-      length(fitting_problem$controls$group) == 0L) {
-    stop("Need at least one control at both individual and group levels for HIPF.", call. = FALSE)
-  }
-  flat <- flatten_ml_fit_problem(fitting_problem)
-  list(
-    flat = flat,
+get_group_ind_totals <- function(flat, verbose) {
+  ret <- list(
     group = flat$target_values[["(Intercept)_g"]],
     ind = flat$target_values[["(Intercept)_i"]]
   )
+
+  if (is.null(ret$group) || is.null(ret$ind)) {
+    stop("Need at least one control at both individual and group levels for HIPF.", call. = FALSE)
+  }
+
+  ret
 }
 
 create_flat_ind <- function(fitting_problem, verbose) {
@@ -88,10 +91,13 @@ create_flat_group <- function(fitting_problem, verbose) {
   flat_group
 }
 
-run_hipf <- function(flat_group, flat_ind, group_ind_totals, diff_tol, maxiter, verbose) {
+run_hipf <- function(flat, flat_group, flat_ind, group_ind_totals, tol, diff_tol, maxiter, verbose) {
   .patch_verbose()
 
   message("Preparing")
+
+  ref_sample <- flat$ref_sample
+  target_values <- flat$target_values
 
   ind_ref_sample <- flat_ind$ref_sample
   ind_target_values <- flat_ind$target_values
@@ -144,6 +150,11 @@ run_hipf <- function(flat_group, flat_ind, group_ind_totals, diff_tol, maxiter, 
       valid_weights <- group_weights[row_indexes]
       current_value <- sum(valid_weights)
       group_weights[row_indexes] <- valid_weights / current_value * group_target_values[[col]]
+    }
+
+    if (get_success_and_residuals(group_weights %*% ref_sample, target_values, tol)$success) {
+      message("Target tolerance reached in iteration ", iter, ", exiting.")
+      break
     }
 
     if (tol_reached(last_group_weights, group_weights, diff_tol)) {

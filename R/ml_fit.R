@@ -51,21 +51,42 @@ get_algo <- function(x) {
     paste(gsub("^ml_fit_", "", other_classes), collapse = ", ")
 }
 
-tol_reached <- function(last_weights, weights, tol) {
-  weights <- weights[last_weights != 0]
-  last_weights <- last_weights[last_weights != 0]
-  all(abs(weights / last_weights - 1) < tol)
-}
-
 set_weights_success_and_residuals <- function(res, tol) {
   res$weights <- expand_weights(res$flat_weights, res$flat)
-  res$flat_weighted_values <- as.vector(res$flat_weights %*% res$flat$ref_sample)
+
+  res2 <- get_success_and_residuals(
+    res$flat_weights %*% res$flat$ref_sample,
+    res$flat$target_values,
+    tol)
+
+  res[names(res2)] <- res2
   res$residuals <- res$flat_weighted_values - res$flat$target_values
-  res$rel_residuals <- res$flat_weighted_values/ res$flat$target_values - 1
-  res$success <- all(abs(res$rel_residuals) < tol)
   res
 }
 
+get_success_and_residuals <- function(flat_weighted_values, target_values, tol) {
+  res <- list()
+  res$flat_weighted_values <- as.vector(flat_weighted_values)
+  res$rel_residuals <- rel_residuals(res$flat_weighted_values, target_values)
+  res$success <- is_abs_within_tol(res$rel_residuals, tol)
+  res
+}
+
+
+tol_reached <- function(last_weights, weights, tol) {
+  is_abs_within_tol(rel_residuals(last_weights, weights), tol)
+}
+
+rel_residuals <- function(x, y) {
+  nonzero <- y != 0
+  x <- x[nonzero]
+  y <- y[nonzero]
+  x / y - 1
+}
+
+is_abs_within_tol <- function(x, tol) {
+  max(abs(x)) < tol
+}
 
 # S3 ----------------------------------------------------------------------
 

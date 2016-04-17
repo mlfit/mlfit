@@ -23,7 +23,7 @@ ml_fit_ipu <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
   .patch_verbose()
 
   flat <- as.flat_ml_fit_problem(fitting_problem, model_matrix_type = "separate", verbose = verbose)
-  ipu_res <- run_ipu(flat, diff_tol, maxiter, verbose)
+  ipu_res <- run_ipu(flat, tol, diff_tol, maxiter, verbose)
 
   message("Done!")
   res <- new_ml_fit_ipu(
@@ -36,7 +36,7 @@ ml_fit_ipu <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
   set_weights_success_and_residuals(res, tol)
 }
 
-run_ipu <- function(flat, diff_tol, maxiter, verbose) {
+run_ipu <- function(flat, tol, diff_tol, maxiter, verbose) {
   .patch_verbose()
 
   message("Preparing IPU data")
@@ -69,6 +69,11 @@ run_ipu <- function(flat, diff_tol, maxiter, verbose) {
       valid_weights <- weights[row_indexes]
       current_value <- sum(valid_weights * ref_sample_entries)
       weights[row_indexes] <- valid_weights / current_value * target_values[[col]]
+    }
+
+    if (get_success_and_residuals(weights %*% ref_sample, target_values, tol)$success) {
+      message("Target tolerance reached in iteration ", iter, ", exiting.")
+      break
     }
 
     if (tol_reached(last_weights, weights, diff_tol)) {
