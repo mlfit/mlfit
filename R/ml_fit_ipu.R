@@ -4,8 +4,10 @@
 #' aggregate controls by means of Iterative Proportional Updating.
 #'
 #' @inheritParams ml_fit
-#' @param tol Tolerance, the algorithm stops when all target values are reached
-#'   within this tolerance.
+#' @param diff_tol Tolerance, the algorithm stops when relative difference of
+#'   control values between iterations drops below this value
+#' @param tol Tolerance, the algorithm has succeeded when all target values are
+#'   reached within this tolerance.
 #' @param maxiter Maximum number of iterations.
 #' @return An object of classes \code{ml_fit_ipu} and \code{ml_fit}.
 #' @references Ye, X., K. Konduri, R. M. Pendyala, B. Sana and P. A. Waddell (2009)
@@ -18,23 +20,22 @@
 #' @examples
 #' path <- toy_example("minitoy")
 #' ml_fit_ipu(fitting_problem = readRDS(path))
-ml_fit_ipu <- function(fitting_problem, tol = 1e-6, maxiter = 500, verbose = FALSE) {
+ml_fit_ipu <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
+                       tol = 1e-6, maxiter = 2000, verbose = FALSE) {
   .patch_verbose()
 
   flat <- as.flat_ml_fit_problem(fitting_problem, model_matrix_type = "separate", verbose = verbose)
-
-  res <- run_ipu(flat, tol, maxiter, verbose)
+  ipu_res <- run_ipu(flat, diff_tol, maxiter, verbose)
 
   message("Done!")
-  new_ml_fit_ipu(
+  res <- new_ml_fit_ipu(
     list(
-      weights = expand_weights(res$weights, flat),
-      success = res$success,
-      residuals = res$residuals,
       flat = flat,
-      flat_weights = res$weights
+      flat_weights = ipu_res$weights
     )
   )
+
+  set_weights_success_and_residuals(res, tol)
 }
 
 run_ipu <- function(flat, tol, maxiter, verbose) {
@@ -58,16 +59,10 @@ run_ipu <- function(flat, tol, maxiter, verbose) {
   message("Start")
 
   weights <- prior_weights
-  success <- FALSE
   for (iter in seq.int(from = 2L, to = maxiter + 1, by = 1L)) {
+    last_weights <- weights
     if (iter %% 100 == 0)
       message("Iteration ", iter)
-    residuals <- weights %*% ref_sample  - target_values
-    if (all(abs(residuals) < tol)) {
-      success <- TRUE
-      message("Success")
-      break
-    }
 
     for (col in seq_len(ncol(ref_sample))) {
       row_indexes <- nonzero_row_index[[col]]
@@ -77,12 +72,16 @@ run_ipu <- function(flat, tol, maxiter, verbose) {
       current_value <- sum(valid_weights * ref_sample_entries)
       weights[row_indexes] <- valid_weights / current_value * target_values[[col]]
     }
+
+    if (tol_reached(last_weights, weights, tol)) {
+      message("Weights haven't changed in iteration ", iter, ", exiting.")
+      break
+    }
   }
 
   nlist(
     weights,
-    residuals,
-    success
+    iter
   )
 }
 
