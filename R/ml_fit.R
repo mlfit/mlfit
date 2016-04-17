@@ -96,7 +96,7 @@ format.ml_fit <- function(x, ...) {
     "An object of class ml_fit",
     "  Algorithm: " %+% get_algo(x),
     "  Success: " %+% x$success,
-    "  Residuals: min = " %+% format(min(x$residuals), ...) %+%
+    "  Residuals (absolute): min = " %+% format(min(x$residuals), ...) %+%
       ", max = " %+% format(max(x$residuals), ...),
     "  Flat problem:",
     "  " %+% format(x$flat)
