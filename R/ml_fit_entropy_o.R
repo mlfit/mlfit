@@ -64,6 +64,7 @@ dss.weights.from.lambda.m <- function(x, F, d) {
 
 # left-hand side of equation 2.2
 # (right-hand side is control totals)
+# nocov start
 dss.lhs.orig.m <- function(x, F, d) {
   function(lambda) {
     dss.lhs.matrix <- apply(x, 2, function(xk) {
@@ -73,6 +74,7 @@ dss.lhs.orig.m <- function(x, F, d) {
     apply(dss.lhs.matrix, 1, sum)
   }
 }
+# nocov end
 
 # left-hand side of equation 2.2 using weights from equation 2.1
 # equivalent to dss.lhs.orig.m, but surprisingly a bit faster when using in the solver
