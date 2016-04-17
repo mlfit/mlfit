@@ -1,0 +1,8 @@
+An object of class flat_ml_fit_problem
+  Dimensions: 8 groups, 352 target values
+  Model matrix type: combined
+  Original fitting problem:
+  An object of class fitting_problem
+    Reference sample: 812 observations
+    Control totals: 1 at individual, and 1 at group level
+    Results for algorithms: entropy_o(c=1,d=0), entropy_o(c=0,d=1), entropy_o(c=1,d=1), entropy, ml_ipf
