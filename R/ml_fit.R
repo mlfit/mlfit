@@ -51,8 +51,9 @@ get_algo <- function(x) {
     paste(gsub("^ml_fit_", "", other_classes), collapse = ", ")
 }
 
-set_weights_success_and_residuals <- function(res, tol) {
+set_weights_success_and_residuals <- function(res, tol, iterations) {
   res$tol <- tol
+  res$iterations <- as.integer(iterations)
   res$weights <- expand_weights(res$flat_weights, res$flat)
 
   res2 <- get_success_and_residuals(
