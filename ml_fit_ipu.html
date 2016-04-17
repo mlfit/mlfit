@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>ml_fit_ipu. MultiLevelIPF 0.3</title>
+<title>ml_fit_ipu. MultiLevelIPF 0.3-1</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">MultiLevelIPF 0.3</a>
+      <a class="brand" href="#">MultiLevelIPF 0.3-1</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -53,16 +53,19 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>ml_fit_ipu(fitting_problem, tol&nbsp;=&nbsp;1e-06, maxiter&nbsp;=&nbsp;500, verbose&nbsp;=&nbsp;FALSE)</div></pre>
+    <pre><div>ml_fit_ipu(fitting_problem, diff_tol&nbsp;=&nbsp;16 * .Machine$double.eps, tol&nbsp;=&nbsp;1e-06, maxiter&nbsp;=&nbsp;2000, verbose&nbsp;=&nbsp;FALSE)</div></pre>
     
     <h2>Arguments</h2>
     <dl>
       <dt>fitting_problem</dt>
       <dd>A fitting problem created by
 <code><a href='fitting_problem.html'>fitting_problem</a></code>.</dd>
+      <dt>diff_tol</dt>
+      <dd>Tolerance, the algorithm stops when relative difference of
+control values between iterations drops below this value</dd>
       <dt>tol</dt>
-      <dd>Tolerance, the algorithm stops when all target values are reached
-within this tolerance.</dd>
+      <dd>Tolerance, the algorithm has succeeded when all target values are
+reached within this tolerance.</dd>
       <dt>maxiter</dt>
       <dd>Maximum number of iterations.</dd>
       <dt>verbose</dt>
@@ -103,8 +106,8 @@ ml_fit_ipu(fitting_problem = readRDS(path))
 </div>
 <div class='output'>An object of class ml_fit
   Algorithm: ipu
-  Success: FALSE
-  Residuals: min = -0.004813288, max = -1.421085e-14
+  Success: TRUE
+  Residuals (absolute): min = -6.41906e-05, max = 0
   Flat problem:
   An object of class flat_ml_fit_problem
     Dimensions: 5 groups, 8 target values

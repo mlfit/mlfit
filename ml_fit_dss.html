@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>ml_fit_dss. MultiLevelIPF 0.3</title>
+<title>ml_fit_dss. MultiLevelIPF 0.3-1</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">MultiLevelIPF 0.3</a>
+      <a class="brand" href="#">MultiLevelIPF 0.3-1</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -53,7 +53,7 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>ml_fit_dss(fitting_problem, method&nbsp;=&nbsp;c("raking", "linear", "logit"), ginv&nbsp;=&nbsp;grake::gginv(), verbose&nbsp;=&nbsp;FALSE)</div></pre>
+    <pre><div>ml_fit_dss(fitting_problem, method&nbsp;=&nbsp;c("raking", "linear", "logit"), ginv&nbsp;=&nbsp;grake::gginv(), tol&nbsp;=&nbsp;1e-06, verbose&nbsp;=&nbsp;FALSE)</div></pre>
     
     <h2>Arguments</h2>
     <dl>
@@ -67,6 +67,9 @@
       <dd>Function that computes the Moore-Penrose pseudoinverse,
 currently only the default value <code>MASS::<a href='http://www.inside-r.org/r-doc/MASS/ginv'>ginv</a></code> is
 accepted.</dd>
+      <dt>tol</dt>
+      <dd>Tolerance, the algorithm has succeeded when all target values are
+reached within this tolerance.</dd>
       <dt>verbose</dt>
       <dd>If <code>TRUE</code>, print diagnostic output.</dd>
     </dl>
@@ -116,7 +119,7 @@ ml_fit_dss(fitting_problem = readRDS(path))
 <div class='output'>An object of class ml_fit
   Algorithm: dss
   Success: TRUE
-  Residuals: min = 2.338017e-08, max = 1.613564e-07
+  Residuals (absolute): min = 2.338017e-08, max = 1.613564e-07
   Flat problem:
   An object of class flat_ml_fit_problem
     Dimensions: 5 groups, 8 target values
