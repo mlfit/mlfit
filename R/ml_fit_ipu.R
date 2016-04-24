@@ -16,7 +16,7 @@
 #'
 #' @export
 #' @examples
-#' path <- toy_example("minitoy")
+#' path <- toy_example("Tiny")
 #' ml_fit_ipu(fitting_problem = readRDS(path))
 ml_fit_ipu <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
                        tol = 1e-6, maxiter = 2000, verbose = FALSE) {

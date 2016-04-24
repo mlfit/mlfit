@@ -11,7 +11,7 @@
 #' @seealso \code{\link[BB]{dfsane}}
 #' @export
 #' @examples
-#' path <- toy_example("minitoy")
+#' path <- toy_example("Tiny")
 #' ml_fit_entropy_o(fitting_problem = readRDS(path))
 ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE, tol = 1e-6,
                              dfsane_args = list()) {

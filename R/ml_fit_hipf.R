@@ -14,7 +14,7 @@
 #'        Barcelona, Barcelona.
 #' @export
 #' @examples
-#' path <- toy_example("minitoy")
+#' path <- toy_example("Tiny")
 #' ml_fit_hipf(fitting_problem = readRDS(path))
 ml_fit_hipf <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
                         tol = 1e-6, maxiter = 200, verbose = FALSE) {

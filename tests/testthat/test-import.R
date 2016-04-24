@@ -1,7 +1,7 @@
 context("import")
 
 test_that("import toy examples", {
-  test_names <- c("minitoy", "Single", "dummytoy", "multitoy")
+  test_names <- c("Tiny", "Single", "dummytoy", "multitoy")
   test_paths <- toy_example(test_names)
   results <- llply(setNames(test_paths, nm=test_names), readRDS)
 
@@ -64,7 +64,7 @@ test_that("import toy examples", {
 })
 
 test_that("import all weights", {
-  test_names <- c("minitoy", "Single", "dummytoy", "multitoy")
+  test_names <- c("Tiny", "Single", "dummytoy", "multitoy")
   test_paths <- toy_example(test_names)
   results <- llply(setNames(test_paths, nm=test_names), readRDS)
 
