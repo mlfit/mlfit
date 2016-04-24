@@ -1,7 +1,7 @@
 context("algorithms")
 
 test_that("algorithms", {
-  test_names <- c("Tiny", "Single", "dummytoy", "multitoy", "onetoy", "Separate-Grouped")
+  test_names <- c("Tiny", "Single", "dummytoy", "Joint-Grouped", "onetoy", "Separate-Grouped")
   test_paths <- toy_example(test_names)
   results <- llply(setNames(test_paths, nm=test_names), readRDS)
   algos <- eval(formals(ml_fit)$algorithm)
@@ -9,7 +9,7 @@ test_that("algorithms", {
     l_ply(algos, function(algo) {
       if (algo == "ipu" && problem_name %in% c("Separate-Grouped"))
         return()
-      if (algo == "hipf" && problem_name %in% c("multitoy", "onetoy", "Separate-Grouped"))
+      if (algo == "hipf" && problem_name %in% c("Joint-Grouped", "onetoy", "Separate-Grouped"))
         return()
       fit <- ml_fit(algo, problem)
       if (!fit$success) {
@@ -28,7 +28,7 @@ test_that("algorithms", {
 })
 
 test_that("dss and entropy_o give same results", {
-  test_names <- c("Tiny", "Single", "dummytoy", "multitoy", "onetoy", "Separate-Grouped")
+  test_names <- c("Tiny", "Single", "dummytoy", "Joint-Grouped", "onetoy", "Separate-Grouped")
   test_paths <- toy_example(test_names)
   results <- llply(setNames(test_paths, nm=test_names), readRDS)
   l_ply(results, function(problem) {
