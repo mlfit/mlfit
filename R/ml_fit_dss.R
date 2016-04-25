@@ -1,18 +1,9 @@
-#' Estimate weights using generalized raking
+#' \code{ml_fit_dss} uses generalized raking and calls \code{grake::\link[grake]{dss}} internally.
 #'
-#' This function reweights a reference sample to match constraints given by
-#' aggregate controls by means of generalized raking.
-#'
-#' Internally, \code{grake::\link[grake]{dss}} is called.
-#'
-#' @inheritParams ml_fit
+#' @rdname ml_fit
 #' @param method Calibration method, one of \code{"raking"} (default),
 #'   \code{"linear"}, or \code{"logit"}
-#' @param ginv Function that computes the Moore-Penrose pseudoinverse,
-#'   currently only the default value \code{MASS::\link[MASS]{ginv}} is
-#'   accepted.
-#' @return An object of classes \code{ml_fit_dss} and \code{ml_fit},
-#'   essentially a named list.
+#' @param ginv Function that computes the Moore-Penrose pseudoinverse.
 #' @references Deville, J.-C. and \enc{Särndal}{Saerndal}, C.-E. (1992)
 #' Calibration estimators in survey sampling. \emph{Journal of the American
 #' Statistical Association}, \bold{87}(418), 376--382.
@@ -21,12 +12,11 @@
 #' Generalized raking procedures in survey sampling. \emph{Journal of the
 #' American Statistical Association}, \bold{88}(423), 1013--1020.
 #'
-#' @seealso \code{\link[grake]{dss}}
+#' @seealso \code{\link[grake]{dss}}, \code{\link[grake]{gginv}}
 #' @export
 #' @examples
-#' path <- toy_example("Tiny")
 #' ml_fit_dss(fitting_problem = readRDS(path))
-#' \dontrun{ml_fit_dss(fitting_problem = readRDS(path), ginv = solve)}
+#' ml_fit_dss(fitting_problem = readRDS(path), ginv = solve)
 ml_fit_dss <- function(fitting_problem,
                        method = c("raking", "linear", "logit"),
                        ginv = grake::gginv(),

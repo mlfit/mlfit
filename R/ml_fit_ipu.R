@@ -1,13 +1,9 @@
-#' Estimate weights using Iterative Proportional Updating
+#' \code{ml_fit_ipu} implements Iterative Proportional Updating.
 #'
-#' This function reweights a reference sample to match constraints given by
-#' aggregate controls by means of Iterative Proportional Updating.
-#'
-#' @inheritParams ml_fit
+#' @rdname ml_fit
 #' @param diff_tol Tolerance, the algorithm stops when relative difference of
 #'   control values between iterations drops below this value
 #' @param maxiter Maximum number of iterations.
-#' @return An object of classes \code{ml_fit_ipu} and \code{ml_fit}.
 #' @references Ye, X., K. Konduri, R. M. Pendyala, B. Sana and P. A. Waddell (2009)
 #' A methodology to match distributions of both household and person attributes
 #' in the generation of synthetic populations, paper presented at the \emph{88th
@@ -16,7 +12,6 @@
 #'
 #' @export
 #' @examples
-#' path <- toy_example("Tiny")
 #' ml_fit_ipu(fitting_problem = readRDS(path))
 ml_fit_ipu <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
                        tol = 1e-6, maxiter = 2000, verbose = FALSE) {

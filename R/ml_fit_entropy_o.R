@@ -1,17 +1,12 @@
-#' Estimate weights using an entropy optimization approach
+#' \code{ml_fit_entropy_o} optimizes entropy using the
+#'   \code{BB::\link[BB]{dfsane}} function.
 #'
-#' This function reweights a reference sample to match constraints given by
-#' aggregate controls using an entropy optimization method.
-#'
-#' @inheritParams ml_fit
+#' @rdname ml_fit
 #' @param dfsane_args Additional arguments (as a named list) passed to the
 #'   \code{\link[BB]{dfsane}} function used internally for the optimization.
-#' @return An object of classes \code{ml_fit_entropy_o} and \code{ml_fit},
-#'   essentially a named list.
 #' @seealso \code{\link[BB]{dfsane}}
 #' @export
 #' @examples
-#' path <- toy_example("Tiny")
 #' ml_fit_entropy_o(fitting_problem = readRDS(path))
 ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE, tol = 1e-6,
                              dfsane_args = list()) {
