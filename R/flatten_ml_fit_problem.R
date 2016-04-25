@@ -22,7 +22,7 @@
 #' @importFrom plyr laply adply
 #' @export
 #' @examples
-#' path <- toy_example("minitoy")
+#' path <- toy_example("Tiny")
 #' flatten_ml_fit_problem(fitting_problem = readRDS(path))
 flatten_ml_fit_problem <- function(fitting_problem,
                                    model_matrix_type = c("combined", "separate"),

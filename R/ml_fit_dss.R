@@ -24,7 +24,7 @@
 #' @seealso \code{\link[grake]{dss}}
 #' @export
 #' @examples
-#' path <- toy_example("minitoy")
+#' path <- toy_example("Tiny")
 #' ml_fit_dss(fitting_problem = readRDS(path))
 #' \dontrun{ml_fit_dss(fitting_problem = readRDS(path), ginv = solve)}
 ml_fit_dss <- function(fitting_problem,

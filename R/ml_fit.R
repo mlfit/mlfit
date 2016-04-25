@@ -13,7 +13,7 @@
 #' @return An object of class \code{ml_fit}, essentially a named list.
 #' @export
 #' @examples
-#' path <- toy_example("minitoy")
+#' path <- toy_example("Tiny")
 #' ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
 ml_fit <- function(algorithm = c("entropy_o", "dss", "ipu", "hipf"),
                    fitting_problem, verbose = FALSE, ..., tol = 1e-6) {
