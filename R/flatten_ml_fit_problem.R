@@ -63,17 +63,6 @@ flatten_ml_fit_problem <- function(fitting_problem,
     }
   )
 
-  if (length(control_formula_components$group) > 0L) {
-    message("Preparing reference sample (groups)")
-    formula_grp <- c(field_names$groupId, control_formula_components$group)
-    ref_sample_grp.mm <- model_matrix(formula_grp,
-      plyr::rename(ref_sample[c(field_names$groupId, names(control.names$group))], control.names$group),
-      "group") %>%
-      as.data.frame
-  } else {
-    ref_sample_grp.mm <- ref_sample[, field_names$groupId, drop = FALSE]
-  }
-
   message("Splitting")
   gid_lookup <-
     data_frame(gid = ref_sample[[field_names$groupId]]) %>%
@@ -90,7 +79,19 @@ flatten_ml_fit_problem <- function(fitting_problem,
     mutate_(n = ~length(gid)) %>%
     ungroup
 
-  ref_sample_grp.agg <- ref_sample_grp.mm[gid_lookup$proxy,, drop = FALSE]
+  if (length(control_formula_components$group) > 0L) {
+    message("Preparing reference sample (groups)")
+    formula_grp <- c(field_names$groupId, control_formula_components$group)
+    ref_sample_grp.mm <- model_matrix(formula_grp,
+      plyr::rename(ref_sample[gid_lookup$proxy, c(field_names$groupId, names(control.names$group)), drop = FALSE],
+                   control.names$group),
+      "group") %>%
+      as.data.frame
+  } else {
+    ref_sample_grp.mm <- ref_sample[gid_lookup$proxy, field_names$groupId, drop = FALSE]
+  }
+
+  ref_sample_grp.agg <- ref_sample_grp.mm
 
   weights_transform <- Matrix::sparseMatrix(
     i = gid_lookup$iidx,
