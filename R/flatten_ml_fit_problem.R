@@ -81,20 +81,27 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
   if (length(control_formula_components$group) > 0L) {
     message("Preparing reference sample (groups)")
-    formula_grp <- c(field_names$groupId, control_formula_components$group)
+    formula_grp <- control_formula_components$group
+    ref_sample_proxy <- plyr::rename(
+      ref_sample[gid_lookup$proxy, c(field_names$groupId, names(control.names$group)), drop = FALSE],
+      control.names$group)
+    rownames(ref_sample_proxy) <- NULL
     ref_sample_grp.agg <- model_matrix(formula_grp,
-      plyr::rename(ref_sample[gid_lookup$proxy, c(field_names$groupId, names(control.names$group)), drop = FALSE],
-                   control.names$group),
-      "group") %>%
-      as.data.frame
+      ref_sample_proxy,
+      "group")
   } else {
-    ref_sample_grp.agg <- ref_sample[gid_lookup$proxy, field_names$groupId, drop = FALSE]
+    ref_sample_grp.agg <- matrix(integer(), nrow = sum(gid_lookup$proxy))
   }
 
   weights_transform <- Matrix::sparseMatrix(
     i = gid_lookup$iidx,
     j = gid_lookup$gidx,
     x = 1 / gid_lookup$n)
+
+  weights_transform_rev <- Matrix::sparseMatrix(
+    i = gid_lookup$gidx,
+    j = gid_lookup$iidx,
+    x = 1L)
 
   message("Transforming weights")
   if (is.null(prior_weights)) {
@@ -105,35 +112,23 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
   if (length(control_formula_components$individual) > 0) {
     message("Preparing reference sample (individuals)")
-    formula_ind <- c(field_names$groupId, control_formula_components$individual)
+    formula_ind <- control_formula_components$individual
     ref_sample_ind.mm <- model_matrix(formula_ind,
       plyr::rename(ref_sample[c(field_names$groupId, names(control.names$individual))], control.names$individual),
-      "individual") %>%
-      as.data.frame
+      "individual")
 
     message("Aggregating")
-    ref_sample_ind.mm <- .rename.intercept(ref_sample_ind.mm, "individual")
-    ref_sample_ind.agg <-
-      ref_sample_ind.mm %>%
-      group_by_(field_names$groupId) %>%
-      summarize_each_(funs(sum), as_names(setdiff(colnames(ref_sample_ind.mm), field_names$groupId))) %>%
-      ungroup
+    ref_sample_ind.agg <- Matrix::as.matrix(weights_transform_rev) %*% ref_sample_ind.mm
 
     message("Merging")
-    ref_sample.agg <- merge(ref_sample_ind.agg, ref_sample_grp.agg,
-                            by=field_names$groupId)
-
-    stopifnot(ref_sample.agg[[field_names$groupId]] == ref_sample_grp.agg[[field_names$groupId]])
+    ref_sample.agg.m <- cbind(ref_sample_ind.agg, ref_sample_grp.agg)
   } else {
-    ref_sample.agg <- ref_sample_grp.agg
+    ref_sample.agg.m <- ref_sample_grp.agg
   }
 
   control.totals <- .flatten_controls(control.terms.list = control.terms.list,
                                       verbose = verbose)
 
-  message("Converting reference sample to matrix")
-  ref_sample.agg.m <- as.matrix(ref_sample.agg[
-    , setdiff(colnames(ref_sample.agg), field_names$groupId), drop = FALSE])
 
   message("Reordering controls")
   intersect_names <- intersect(sort(colnames(ref_sample.agg.m)), names(control.totals))
