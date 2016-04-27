@@ -93,12 +93,12 @@ flatten_ml_fit_problem <- function(fitting_problem,
     ref_sample_grp.agg <- matrix(integer(), nrow = sum(gid_lookup$proxy))
   }
 
-  weights_transform <- Matrix::sparseMatrix(
+  weights_transform <- sparseMatrix(
     i = gid_lookup$iidx,
     j = gid_lookup$gidx,
     x = 1 / gid_lookup$n)
 
-  weights_transform_rev <- Matrix::sparseMatrix(
+  weights_transform_rev <- sparseMatrix(
     i = gid_lookup$gidx,
     j = gid_lookup$iidx,
     x = 1L)
@@ -118,7 +118,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
       "individual")
 
     message("Aggregating")
-    ref_sample_ind.agg <- Matrix::as.matrix(weights_transform_rev) %*% ref_sample_ind.mm
+    ref_sample_ind.agg <- as.matrix(weights_transform_rev) %*% ref_sample_ind.mm
 
     message("Merging")
     ref_sample.agg.m <- cbind(ref_sample_ind.agg, ref_sample_grp.agg)
@@ -163,7 +163,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
       nonzero.observations_w <- which(!zero.observations)
 
-      zero_weights_transform <- Matrix::sparseMatrix(
+      zero_weights_transform <- sparseMatrix(
         i=nonzero.observations_w, j=seq_along(nonzero.observations_w), x=1)
       weights_transform <- weights_transform %*% zero_weights_transform
     } else {
@@ -188,8 +188,8 @@ flatten_ml_fit_problem <- function(fitting_problem,
   }
 
   message("Computing reverse weights map")
-  reverse_weights_transform <- ( (1 / prior_weights_agg) * Matrix::t(prior_weights * gid_lookup$n * weights_transform))
-  stopifnot(all.equal(Matrix::diag(reverse_weights_transform %*% weights_transform), rep(1, ncol(weights_transform))))
+  reverse_weights_transform <- ( (1 / prior_weights_agg) * t(prior_weights * gid_lookup$n * weights_transform))
+  stopifnot(all.equal(diag(reverse_weights_transform %*% weights_transform), rep(1, ncol(weights_transform))))
 
   message("Normalizing weights")
   prior_weights_agg <- prior_weights_agg / sum(prior_weights_agg) *
@@ -453,7 +453,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
       col_levels))
     all_values <- factor(.combine_levels(col_values), levels = all_levels)
 
-    wide <- Matrix::sparseMatrix(seq_len(nrow(data)), as.integer(all_values), x = 1)
+    wide <- sparseMatrix(seq_len(nrow(data)), as.integer(all_values), x = 1)
     colnames(wide) <- all_levels
     as.matrix(wide)
   }
@@ -552,7 +552,6 @@ get_count_field_name <- function(control, name, message) {
 }
 
 expand_weights <- function(flat_weights, flat) {
-  requireNamespace("Matrix")
   unname(as.vector(flat_weights %*% flat$reverse_weights_transform))
 }
 

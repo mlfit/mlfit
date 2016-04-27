@@ -165,8 +165,8 @@ run_hipf <- function(flat, flat_group, flat_ind, group_ind_totals, tol, diff_tol
 }
 
 get_transform_group_to_groupsize <- function(group_reverse_weights_transform) {
-  group_sizes <- Matrix::rowSums(group_reverse_weights_transform)
-  Matrix::sparseMatrix(
+  group_sizes <- rowSums(group_reverse_weights_transform)
+  sparseMatrix(
     i = seq_along(group_sizes),
     j = group_sizes,
     x = 1)
@@ -193,7 +193,7 @@ rescale_group_weights_for_ind_per_group <- function(
   fhprime_by_fh <- c * dp
 
   group_weights <- group_weights * as.vector(
-    Matrix::tcrossprod(fhprime_by_fh, weights_transform_group_to_groupsize))
+    tcrossprod(fhprime_by_fh, weights_transform_group_to_groupsize))
 
   stopifnot(abs(sum(group_weights) / group_ind_totals$group - 1) < 1e-6)
   stopifnot(abs(sum(as.vector(group_weights %*% weights_transform_group_to_groupsize) * seq_along(Fp)) / group_ind_totals$ind - 1) < 1e-6)
