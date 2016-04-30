@@ -90,8 +90,10 @@ flatten_ml_fit_problem <- function(fitting_problem,
       ref_sample_proxy,
       "group")
   } else {
-    ref_sample_grp.agg <- matrix(integer(), nrow = sum(gid_lookup$proxy))
+    ref_sample_grp.agg <- Matrix(ncol = 0, nrow = sum(gid_lookup$proxy))
   }
+
+  stopifnot(grepl("Matrix$", class(ref_sample_grp.agg)))
 
   weights_transform <- sparseMatrix(
     i = gid_lookup$iidx,
@@ -125,6 +127,8 @@ flatten_ml_fit_problem <- function(fitting_problem,
   } else {
     ref_sample.agg.m <- ref_sample_grp.agg
   }
+
+  stopifnot(grepl("Matrix$", class(ref_sample.agg.m)))
 
   control.totals <- .flatten_controls(control.terms.list = control.terms.list,
                                       verbose = verbose)
@@ -418,7 +422,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
 .model_matrix_combined <- function(formula_components, data, control.type) {
   formula_as_character <- paste0("~", paste(formula_components, collapse = "+"))
-  mm <- stats::model.matrix(as.formula(formula_as_character), data)
+  mm <- sparse.model.matrix(as.formula(formula_as_character), data)
   .rename.intercept(mm, control.type)
 }
 
@@ -438,7 +442,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
     else
       formula_as_character <- paste0("~", formula_component, "-1")
 
-    mm <- stats::model.matrix(as.formula(formula_as_character), data)
+    mm <- sparse.model.matrix(as.formula(formula_as_character), data)
     .rename.intercept(mm, control.type)
   } else {
     col_levels <- Map(function(name, value)
@@ -455,7 +459,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
     wide <- sparseMatrix(seq_len(nrow(data)), as.integer(all_values), x = 1)
     colnames(wide) <- all_levels
-    as.matrix(wide)
+    wide
   }
 }
 

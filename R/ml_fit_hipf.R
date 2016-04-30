@@ -61,7 +61,7 @@ create_flat_ind <- function(fitting_problem, verbose) {
   flat_ind <- as.flat_ml_fit_problem(fitting_problem_ind, model_matrix_type = "separate", verbose = verbose)
 
   stopifnot(nrow(flat_ind$ref_sample) == nrow(fitting_problem$refSample))
-  stopifnot(all(flat_ind$ref_sample %in% 0:1))
+  stopifnot(all(flat_ind$ref_sample@x %in% 0:1))
 
   flat_ind
 }
@@ -80,7 +80,7 @@ create_flat_group <- function(fitting_problem, verbose) {
 
   stopifnot(nrow(flat_group$ref_sample) ==
               sum(!duplicated(fitting_problem$refSample[[fitting_problem$fieldNames$groupId]])))
-  stopifnot(all(flat_group$ref_sample %in% 0:1))
+  stopifnot(all(flat_group$ref_sample@x %in% 0:1))
 
   flat_group
 }
