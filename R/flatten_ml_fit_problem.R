@@ -120,7 +120,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
       "individual")
 
     message("Aggregating")
-    ref_sample_ind.agg <- as.matrix(weights_transform_rev) %*% ref_sample_ind.mm
+    ref_sample_ind.agg <- weights_transform_rev %*% ref_sample_ind.mm
 
     message("Merging")
     ref_sample.agg.m <- cbind(ref_sample_ind.agg, ref_sample_grp.agg)
@@ -132,7 +132,6 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
   control.totals <- .flatten_controls(control.terms.list = control.terms.list,
                                       verbose = verbose)
-
 
   message("Reordering controls")
   intersect_names <- intersect(sort(colnames(ref_sample.agg.m)), names(control.totals))
