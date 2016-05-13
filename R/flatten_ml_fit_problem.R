@@ -261,7 +261,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
   message("Converting to factor")
   ref_sample[control_names] <-
-    lapply(ref_sample[, control_names, drop = FALSE], as.factor)
+    lapply(ref_sample[control_names], as.factor)
 
   has_na <- vapply(ref_sample[control_names], anyNA, logical(1L))
   if (any(has_na)) {
