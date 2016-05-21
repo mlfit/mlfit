@@ -1,12 +1,13 @@
 Type: Package
 Package: MultiLevelIPF
 Title: Implementation of algorithms that extend IPF to nested structures
-Version: 0.3-1
-Date: 2016-04-17
+Version: 0.3-2
+Date: 2016-04-25
 Authors@R: person(given = "Kirill", family = "Müller", role = c("aut",
         "cre"), email = "krlmlr+r@mailbox.org")
-Description: The IPF algorithm operates on count data.  This package offers implementations for several algorithms that
-    extend this to nested structures: "parent" and "child" items for both of which constraints can be provided.
+Description: The IPF algorithm operates on count data. This package offers
+    implementations for several algorithms that extend this to nested structures:
+    "parent" and "child" items for both of which constraints can be provided.
 License: GPL-3
 URL: http://krlmlr.github.io/MultiLevelIPF
 BugReports: https://github.com/krlmlr/MultiLevelIPF/issues

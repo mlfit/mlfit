@@ -6,11 +6,11 @@
 #' @param ginv Function that computes the Moore-Penrose pseudoinverse.
 #' @references Deville, J.-C. and \enc{Särndal}{Saerndal}, C.-E. (1992)
 #' Calibration estimators in survey sampling. \emph{Journal of the American
-#' Statistical Association}, \bold{87}(418), 376--382.
+#' Statistical Association}, \bold{87} (418), 376--382.
 #'
 #' Deville, J.-C., \enc{Särndal}{Saerndal}, C.-E. and Sautory, O. (1993)
 #' Generalized raking procedures in survey sampling. \emph{Journal of the
-#' American Statistical Association}, \bold{88}(423), 1013--1020.
+#' American Statistical Association}, \bold{88} (423), 1013--1020.
 #'
 #' @seealso \code{\link[grake]{dss}}, \code{\link[grake]{gginv}}
 #' @export
