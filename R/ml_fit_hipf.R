@@ -1,11 +1,6 @@
-#' Estimate weights using Hierarchical Iterative Proportional Fitting
+#' \code{ml_fit_hipf} implements Hierarchical Iterative Proportional Fitting.
 #'
-#' This function reweights a reference sample to match constraints given by
-#' aggregate controls by means of Hierarchical Iterative Proportional Fitting.
-#'
-#' @inheritParams ml_fit
-#' @inheritParams ml_fit_ipu
-#' @return An object of classes \code{ml_fit_hipf} and \code{ml_fit}.
+#' @rdname ml_fit
 #'
 #' @references
 #'    Müller, K. and Axhausen, K. W. (2011), Hierarchical IPF: Generating a
@@ -14,7 +9,6 @@
 #'        Barcelona, Barcelona.
 #' @export
 #' @examples
-#' path <- toy_example("minitoy")
 #' ml_fit_hipf(fitting_problem = readRDS(path))
 ml_fit_hipf <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
                         tol = 1e-6, maxiter = 200, verbose = FALSE) {

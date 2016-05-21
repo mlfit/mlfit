@@ -1,3 +1,8 @@
+# MultiLevelIPF 0.3-2 (2016-04-25)
+
+- Reorganized and renamed internal datasets.
+
+
 # MultiLevelIPF 0.3-1 (2016-04-17)
 
 - Fitting result contains `iterations` and `tol` members (#28).

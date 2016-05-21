@@ -1,7 +1,13 @@
-#' Estimate weights using a given algorithm
+#' Estimate weights for a fitting problem
 #'
-#' This function reweights a reference sample to match constraints given by
-#' aggregate controls using an algorithm given as parameter.
+#' @description
+#' These functions reweight a reference sample to match constraints given by
+#'   aggregate controls.
+#'
+#' @description
+#' \code{ml_fit} accepts an algorithm as argument and calls the
+#'   corresponding function. This is useful if the result of multiple algorithms
+#'   are compared to each other.
 #'
 #' @param algorithm Algorithm to use
 #' @param fitting_problem A fitting problem created by
@@ -10,10 +16,13 @@
 #'   reached within this tolerance.
 #' @param verbose If \code{TRUE}, print diagnostic output.
 #' @param ... Further parameters passed to the algorithm
-#' @return An object of class \code{ml_fit}, essentially a named list.
+#' @return All functions return an object of class \code{ml_fit}, which is
+#'   a named list under the hood.  The class matches the function called,
+#'   e.g., the return value of the \code{ml_fit_ipu} function also is of class
+#'   \code{ml_fit_ipu}.
 #' @export
 #' @examples
-#' path <- toy_example("minitoy")
+#' path <- toy_example("Tiny")
 #' ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
 ml_fit <- function(algorithm = c("entropy_o", "dss", "ipu", "hipf"),
                    fitting_problem, verbose = FALSE, ..., tol = 1e-6) {

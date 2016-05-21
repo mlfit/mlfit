@@ -35,13 +35,13 @@ per household, and a control vector.
 \details{
 The standard way to build a model matrix (\code{model_matrix = "combined"})
 is to include intercepts and avoid repeating redundant attributes.
-An simpler model matrix specification, available via \code{model_matrix = "separate"},
+A simpler model matrix specification, available via \code{model_matrix = "separate"},
 is used by Ye et al. (2009):
-Here, simply one column per target value is used, which.
+Here, simply one column per target value is used, which
 results in a larger model matrix if more than one control is given.
 }
 \examples{
-path <- toy_example("minitoy")
+path <- toy_example("Tiny")
 flatten_ml_fit_problem(fitting_problem = readRDS(path))
 }
 \seealso{
