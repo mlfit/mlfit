@@ -19,6 +19,7 @@ Imports:
     BB,
     Matrix,
     grake (>= 0.1-1),
+    hms,
     kimisc
 Suggests:
     testthat,

@@ -47,8 +47,20 @@ ml_fit <- function(algorithm = c("entropy_o", "dss", "ipu", "hipf"),
 .patch_verbose <- function() {
   verbose <- get("verbose", parent.frame())
   if (!verbose) {
-    export.list(list(message=function(...) invisible(NULL)),
-      target.env=parent.frame())
+    export.list(list(message = function(...) invisible(NULL)),
+                target.env = parent.frame())
+  } else {
+    export.list(list(message = new_timed_message()),
+                target.env = parent.frame())
+  }
+}
+
+new_timed_message <- function() {
+  start_time = Sys.time()
+
+  function(...) {
+    current_time <- Sys.time() - start_time
+    message(hms::as.hms(current_time), ": ", ...)
   }
 }
 
