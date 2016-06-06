@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>ml_fit. MultiLevelIPF 0.3-1</title>
+<title>ml_fit. MultiLevelIPF 0.3-3</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">MultiLevelIPF 0.3-1</a>
+      <a class="brand" href="#">MultiLevelIPF 0.3-3</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -48,12 +48,16 @@
         
       </header>
       
-      <h1>Estimate weights using a given algorithm</h1>
+      <h1>Estimate weights for a fitting problem</h1>
 
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>ml_fit(algorithm&nbsp;=&nbsp;c("entropy_o", "dss", "ipu", "hipf"), fitting_problem, verbose&nbsp;=&nbsp;FALSE, ..., tol&nbsp;=&nbsp;1e-06)</div></pre>
+    <pre><div>ml_fit(algorithm&nbsp;=&nbsp;c("entropy_o", "dss", "ipu", "hipf"), fitting_problem, verbose&nbsp;=&nbsp;FALSE, ..., tol&nbsp;=&nbsp;1e-06)</div>
+<div>ml_fit_dss(fitting_problem, method&nbsp;=&nbsp;c("raking", "linear", "logit"), ginv&nbsp;=&nbsp;grake::gginv(), tol&nbsp;=&nbsp;1e-06, verbose&nbsp;=&nbsp;FALSE)</div>
+<div>ml_fit_entropy_o(fitting_problem, verbose&nbsp;=&nbsp;FALSE, tol&nbsp;=&nbsp;1e-06, dfsane_args&nbsp;=&nbsp;list())</div>
+<div>ml_fit_hipf(fitting_problem, diff_tol&nbsp;=&nbsp;16 * .Machine$double.eps, tol&nbsp;=&nbsp;1e-06, maxiter&nbsp;=&nbsp;200, verbose&nbsp;=&nbsp;FALSE)</div>
+<div>ml_fit_ipu(fitting_problem, diff_tol&nbsp;=&nbsp;16 * .Machine$double.eps, tol&nbsp;=&nbsp;1e-06, maxiter&nbsp;=&nbsp;2000, verbose&nbsp;=&nbsp;FALSE)</div></pre>
     
     <h2>Arguments</h2>
     <dl>
@@ -69,13 +73,29 @@
       <dt>tol</dt>
       <dd>Tolerance, the algorithm has succeeded when all target values are
 reached within this tolerance.</dd>
+      <dt>method</dt>
+      <dd>Calibration method, one of <code>"raking"</code> (default),
+<code>"linear"</code>, or <code>"logit"</code></dd>
+      <dt>ginv</dt>
+      <dd>Function that computes the Moore-Penrose pseudoinverse.</dd>
+      <dt>dfsane_args</dt>
+      <dd>Additional arguments (as a named list) passed to the
+<code><a href='http://www.inside-r.org/packages/cran/BB/docs/dfsane'>dfsane</a></code> function used internally for the optimization.</dd>
+      <dt>diff_tol</dt>
+      <dd>Tolerance, the algorithm stops when relative difference of
+control values between iterations drops below this value</dd>
+      <dt>maxiter</dt>
+      <dd>Maximum number of iterations.</dd>
     </dl>
     
     <div class="Value">
       <h2>Value</h2>
 
       <p><dl>
-An object of class <code>ml_fit</code>, essentially a named list.
+All functions return an object of class <code>ml_fit</code>, which is
+  a named list under the hood.  The class matches the function called,
+  e.g., the return value of the <code>ml_fit_ipu</code> function also is of class
+  <code>ml_fit_ipu</code>.
 </dl></p>
   
     </div>
@@ -83,13 +103,50 @@ An object of class <code>ml_fit</code>, essentially a named list.
     <div class="Description">
       <h2>Description</h2>
 
-      <p>This function reweights a reference sample to match constraints given by
-aggregate controls using an algorithm given as parameter.</p>
+      <p>These functions reweight a reference sample to match constraints given by
+  aggregate controls.</p>
+  
+      <p><code>ml_fit</code> accepts an algorithm as argument and calls the
+  corresponding function. This is useful if the result of multiple algorithms
+  are compared to each other.</p>
+  
+      <p><code>ml_fit_dss</code> uses generalized raking and calls <code>grake::<a href='http://www.inside-r.org/packages/cran/grake/docs/dss'>dss</a></code> internally.</p>
+  
+      <p><code>ml_fit_entropy_o</code> optimizes entropy using the
+  <code>BB::<a href='http://www.inside-r.org/packages/cran/BB/docs/dfsane'>dfsane</a></code> function.</p>
+  
+      <p><code>ml_fit_hipf</code> implements Hierarchical Iterative Proportional Fitting.</p>
+  
+      <p><code>ml_fit_ipu</code> implements Iterative Proportional Updating.</p>
+  
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p>Deville, J.-C. and Särndal, C.-E. (1992)
+Calibration estimators in survey sampling. <em>Journal of the American
+Statistical Association</em>, <b>87</b> (418), 376--382.</p>
+  
+      <p>Deville, J.-C., Särndal, C.-E. and Sautory, O. (1993)
+Generalized raking procedures in survey sampling. <em>Journal of the
+American Statistical Association</em>, <b>88</b> (423), 1013--1020.</p>
+  
+      <p>Müller, K. and Axhausen, K. W. (2011), Hierarchical IPF: Generating a
+       synthetic population for Switzerland, paper presented at the 51st
+       Congress of the European Regional Science Association, University of
+       Barcelona, Barcelona.</p>
+  
+      <p>Ye, X., K. Konduri, R. M. Pendyala, B. Sana and P. A. Waddell (2009)
+A methodology to match distributions of both household and person attributes
+in the generation of synthetic populations, paper presented at the <em>88th
+Annual Meeting of the Transportation Research Board</em>, Washington, D.C.,
+January 2009.</p>
   
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>path &lt;- toy_example(&quot;minitoy&quot;)
+    <pre class="examples"><div class='input'>path &lt;- toy_example(&quot;Tiny&quot;)
 ml_fit(algorithm = &quot;entropy_o&quot;, fitting_problem = readRDS(path))
 </div>
 <div class='output'>An object of class ml_fit
@@ -105,16 +162,102 @@ ml_fit(algorithm = &quot;entropy_o&quot;, fitting_problem = readRDS(path))
       Reference sample: 23 observations
       Control totals: 1 at individual, and 1 at group level
       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu
+</div>
+<div class='input'>ml_fit_dss(fitting_problem = readRDS(path))
+</div>
+<div class='output'>An object of class ml_fit
+  Algorithm: dss
+  Success: TRUE
+  Residuals (absolute): min = 2.338017e-08, max = 1.613563e-07
+  Flat problem:
+  An object of class flat_ml_fit_problem
+    Dimensions: 5 groups, 8 target values
+    Model matrix type: combined
+    Original fitting problem:
+    An object of class fitting_problem
+      Reference sample: 23 observations
+      Control totals: 1 at individual, and 1 at group level
+      Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu
+</div>
+<div class='input'>ml_fit_dss(fitting_problem = readRDS(path), ginv = solve)
+</div>
+<div class='output'>An object of class ml_fit
+  Algorithm: dss
+  Success: TRUE
+  Residuals (absolute): min = 2.338015e-08, max = 1.613563e-07
+  Flat problem:
+  An object of class flat_ml_fit_problem
+    Dimensions: 5 groups, 8 target values
+    Model matrix type: combined
+    Original fitting problem:
+    An object of class fitting_problem
+      Reference sample: 23 observations
+      Control totals: 1 at individual, and 1 at group level
+      Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu
+</div>
+<div class='input'>ml_fit_entropy_o(fitting_problem = readRDS(path))
+</div>
+<div class='output'>An object of class ml_fit
+  Algorithm: entropy_o
+  Success: TRUE
+  Residuals (absolute): min = -8.330893e-08, max = 7.653983e-08
+  Flat problem:
+  An object of class flat_ml_fit_problem
+    Dimensions: 5 groups, 8 target values
+    Model matrix type: combined
+    Original fitting problem:
+    An object of class fitting_problem
+      Reference sample: 23 observations
+      Control totals: 1 at individual, and 1 at group level
+      Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu
+</div>
+<div class='input'>ml_fit_hipf(fitting_problem = readRDS(path))
+</div>
+<div class='output'>An object of class ml_fit
+  Algorithm: hipf
+  Success: TRUE
+  Residuals (absolute): min = -0.000103996, max = 0
+  Flat problem:
+  An object of class flat_ml_fit_problem
+    Dimensions: 5 groups, 8 target values
+    Model matrix type: combined
+    Original fitting problem:
+    An object of class fitting_problem
+      Reference sample: 23 observations
+      Control totals: 1 at individual, and 1 at group level
+      Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu
+</div>
+<div class='input'>ml_fit_ipu(fitting_problem = readRDS(path))
+</div>
+<div class='output'>An object of class ml_fit
+  Algorithm: ipu
+  Success: TRUE
+  Residuals (absolute): min = -6.41906e-05, max = 0
+  Flat problem:
+  An object of class flat_ml_fit_problem
+    Dimensions: 5 groups, 8 target values
+    Model matrix type: separate
+    Original fitting problem:
+    An object of class fitting_problem
+      Reference sample: 23 observations
+      Control totals: 1 at individual, and 1 at group level
+      Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu
 </div></pre>
   </div>
   <div class="span4">
     <!-- <ul>
-      <li>ml_fit</li>
+      <li>ml_fit</li><li>ml_fit_dss</li><li>ml_fit_entropy_o</li><li>ml_fit_hipf</li><li>ml_fit_ipu</li>
     </ul>
     <ul>
       
     </ul> -->
       
+    <h2>See also</h2>
+    
+<code><a href='http://www.inside-r.org/packages/cran/grake/docs/dss'>dss</a></code>, <code><a href='http://www.inside-r.org/packages/cran/grake/docs/gginv'>gginv</a></code>
+
+<code><a href='http://www.inside-r.org/packages/cran/BB/docs/dfsane'>dfsane</a></code>
+
         
   </div>
 </div>

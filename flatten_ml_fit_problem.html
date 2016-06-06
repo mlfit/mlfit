@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>flatten_ml_fit_problem. MultiLevelIPF 0.3-1</title>
+<title>flatten_ml_fit_problem. MultiLevelIPF 0.3-3</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">MultiLevelIPF 0.3-1</a>
+      <a class="brand" href="#">MultiLevelIPF 0.3-3</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -96,15 +96,15 @@ per household, and a control vector.</p>
 
       <p>The standard way to build a model matrix (<code>model_matrix = "combined"</code>)
 is to include intercepts and avoid repeating redundant attributes.
-An simpler model matrix specification, available via <code>model_matrix = "separate"</code>,
+A simpler model matrix specification, available via <code>model_matrix = "separate"</code>,
 is used by Ye et al. (2009):
-Here, simply one column per target value is used, which.
+Here, simply one column per target value is used, which
 results in a larger model matrix if more than one control is given.</p>
   
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>path &lt;- toy_example(&quot;minitoy&quot;)
+    <pre class="examples"><div class='input'>path &lt;- toy_example(&quot;Tiny&quot;)
 flatten_ml_fit_problem(fitting_problem = readRDS(path))
 </div>
 <div class='output'>An object of class flat_ml_fit_problem
