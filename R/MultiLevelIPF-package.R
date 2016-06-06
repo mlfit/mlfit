@@ -12,4 +12,6 @@
 #' @import methods
 #' @import dplyr
 #' @importFrom plyr l_ply d_ply
+#' @importFrom stats as.formula
+#' @importFrom utils head
 NULL

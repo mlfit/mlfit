@@ -1,3 +1,9 @@
+# MultiLevelIPF 0.3-3 (2016-06-06)
+
+- Status messages with `verbose = TRUE` are prepended with a time stamp.
+- Fail if `NA` group ID found.
+
+
 # MultiLevelIPF 0.3-2 (2016-04-25)
 
 - Reorganized and renamed internal datasets.

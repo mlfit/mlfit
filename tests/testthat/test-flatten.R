@@ -136,3 +136,24 @@ test_that("don't need to sort by group id", {
   expect_identical(as.vector(group_id %*% flat$weights_transform %*% flat_sorted$reverse_weights_transform), sort(group_id))
   expect_identical(as.vector(sort(group_id) %*% flat_sorted$weights_transform %*% flat$reverse_weights_transform), group_id)
 })
+
+test_that("error if group id is NA", {
+  group_id <- c(NA, 2, 3, 3, 2, 3) + 3
+  ref_sample <- data.frame(group_id=group_id, ind=letters[1:2], group=LETTERS[group_id])
+
+  controls <- list(
+    group = list(
+      data.frame(group = LETTERS[4:6], N = 1:3)
+    ),
+    individual = list(
+      data.frame(ind = letters[1:2], N = 1:2)
+    )
+  )
+  field_names <- list(
+    count = "N",
+    groupId = "group_id"
+  )
+
+  problem <- fitting_problem(ref_sample, controls, field_names, prior_weights = ref_sample$group_id)
+  expect_error(flatten_ml_fit_problem(problem), "NA")
+})

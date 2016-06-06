@@ -81,7 +81,11 @@ flatten_ml_fit_problem <- function(fitting_problem,
     mutate_(canonical = ~match(gid, gid)) %>%
     mutate_(proxy = ~!duplicated(canonical)) %>%
     mutate_(gidx = ~cumsum(proxy)[canonical]) %>%
-    select_(~-canonical) %>%
+    select_(~-canonical)
+
+  message("Splitting (2)")
+  gid_lookup <-
+    gid_lookup %>%
     group_by_(~gid) %>%
     mutate_(n = ~length(gid)) %>%
     ungroup
@@ -227,6 +231,11 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
   if (length(controls$individual) + length(controls$group) == 0L) {
     stop("Need at least one control at individual or group level.",
+         call. = FALSE)
+  }
+
+  if (any(is.na(ref_sample[[field_names$groupId]]))) {
+    stop("At least one individual has NA as group identifier.",
          call. = FALSE)
   }
 
