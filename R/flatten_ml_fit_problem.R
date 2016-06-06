@@ -235,7 +235,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
   }
 
   if (any(is.na(ref_sample[[field_names$groupId]]))) {
-    stop("At least one group has NA as group identifier.",
+    stop("At least one individual has NA as group identifier.",
          call. = FALSE)
   }
 
