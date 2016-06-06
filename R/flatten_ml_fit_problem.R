@@ -230,6 +230,11 @@ flatten_ml_fit_problem <- function(fitting_problem,
          call. = FALSE)
   }
 
+  if (any(is.na(ref_sample[[field_names$groupId]]))) {
+    stop("At least one group has NA as group identifier.",
+         call. = FALSE)
+  }
+
   message("Collecting controls")
   control.names.list <- llply(
     controls,
