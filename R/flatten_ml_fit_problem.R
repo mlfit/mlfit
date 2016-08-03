@@ -63,17 +63,6 @@ flatten_ml_fit_problem <- function(fitting_problem,
     }
   )
 
-  if (length(control_formula_components$group) > 0L) {
-    message("Preparing reference sample (groups)")
-    formula_grp <- c(field_names$groupId, control_formula_components$group)
-    ref_sample_grp.mm <- model_matrix(formula_grp,
-      plyr::rename(ref_sample[c(field_names$groupId, names(control.names$group))], control.names$group),
-      "group") %>%
-      as.data.frame
-  } else {
-    ref_sample_grp.mm <- ref_sample[, field_names$groupId, drop = FALSE]
-  }
-
   message("Splitting")
   gid_lookup <-
     data_frame(gid = ref_sample[[field_names$groupId]]) %>%
@@ -90,12 +79,31 @@ flatten_ml_fit_problem <- function(fitting_problem,
     mutate_(n = ~length(gid)) %>%
     ungroup
 
-  ref_sample_grp.agg <- ref_sample_grp.mm[gid_lookup$proxy,, drop = FALSE]
+  if (length(control_formula_components$group) > 0L) {
+    message("Preparing reference sample (groups)")
+    formula_grp <- control_formula_components$group
+    ref_sample_proxy <- plyr::rename(
+      ref_sample[gid_lookup$proxy, c(field_names$groupId, names(control.names$group)), drop = FALSE],
+      control.names$group)
+    rownames(ref_sample_proxy) <- NULL
+    ref_sample_grp.agg <- model_matrix(formula_grp,
+      ref_sample_proxy,
+      "group")
+  } else {
+    ref_sample_grp.agg <- Matrix(ncol = 0, nrow = sum(gid_lookup$proxy))
+  }
 
-  weights_transform <- Matrix::sparseMatrix(
+  stopifnot(grepl("Matrix$", class(ref_sample_grp.agg)))
+
+  weights_transform <- sparseMatrix(
     i = gid_lookup$iidx,
     j = gid_lookup$gidx,
     x = 1 / gid_lookup$n)
+
+  weights_transform_rev <- sparseMatrix(
+    i = gid_lookup$gidx,
+    j = gid_lookup$iidx,
+    x = 1L)
 
   message("Transforming weights")
   if (is.null(prior_weights)) {
@@ -106,35 +114,24 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
   if (length(control_formula_components$individual) > 0) {
     message("Preparing reference sample (individuals)")
-    formula_ind <- c(field_names$groupId, control_formula_components$individual)
+    formula_ind <- control_formula_components$individual
     ref_sample_ind.mm <- model_matrix(formula_ind,
       plyr::rename(ref_sample[c(field_names$groupId, names(control.names$individual))], control.names$individual),
-      "individual") %>%
-      as.data.frame
+      "individual")
 
     message("Aggregating")
-    ref_sample_ind.mm <- .rename.intercept(ref_sample_ind.mm, "individual")
-    ref_sample_ind.agg <-
-      ref_sample_ind.mm %>%
-      group_by_(field_names$groupId) %>%
-      summarize_each_(funs(sum), as_names(setdiff(colnames(ref_sample_ind.mm), field_names$groupId))) %>%
-      ungroup
+    ref_sample_ind.agg <- weights_transform_rev %*% ref_sample_ind.mm
 
     message("Merging")
-    ref_sample.agg <- merge(ref_sample_ind.agg, ref_sample_grp.agg,
-                            by=field_names$groupId)
-
-    stopifnot(ref_sample.agg[[field_names$groupId]] == ref_sample_grp.agg[[field_names$groupId]])
+    ref_sample.agg.m <- cbind(ref_sample_ind.agg, ref_sample_grp.agg)
   } else {
-    ref_sample.agg <- ref_sample_grp.agg
+    ref_sample.agg.m <- ref_sample_grp.agg
   }
+
+  stopifnot(grepl("Matrix$", class(ref_sample.agg.m)))
 
   control.totals <- .flatten_controls(control.terms.list = control.terms.list,
                                       verbose = verbose)
-
-  message("Converting reference sample to matrix")
-  ref_sample.agg.m <- as.matrix(ref_sample.agg[
-    , setdiff(colnames(ref_sample.agg), field_names$groupId), drop = FALSE])
 
   message("Reordering controls")
   intersect_names <- intersect(sort(colnames(ref_sample.agg.m)), names(control.totals))
@@ -169,7 +166,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
       nonzero.observations_w <- which(!zero.observations)
 
-      zero_weights_transform <- Matrix::sparseMatrix(
+      zero_weights_transform <- sparseMatrix(
         i=nonzero.observations_w, j=seq_along(nonzero.observations_w), x=1)
       weights_transform <- weights_transform %*% zero_weights_transform
     } else {
@@ -194,8 +191,8 @@ flatten_ml_fit_problem <- function(fitting_problem,
   }
 
   message("Computing reverse weights map")
-  reverse_weights_transform <- ( (1 / prior_weights_agg) * Matrix::t(prior_weights * gid_lookup$n * weights_transform))
-  stopifnot(all.equal(Matrix::diag(reverse_weights_transform %*% weights_transform), rep(1, ncol(weights_transform))))
+  reverse_weights_transform <- ( (1 / prior_weights_agg) * t(prior_weights * gid_lookup$n * weights_transform))
+  stopifnot(all.equal(diag(reverse_weights_transform %*% weights_transform), rep(1, ncol(weights_transform))))
 
   message("Normalizing weights")
   prior_weights_agg <- prior_weights_agg / sum(prior_weights_agg) *
@@ -264,7 +261,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
   message("Converting to factor")
   ref_sample[control_names] <-
-    lapply(ref_sample[, control_names, drop = FALSE], as.factor)
+    lapply(ref_sample[control_names], as.factor)
 
   has_na <- vapply(ref_sample[control_names], anyNA, logical(1L))
   if (any(has_na)) {
@@ -424,7 +421,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
 .model_matrix_combined <- function(formula_components, data, control.type) {
   formula_as_character <- paste0("~", paste(formula_components, collapse = "+"))
-  mm <- stats::model.matrix(as.formula(formula_as_character), data)
+  mm <- sparse.model.matrix(as.formula(formula_as_character), data)
   .rename.intercept(mm, control.type)
 }
 
@@ -444,7 +441,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
     else
       formula_as_character <- paste0("~", formula_component, "-1")
 
-    mm <- stats::model.matrix(as.formula(formula_as_character), data)
+    mm <- sparse.model.matrix(as.formula(formula_as_character), data)
     .rename.intercept(mm, control.type)
   } else {
     col_levels <- Map(function(name, value)
@@ -459,9 +456,9 @@ flatten_ml_fit_problem <- function(fitting_problem,
       col_levels))
     all_values <- factor(.combine_levels(col_values), levels = all_levels)
 
-    wide <- Matrix::sparseMatrix(seq_len(nrow(data)), as.integer(all_values), x = 1)
+    wide <- sparseMatrix(seq_len(nrow(data)), as.integer(all_values), x = 1)
     colnames(wide) <- all_levels
-    as.matrix(wide)
+    wide
   }
 }
 
@@ -558,7 +555,6 @@ get_count_field_name <- function(control, name, message) {
 }
 
 expand_weights <- function(flat_weights, flat) {
-  requireNamespace("Matrix")
   unname(as.vector(flat_weights %*% flat$reverse_weights_transform))
 }
 
