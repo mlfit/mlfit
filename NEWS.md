@@ -1,15 +1,20 @@
-# MultiLevelIPF 0.3-3 (2016-06-06)
+## MultiLevelIPF 0.3-4 (2016-08-03)
+
+- Use a sparse matrix for the flattened reference sample.
+
+
+## MultiLevelIPF 0.3-3 (2016-06-06)
 
 - Status messages with `verbose = TRUE` are prepended with a time stamp.
 - Fail if `NA` group ID found.
 
 
-# MultiLevelIPF 0.3-2 (2016-04-25)
+## MultiLevelIPF 0.3-2 (2016-04-25)
 
 - Reorganized and renamed internal datasets.
 
 
-# MultiLevelIPF 0.3-1 (2016-04-17)
+## MultiLevelIPF 0.3-1 (2016-04-17)
 
 - Fitting result contains `iterations` and `tol` members (#28).
 - Fixed model matrix of "separate" type if only grand totals are given.
