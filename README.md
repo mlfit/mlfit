@@ -9,3 +9,16 @@ Install using
 ```s
 devtools::install_github("krlmlr/MultiLevelIPF")
 ```
+
+## Driven by
+
+- [`grake`](http://krlmlr.github.io/grake): A reimplementation of generalized raking ([Deville and Särndal, 1992](http://amstat.tandfonline.com/doi/abs/10.1080/01621459.1992.10475217); [Deville, Särndal and Sautory, 1993](http://www.tandfonline.com/doi/abs/10.1080/01621459.1993.10476369))
+
+
+## Related work
+
+- [`wrswoR`](http://krlmlr.github.io/wrswoR): An implementation of fast weighted random sampling without replacement ([Efraimidis and Spirakis, 2006](http://www.sciencedirect.com/science/article/pii/S002001900500298X))
+
+- [`mangow`](http://krlmlr.github.io/mangow): Embed the Gower distance metric in L1
+
+- [`RANN.L1`](https://github.com/jefferis/RANN/tree/master-L1#readme): k-nearest neighbors using the L1 metric
