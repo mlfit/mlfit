@@ -1,8 +1,8 @@
 Type: Package
 Package: MultiLevelIPF
 Title: Implementation of algorithms that extend IPF to nested structures
-Version: 0.3-4
-Date: 2016-08-03
+Version: 0.3-5
+Date: 2016-09-03
 Authors@R: person(given = "Kirill", family = "Müller", role = c("aut",
         "cre"), email = "krlmlr+r@mailbox.org")
 Description: The IPF algorithm operates on count data. This package offers
@@ -11,9 +11,9 @@ Description: The IPF algorithm operates on count data. This package offers
 License: GPL-3
 URL: http://krlmlr.github.io/MultiLevelIPF
 BugReports: https://github.com/krlmlr/MultiLevelIPF/issues
-Depends:
+Depends: 
     methods
-Imports:
+Imports: 
     plyr,
     dplyr,
     BB,
@@ -21,10 +21,10 @@ Imports:
     grake (>= 0.1-1),
     hms,
     kimisc
-Suggests:
+Suggests: 
     testthat,
     XML
 Remotes: grake/grake
 Encoding: UTF-8
-RoxygenNote: 5.0.1
+RoxygenNote: 5.0.1.9000
 URLNote: https://github.com/krlmlr/MultiLevelIPF
