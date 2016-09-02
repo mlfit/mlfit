@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>flatten_ml_fit_problem. MultiLevelIPF 0.3-4</title>
+<title>flatten_ml_fit_problem. MultiLevelIPF 0.3-5</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">MultiLevelIPF 0.3-4</a>
+      <a class="brand" href="#">MultiLevelIPF 0.3-5</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -53,8 +53,10 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>flatten_ml_fit_problem(fitting_problem, model_matrix_type&nbsp;=&nbsp;c("combined", "separate"), verbose&nbsp;=&nbsp;FALSE)</div>
-<div>as.flat_ml_fit_problem(x, model_matrix_type&nbsp;=&nbsp;c("combined", "separate"), ...)</div></pre>
+    <pre><span class="functioncall"><a href='flatten_ml_fit_problem.html'>flatten_ml_fit_problem</a></span><span class="keyword">(</span><span class="symbol">fitting_problem</span><span class="keyword">,</span> <span class="argument">model_matrix_type</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="string">"combined"</span><span class="keyword">,</span>
+  <span class="string">"separate"</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">verbose</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">)</span>
+
+<span class="functioncall"><a href='flatten_ml_fit_problem.html'>as.flat_ml_fit_problem</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="argument">model_matrix_type</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="string">"combined"</span><span class="keyword">,</span> <span class="string">"separate"</span><span class="keyword">)</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span></pre>
     
     <h2>Arguments</h2>
     <dl>
@@ -104,9 +106,8 @@ results in a larger model matrix if more than one control is given.</p>
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>path &lt;- toy_example(&quot;Tiny&quot;)
-flatten_ml_fit_problem(fitting_problem = readRDS(path))
-</div>
+    <pre class="examples"><div class='input'><span class="symbol">path</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='toy_example.html'>toy_example</a></span><span class="keyword">(</span><span class="string">"Tiny"</span><span class="keyword">)</span>
+<span class="functioncall"><a href='flatten_ml_fit_problem.html'>flatten_ml_fit_problem</a></span><span class="keyword">(</span><span class="argument">fitting_problem</span> <span class="argument">=</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/readRDS'>readRDS</a></span><span class="keyword">(</span><span class="symbol">path</span><span class="keyword">)</span><span class="keyword">)</span></div>
 <div class='output'>An object of class flat_ml_fit_problem
   Dimensions: 5 groups, 8 target values
   Model matrix type: combined
@@ -126,10 +127,11 @@ flatten_ml_fit_problem(fitting_problem = readRDS(path))
     </ul> -->
       
     <h2>See also</h2>
-    
-<code><a href='ml_fit.html'>ml_fit</a></code>
+      <p><code><a href='ml_fit.html'>ml_fit</a></code></p>
 
-        
+    
+
+    
   </div>
 </div>
       

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>ml_fit. MultiLevelIPF 0.3-4</title>
+<title>ml_fit. MultiLevelIPF 0.3-5</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">MultiLevelIPF 0.3-4</a>
+      <a class="brand" href="#">MultiLevelIPF 0.3-5</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -53,11 +53,20 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>ml_fit(algorithm&nbsp;=&nbsp;c("entropy_o", "dss", "ipu", "hipf"), fitting_problem, verbose&nbsp;=&nbsp;FALSE, ..., tol&nbsp;=&nbsp;1e-06)</div>
-<div>ml_fit_dss(fitting_problem, method&nbsp;=&nbsp;c("raking", "linear", "logit"), ginv&nbsp;=&nbsp;grake::gginv(), tol&nbsp;=&nbsp;1e-06, verbose&nbsp;=&nbsp;FALSE)</div>
-<div>ml_fit_entropy_o(fitting_problem, verbose&nbsp;=&nbsp;FALSE, tol&nbsp;=&nbsp;1e-06, dfsane_args&nbsp;=&nbsp;list())</div>
-<div>ml_fit_hipf(fitting_problem, diff_tol&nbsp;=&nbsp;16 * .Machine$double.eps, tol&nbsp;=&nbsp;1e-06, maxiter&nbsp;=&nbsp;200, verbose&nbsp;=&nbsp;FALSE)</div>
-<div>ml_fit_ipu(fitting_problem, diff_tol&nbsp;=&nbsp;16 * .Machine$double.eps, tol&nbsp;=&nbsp;1e-06, maxiter&nbsp;=&nbsp;2000, verbose&nbsp;=&nbsp;FALSE)</div></pre>
+    <pre><span class="functioncall"><a href='ml_fit.html'>ml_fit</a></span><span class="keyword">(</span><span class="argument">algorithm</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="string">"entropy_o"</span><span class="keyword">,</span> <span class="string">"dss"</span><span class="keyword">,</span> <span class="string">"ipu"</span><span class="keyword">,</span> <span class="string">"hipf"</span><span class="keyword">)</span><span class="keyword">,</span> <span class="symbol">fitting_problem</span><span class="keyword">,</span>
+  <span class="argument">verbose</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">,</span> <span class="argument">tol</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1e-06</span><span class="keyword">)</span>
+
+<span class="functioncall"><a href='ml_fit.html'>ml_fit_dss</a></span><span class="keyword">(</span><span class="symbol">fitting_problem</span><span class="keyword">,</span> <span class="argument">method</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="string">"raking"</span><span class="keyword">,</span> <span class="string">"linear"</span><span class="keyword">,</span> <span class="string">"logit"</span><span class="keyword">)</span><span class="keyword">,</span>
+  <span class="argument">ginv</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="package">grake</span><span class="keyword">::</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/grake/topics/gginv'>gginv</a></span><span class="keyword">(</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">tol</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1e-06</span><span class="keyword">,</span> <span class="argument">verbose</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">)</span>
+
+<span class="functioncall"><a href='ml_fit.html'>ml_fit_entropy_o</a></span><span class="keyword">(</span><span class="symbol">fitting_problem</span><span class="keyword">,</span> <span class="argument">verbose</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">,</span> <span class="argument">tol</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1e-06</span><span class="keyword">,</span>
+  <span class="argument">dfsane_args</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span><span class="keyword">(</span><span class="keyword">)</span><span class="keyword">)</span>
+
+<span class="functioncall"><a href='ml_fit.html'>ml_fit_hipf</a></span><span class="keyword">(</span><span class="symbol">fitting_problem</span><span class="keyword">,</span> <span class="argument">diff_tol</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">16</span> <span class="keyword">*</span> <span class="symbol">.Machine</span><span class="keyword">$</span><span class="symbol">double.eps</span><span class="keyword">,</span>
+  <span class="argument">tol</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1e-06</span><span class="keyword">,</span> <span class="argument">maxiter</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">200</span><span class="keyword">,</span> <span class="argument">verbose</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">)</span>
+
+<span class="functioncall"><a href='ml_fit.html'>ml_fit_ipu</a></span><span class="keyword">(</span><span class="symbol">fitting_problem</span><span class="keyword">,</span> <span class="argument">diff_tol</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">16</span> <span class="keyword">*</span> <span class="symbol">.Machine</span><span class="keyword">$</span><span class="symbol">double.eps</span><span class="keyword">,</span>
+  <span class="argument">tol</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1e-06</span><span class="keyword">,</span> <span class="argument">maxiter</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">2000</span><span class="keyword">,</span> <span class="argument">verbose</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">)</span></pre>
     
     <h2>Arguments</h2>
     <dl>
@@ -80,7 +89,7 @@ reached within this tolerance.</dd>
       <dd>Function that computes the Moore-Penrose pseudoinverse.</dd>
       <dt>dfsane_args</dt>
       <dd>Additional arguments (as a named list) passed to the
-<code><a href='http://www.inside-r.org/packages/cran/BB/docs/dfsane'>dfsane</a></code> function used internally for the optimization.</dd>
+<code><a href='http://www.rdocumentation.org/packages/BB/topics/dfsane'>dfsane</a></code> function used internally for the optimization.</dd>
       <dt>diff_tol</dt>
       <dd>Tolerance, the algorithm stops when relative difference of
 control values between iterations drops below this value</dd>
@@ -110,10 +119,10 @@ All functions return an object of class <code>ml_fit</code>, which is
   corresponding function. This is useful if the result of multiple algorithms
   are compared to each other.</p>
   
-      <p><code>ml_fit_dss</code> uses generalized raking and calls <code>grake::<a href='http://www.inside-r.org/packages/cran/grake/docs/dss'>dss</a></code> internally.</p>
+      <p><code>ml_fit_dss</code> uses generalized raking and calls <code>grake::<a href='http://www.rdocumentation.org/packages/grake/topics/dss'>dss</a></code> internally.</p>
   
       <p><code>ml_fit_entropy_o</code> optimizes entropy using the
-  <code>BB::<a href='http://www.inside-r.org/packages/cran/BB/docs/dfsane'>dfsane</a></code> function.</p>
+  <code>BB::<a href='http://www.rdocumentation.org/packages/BB/topics/dfsane'>dfsane</a></code> function.</p>
   
       <p><code>ml_fit_hipf</code> implements Hierarchical Iterative Proportional Fitting.</p>
   
@@ -126,11 +135,11 @@ All functions return an object of class <code>ml_fit</code>, which is
 
       <p>Deville, J.-C. and Särndal, C.-E. (1992)
 Calibration estimators in survey sampling. <em>Journal of the American
-Statistical Association</em>, <b>87</b> (418), 376--382.</p>
+Statistical Association</em>, <b>87 </b> (418), 376--382.</p>
   
       <p>Deville, J.-C., Särndal, C.-E. and Sautory, O. (1993)
 Generalized raking procedures in survey sampling. <em>Journal of the
-American Statistical Association</em>, <b>88</b> (423), 1013--1020.</p>
+American Statistical Association</em>, <b>88 </b> (423), 1013--1020.</p>
   
       <p>Müller, K. and Axhausen, K. W. (2011), Hierarchical IPF: Generating a
        synthetic population for Switzerland, paper presented at the 51st
@@ -146,9 +155,8 @@ January 2009.</p>
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>path &lt;- toy_example(&quot;Tiny&quot;)
-ml_fit(algorithm = &quot;entropy_o&quot;, fitting_problem = readRDS(path))
-</div>
+    <pre class="examples"><div class='input'><span class="symbol">path</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='toy_example.html'>toy_example</a></span><span class="keyword">(</span><span class="string">"Tiny"</span><span class="keyword">)</span>
+<span class="functioncall"><a href='ml_fit.html'>ml_fit</a></span><span class="keyword">(</span><span class="argument">algorithm</span> <span class="argument">=</span> <span class="string">"entropy_o"</span><span class="keyword">,</span> <span class="argument">fitting_problem</span> <span class="argument">=</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/readRDS'>readRDS</a></span><span class="keyword">(</span><span class="symbol">path</span><span class="keyword">)</span><span class="keyword">)</span></div>
 <div class='output'>An object of class ml_fit
   Algorithm: entropy_o
   Success: TRUE
@@ -163,12 +171,11 @@ ml_fit(algorithm = &quot;entropy_o&quot;, fitting_problem = readRDS(path))
       Control totals: 1 at individual, and 1 at group level
       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu
 </div>
-<div class='input'>ml_fit_dss(fitting_problem = readRDS(path))
-</div>
+<div class='input'><span class="functioncall"><a href='ml_fit.html'>ml_fit_dss</a></span><span class="keyword">(</span><span class="argument">fitting_problem</span> <span class="argument">=</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/readRDS'>readRDS</a></span><span class="keyword">(</span><span class="symbol">path</span><span class="keyword">)</span><span class="keyword">)</span></div>
 <div class='output'>An object of class ml_fit
   Algorithm: dss
   Success: TRUE
-  Residuals (absolute): min = 2.338017e-08, max = 1.613563e-07
+  Residuals (absolute): min = 2.338017e-08, max = 1.613564e-07
   Flat problem:
   An object of class flat_ml_fit_problem
     Dimensions: 5 groups, 8 target values
@@ -179,12 +186,11 @@ ml_fit(algorithm = &quot;entropy_o&quot;, fitting_problem = readRDS(path))
       Control totals: 1 at individual, and 1 at group level
       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu
 </div>
-<div class='input'>ml_fit_dss(fitting_problem = readRDS(path), ginv = solve)
-</div>
+<div class='input'><span class="functioncall"><a href='ml_fit.html'>ml_fit_dss</a></span><span class="keyword">(</span><span class="argument">fitting_problem</span> <span class="argument">=</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/readRDS'>readRDS</a></span><span class="keyword">(</span><span class="symbol">path</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">ginv</span> <span class="argument">=</span> <span class="symbol">solve</span><span class="keyword">)</span></div>
 <div class='output'>An object of class ml_fit
   Algorithm: dss
   Success: TRUE
-  Residuals (absolute): min = 2.338015e-08, max = 1.613563e-07
+  Residuals (absolute): min = 2.338014e-08, max = 1.613563e-07
   Flat problem:
   An object of class flat_ml_fit_problem
     Dimensions: 5 groups, 8 target values
@@ -195,8 +201,7 @@ ml_fit(algorithm = &quot;entropy_o&quot;, fitting_problem = readRDS(path))
       Control totals: 1 at individual, and 1 at group level
       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu
 </div>
-<div class='input'>ml_fit_entropy_o(fitting_problem = readRDS(path))
-</div>
+<div class='input'><span class="functioncall"><a href='ml_fit.html'>ml_fit_entropy_o</a></span><span class="keyword">(</span><span class="argument">fitting_problem</span> <span class="argument">=</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/readRDS'>readRDS</a></span><span class="keyword">(</span><span class="symbol">path</span><span class="keyword">)</span><span class="keyword">)</span></div>
 <div class='output'>An object of class ml_fit
   Algorithm: entropy_o
   Success: TRUE
@@ -211,8 +216,7 @@ ml_fit(algorithm = &quot;entropy_o&quot;, fitting_problem = readRDS(path))
       Control totals: 1 at individual, and 1 at group level
       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu
 </div>
-<div class='input'>ml_fit_hipf(fitting_problem = readRDS(path))
-</div>
+<div class='input'><span class="functioncall"><a href='ml_fit.html'>ml_fit_hipf</a></span><span class="keyword">(</span><span class="argument">fitting_problem</span> <span class="argument">=</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/readRDS'>readRDS</a></span><span class="keyword">(</span><span class="symbol">path</span><span class="keyword">)</span><span class="keyword">)</span></div>
 <div class='output'>An object of class ml_fit
   Algorithm: hipf
   Success: TRUE
@@ -227,8 +231,7 @@ ml_fit(algorithm = &quot;entropy_o&quot;, fitting_problem = readRDS(path))
       Control totals: 1 at individual, and 1 at group level
       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu
 </div>
-<div class='input'>ml_fit_ipu(fitting_problem = readRDS(path))
-</div>
+<div class='input'><span class="functioncall"><a href='ml_fit.html'>ml_fit_ipu</a></span><span class="keyword">(</span><span class="argument">fitting_problem</span> <span class="argument">=</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/readRDS'>readRDS</a></span><span class="keyword">(</span><span class="symbol">path</span><span class="keyword">)</span><span class="keyword">)</span></div>
 <div class='output'>An object of class ml_fit
   Algorithm: ipu
   Success: TRUE
@@ -253,12 +256,13 @@ ml_fit(algorithm = &quot;entropy_o&quot;, fitting_problem = readRDS(path))
     </ul> -->
       
     <h2>See also</h2>
+      <p><code><a href='http://www.rdocumentation.org/packages/grake/topics/dss'>dss</a></code>, <code><a href='http://www.rdocumentation.org/packages/grake/topics/gginv'>gginv</a></code></p>
+
+      <p><code><a href='http://www.rdocumentation.org/packages/BB/topics/dfsane'>dfsane</a></code></p>
+
     
-<code><a href='http://www.inside-r.org/packages/cran/grake/docs/dss'>dss</a></code>, <code><a href='http://www.inside-r.org/packages/cran/grake/docs/gginv'>gginv</a></code>
 
-<code><a href='http://www.inside-r.org/packages/cran/BB/docs/dfsane'>dfsane</a></code>
-
-        
+    
   </div>
 </div>
       
