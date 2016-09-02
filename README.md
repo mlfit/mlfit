@@ -4,13 +4,8 @@ Implementation of algorithms that extend IPF to nested structures.
 
 The IPF algorithm operates on count data.  This package offers implementations for several algorithms that extend this to nested structures: "parent" and "child" items for both of which constraints can be provided.
 
-Install using
 
-```s
-devtools::install_github("krlmlr/MultiLevelIPF")
-```
-
-## Driven by
+## Powered by
 
 - [`grake`](http://krlmlr.github.io/grake): A reimplementation of generalized raking ([Deville and Särndal, 1992](http://amstat.tandfonline.com/doi/abs/10.1080/01621459.1992.10475217); [Deville, Särndal and Sautory, 1993](http://www.tandfonline.com/doi/abs/10.1080/01621459.1993.10476369))
 
@@ -22,3 +17,10 @@ devtools::install_github("krlmlr/MultiLevelIPF")
 - [`mangow`](http://krlmlr.github.io/mangow): Embed the Gower distance metric in L1
 
 - [`RANN.L1`](https://github.com/jefferis/RANN/tree/master-L1#readme): k-nearest neighbors using the L1 metric
+
+
+## Installation
+
+```s
+devtools::install_github("krlmlr/MultiLevelIPF")
+```
