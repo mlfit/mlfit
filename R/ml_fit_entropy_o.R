@@ -1,10 +1,10 @@
-#' \code{ml_fit_entropy_o} optimizes entropy using the
+#' `ml_fit_entropy_o()` optimizes entropy using the
 #'   \code{BB::\link[BB]{dfsane}} function.
 #'
 #' @rdname ml_fit
 #' @param dfsane_args Additional arguments (as a named list) passed to the
-#'   \code{\link[BB]{dfsane}} function used internally for the optimization.
-#' @seealso \code{\link[BB]{dfsane}}
+#'   [BB::dfsane()] function used internally for the optimization.
+#' @seealso [BB::dfsane()]
 #' @export
 #' @examples
 #' ml_fit_entropy_o(fitting_problem = readRDS(path))

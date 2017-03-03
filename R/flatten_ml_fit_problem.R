@@ -6,18 +6,18 @@
 #' per household, and a control vector.
 #'
 #' @details
-#' The standard way to build a model matrix (\code{model_matrix = "combined"})
+#' The standard way to build a model matrix (`model_matrix = "combined"`)
 #' is to include intercepts and avoid repeating redundant attributes.
-#' A simpler model matrix specification, available via \code{model_matrix = "separate"},
+#' A simpler model matrix specification, available via `model_matrix = "separate"`,
 #' is used by Ye et al. (2009):
 #' Here, simply one column per target value is used, which
 #' results in a larger model matrix if more than one control is given.
 #'
 #' @inheritParams ml_fit
 #' @param model_matrix_type Which model matrix building strategy to use? See details.
-#' @return An object of classes \code{flat_ml_fit_problem},
+#' @return An object of classes `flat_ml_fit_problem`,
 #'   essentially a named list.
-#' @seealso \code{\link{ml_fit}}
+#' @seealso [ml_fit()]
 #' @importFrom kimisc coalesce.na
 #' @importFrom plyr laply adply
 #' @export

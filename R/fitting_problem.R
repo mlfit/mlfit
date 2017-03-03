@@ -2,22 +2,22 @@
 #'
 #' @param ref_sample The reference sample
 #' @param controls Control totals, by default initialized from the
-#'   \code{individual_controls} and \code{group_controls} arguments
+#'   `individual_controls` and `group_controls` arguments
 #' @param field_names Names of special fields, construct using
-#'   \code{\link{special_field_names}}
+#'   [special_field_names()]
 #' @param individual_controls,group_controls Control totals at individual
 #'   and group level, given as a list of data frames where each data frame
 #'   defines a control
 #' @param prior_weights Prior (or design) weights at group level; by default
 #'   a vector of ones will be used, which corresponds to random sampling of
 #'   groups
-#' @return An object of class \code{fitting_problem}, essentially a named list
+#' @return An object of class `fitting_problem`, essentially a named list
 #'   with the following components:
 #' \describe{
-#'   \item{\code{refSample}}{The reference sample, a \code{data.frame}.}
-#'   \item{\code{controls}}{A named list with two components, \code{individual}
-#'   and \code{group}. Each contains a list of controls as \code{data.frame}s.}
-#'   \item{\code{fieldNames}}{A named list with the names of special fields.}
+#'   \item{`refSample`}{The reference sample, a `data.frame`.}
+#'   \item{`controls`}{A named list with two components, `individual`
+#'   and `group`. Each contains a list of controls as `data.frame`s.}
+#'   \item{`fieldNames`}{A named list with the names of special fields.}
 #' }
 #' @export
 fitting_problem <- function(ref_sample,

@@ -1,4 +1,4 @@
-#' \code{ml_fit_hipf} implements Hierarchical Iterative Proportional Fitting.
+#' `ml_fit_hipf()` implements Hierarchical Iterative Proportional Fitting.
 #'
 #' @rdname ml_fit
 #'

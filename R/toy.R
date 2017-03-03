@@ -1,7 +1,7 @@
 #' Access to toy examples bundled in this package
 #'
 #' Returns the paths to all available toy examples, or to a specific toy
-#' example.  Load via \code{\link{readRDS}}.
+#' example.  Load via [readRDS()].
 #'
 #' @param name Name of the example, default: return all
 #' @return A named vector of file system paths.
