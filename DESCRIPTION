@@ -26,5 +26,5 @@ Suggests:
     XML
 Remotes: grake/grake
 Encoding: UTF-8
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 6.0.1.9000
 URLNote: https://github.com/krlmlr/MultiLevelIPF
