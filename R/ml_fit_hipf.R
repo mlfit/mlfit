@@ -14,7 +14,9 @@ ml_fit_hipf <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
                         tol = 1e-6, maxiter = 200, verbose = FALSE) {
   .patch_verbose()
 
-  flat <- flatten_ml_fit_problem(fitting_problem)
+  flat <- as.flat_ml_fit_problem(fitting_problem)
+  fitting_problem <- flat$fitting_problem
+  stopifnot(!is.null(fitting_problem))
   group_ind_totals <- get_group_ind_totals(flat, verbose)
 
   flat_ind <- create_flat_ind(fitting_problem, verbose)
