@@ -498,7 +498,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
       unname(llply(control.terms, `[[`, "control"))
     }
   )
-  control.totals.dup <- unlist(unname(control.totals.list), use.names=TRUE)
+  control.totals.dup <- Reduce(c, unlist(unname(control.totals.list), recursive = FALSE))
 
   message("Checking controls for conflicts")
   control.totals.dup.rearrange <- llply(
