@@ -1,4 +1,4 @@
-#' \code{ml_fit_ipu} implements Iterative Proportional Updating.
+#' `ml_fit_ipu()` implements Iterative Proportional Updating.
 #'
 #' @rdname ml_fit
 #' @param diff_tol Tolerance, the algorithm stops when relative difference of

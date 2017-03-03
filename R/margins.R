@@ -3,15 +3,15 @@
 #' These functions allows checking a fit in terms of the original input data.
 #'
 #' @details
-#' \code{compute_margins} computes margins in the format used for the input
-#' controls (i.e., as expected by the \code{controls} parameter of the
-#' \code{\link{fitting_problem}} function),
+#' `compute_margins()` computes margins in the format used for the input
+#' controls (i.e., as expected by the `controls` parameter of the
+#' [fitting_problem()] function),
 #' based on a reference sample and a weights vector.
 #'
 #' @inheritParams ml_fit
 #' @param weights A vector with one entry per row of the original reference
 #'   sample
-#' @seealso \code{\link{ml_fit}}
+#' @seealso [ml_fit()]
 #' @export
 #' @importFrom plyr llply
 compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
@@ -59,10 +59,10 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
 }
 
 #' @details
-#' \code{margins_to_df} converts margins to a data frame for easier comparison.
+#' `margins_to_df()` converts margins to a data frame for easier comparison.
 #'
-#' @param controls Margins as returned by \code{compute_margins} or as passed
-#'   to the \code{controls} parameter of \code{\link{fitting_problem}}.
+#' @param controls Margins as returned by `compute_margins` or as passed
+#'   to the `controls` parameter of [fitting_problem()].
 #' @param count Name of control total column, autodetected by default.
 #'
 #' @rdname compute_margins
