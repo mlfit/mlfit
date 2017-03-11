@@ -83,7 +83,7 @@ margin_to_df <- function(controls, count = NULL, verbose = FALSE) {
           count = get_count_field_name(control, count, message)
           non_control <- control[sort(setdiff(names(control), count))]
           lex_order <- do.call(order, non_control)
-          data.frame(
+          data_frame(
             ..id.. = interaction(non_control[lex_order, ]),
             ..count.. = control[[count]][lex_order]
           )

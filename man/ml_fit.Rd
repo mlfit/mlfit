@@ -10,19 +10,20 @@
 \title{Estimate weights for a fitting problem}
 \usage{
 ml_fit(algorithm = c("entropy_o", "dss", "ipu", "hipf"), fitting_problem,
-  verbose = FALSE, ..., tol = 1e-06)
+  verbose = FALSE, target_value_index = 1L, ..., tol = 1e-06)
 
 ml_fit_dss(fitting_problem, method = c("raking", "linear", "logit"),
-  ginv = grake::gginv(), tol = 1e-06, verbose = FALSE)
+  ginv = grake::gginv(), tol = 1e-06, verbose = FALSE,
+  target_value_index = 1L)
 
 ml_fit_entropy_o(fitting_problem, verbose = FALSE, tol = 1e-06,
-  dfsane_args = list())
+  dfsane_args = list(), target_value_index = 1L)
 
 ml_fit_hipf(fitting_problem, diff_tol = 16 * .Machine$double.eps,
-  tol = 1e-06, maxiter = 200, verbose = FALSE)
+  tol = 1e-06, maxiter = 200, verbose = FALSE, target_value_index = 1L)
 
 ml_fit_ipu(fitting_problem, diff_tol = 16 * .Machine$double.eps,
-  tol = 1e-06, maxiter = 2000, verbose = FALSE)
+  tol = 1e-06, maxiter = 2000, verbose = FALSE, target_value_index = 1L)
 }
 \arguments{
 \item{algorithm}{Algorithm to use}
@@ -31,6 +32,9 @@ ml_fit_ipu(fitting_problem, diff_tol = 16 * .Machine$double.eps,
 \code{\link[=fitting_problem]{fitting_problem()}}.}
 
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
+
+\item{target_value_index}{The position in the list of target values
+if more than one set of target value given.}
 
 \item{...}{Further parameters passed to the algorithm}
 

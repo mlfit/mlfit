@@ -151,6 +151,8 @@ flatten_ml_fit_problem <- function(fitting_problem,
   ref_sample.agg.m <- ref_sample.agg.m[, intersect_names, drop = FALSE]
   control.totals <- control.totals[intersect_names]
 
+  # FIXME: Check for zero-valued controls
+  if (FALSE) {
   message("Checking zero-valued controls")
   zero.control.totals <- (control.totals == 0)
   if (any(zero.control.totals)) {
@@ -177,7 +179,10 @@ flatten_ml_fit_problem <- function(fitting_problem,
   } else
     message("  No zero-valued controls")
   stopifnot(control.totals > 0)
+  }
 
+  # FIXME: Check for missing observations
+  if (FALSE) {
   message("Checking missing observations")
   ref_sample.agg.m.rs <- colSums(ref_sample.agg.m)
   missing.controls <- (ref_sample.agg.m.rs == 0)
@@ -189,6 +194,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
     control.totals <- control.totals[!missing.controls]
     ref_sample.agg.m <- ref_sample.agg.m[, !missing.controls]
   }
+  }
 
   message("Computing reverse weights map")
   reverse_weights_transform <- ( (1 / prior_weights_agg) * t(prior_weights * gid_lookup$n * weights_transform))
@@ -196,9 +202,11 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
   message("Normalizing weights")
   prior_weights_agg <- prior_weights_agg / sum(prior_weights_agg) *
-    unname(coalesce.na(control.totals["(Intercept)_g"],
-                       control.totals["(Intercept)_i"],
-                       sum(prior_weights_agg)))
+    coalesce_null(
+      control.totals[["(Intercept)_g"]][[1L]],
+      control.totals[["(Intercept)_i"]][[1L]],
+      sum(prior_weights_agg)
+    )
 
   message("Done!")
   new_flat_ml_fit_problem(
@@ -404,11 +412,15 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
           control.mm <- model_matrix(control.term, control, control.type)
 
+          control <- t(do.call(rbind, as.list(control[[count_name]]))) %*% control.mm
+          control <- apply(control, 2L, list)
+          control <- lapply(control, "[[", 1L)
+
           list(
             control.names=control.names,
             new.control.names=new.control.names,
             term=control.term,
-            control = (control[[count_name]] %*% control.mm)[1,, drop = TRUE]
+            control = control
           )
         }
       )
@@ -500,6 +512,10 @@ flatten_ml_fit_problem <- function(fitting_problem,
   )
   control.totals.dup <- Reduce(c, unlist(unname(control.totals.list), recursive = FALSE))
 
+  control.totals <- control.totals.dup[!duplicated(names(control.totals.dup))]
+  return(control.totals)
+
+  # FIXME: Check for conflicts
   message("Checking controls for conflicts")
   control.totals.dup.rearrange <- llply(
     setNames(nm=unique(names(control.totals.dup))),
@@ -535,7 +551,7 @@ as_names <- function(x) {
 get_count_field_name <- function(control, name, message) {
   if (is.null(name)) {
     classes <- vapply(control, function(x) class(x)[[1L]], character(1))
-    numerics <- which(classes %in% c("integer", "numeric"))
+    numerics <- which(classes %in% c("integer", "numeric", "list"))
 
     if (length(numerics) == 0) {
       stop("No numeric column found among control columns ",
@@ -599,3 +615,44 @@ format.flat_ml_fit_problem <- function(x, ...) {
 
 #' @export
 print.flat_ml_fit_problem <- default_print
+
+new_single_flat_ml_fit_problem <- make_new(c("single_flat_ml_fit_problem", "flat_ml_fit_problem"))
+
+#' @export
+#' @rdname flatten_ml_fit_problem
+as.single_flat_ml_fit_problem <- function(x, model_matrix_type = c("combined", "separate"), target_value_index = 1L, ...)
+  UseMethod("as.single_flat_ml_fit_problem", x)
+
+#' @export
+as.single_flat_ml_fit_problem.single_flat_ml_fit_problem <- function(x, model_matrix_type = c("combined", "separate"), target_value_index = 1L, ...) {
+  model_matrix_type <- match.arg(model_matrix_type, several.ok = TRUE)
+  if (!(x$model_matrix_type %in% model_matrix_type)) {
+    stop("Need flat problem with model matrix type ", paste(model_matrix_type, collapse = ", "),
+         ", got ", x$model_matrix_type, ".", call. = FALSE)
+  }
+  x
+}
+
+#' @export
+as.single_flat_ml_fit_problem.flat_ml_fit_problem <- function(x, model_matrix_type = c("combined", "separate"), target_value_index = 1L, ...) {
+  model_matrix_type <- match.arg(model_matrix_type, several.ok = TRUE)
+  if (!(x$model_matrix_type %in% model_matrix_type)) {
+    stop("Need flat problem with model matrix type ", paste(model_matrix_type, collapse = ", "),
+         ", got ", x$model_matrix_type, ".", call. = FALSE)
+  }
+  x$target_values <- unlist(lapply(x$target_values, "[[", target_value_index))
+  class(x) <- "single_flat_ml_fit_problem"
+  x
+}
+
+#' @export
+as.single_flat_ml_fit_problem.fitting_problem <- function(x, model_matrix_type = c("combined", "separate"), verbose = FALSE, target_value_index = 1L, ...) {
+  as.single_flat_ml_fit_problem(
+    as.flat_ml_fit_problem(
+      x,
+      model_matrix_type = model_matrix_type,
+      verbose = verbose
+    ),
+    target_value_index = target_value_index
+  )
+}

@@ -12,6 +12,8 @@
 #' @param algorithm Algorithm to use
 #' @param fitting_problem A fitting problem created by
 #'   [fitting_problem()].
+#' @param target_value_index The position in the list of target values
+#'   if more than one set of target value given.
 #' @param tol Tolerance, the algorithm has succeeded when all target values are
 #'   reached within this tolerance.
 #' @param verbose If `TRUE`, print diagnostic output.
@@ -25,7 +27,8 @@
 #' path <- toy_example("Tiny")
 #' ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
 ml_fit <- function(algorithm = c("entropy_o", "dss", "ipu", "hipf"),
-                   fitting_problem, verbose = FALSE, ..., tol = 1e-6) {
+                   fitting_problem, verbose = FALSE,
+                   target_value_index = 1L, ..., tol = 1e-6) {
   algorithm <- match.arg(algorithm)
   fun.name <- sprintf("ml_fit_%s", algorithm)
   if (!exists(fun.name))

@@ -1,7 +1,7 @@
 context("algorithms")
 
 test_that("algorithms", {
-  test_names <- c("Tiny", "Single", "dummytoy", "Joint-Grouped", "onetoy", "Separate-Grouped")
+  test_names <- c("Tiny", "Single", "dummytoy", "Joint-Grouped", "onetoy", "Separate-Grouped", "Joint-Split")
   test_paths <- toy_example(test_names)
   results <- llply(setNames(test_paths, nm=test_names), readRDS)
   algos <- eval(formals(ml_fit)$algorithm)
@@ -20,7 +20,7 @@ test_that("algorithms", {
       margins <- compute_margins(problem, fit$weights)
       control_df <- margin_to_df(problem$controls)
       expect_message(margin_df <- margin_to_df(margins, verbose = TRUE), "as count column for")
-      expect_equal(control_df[["..count.."]] / margin_df[["..count.."]], rep(1, nrow(margin_df)),
+      expect_equal(sapply(control_df[["..count.."]], "[[", 1) / margin_df[["..count.."]], rep(1, nrow(margin_df)),
                    tolerance = 1e-6)
       expect_true(all(abs(fit$rel_residuals) < 1e-6))
     })
@@ -28,7 +28,7 @@ test_that("algorithms", {
 })
 
 test_that("dss and entropy_o give same results", {
-  test_names <- c("Tiny", "Single", "dummytoy", "Joint-Grouped", "onetoy", "Separate-Grouped")
+  test_names <- c("Tiny", "Single", "dummytoy", "Joint-Grouped", "onetoy", "Separate-Grouped", "Joint-Split")
   test_paths <- toy_example(test_names)
   results <- llply(setNames(test_paths, nm=test_names), readRDS)
   l_ply(results, function(problem) {

@@ -14,10 +14,16 @@
 #' @examples
 #' ml_fit_ipu(fitting_problem = readRDS(path))
 ml_fit_ipu <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
-                       tol = 1e-6, maxiter = 2000, verbose = FALSE) {
+                       tol = 1e-6, maxiter = 2000, verbose = FALSE,
+                       target_value_index = 1L) {
   .patch_verbose()
 
-  flat <- as.flat_ml_fit_problem(fitting_problem, model_matrix_type = "separate", verbose = verbose)
+  flat <- as.single_flat_ml_fit_problem(
+    fitting_problem,
+    model_matrix_type = "separate",
+    verbose = verbose,
+    target_value_index = target_value_index
+  )
   ipu_res <- run_ipu(flat, tol, diff_tol, maxiter, verbose)
 
   message("Done!")

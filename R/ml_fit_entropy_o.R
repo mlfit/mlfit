@@ -9,10 +9,15 @@
 #' @examples
 #' ml_fit_entropy_o(fitting_problem = readRDS(path))
 ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE, tol = 1e-6,
-                             dfsane_args = list()) {
+                             dfsane_args = list(),
+                             target_value_index = 1L) {
   .patch_verbose()
 
-  flat <- as.flat_ml_fit_problem(fitting_problem, verbose = verbose)
+  flat <- as.single_flat_ml_fit_problem(
+    fitting_problem,
+    verbose = verbose,
+    target_value_index = target_value_index
+  )
 
   t_ref_sample <- t(flat$ref_sample)
 

@@ -3,12 +3,16 @@
 \name{flatten_ml_fit_problem}
 \alias{flatten_ml_fit_problem}
 \alias{as.flat_ml_fit_problem}
+\alias{as.single_flat_ml_fit_problem}
 \title{Return a flattened representation of a multi-level fitting problem instance}
 \usage{
 flatten_ml_fit_problem(fitting_problem, model_matrix_type = c("combined",
   "separate"), verbose = FALSE)
 
 as.flat_ml_fit_problem(x, model_matrix_type = c("combined", "separate"), ...)
+
+as.single_flat_ml_fit_problem(x, model_matrix_type = c("combined",
+  "separate"), target_value_index = 1L, ...)
 }
 \arguments{
 \item{fitting_problem}{A fitting problem created by
@@ -21,6 +25,9 @@ as.flat_ml_fit_problem(x, model_matrix_type = c("combined", "separate"), ...)
 \item{x}{An object}
 
 \item{...}{Further parameters passed to the algorithm}
+
+\item{target_value_index}{The position in the list of target values
+if more than one set of target value given.}
 }
 \value{
 An object of classes \code{flat_ml_fit_problem},

@@ -11,16 +11,21 @@
 #' @examples
 #' ml_fit_hipf(fitting_problem = readRDS(path))
 ml_fit_hipf <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
-                        tol = 1e-6, maxiter = 200, verbose = FALSE) {
+                        tol = 1e-6, maxiter = 200, verbose = FALSE,
+                        target_value_index = 1L) {
   .patch_verbose()
 
-  flat <- as.flat_ml_fit_problem(fitting_problem)
+  flat <- as.single_flat_ml_fit_problem(
+    fitting_problem,
+    verbose = verbose,
+    target_value_index = target_value_index
+  )
   fitting_problem <- flat$fitting_problem
   stopifnot(!is.null(fitting_problem))
   group_ind_totals <- get_group_ind_totals(flat, verbose)
 
-  flat_ind <- create_flat_ind(fitting_problem, verbose)
-  flat_group <- create_flat_group(fitting_problem, verbose)
+  flat_ind <- create_flat_ind(fitting_problem, verbose, target_value_index)
+  flat_group <- create_flat_group(fitting_problem, verbose, target_value_index)
   hipf_res <- run_hipf(flat, flat_group, flat_ind, group_ind_totals,
                        tol, diff_tol, maxiter, verbose)
 
@@ -50,7 +55,7 @@ get_group_ind_totals <- function(flat, verbose) {
   ret
 }
 
-create_flat_ind <- function(fitting_problem, verbose) {
+create_flat_ind <- function(fitting_problem, verbose, target_value_index) {
   fitting_problem_ind <- fitting_problem(
     ref_sample = fitting_problem$refSample,
     individual_controls = list(),
@@ -60,7 +65,12 @@ create_flat_ind <- function(fitting_problem, verbose) {
                                       count = fitting_problem$fieldNames$count)
   )
 
-  flat_ind <- as.flat_ml_fit_problem(fitting_problem_ind, model_matrix_type = "separate", verbose = verbose)
+  flat_ind <- as.single_flat_ml_fit_problem(
+    fitting_problem_ind,
+    model_matrix_type = "separate",
+    verbose = verbose,
+    target_value_index = target_value_index
+  )
 
   stopifnot(nrow(flat_ind$ref_sample) == nrow(fitting_problem$refSample))
   stopifnot(all(flat_ind$ref_sample@x %in% 0:1))
@@ -68,7 +78,7 @@ create_flat_ind <- function(fitting_problem, verbose) {
   flat_ind
 }
 
-create_flat_group <- function(fitting_problem, verbose) {
+create_flat_group <- function(fitting_problem, verbose, target_value_index) {
   fitting_problem_group <- fitting_problem(
     ref_sample = fitting_problem$refSample,
     individual_controls = list(),
@@ -78,7 +88,12 @@ create_flat_group <- function(fitting_problem, verbose) {
                                       count = fitting_problem$fieldNames$count)
   )
 
-  flat_group <- as.flat_ml_fit_problem(fitting_problem_group, model_matrix_type = "separate", verbose = verbose)
+  flat_group <- as.single_flat_ml_fit_problem(
+    fitting_problem_group,
+    model_matrix_type = "separate",
+    verbose = verbose,
+    target_value_index = target_value_index
+  )
 
   stopifnot(nrow(flat_group$ref_sample) ==
               sum(!duplicated(fitting_problem$refSample[[fitting_problem$fieldNames$groupId]])))
