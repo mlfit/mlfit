@@ -19,7 +19,7 @@ ml_fit_entropy_o(fitting_problem, verbose = FALSE, tol = 1e-06,
   dfsane_args = list())
 
 ml_fit_hipf(fitting_problem, diff_tol = 16 * .Machine$double.eps,
-  tol = 1e-06, maxiter = 200, verbose = FALSE)
+  tol = 1e-06, maxiter = 2000, verbose = FALSE)
 
 ml_fit_ipu(fitting_problem, diff_tol = 16 * .Machine$double.eps,
   tol = 1e-06, maxiter = 2000, verbose = FALSE)
