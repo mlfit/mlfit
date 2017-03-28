@@ -1,8 +1,8 @@
 Type: Package
 Package: MultiLevelIPF
 Title: Implementation of algorithms that extend IPF to nested structures
-Version: 0.3-5
-Date: 2016-09-03
+Version: 0.3-6
+Date: 2017-03-28
 Authors@R: person(given = "Kirill", family = "Müller", role = c("aut",
         "cre"), email = "krlmlr+r@mailbox.org")
 Description: The IPF algorithm operates on count data. This package offers
@@ -26,5 +26,6 @@ Suggests:
     XML
 Remotes: grake/grake
 Encoding: UTF-8
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 6.0.1
 URLNote: https://github.com/krlmlr/MultiLevelIPF
+Roxygen: list(markdown = TRUE)

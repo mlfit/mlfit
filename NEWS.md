@@ -1,3 +1,9 @@
+## MultiLevelIPF 0.3-6 (2017-03-28)
+
+- Set default maximum number of iterations for HIPF to 2000.
+- Convert documentation to Markdown.
+
+
 ## MultiLevelIPF 0.3-5 (2016-09-03)
 
 - Add "Driven by" and "Related work" sections to the README.

@@ -2,8 +2,8 @@
 % Please edit documentation in R/MultiLevelIPF-package.R
 \docType{package}
 \name{MultiLevelIPF-package}
-\alias{MultiLevelIPF}
 \alias{MultiLevelIPF-package}
+\alias{MultiLevelIPF}
 \title{Implementation of algorithms that extend IPF to nested structures}
 \description{
 The IPF algorithm operates on count data.  This package offers
@@ -12,4 +12,3 @@ structures: "parent" and "child" items for both of which constraints can be
 provided.
 }
 \keyword{package}
-

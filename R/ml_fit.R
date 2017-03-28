@@ -5,21 +5,21 @@
 #'   aggregate controls.
 #'
 #' @description
-#' \code{ml_fit} accepts an algorithm as argument and calls the
+#' `ml_fit()` accepts an algorithm as argument and calls the
 #'   corresponding function. This is useful if the result of multiple algorithms
 #'   are compared to each other.
 #'
 #' @param algorithm Algorithm to use
 #' @param fitting_problem A fitting problem created by
-#'   \code{\link{fitting_problem}}.
+#'   [fitting_problem()].
 #' @param tol Tolerance, the algorithm has succeeded when all target values are
 #'   reached within this tolerance.
-#' @param verbose If \code{TRUE}, print diagnostic output.
+#' @param verbose If `TRUE`, print diagnostic output.
 #' @param ... Further parameters passed to the algorithm
-#' @return All functions return an object of class \code{ml_fit}, which is
+#' @return All functions return an object of class `ml_fit`, which is
 #'   a named list under the hood.  The class matches the function called,
-#'   e.g., the return value of the \code{ml_fit_ipu} function also is of class
-#'   \code{ml_fit_ipu}.
+#'   e.g., the return value of the `ml_fit_ipu` function also is of class
+#'   `ml_fit_ipu`.
 #' @export
 #' @examples
 #' path <- toy_example("Tiny")

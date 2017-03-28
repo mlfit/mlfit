@@ -11,7 +11,7 @@ margin_to_df(controls, count = NULL, verbose = FALSE)
 }
 \arguments{
 \item{fitting_problem}{A fitting problem created by
-\code{\link{fitting_problem}}.}
+\code{\link[=fitting_problem]{fitting_problem()}}.}
 
 \item{weights}{A vector with one entry per row of the original reference
 sample}
@@ -19,7 +19,7 @@ sample}
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
 
 \item{controls}{Margins as returned by \code{compute_margins} or as passed
-to the \code{controls} parameter of \code{\link{fitting_problem}}.}
+to the \code{controls} parameter of \code{\link[=fitting_problem]{fitting_problem()}}.}
 
 \item{count}{Name of control total column, autodetected by default.}
 }
@@ -27,14 +27,13 @@ to the \code{controls} parameter of \code{\link{fitting_problem}}.}
 These functions allows checking a fit in terms of the original input data.
 }
 \details{
-\code{compute_margins} computes margins in the format used for the input
+\code{compute_margins()} computes margins in the format used for the input
 controls (i.e., as expected by the \code{controls} parameter of the
-\code{\link{fitting_problem}} function),
+\code{\link[=fitting_problem]{fitting_problem()}} function),
 based on a reference sample and a weights vector.
 
-\code{margins_to_df} converts margins to a data frame for easier comparison.
+\code{margins_to_df()} converts margins to a data frame for easier comparison.
 }
 \seealso{
-\code{\link{ml_fit}}
+\code{\link[=ml_fit]{ml_fit()}}
 }
-

@@ -1,8 +1,8 @@
-#' \code{ml_fit_dss} uses generalized raking and calls \code{grake::\link[grake]{dss}} internally.
+#' `ml_fit_dss()` uses generalized raking and calls \code{grake::\link[grake]{dss}} internally.
 #'
 #' @rdname ml_fit
-#' @param method Calibration method, one of \code{"raking"} (default),
-#'   \code{"linear"}, or \code{"logit"}
+#' @param method Calibration method, one of `"raking"` (default),
+#'   `"linear"`, or `"logit"`
 #' @param ginv Function that computes the Moore-Penrose pseudoinverse.
 #' @references Deville, J.-C. and \enc{Särndal}{Saerndal}, C.-E. (1992)
 #' Calibration estimators in survey sampling. \emph{Journal of the American
@@ -12,7 +12,7 @@
 #' Generalized raking procedures in survey sampling. \emph{Journal of the
 #' American Statistical Association}, \bold{88 } (423), 1013--1020.
 #'
-#' @seealso \code{\link[grake]{dss}}, \code{\link[grake]{gginv}}
+#' @seealso [grake::dss()], [grake::gginv()]
 #' @export
 #' @examples
 #' ml_fit_dss(fitting_problem = readRDS(path))

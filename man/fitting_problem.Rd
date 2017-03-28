@@ -2,8 +2,8 @@
 % Please edit documentation in R/fitting_problem.R
 \name{fitting_problem}
 \alias{fitting_problem}
-\alias{format.fitting_problem}
 \alias{is.fitting_problem}
+\alias{format.fitting_problem}
 \alias{print.fitting_problem}
 \alias{special_field_names}
 \title{Create an instance of a fitting problem}
@@ -28,7 +28,7 @@ special_field_names(groupId, individualId, individualsPerGroup = NULL,
 \code{individual_controls} and \code{group_controls} arguments}
 
 \item{field_names}{Names of special fields, construct using
-\code{\link{special_field_names}}}
+\code{\link[=special_field_names]{special_field_names()}}}
 
 \item{individual_controls, group_controls}{Control totals at individual
 and group level, given as a list of data frames where each data frame
@@ -52,15 +52,14 @@ column in each control by default).}
 }
 \value{
 An object of class \code{fitting_problem}, essentially a named list
-  with the following components:
+with the following components:
 \describe{
-  \item{\code{refSample}}{The reference sample, a \code{data.frame}.}
-  \item{\code{controls}}{A named list with two components, \code{individual}
-  and \code{group}. Each contains a list of controls as \code{data.frame}s.}
-  \item{\code{fieldNames}}{A named list with the names of special fields.}
+\item{\code{refSample}}{The reference sample, a \code{data.frame}.}
+\item{\code{controls}}{A named list with two components, \code{individual}
+and \code{group}. Each contains a list of controls as \code{data.frame}s.}
+\item{\code{fieldNames}}{A named list with the names of special fields.}
 }
 }
 \description{
 Create an instance of a fitting problem
 }
-

@@ -14,6 +14,5 @@ A named vector of file system paths.
 }
 \description{
 Returns the paths to all available toy examples, or to a specific toy
-example.  Load via \code{\link{readRDS}}.
+example.  Load via \code{\link[=readRDS]{readRDS()}}.
 }
-
