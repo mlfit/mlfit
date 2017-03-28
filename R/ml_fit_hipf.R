@@ -11,7 +11,7 @@
 #' @examples
 #' ml_fit_hipf(fitting_problem = readRDS(path))
 ml_fit_hipf <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
-                        tol = 1e-6, maxiter = 200, verbose = FALSE) {
+                        tol = 1e-6, maxiter = 2000, verbose = FALSE) {
   .patch_verbose()
 
   flat <- flatten_ml_fit_problem(fitting_problem)
