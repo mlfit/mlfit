@@ -14,18 +14,18 @@ BugReports: https://github.com/krlmlr/MultiLevelIPF/issues
 Depends: 
     methods
 Imports: 
-    plyr,
-    dplyr,
     BB,
-    Matrix,
+    dplyr,
     grake (>= 0.1-1),
     hms,
-    kimisc
+    kimisc,
+    Matrix,
+    plyr
 Suggests: 
     testthat,
     XML
-Remotes: grake/grake
 Encoding: UTF-8
+Remotes: grake/grake
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
 URLNote: https://github.com/krlmlr/MultiLevelIPF
-Roxygen: list(markdown = TRUE)
