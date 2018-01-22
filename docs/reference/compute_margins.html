@@ -135,6 +135,37 @@ based on a reference sample and a weights vector.
     <p><code><a href='ml_fit.html'>ml_fit()</a></code></p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='toy_example.html'>toy_example</a></span>(<span class='st'>"Tiny"</span>)
+<span class='no'>problem</span> <span class='kw'>&lt;-</span> <span class='fu'>readRDS</span>(<span class='no'>path</span>)
+<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ml_fit.html'>ml_fit</a></span>(<span class='kw'>algorithm</span> <span class='kw'>=</span> <span class='st'>"entropy_o"</span>, <span class='kw'>fitting_problem</span> <span class='kw'>=</span> <span class='no'>problem</span>)
+<span class='no'>margins</span> <span class='kw'>&lt;-</span> <span class='fu'>compute_margins</span>(<span class='no'>problem</span>, <span class='no'>fit</span>$<span class='no'>weights</span>)
+<span class='no'>margins</span></div><div class='output co'>#&gt; $individual
+#&gt; $individual$IND
+#&gt;   WKSTAT   N
+#&gt; 1      1  91
+#&gt; 2      2  65
+#&gt; 3      3 104
+#&gt; 
+#&gt; 
+#&gt; $group
+#&gt; $group$GROUP
+#&gt;   CAR  N
+#&gt; 1   0 35
+#&gt; 2   1 65
+#&gt; 
+#&gt; </div><div class='input'>
+<span class='fu'>margin_to_df</span>(<span class='no'>problem</span>$<span class='no'>controls</span>)</div><div class='output co'>#&gt;   ..control.type.. ..control.name.. ..id.. ..count..
+#&gt; 1       individual              IND      1        91
+#&gt; 2       individual              IND      2        65
+#&gt; 3       individual              IND      3       104
+#&gt; 4            group            GROUP      0        35
+#&gt; 5            group            GROUP      1        65</div><div class='input'><span class='fu'>margin_to_df</span>(<span class='no'>margins</span>)</div><div class='output co'>#&gt;   ..control.type.. ..control.name.. ..id.. ..count..
+#&gt; 1       individual              IND      1        91
+#&gt; 2       individual              IND      2        65
+#&gt; 3       individual              IND      3       104
+#&gt; 4            group            GROUP      0        35
+#&gt; 5            group            GROUP      1        65</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -144,7 +175,9 @@ based on a reference sample and a weights vector.
       <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

@@ -14,6 +14,12 @@
 #' @seealso [ml_fit()]
 #' @export
 #' @importFrom plyr llply
+#' @examples
+#' path <- toy_example("Tiny")
+#' problem <- readRDS(path)
+#' fit <- ml_fit(algorithm = "entropy_o", fitting_problem = problem)
+#' margins <- compute_margins(problem, fit$weights)
+#' margins
 compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
   .check_is_fitting_problem(fitting_problem)
   ref_sample <- fitting_problem$refSample
@@ -69,6 +75,10 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
 #' @rdname compute_margins
 #' @importFrom plyr ldply
 #' @export
+#' @examples
+#'
+#' margin_to_df(problem$controls)
+#' margin_to_df(margins)
 margin_to_df <- function(controls, count = NULL, verbose = FALSE) {
   .patch_verbose()
 

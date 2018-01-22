@@ -34,6 +34,16 @@ based on a reference sample and a weights vector.
 
 \code{margins_to_df()} converts margins to a data frame for easier comparison.
 }
+\examples{
+path <- toy_example("Tiny")
+problem <- readRDS(path)
+fit <- ml_fit(algorithm = "entropy_o", fitting_problem = problem)
+margins <- compute_margins(problem, fit$weights)
+margins
+
+margin_to_df(problem$controls)
+margin_to_df(margins)
+}
 \seealso{
 \code{\link[=ml_fit]{ml_fit()}}
 }
