@@ -254,8 +254,7 @@ and <code>group</code>. Each contains a list of controls as <code>data.frame</co
 <span class='no'>ye_problem</span></div><div class='output co'>#&gt; An object of class fitting_problem
 #&gt;   Reference sample: 23 observations
 #&gt;   Control totals: 1 at individual, and 1 at group level</div><div class='input'>
-<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ml_fit.html'>ml_fit_dss</a></span>(<span class='no'>ye_problem</span>)
-<span class='no'>fit</span>$<span class='no'>weights</span></div><div class='output co'>#&gt;  [1]  8.937470  8.937470  8.937470 23.448579 23.448579  2.613950  2.613950
+<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ml_fit.html'>ml_fit_dss</a></span>(<span class='no'>ye_problem</span>)</div><div class='output co'>#&gt; <span class='message'>`coalesce.na()` is deprecated, use `dplyr::coalesce()` instead.</span></div><div class='input'><span class='no'>fit</span>$<span class='no'>weights</span></div><div class='output co'>#&gt;  [1]  8.937470  8.937470  8.937470 23.448579 23.448579  2.613950  2.613950
 #&gt;  [8]  2.613950 25.899223 25.899223 25.899223 14.347802 14.347802 14.347802
 #&gt; [15] 11.009562 11.009562  2.733852  2.733852  2.733852  2.733852  2.733852
 #&gt; [22] 11.009562 11.009562</div></pre>
