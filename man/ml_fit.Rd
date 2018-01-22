@@ -91,7 +91,16 @@ are compared to each other.
 }
 \examples{
 path <- toy_example("Tiny")
-ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
+fit <- ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
+fit
+fit$weights
+fit$tol
+fit$iterations
+fit$flat
+fit$flat_weights
+fit$residuals
+fit$rel_residuals
+fit$success
 ml_fit_dss(fitting_problem = readRDS(path))
 ml_fit_dss(fitting_problem = readRDS(path), ginv = solve)
 ml_fit_entropy_o(fitting_problem = readRDS(path))

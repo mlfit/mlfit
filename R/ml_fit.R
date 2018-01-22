@@ -23,7 +23,16 @@
 #' @export
 #' @examples
 #' path <- toy_example("Tiny")
-#' ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
+#' fit <- ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
+#' fit
+#' fit$weights
+#' fit$tol
+#' fit$iterations
+#' fit$flat
+#' fit$flat_weights
+#' fit$residuals
+#' fit$rel_residuals
+#' fit$success
 ml_fit <- function(algorithm = c("entropy_o", "dss", "ipu", "hipf"),
                    fitting_problem, verbose = FALSE, ..., tol = 1e-6) {
   algorithm <- match.arg(algorithm)
