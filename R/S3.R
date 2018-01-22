@@ -1,4 +1,4 @@
-#nocov start
+# nocov start
 make_is <- function(class, env = parent.frame()) {
   f <- eval(bquote(function(x) {
     inherits(x, .(class))
@@ -8,7 +8,7 @@ make_is <- function(class, env = parent.frame()) {
 }
 
 make_new <- function(class, env = parent.frame()) {
-  f <- eval(bquote(function(x, ...) {
+  f <- eval(bquote(function(x = list(), ...) {
     structure(x, ..., class = .(class))
   }))
   environment(f) <- env
@@ -19,4 +19,4 @@ default_print <- function(x, ...) {
   cat(format(x, ...), sep = "\n")
   invisible(x)
 }
-#nocov end
+# nocov end

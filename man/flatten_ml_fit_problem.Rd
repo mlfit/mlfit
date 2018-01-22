@@ -12,7 +12,7 @@ as.flat_ml_fit_problem(x, model_matrix_type = c("combined", "separate"), ...)
 }
 \arguments{
 \item{fitting_problem}{A fitting problem created by
-\code{\link[=fitting_problem]{fitting_problem()}}.}
+\code{\link[=fitting_problem]{fitting_problem()}} or returned by \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}.}
 
 \item{model_matrix_type}{Which model matrix building strategy to use? See details.}
 
@@ -36,13 +36,18 @@ per household, and a control vector.
 The standard way to build a model matrix (\code{model_matrix = "combined"})
 is to include intercepts and avoid repeating redundant attributes.
 A simpler model matrix specification, available via \code{model_matrix = "separate"},
-is used by Ye et al. (2009):
+is suggested by Ye et al. (2009) and required for the \code{\link[=ml_fit_ipu]{ml_fit_ipu()}} implementation:
 Here, simply one column per target value is used, which
 results in a larger model matrix if more than one control is given.
 }
 \examples{
 path <- toy_example("Tiny")
-flatten_ml_fit_problem(fitting_problem = readRDS(path))
+flat_problem <- flatten_ml_fit_problem(fitting_problem = readRDS(path))
+flat_problem
+
+fit <- ml_fit_dss(flat_problem)
+fit$flat_weights
+fit$weights
 }
 \seealso{
 \code{\link[=ml_fit]{ml_fit()}}

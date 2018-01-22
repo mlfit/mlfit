@@ -19,20 +19,26 @@ ml_fit_hipf <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
 
   flat_ind <- create_flat_ind(fitting_problem, verbose)
   flat_group <- create_flat_group(fitting_problem, verbose)
-  hipf_res <- run_hipf(flat, flat_group, flat_ind, group_ind_totals,
-                       tol, diff_tol, maxiter, verbose)
+  hipf_res <- run_hipf(
+    flat, flat_group, flat_ind, group_ind_totals,
+    tol, diff_tol, maxiter, verbose
+  )
 
   message("Done!")
   res <- new_ml_fit_hipf(
     list(
       flat_ind = flat_ind,
-      flat_group = flat_group,
-      flat = flat,
-      flat_weights = hipf_res$weights
+      flat_group = flat_group
     )
   )
 
-  set_weights_success_and_residuals(res, tol, hipf_res$iter)
+  set_weights_success_and_residuals(
+    res,
+    flat,
+    flat_weights = hipf_res$weights,
+    tol,
+    iterations = hipf_res$iter
+  )
 }
 
 get_group_ind_totals <- function(flat, verbose) {
@@ -53,9 +59,11 @@ create_flat_ind <- function(fitting_problem, verbose) {
     ref_sample = fitting_problem$refSample,
     individual_controls = list(),
     group_controls = fitting_problem$controls$individual,
-    field_names = special_field_names(fitting_problem$fieldNames$individualId,
-                                      fitting_problem$fieldNames$individualId,
-                                      count = fitting_problem$fieldNames$count)
+    field_names = special_field_names(
+      fitting_problem$fieldNames$individualId,
+      fitting_problem$fieldNames$individualId,
+      count = fitting_problem$fieldNames$count
+    )
   )
 
   flat_ind <- as.flat_ml_fit_problem(fitting_problem_ind, model_matrix_type = "separate", verbose = verbose)
@@ -71,15 +79,17 @@ create_flat_group <- function(fitting_problem, verbose) {
     ref_sample = fitting_problem$refSample,
     individual_controls = list(),
     group_controls = fitting_problem$controls$group,
-    field_names = special_field_names(fitting_problem$fieldNames$groupId,
-                                      fitting_problem$fieldNames$groupId,
-                                      count = fitting_problem$fieldNames$count)
+    field_names = special_field_names(
+      fitting_problem$fieldNames$groupId,
+      fitting_problem$fieldNames$groupId,
+      count = fitting_problem$fieldNames$count
+    )
   )
 
   flat_group <- as.flat_ml_fit_problem(fitting_problem_group, model_matrix_type = "separate", verbose = verbose)
 
   stopifnot(nrow(flat_group$ref_sample) ==
-              sum(!duplicated(fitting_problem$refSample[[fitting_problem$fieldNames$groupId]])))
+    sum(!duplicated(fitting_problem$refSample[[fitting_problem$fieldNames$groupId]])))
   stopifnot(all(flat_group$ref_sample@x %in% 0:1))
 
   flat_group
@@ -114,14 +124,16 @@ run_hipf <- function(flat, flat_group, flat_ind, group_ind_totals, tol, diff_tol
   )
 
   weights_transform_group_to_groupsize <- get_transform_group_to_groupsize(
-    flat_group$reverse_weights_transform)
+    flat_group$reverse_weights_transform
+  )
 
   message("Start")
 
   for (iter in seq.int(from = 1L, to = maxiter + 1, by = 1L)) {
     last_group_weights <- group_weights
-    if (iter %% 100 == 0)
+    if (iter %% 100 == 0) {
       message("Iteration ", iter)
+    }
 
     ind_weights <- as.vector(group_weights %*% weights_transform_group_to_ind)
 
@@ -136,7 +148,8 @@ run_hipf <- function(flat, flat_group, flat_ind, group_ind_totals, tol, diff_tol
     group_weights <- as.vector(ind_weights %*% weights_transform_ind_to_group)
 
     group_weights <- rescale_group_weights_for_ind_per_group(
-      group_weights, weights_transform_group_to_groupsize, group_ind_totals)
+      group_weights, weights_transform_group_to_groupsize, group_ind_totals
+    )
 
     for (col in seq_len(ncol(group_ref_sample))) {
       row_indexes <- group_nonzero_row_index[[col]]
@@ -158,7 +171,7 @@ run_hipf <- function(flat, flat_group, flat_ind, group_ind_totals, tol, diff_tol
   }
 
   residuals <- group_weights %*% group_ref_sample - group_target_values
-  nlist(
+  tibble::lst(
     weights = group_weights,
     iter
   )
@@ -169,11 +182,12 @@ get_transform_group_to_groupsize <- function(group_reverse_weights_transform) {
   sparseMatrix(
     i = seq_along(group_sizes),
     j = group_sizes,
-    x = 1)
+    x = 1
+  )
 }
 
 rescale_group_weights_for_ind_per_group <- function(
-  group_weights, weights_transform_group_to_groupsize, group_ind_totals) {
+                                                    group_weights, weights_transform_group_to_groupsize, group_ind_totals) {
 
   # Appendix A
   Fp <- group_weights %*% weights_transform_group_to_groupsize
@@ -184,8 +198,9 @@ rescale_group_weights_for_ind_per_group <- function(
 
   # No root can happen with malformed problems, silently return
   # and let higher-level routine handle this
-  if (length(d) != 1L)
+  if (length(d) != 1L) {
     return(group_weights)
+  }
 
   dp <- d ** seq_along(Fp)
   c <- group_ind_totals$group / sum(Fp * dp)
@@ -193,7 +208,8 @@ rescale_group_weights_for_ind_per_group <- function(
   fhprime_by_fh <- c * dp
 
   group_weights <- group_weights * as.vector(
-    tcrossprod(fhprime_by_fh, weights_transform_group_to_groupsize))
+    tcrossprod(fhprime_by_fh, weights_transform_group_to_groupsize)
+  )
 
   stopifnot(abs(sum(group_weights) / group_ind_totals$group - 1) < 1e-6)
   stopifnot(abs(sum(as.vector(group_weights %*% weights_transform_group_to_groupsize) * seq_along(Fp)) / group_ind_totals$ind - 1) < 1e-6)

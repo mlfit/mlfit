@@ -14,3 +14,7 @@
 ^Makefile\.in$
 ^makeR$
 ^data-raw$
+^appveyor\.yml$
+^tic\.R$
+^docs$
+^_pkgdown\.yml$

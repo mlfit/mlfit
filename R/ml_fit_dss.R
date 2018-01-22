@@ -36,18 +36,20 @@ ml_fit_dss <- function(fitting_problem,
     method = method,
     ginv = ginv,
     tol = tol,
-    attributes = TRUE)
+    attributes = TRUE
+  )
   weights.agg <- g * flat$weights
 
   message("Done!")
-  res <- new_ml_fit_dss(
-    list(
-      flat = flat,
-      flat_weights = weights.agg
-    )
-  )
+  res <- new_ml_fit_dss()
 
-  set_weights_success_and_residuals(res, tol, attr(g, "iterations"))
+  set_weights_success_and_residuals(
+    res,
+    flat,
+    flat_weights = weights.agg,
+    tol,
+    iterations = attr(g, "iterations")
+  )
 }
 
 new_ml_fit_dss <- make_new(c("ml_fit_dss", "ml_fit"))

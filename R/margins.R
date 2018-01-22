@@ -14,6 +14,12 @@
 #' @seealso [ml_fit()]
 #' @export
 #' @importFrom plyr llply
+#' @examples
+#' path <- toy_example("Tiny")
+#' problem <- readRDS(path)
+#' fit <- ml_fit(algorithm = "entropy_o", fitting_problem = problem)
+#' margins <- compute_margins(problem, fit$weights)
+#' margins
 compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
   .check_is_fitting_problem(fitting_problem)
   ref_sample <- fitting_problem$refSample
@@ -28,14 +34,15 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
 
   message("Aggregating")
   llply(
-    setNames(nm=names(controls)),
+    setNames(nm = names(controls)),
     function(control.type) {
       weights_df <- data.frame(
         ..w.. = if (control.type == "individual") {
           weights
         } else {
           ifelse(duplicated(ref_sample[[field_names$groupId]]), 0, weights)
-        })
+        }
+      )
       ref_sample_w <- cbind(weights_df, ref_sample)
 
       control.list <- controls[[control.type]]
@@ -68,19 +75,23 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
 #' @rdname compute_margins
 #' @importFrom plyr ldply
 #' @export
+#' @examples
+#'
+#' margin_to_df(problem$controls)
+#' margin_to_df(margins)
 margin_to_df <- function(controls, count = NULL, verbose = FALSE) {
   .patch_verbose()
 
   message("Converting list structure to data frame")
   ldply(
-    setNames(nm=names(controls)),
+    setNames(nm = names(controls)),
     function(control.type) {
       control.list <- controls[[control.type]]
       ldply(
         control.list,
         control.type = control.type,
         function(control, control.type) {
-          count = get_count_field_name(control, count, message)
+          count <- get_count_field_name(control, count, message)
           non_control <- control[sort(setdiff(names(control), count))]
           lex_order <- do.call(order, non_control)
           data.frame(

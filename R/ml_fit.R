@@ -11,7 +11,7 @@
 #'
 #' @param algorithm Algorithm to use
 #' @param fitting_problem A fitting problem created by
-#'   [fitting_problem()].
+#'   [fitting_problem()] or returned by [flatten_ml_fit_problem()].
 #' @param tol Tolerance, the algorithm has succeeded when all target values are
 #'   reached within this tolerance.
 #' @param verbose If `TRUE`, print diagnostic output.
@@ -23,13 +23,23 @@
 #' @export
 #' @examples
 #' path <- toy_example("Tiny")
-#' ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
+#' fit <- ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
+#' fit
+#' fit$weights
+#' fit$tol
+#' fit$iterations
+#' fit$flat
+#' fit$flat_weights
+#' fit$residuals
+#' fit$rel_residuals
+#' fit$success
 ml_fit <- function(algorithm = c("entropy_o", "dss", "ipu", "hipf"),
                    fitting_problem, verbose = FALSE, ..., tol = 1e-6) {
   algorithm <- match.arg(algorithm)
   fun.name <- sprintf("ml_fit_%s", algorithm)
-  if (!exists(fun.name))
+  if (!exists(fun.name)) {
     stop("Unknown algorithm:", algorithm)
+  }
 
   get(fun.name)(
     fitting_problem = fitting_problem,
@@ -47,16 +57,20 @@ ml_fit <- function(algorithm = c("entropy_o", "dss", "ipu", "hipf"),
 .patch_verbose <- function() {
   verbose <- get("verbose", parent.frame())
   if (!verbose) {
-    export.list(list(message = function(...) invisible(NULL)),
-                target.env = parent.frame())
+    export.list(
+      list(message = function(...) invisible(NULL)),
+      target.env = parent.frame()
+    )
   } else {
-    export.list(list(message = new_timed_message()),
-                target.env = parent.frame())
+    export.list(
+      list(message = new_timed_message()),
+      target.env = parent.frame()
+    )
   }
 }
 
 new_timed_message <- function() {
-  start_time = Sys.time()
+  start_time <- Sys.time()
 
   function(...) {
     current_time <- Sys.time() - start_time
@@ -66,31 +80,56 @@ new_timed_message <- function() {
 
 get_algo <- function(x) {
   other_classes <- grep("^ml_fit_", class(x), value = TRUE)
-  if (length(other_classes) == 0L)
+  if (length(other_classes) == 0L) {
     "(unknown)"
-  else
+  } else {
     paste(gsub("^ml_fit_", "", other_classes), collapse = ", ")
+  }
 }
 
-set_weights_success_and_residuals <- function(res, tol, iterations) {
+#' @rdname ml_fit
+#' @aliases NULL
+#' @usage NULL
+#' @return
+#' All returned objects contain at least the following components, which can be
+#' accessed with `$` or `[[`:
+set_weights_success_and_residuals <- function(res, flat, flat_weights,
+                                              tol, iterations) {
+
+  #' - `weights`: Resulting weights, compatible to the original reference sample
+  res$weights <- expand_weights(flat_weights, flat)
+  #' - `tol`: The input tolerance
   res$tol <- tol
+  #' - `iterations`: The actual number of iterations required to obtain the result
   res$iterations <- as.integer(iterations)
-  res$weights <- expand_weights(res$flat_weights, res$flat)
+
+  #' - `flat`: The flattened fitting problem, see `flatten_ml_fit_problem()`
+  res$flat <- flat
+  #' - `flat_weights`: Weights in terms of the flattened fitting problem
+  res$flat_weights <- flat_weights
 
   res2 <- get_success_and_residuals(
-    res$flat_weights %*% res$flat$ref_sample,
-    res$flat$target_values,
-    tol)
+    flat_weights %*% flat$ref_sample,
+    flat$target_values,
+    tol
+  )
 
   res[names(res2)] <- res2
-  res$residuals <- res$flat_weighted_values - res$flat$target_values
+  #' - `residuals`: Absolute residuals
+  res$residuals <- res$flat_weighted_values - flat$target_values
   res
 }
 
+#' @rdname ml_fit
+#' @aliases NULL
+#' @usage NULL
+#' @return
 get_success_and_residuals <- function(flat_weighted_values, target_values, tol) {
   res <- list()
   res$flat_weighted_values <- as.vector(flat_weighted_values)
+  #' - `rel_residuals`: Relative residuals
   res$rel_residuals <- rel_residuals(res$flat_weighted_values, target_values)
+  #' - `success`: Are the residuals within the tolerance?
   res$success <- is_abs_within_tol(res$rel_residuals, tol)
   res
 }

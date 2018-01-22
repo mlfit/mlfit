@@ -2,13 +2,37 @@
 % Please edit documentation in R/MultiLevelIPF-package.R
 \docType{package}
 \name{MultiLevelIPF-package}
-\alias{MultiLevelIPF-package}
 \alias{MultiLevelIPF}
-\title{Implementation of algorithms that extend IPF to nested structures}
+\alias{MultiLevelIPF-package}
+\title{MultiLevelIPF: Implementation of algorithms that extend IPF to nested structures}
 \description{
-The IPF algorithm operates on count data.  This package offers
-implementations for several algorithms that extend this to nested
-structures: "parent" and "child" items for both of which constraints can be
-provided.
+The IPF algorithm operates on count data. This package offers
+implementations for several algorithms that extend this to nested structures:
+"parent" and "child" items for both of which constraints can be provided.
 }
-\keyword{package}
+\details{
+To use this package, you need to:
+\enumerate{
+\item Specify your fitting problem with \code{\link[=fitting_problem]{fitting_problem()}}
+\item Optionally, convert the fitting problem to a structure that can be
+processed by the algorithms with \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}; this is
+helpful if you want to run the same fitting problem with multiple
+algorithms and compare results.
+\item Compute weights with one of the algorithms provided in this package with
+\code{\link[=ml_fit]{ml_fit()}} or one of the specialized functions
+\item Analyze weights or residuals, e.g. with \code{\link[=compute_margins]{compute_margins()}}
+}
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://krlmlr.github.io/MultiLevelIPF}
+  \item \url{https://github.com/krlmlr/MultiLevelIPF}
+  \item Report bugs at \url{https://github.com/krlmlr/MultiLevelIPF/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Kirill Müller \email{krlmlr+r@mailbox.org}
+
+}

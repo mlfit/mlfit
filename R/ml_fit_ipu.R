@@ -21,14 +21,15 @@ ml_fit_ipu <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
   ipu_res <- run_ipu(flat, tol, diff_tol, maxiter, verbose)
 
   message("Done!")
-  res <- new_ml_fit_ipu(
-    list(
-      flat = flat,
-      flat_weights = ipu_res$weights
-    )
-  )
+  res <- new_ml_fit_ipu()
 
-  set_weights_success_and_residuals(res, tol, ipu_res$iter)
+  set_weights_success_and_residuals(
+    res,
+    flat,
+    flat_weights = ipu_res$weights,
+    tol,
+    ipu_res$iter
+  )
 }
 
 run_ipu <- function(flat, tol, diff_tol, maxiter, verbose) {
@@ -54,8 +55,9 @@ run_ipu <- function(flat, tol, diff_tol, maxiter, verbose) {
   weights <- prior_weights
   for (iter in seq.int(from = 2L, to = maxiter + 1, by = 1L)) {
     last_weights <- weights
-    if (iter %% 100 == 0)
+    if (iter %% 100 == 0) {
       message("Iteration ", iter)
+    }
 
     for (col in seq_len(ncol(ref_sample))) {
       row_indexes <- nonzero_row_index[[col]]
@@ -77,7 +79,7 @@ run_ipu <- function(flat, tol, diff_tol, maxiter, verbose) {
     }
   }
 
-  nlist(
+  tibble::lst(
     weights,
     iter
   )

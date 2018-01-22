@@ -28,7 +28,7 @@ ml_fit_ipu(fitting_problem, diff_tol = 16 * .Machine$double.eps,
 \item{algorithm}{Algorithm to use}
 
 \item{fitting_problem}{A fitting problem created by
-\code{\link[=fitting_problem]{fitting_problem()}}.}
+\code{\link[=fitting_problem]{fitting_problem()}} or returned by \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}.}
 
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
 
@@ -55,6 +55,22 @@ All functions return an object of class \code{ml_fit}, which is
 a named list under the hood.  The class matches the function called,
 e.g., the return value of the \code{ml_fit_ipu} function also is of class
 \code{ml_fit_ipu}.
+
+All returned objects contain at least the following components, which can be
+accessed with \code{$} or \code{[[}:
+\itemize{
+\item \code{weights}: Resulting weights, compatible to the original reference sample
+\item \code{tol}: The input tolerance
+\item \code{iterations}: The actual number of iterations required to obtain the result
+\item \code{flat}: The flattened fitting problem, see \code{flatten_ml_fit_problem()}
+\item \code{flat_weights}: Weights in terms of the flattened fitting problem
+\item \code{residuals}: Absolute residuals
+}
+
+\itemize{
+\item \code{rel_residuals}: Relative residuals
+\item \code{success}: Are the residuals within the tolerance?
+}
 }
 \description{
 These functions reweight a reference sample to match constraints given by
@@ -75,7 +91,16 @@ are compared to each other.
 }
 \examples{
 path <- toy_example("Tiny")
-ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
+fit <- ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
+fit
+fit$weights
+fit$tol
+fit$iterations
+fit$flat
+fit$flat_weights
+fit$residuals
+fit$rel_residuals
+fit$success
 ml_fit_dss(fitting_problem = readRDS(path))
 ml_fit_dss(fitting_problem = readRDS(path), ginv = solve)
 ml_fit_entropy_o(fitting_problem = readRDS(path))

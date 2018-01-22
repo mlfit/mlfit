@@ -1,16 +1,16 @@
 context("Corner cases")
 
 test_that("Grand totals only", {
-  ref_sample_full <- data.frame(gid=1:3, A=factor("a"))
+  ref_sample_full <- data.frame(gid = 1:3, A = factor("a"))
   ref_sample_full <- adply(ref_sample_full, 1, function(chunk)
     data.frame(iid = seq_len(chunk$gid), n = chunk$gid))
 
-  ref_sample_one <- data.frame(gid=1, iid=1, n=1, A=factor("a"))
+  ref_sample_one <- data.frame(gid = 1, iid = 1, n = 1, A = factor("a"))
 
-  group_control_grand = data.frame(N=3)
-  group_control_dummy = data.frame(N=3, A=factor("a"))
-  individual_control_grand = data.frame(N=6)
-  individual_control_dummy = data.frame(N=6, A=factor("a"))
+  group_control_grand <- data.frame(N = 3)
+  group_control_dummy <- data.frame(N = 3, A = factor("a"))
+  individual_control_grand <- data.frame(N = 6)
+  individual_control_dummy <- data.frame(N = 6, A = factor("a"))
 
   ref_sample_list <- list(
     ref_sample_full,
@@ -48,7 +48,9 @@ test_that("Grand totals only", {
         weights <- if (nrow(ref_sample) > 1) {
           if (length(individual_controls) > 0) {
             if (length(group_controls) > 0) rep(1, max(ref_sample$gid)) else rep(2, max(ref_sample$gid))
-          } else rep(1, max(ref_sample$gid))
+          } else {
+            rep(1, max(ref_sample$gid))
+          }
         } else {
           if (length(individual_controls) > 0) {
             if (length(group_controls) > 0) 3 else 6
@@ -58,13 +60,17 @@ test_that("Grand totals only", {
         }
 
         if (length(group_controls) + length(individual_controls) == 0L) {
-          expect_error(flatten_ml_fit_problem(problem, verbose = TRUE),
-                       "at least one")
+          expect_error(
+            flatten_ml_fit_problem(problem, verbose = TRUE),
+            "at least one"
+          )
         } else {
           flat <- flatten_ml_fit_problem(problem, verbose = TRUE)
           expect_equal(ncol(flat$ref_sample), cols)
-          expect_equal(as.vector(flat$weights %*% flat$reverse_weights_transform),
-                       orig_weights)
+          expect_equal(
+            as.vector(flat$weights %*% flat$reverse_weights_transform),
+            orig_weights
+          )
           expect_equal(flat$weights, weights)
         }
       }

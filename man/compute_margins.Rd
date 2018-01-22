@@ -11,7 +11,7 @@ margin_to_df(controls, count = NULL, verbose = FALSE)
 }
 \arguments{
 \item{fitting_problem}{A fitting problem created by
-\code{\link[=fitting_problem]{fitting_problem()}}.}
+\code{\link[=fitting_problem]{fitting_problem()}} or returned by \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}.}
 
 \item{weights}{A vector with one entry per row of the original reference
 sample}
@@ -33,6 +33,16 @@ controls (i.e., as expected by the \code{controls} parameter of the
 based on a reference sample and a weights vector.
 
 \code{margins_to_df()} converts margins to a data frame for easier comparison.
+}
+\examples{
+path <- toy_example("Tiny")
+problem <- readRDS(path)
+fit <- ml_fit(algorithm = "entropy_o", fitting_problem = problem)
+margins <- compute_margins(problem, fit$weights)
+margins
+
+margin_to_df(problem$controls)
+margin_to_df(margins)
 }
 \seealso{
 \code{\link[=ml_fit]{ml_fit()}}

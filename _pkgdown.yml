@@ -1,0 +1,13 @@
+template:
+  params:
+    bootswatch: flatly # https://bootswatch.com/flatly/
+
+reference:
+- title: Multi-level fitting
+  contents:
+  - MultiLevelIPF-package
+  - toy_example
+  - fitting_problem
+  - flatten_ml_fit_problem
+  - ml_fit
+  - compute_margins

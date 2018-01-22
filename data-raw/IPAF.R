@@ -35,25 +35,25 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
   xml_file <- rl(config_name)
   config <- .xmlToList(XML::xmlTreeParse(xml_file))
 
-  fileExtension <-  config$fileExtension
+  fileExtension <- config$fileExtension
   fx <- function(n) rl(sprintf("%s.%s", n, fileExtension))
 
   separator <- config$separator
   if (separator == "\\t") {
     separator <- "\t"
   }
-  rd <- function(n) read.table(file=fx(n), header=TRUE, sep=separator)
+  rd <- function(n) read.table(file = fx(n), header = TRUE, sep = separator)
 
   refSample <- rd(config$refSample)
 
   fieldNames <- config$fieldNames
 
   controls <- llply(
-    setNames(nm=c("individual", "group")),
+    setNames(nm = c("individual", "group")),
     function(type) {
       llply(
-        setNames(nm=unlist(config$controls[[type]])),
-        function (control) {
+        setNames(nm = unlist(config$controls[[type]])),
+        function(control) {
           control.df <- rd(control)
           control.columns <- setdiff(colnames(control.df), fieldNames$count)
           for (control.column in setdiff(control.columns, fieldNames$count))
@@ -80,27 +80,32 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
   for (control.column in setdiff(control.columns, fieldNames$count))
     refSample[[control.column]] <- factor(refSample[[control.column]])
 
-  algorithms <- setNames(nm=unlist(config$algorithms))
+  algorithms <- setNames(nm = unlist(config$algorithms))
 
   weights <- llply(
     algorithms,
-    function (algo) {
-      subdir_paths <- dir(path, pattern=glob2rx(sprintf("*-%s", algo)),
-                          full.names=TRUE)
+    function(algo) {
+      subdir_paths <- dir(
+        path, pattern = glob2rx(sprintf("*-%s", algo)),
+        full.names = TRUE
+      )
       if (length(subdir_paths) == 0) {
         warning("No results found for algorithm ", algo)
       } else {
         if (length(subdir_paths) > 1) {
-          warning("Multiple results found for algorithm ", algo,
-                  " using ", subdir_paths[[1]])
+          warning(
+            "Multiple results found for algorithm ", algo,
+            " using ", subdir_paths[[1]]
+          )
         }
         fn_rx <- "^.*-weights-([0-9]+).csv$"
-        csv_paths <- dir(subdir_paths, pattern=fn_rx, full.names=TRUE)
+        csv_paths <- dir(subdir_paths, pattern = fn_rx, full.names = TRUE)
         csv_numbers <- as.integer(gsub(fn_rx, "\\1", csv_paths))
         names(csv_paths) <- csv_numbers
 
-        if (!all_weights)
+        if (!all_weights) {
           csv_paths <- csv_paths[which.max(csv_numbers)]
+        }
 
         llply(
           csv_paths,
@@ -108,8 +113,9 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
             weights_table <- read.csv(csv_path)
             weights <- setNames(weights_table$w, weights_table[[config$fieldNames$individualId]])
             ret_weights <- unname(weights[as.character(refSample[[config$fieldNames$individualId]])])
-            if (any(is.na(ret_weights)))
+            if (any(is.na(ret_weights))) {
               warning("Missing weights for algorithm ", algo)
+            }
             ret_weights
           }
         )
@@ -118,38 +124,48 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
   )
 
   new_IPAF_result(
-    nlist(refSample, controls, fieldNames, algorithms, weights)
+    tibble::lst(refSample, controls, fieldNames, algorithms, weights)
   )
 }
 
 new_IPAF_result <- make_new(c("IPAF_result", "fitting_problem"))
 
 # nolint start
-.xmlToList <- function (node, addAttributes = TRUE, simplify = FALSE) {
-  if (is.character(node))
-    node = XML::xmlParse(node)
-  if (inherits(node, "XMLAbstractDocument"))
-    node = XML::xmlRoot(node)
-  if (any(inherits(node, c("XMLTextNode", "XMLInternalTextNode"))))
+.xmlToList <- function(node, addAttributes = TRUE, simplify = FALSE) {
+  if (is.character(node)) {
+    node <- XML::xmlParse(node)
+  }
+  if (inherits(node, "XMLAbstractDocument")) {
+    node <- XML::xmlRoot(node)
+  }
+  if (any(inherits(node, c("XMLTextNode", "XMLInternalTextNode")))) {
     XML::xmlValue(node)
-  else if (XML::xmlSize(node) == 0)
+  } else if (XML::xmlSize(node) == 0) {
     XML::xmlAttrs(node)
-  else {
-    tmp = vals = (if (simplify)
+  } else {
+    tmp <- vals <- (if (simplify) {
       XML::xmlSApply
-                  else XML::xmlApply)(node, .xmlToList, addAttributes)
-    tt = XML::xmlSApply(node, inherits, c("XMLTextNode", "XMLInternalTextNode"))
-    vals[tt] = (if (simplify)
+    } else {
+      XML::xmlApply
+    } )(node, .xmlToList, addAttributes)
+    tt <- XML::xmlSApply(node, inherits, c("XMLTextNode", "XMLInternalTextNode"))
+    vals[tt] <- (if (simplify) {
       sapply
-                else lapply)(vals[tt], function(x) x[[1]])
+    } else {
+      lapply
+    } )(vals[tt], function(x) x[[1]])
     if (length(attrs <- XML::xmlAttrs(node)) > 0) {
-      if (addAttributes)
-        vals[[".attrs"]] = attrs
-      else attributes(vals) = as.list(attrs)
+      if (addAttributes) {
+        vals[[".attrs"]] <- attrs
+      } else {
+        attributes(vals) <- as.list(attrs)
+      }
     }
-    if (any(tt) && length(vals) == 1 && names(vals) == "text")
+    if (any(tt) && length(vals) == 1 && names(vals) == "text") {
       vals[[1]]
-    else vals
+    } else {
+      vals
+    }
   }
 }
 # nolint end
