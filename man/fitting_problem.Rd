@@ -63,8 +63,8 @@ and \code{group}. Each contains a list of controls as \code{data.frame}s.}
 \description{
 The \code{fitting_problem()} function is the first step for fitting a reference
 sample to known control totals with \link{MultiLevelIPF}.
-All algorithms expect an object created by this function (or optionally
-processed with \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}.
+All algorithms (see \code{\link[=ml_fit]{ml_fit()}}) expect an object created by this function (or
+optionally processed with \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}).
 
 The \code{special_field_names()} function is useful for the \code{field_names} argument
 to \code{fitting_problem}.

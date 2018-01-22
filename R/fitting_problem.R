@@ -2,8 +2,8 @@
 #'
 #' The `fitting_problem()` function is the first step for fitting a reference
 #' sample to known control totals with [MultiLevelIPF].
-#' All algorithms expect an object created by this function (or optionally
-#' processed with [flatten_ml_fit_problem()].
+#' All algorithms (see [ml_fit()]) expect an object created by this function (or
+#' optionally processed with [flatten_ml_fit_problem()]).
 #'
 #' @param ref_sample The reference sample
 #' @param controls Control totals, by default initialized from the
