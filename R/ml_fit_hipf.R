@@ -158,7 +158,7 @@ run_hipf <- function(flat, flat_group, flat_ind, group_ind_totals, tol, diff_tol
   }
 
   residuals <- group_weights %*% group_ref_sample - group_target_values
-  nlist(
+  tibble::lst(
     weights = group_weights,
     iter
   )

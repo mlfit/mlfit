@@ -77,7 +77,7 @@ run_ipu <- function(flat, tol, diff_tol, maxiter, verbose) {
     }
   }
 
-  nlist(
+  tibble::lst(
     weights,
     iter
   )

@@ -138,5 +138,5 @@ special_field_names <- function(groupId, individualId, individualsPerGroup = NUL
   if (!is.null(individualsPerGroup)) {
     warning("The individualsPerGroup argument is obsolete.", call. = FALSE)
   }
-  nlist(groupId, individualId, count)
+  tibble::lst(groupId, individualId, count)
 }
