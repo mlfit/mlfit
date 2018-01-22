@@ -23,6 +23,7 @@ Imports:
     plyr
 Suggests: 
     testthat,
+    tibble,
     XML
 Encoding: UTF-8
 Remotes: grake/grake

@@ -63,3 +63,62 @@ and \code{group}. Each contains a list of controls as \code{data.frame}s.}
 \description{
 Create an instance of a fitting problem
 }
+\examples{
+# Create example from Ye et al., 2009
+
+# Provide reference sample
+ye <- tibble::tribble(
+  ~HHNR, ~APER, ~HH_VAR, ~P_VAR,
+  1,     3,     1,       1,
+  1,     3,     1,       2,
+  1,     3,     1,       3,
+  2,     2,     1,       1,
+  2,     2,     1,       3,
+  3,     3,     1,       1,
+  3,     3,     1,       1,
+  3,     3,     1,       2,
+  4,     3,     2,       1,
+  4,     3,     2,       3,
+  4,     3,     2,       3,
+  5,     3,     2,       2,
+  5,     3,     2,       2,
+  5,     3,     2,       3,
+  6,     2,     2,       1,
+  6,     2,     2,       2,
+  7,     5,     2,       1,
+  7,     5,     2,       1,
+  7,     5,     2,       2,
+  7,     5,     2,       3,
+  7,     5,     2,       3,
+  8,     2,     2,       1,
+  8,     2,     2,       2
+)
+ye
+
+# Specify control at household level
+ye_hh <- tibble::tribble(
+  ~HH_VAR, ~N,
+  1,       35,
+  2,       65
+)
+ye_hh
+
+# Specify control at person level
+ye_ind <- tibble::tribble(
+  ~P_VAR, ~N,
+  1,      91,
+  2,      65,
+  3,      104
+)
+ye_ind
+
+ye_problem <- fitting_problem(
+  ref_sample = ye,
+  field_names = special_field_names(
+    groupId = "HHNR", individualId = "PNR", count = "N"
+  ),
+  group_controls = list(ye_hh),
+  individual_controls = list(ye_ind)
+)
+ye_problem
+}

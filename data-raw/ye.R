@@ -8,7 +8,7 @@ ye_flat <- read.table(text = "1	0	1	1	1
 0	1	1	1	0
 ")
 
-ye <- tibble::tibble(
+ye <- tibble::tribble(
   ~HHNR, ~APER, ~HH_VAR, ~P_VAR,
   1,     3,     1,       1,
   1,     3,     1,       2,
@@ -32,15 +32,16 @@ ye <- tibble::tibble(
   7,     5,     2,       3,
   7,     5,     2,       3,
   8,     2,     2,       1,
-  8,     2,     2,       2)
+  8,     2,     2,       2
+)
 
-ye_hh <- tibble::tibble(
+ye_hh <- tibble::tribble(
   ~HH_VAR, ~N,
   1,       35,
   2,       65
 )
 
-ye_ind <- tibble::tibble(
+ye_ind <- tibble::tribble(
   ~P_VAR, ~N,
   1,      91,
   2,      65,

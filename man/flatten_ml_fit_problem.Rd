@@ -36,7 +36,7 @@ per household, and a control vector.
 The standard way to build a model matrix (\code{model_matrix = "combined"})
 is to include intercepts and avoid repeating redundant attributes.
 A simpler model matrix specification, available via \code{model_matrix = "separate"},
-is used by Ye et al. (2009):
+is suggested by Ye et al. (2009) and required for the \code{\link[=ml_fit_ipu]{ml_fit_ipu()}} implementation:
 Here, simply one column per target value is used, which
 results in a larger model matrix if more than one control is given.
 }
