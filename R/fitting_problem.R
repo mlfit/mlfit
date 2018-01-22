@@ -83,6 +83,9 @@
 #'   individual_controls = list(ye_ind)
 #' )
 #' ye_problem
+#'
+#' fit <- ml_fit_dss(ye_problem)
+#' fit$weights
 fitting_problem <- function(ref_sample,
                             controls = list(
                               individual = individual_controls,

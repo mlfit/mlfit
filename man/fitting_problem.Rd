@@ -127,4 +127,7 @@ ye_problem <- fitting_problem(
   individual_controls = list(ye_ind)
 )
 ye_problem
+
+fit <- ml_fit_dss(ye_problem)
+fit$weights
 }
