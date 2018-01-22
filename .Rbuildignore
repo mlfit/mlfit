@@ -16,3 +16,4 @@
 ^data-raw$
 ^appveyor\.yml$
 ^tic\.R$
+^docs$
