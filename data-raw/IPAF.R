@@ -103,8 +103,9 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
         csv_numbers <- as.integer(gsub(fn_rx, "\\1", csv_paths))
         names(csv_paths) <- csv_numbers
 
-        if (!all_weights)
+        if (!all_weights) {
           csv_paths <- csv_paths[which.max(csv_numbers)]
+        }
 
         llply(
           csv_paths,
@@ -112,8 +113,9 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
             weights_table <- read.csv(csv_path)
             weights <- setNames(weights_table$w, weights_table[[config$fieldNames$individualId]])
             ret_weights <- unname(weights[as.character(refSample[[config$fieldNames$individualId]])])
-            if (any(is.na(ret_weights)))
+            if (any(is.na(ret_weights))) {
               warning("Missing weights for algorithm ", algo)
+            }
             ret_weights
           }
         )
@@ -130,30 +132,40 @@ new_IPAF_result <- make_new(c("IPAF_result", "fitting_problem"))
 
 # nolint start
 .xmlToList <- function(node, addAttributes = TRUE, simplify = FALSE) {
-  if (is.character(node))
-    node = XML::xmlParse(node)
-  if (inherits(node, "XMLAbstractDocument"))
-    node = XML::xmlRoot(node)
-  if (any(inherits(node, c("XMLTextNode", "XMLInternalTextNode"))))
+  if (is.character(node)) {
+    node <- XML::xmlParse(node)
+  }
+  if (inherits(node, "XMLAbstractDocument")) {
+    node <- XML::xmlRoot(node)
+  }
+  if (any(inherits(node, c("XMLTextNode", "XMLInternalTextNode")))) {
     XML::xmlValue(node)
-  else if (XML::xmlSize(node) == 0)
+  } else if (XML::xmlSize(node) == 0) {
     XML::xmlAttrs(node)
-  else {
-    tmp = vals = (if (simplify)
+  } else {
+    tmp <- vals <- (if (simplify) {
       XML::xmlSApply
-    else XML::xmlApply)(node, .xmlToList, addAttributes)
-    tt = XML::xmlSApply(node, inherits, c("XMLTextNode", "XMLInternalTextNode"))
-    vals[tt] = (if (simplify)
+    } else {
+      XML::xmlApply
+    } )(node, .xmlToList, addAttributes)
+    tt <- XML::xmlSApply(node, inherits, c("XMLTextNode", "XMLInternalTextNode"))
+    vals[tt] <- (if (simplify) {
       sapply
-    else lapply)(vals[tt], function(x) x[[1]])
+    } else {
+      lapply
+    } )(vals[tt], function(x) x[[1]])
     if (length(attrs <- XML::xmlAttrs(node)) > 0) {
-      if (addAttributes)
-        vals[[".attrs"]] = attrs
-      else attributes(vals) = as.list(attrs)
+      if (addAttributes) {
+        vals[[".attrs"]] <- attrs
+      } else {
+        attributes(vals) <- as.list(attrs)
+      }
     }
-    if (any(tt) && length(vals) == 1 && names(vals) == "text")
+    if (any(tt) && length(vals) == 1 && names(vals) == "text") {
       vals[[1]]
-    else vals
+    } else {
+      vals
+    }
   }
 }
 # nolint end

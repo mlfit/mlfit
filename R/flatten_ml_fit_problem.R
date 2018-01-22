@@ -77,7 +77,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
     gid_lookup %>%
     group_by_(~gid) %>%
     mutate_(n = ~length(gid)) %>%
-    ungroup
+    ungroup()
 
   if (length(control_formula_components$group) > 0L) {
     message("Preparing reference sample (groups)")
@@ -189,8 +189,9 @@ flatten_ml_fit_problem <- function(fitting_problem,
     }
     ref_sample.agg.m <- ref_sample.agg.m[!zero.observations, !zero.control.totals]
     control.totals <- control.totals[!zero.control.totals]
-  } else
+  } else {
     message("  No zero-valued controls")
+  }
   stopifnot(control.totals > 0)
 
   message("Checking missing observations")
@@ -378,8 +379,9 @@ flatten_ml_fit_problem <- function(fitting_problem,
   )
 
   message("Checking group ID column")
-  if (!(field_names$groupId %in% colnames(ref_sample)))
+  if (!(field_names$groupId %in% colnames(ref_sample))) {
     stop("Group ID column ", field_names$groupId, " not found in reference sample.")
+  }
 
   list(
     ref_sample = ref_sample,
@@ -437,8 +439,9 @@ flatten_ml_fit_problem <- function(fitting_problem,
           colnames(control) <- .updated_control_colnames(control, control.names, new.control.names)
 
           control.term <- paste0(new.control.names, collapse = "*")
-          if (nchar(control.term) == 0)
+          if (nchar(control.term) == 0) {
             control.term <- "1"
+          }
 
           control.mm <- model_matrix(control.term, control, control.type)
 
@@ -474,10 +477,11 @@ flatten_ml_fit_problem <- function(fitting_problem,
 .model_matrix_one <- function(formula_component, data, control.type) {
   col_names <- strsplit(formula_component, "[:*]")[[1L]]
   if (length(col_names) <= 1L) {
-    if (formula_component == "1")
+    if (formula_component == "1") {
       formula_as_character <- "~1"
-    else
+    } else {
       formula_as_character <- paste0("~", formula_component, "-1")
+    }
 
     mm <- sparse.model.matrix(as.formula(formula_as_character), data)
     .rename.intercept(mm, control.type)
@@ -549,8 +553,9 @@ flatten_ml_fit_problem <- function(fitting_problem,
   )
 
   control.totals <- sapply(control.totals.dup.rearrange, `[[`, 1L)
-  if (length(control.totals) == 0L)
+  if (length(control.totals) == 0L) {
     control.totals <- numeric()
+  }
 
   control.totals.conflicts <- sapply(
     control.totals.dup.rearrange,

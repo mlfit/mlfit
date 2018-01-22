@@ -7,10 +7,12 @@ test_that("algorithms", {
   algos <- eval(formals(ml_fit)$algorithm)
   mapply(results, names(results), FUN = function(problem, problem_name) {
     l_ply(algos, function(algo) {
-      if (algo == "ipu" && problem_name %in% c("Separate-Grouped"))
+      if (algo == "ipu" && problem_name %in% c("Separate-Grouped")) {
         return()
-      if (algo == "hipf" && problem_name %in% c("Joint-Grouped", "onetoy", "Separate-Grouped"))
+      }
+      if (algo == "hipf" && problem_name %in% c("Joint-Grouped", "onetoy", "Separate-Grouped")) {
         return()
+      }
       fit <- ml_fit(algo, problem)
       if (!fit$success) {
         warning("No convergence of ", algo, " for ", problem_name, ".", call. = FALSE)

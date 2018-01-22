@@ -7,10 +7,10 @@ test_that("Grand totals only", {
 
   ref_sample_one <- data.frame(gid = 1, iid = 1, n = 1, A = factor("a"))
 
-  group_control_grand = data.frame(N = 3)
-  group_control_dummy = data.frame(N = 3, A = factor("a"))
-  individual_control_grand = data.frame(N = 6)
-  individual_control_dummy = data.frame(N = 6, A = factor("a"))
+  group_control_grand <- data.frame(N = 3)
+  group_control_dummy <- data.frame(N = 3, A = factor("a"))
+  individual_control_grand <- data.frame(N = 6)
+  individual_control_dummy <- data.frame(N = 6, A = factor("a"))
 
   ref_sample_list <- list(
     ref_sample_full,
@@ -48,7 +48,9 @@ test_that("Grand totals only", {
         weights <- if (nrow(ref_sample) > 1) {
           if (length(individual_controls) > 0) {
             if (length(group_controls) > 0) rep(1, max(ref_sample$gid)) else rep(2, max(ref_sample$gid))
-          } else rep(1, max(ref_sample$gid))
+          } else {
+            rep(1, max(ref_sample$gid))
+          }
         } else {
           if (length(individual_controls) > 0) {
             if (length(group_controls) > 0) 3 else 6

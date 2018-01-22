@@ -54,8 +54,9 @@ run_ipu <- function(flat, tol, diff_tol, maxiter, verbose) {
   weights <- prior_weights
   for (iter in seq.int(from = 2L, to = maxiter + 1, by = 1L)) {
     last_weights <- weights
-    if (iter %% 100 == 0)
+    if (iter %% 100 == 0) {
       message("Iteration ", iter)
+    }
 
     for (col in seq_len(ncol(ref_sample))) {
       row_indexes <- nonzero_row_index[[col]]

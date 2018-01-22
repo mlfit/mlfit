@@ -15,10 +15,10 @@ ct2 <- read.table(text = "0--14	15--34	35--64	65+
 ", check.names = FALSE, header = TRUE)
 
 rs <- xt %>%
-  as.matrix %>%
-  as.table %>%
-  as.data.frame %>%
-  as_data_frame %>%
+  as.matrix() %>%
+  as.table() %>%
+  as.data.frame() %>%
+  as_data_frame() %>%
   mutate_each(funs(ofactor = kimisc::ofactor(.)), Var1, Var2) %>%
   select(-Var1, -Var2) %>%
   rename(WKSTAT = Var1_ofactor, AGE = Var2_ofactor) %>%

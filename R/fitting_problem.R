@@ -115,8 +115,9 @@ format.fitting_problem <- function(x, ...) {
     "  Reference sample: " %+% nrow(x$refSample) %+% " observations",
     "  Control totals: " %+% length(x$controls$individual) %+%
       " at individual, and " %+% length(x$controls$group) %+% " at group level",
-    if (length(x$algorithms) > 0L)
+    if (length(x$algorithms) > 0L) {
       "  Results for algorithms: " %+% paste(x$algorithms, collapse = ", ")
+    }
   )
 }
 

@@ -81,7 +81,7 @@ margin_to_df <- function(controls, count = NULL, verbose = FALSE) {
         control.list,
         control.type = control.type,
         function(control, control.type) {
-          count = get_count_field_name(control, count, message)
+          count <- get_count_field_name(control, count, message)
           non_control <- control[sort(setdiff(names(control), count))]
           lex_order <- do.call(order, non_control)
           data.frame(

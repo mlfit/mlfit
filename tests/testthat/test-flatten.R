@@ -110,7 +110,7 @@ test_that("identical households", {
   flat <- flatten_ml_fit_problem(problem)
   expect_equal(flat$fitting_problem, problem)
   test_weights <- ref_sample$group_id
-  test_weights_flat <- test_weights %*% flat$weights_transform %>% as.vector
+  test_weights_flat <- test_weights %*% flat$weights_transform %>% as.vector()
   expect_equal(
     as.vector(test_weights_flat %*% flat$reverse_weights_transform %*% flat$weights_transform),
     test_weights_flat

@@ -127,8 +127,9 @@ run_hipf <- function(flat, flat_group, flat_ind, group_ind_totals, tol, diff_tol
 
   for (iter in seq.int(from = 1L, to = maxiter + 1, by = 1L)) {
     last_group_weights <- group_weights
-    if (iter %% 100 == 0)
+    if (iter %% 100 == 0) {
       message("Iteration ", iter)
+    }
 
     ind_weights <- as.vector(group_weights %*% weights_transform_group_to_ind)
 
@@ -193,8 +194,9 @@ rescale_group_weights_for_ind_per_group <- function(
 
   # No root can happen with malformed problems, silently return
   # and let higher-level routine handle this
-  if (length(d) != 1L)
+  if (length(d) != 1L) {
     return(group_weights)
+  }
 
   dp <- d ** seq_along(Fp)
   c <- group_ind_totals$group / sum(Fp * dp)

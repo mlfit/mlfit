@@ -28,8 +28,9 @@ ml_fit <- function(algorithm = c("entropy_o", "dss", "ipu", "hipf"),
                    fitting_problem, verbose = FALSE, ..., tol = 1e-6) {
   algorithm <- match.arg(algorithm)
   fun.name <- sprintf("ml_fit_%s", algorithm)
-  if (!exists(fun.name))
+  if (!exists(fun.name)) {
     stop("Unknown algorithm:", algorithm)
+  }
 
   get(fun.name)(
     fitting_problem = fitting_problem,
@@ -60,7 +61,7 @@ ml_fit <- function(algorithm = c("entropy_o", "dss", "ipu", "hipf"),
 }
 
 new_timed_message <- function() {
-  start_time = Sys.time()
+  start_time <- Sys.time()
 
   function(...) {
     current_time <- Sys.time() - start_time
@@ -70,10 +71,11 @@ new_timed_message <- function() {
 
 get_algo <- function(x) {
   other_classes <- grep("^ml_fit_", class(x), value = TRUE)
-  if (length(other_classes) == 0L)
+  if (length(other_classes) == 0L) {
     "(unknown)"
-  else
+  } else {
     paste(gsub("^ml_fit_", "", other_classes), collapse = ", ")
+  }
 }
 
 set_weights_success_and_residuals <- function(res, tol, iterations) {
