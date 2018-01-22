@@ -1,10 +1,15 @@
 #' Create an instance of a fitting problem
 #'
+#' The `fitting_problem()` function is the first step for fitting a reference
+#' sample to known control totals with [MultiLevelIPF].
+#' All algorithms expect an object created by this function (or optionally
+#' processed with [flatten_ml_fit_problem()].
+#'
 #' @param ref_sample The reference sample
 #' @param controls Control totals, by default initialized from the
 #'   `individual_controls` and `group_controls` arguments
 #' @param field_names Names of special fields, construct using
-#'   [special_field_names()]
+#'   `special_field_names()`
 #' @param individual_controls,group_controls Control totals at individual
 #'   and group level, given as a list of data frames where each data frame
 #'   defines a control
@@ -115,6 +120,10 @@ format.fitting_problem <- function(x, ...) {
 #' @rdname fitting_problem
 print.fitting_problem <- default_print
 
+#' @description
+#' The `special_field_names()` function is useful for the `field_names` argument
+#' to `fitting_problem`.
+#'
 #' @param groupId,individualId Name of the column that defines the ID of the
 #'   group or the individual
 #' @param individualsPerGroup Obsolete.
