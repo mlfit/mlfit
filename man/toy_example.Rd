@@ -18,4 +18,7 @@ example.  Load via \code{\link[=readRDS]{readRDS()}}.
 }
 \examples{
 toy_example()
+
+# Load example with results from Ye et al. (2009)
+readRDS(toy_example("Tiny"))
 }
