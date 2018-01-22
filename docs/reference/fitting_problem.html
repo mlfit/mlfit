@@ -89,8 +89,8 @@
     
     <p>The <code>fitting_problem()</code> function is the first step for fitting a reference
 sample to known control totals with <a href='MultiLevelIPF-package.html'>MultiLevelIPF</a>.
-All algorithms expect an object created by this function (or optionally
-processed with <code><a href='flatten_ml_fit_problem.html'>flatten_ml_fit_problem()</a></code>.</p>
+All algorithms (see <code><a href='ml_fit.html'>ml_fit()</a></code>) expect an object created by this function (or
+optionally processed with <code><a href='flatten_ml_fit_problem.html'>flatten_ml_fit_problem()</a></code>).</p>
 <p>The <code>special_field_names()</code> function is useful for the <code>field_names</code> argument
 to <code>fitting_problem</code>.</p>
     
@@ -250,9 +250,14 @@ and <code>group</code>. Each contains a list of controls as <code>data.frame</co
   ),
   <span class='kw'>group_controls</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>ye_hh</span>),
   <span class='kw'>individual_controls</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>ye_ind</span>)
-)</div><div class='output co'>#&gt; <span class='message'>`nlist()` is deprecated, use `tibble::lst()` instead.</span></div><div class='input'><span class='no'>ye_problem</span></div><div class='output co'>#&gt; An object of class fitting_problem
+)
+<span class='no'>ye_problem</span></div><div class='output co'>#&gt; An object of class fitting_problem
 #&gt;   Reference sample: 23 observations
-#&gt;   Control totals: 1 at individual, and 1 at group level</div></pre>
+#&gt;   Control totals: 1 at individual, and 1 at group level</div><div class='input'>
+<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ml_fit.html'>ml_fit_dss</a></span>(<span class='no'>ye_problem</span>)</div><div class='output co'>#&gt; <span class='message'>`coalesce.na()` is deprecated, use `dplyr::coalesce()` instead.</span></div><div class='input'><span class='no'>fit</span>$<span class='no'>weights</span></div><div class='output co'>#&gt;  [1]  8.937470  8.937470  8.937470 23.448579 23.448579  2.613950  2.613950
+#&gt;  [8]  2.613950 25.899223 25.899223 25.899223 14.347802 14.347802 14.347802
+#&gt; [15] 11.009562 11.009562  2.733852  2.733852  2.733852  2.733852  2.733852
+#&gt; [22] 11.009562 11.009562</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
