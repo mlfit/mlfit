@@ -6,8 +6,8 @@
 #' @param maxiter Maximum number of iterations.
 #' @references Ye, X., K. Konduri, R. M. Pendyala, B. Sana and P. A. Waddell (2009)
 #' A methodology to match distributions of both household and person attributes
-#' in the generation of synthetic populations, paper presented at the *88th
-#' Annual Meeting of the Transportation Research Board*, Washington, D.C.,
+#' in the generation of synthetic populations, paper presented at the \emph{88th
+#' Annual Meeting of the Transportation Research Board}, Washington, D.C.,
 #' January 2009.
 #'
 #' @export
