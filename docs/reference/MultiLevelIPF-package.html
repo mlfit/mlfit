@@ -93,6 +93,19 @@ implementations for several algorithms that extend this to nested structures:
     
 
         
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>To use this package, you need to:</p><ol>
+<li><p>Specify your fitting problem with <code><a href='fitting_problem.html'>fitting_problem()</a></code></p></li>
+<li><p>Optionally, convert the fitting problem to a structure that can be
+processed by the algorithms with <code><a href='flatten_ml_fit_problem.html'>flatten_ml_fit_problem()</a></code>; this is
+helpful if you want to run the same fitting problem with multiple
+algorithms and compare results.</p></li>
+<li><p>Compute weights with one of the algorithms provided in this package with
+<code><a href='ml_fit.html'>ml_fit()</a></code> or one of the specialized functions</p></li>
+<li><p>Analyze weights or residuals, e.g. with <code><a href='compute_margins.html'>compute_margins()</a></code></p></li>
+</ol>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p>Useful links:</p><ul>
@@ -107,6 +120,8 @@ implementations for several algorithms that extend this to nested structures:
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       
+      <li><a href="#details">Details</a></li>
+
       <li><a href="#see-also">See also</a></li>
           </ul>
 
