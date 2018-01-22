@@ -36,7 +36,8 @@ ml_fit_dss <- function(fitting_problem,
     method = method,
     ginv = ginv,
     tol = tol,
-    attributes = TRUE)
+    attributes = TRUE
+  )
   weights.agg <- g * flat$weights
 
   message("Done!")

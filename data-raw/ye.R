@@ -48,10 +48,14 @@ ye_ind <- tibble::tribble(
   3,      104
 )
 
-ye_problem <- fitting_problem(ref_sample = ye,
-                field_names = special_field_names(groupId = "HHNR", individualId = "PNR",
-                                                  count = "N"),
-                group_controls = list(ye_hh),
-                individual_controls = list(ye_ind))
+ye_problem <- fitting_problem(
+  ref_sample = ye,
+  field_names = special_field_names(
+    groupId = "HHNR", individualId = "PNR",
+    count = "N"
+  ),
+  group_controls = list(ye_hh),
+  individual_controls = list(ye_ind)
+)
 
 rextdata::use_extdata(ye = ye_problem, overwrite = TRUE)

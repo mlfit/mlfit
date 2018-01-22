@@ -28,14 +28,15 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
 
   message("Aggregating")
   llply(
-    setNames(nm=names(controls)),
+    setNames(nm = names(controls)),
     function(control.type) {
       weights_df <- data.frame(
         ..w.. = if (control.type == "individual") {
           weights
         } else {
           ifelse(duplicated(ref_sample[[field_names$groupId]]), 0, weights)
-        })
+        }
+      )
       ref_sample_w <- cbind(weights_df, ref_sample)
 
       control.list <- controls[[control.type]]
@@ -73,7 +74,7 @@ margin_to_df <- function(controls, count = NULL, verbose = FALSE) {
 
   message("Converting list structure to data frame")
   ldply(
-    setNames(nm=names(controls)),
+    setNames(nm = names(controls)),
     function(control.type) {
       control.list <- controls[[control.type]]
       ldply(

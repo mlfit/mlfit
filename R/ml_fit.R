@@ -47,11 +47,15 @@ ml_fit <- function(algorithm = c("entropy_o", "dss", "ipu", "hipf"),
 .patch_verbose <- function() {
   verbose <- get("verbose", parent.frame())
   if (!verbose) {
-    export.list(list(message = function(...) invisible(NULL)),
-                target.env = parent.frame())
+    export.list(
+      list(message = function(...) invisible(NULL)),
+      target.env = parent.frame()
+    )
   } else {
-    export.list(list(message = new_timed_message()),
-                target.env = parent.frame())
+    export.list(
+      list(message = new_timed_message()),
+      target.env = parent.frame()
+    )
   }
 }
 
@@ -80,7 +84,8 @@ set_weights_success_and_residuals <- function(res, tol, iterations) {
   res2 <- get_success_and_residuals(
     res$flat_weights %*% res$flat$ref_sample,
     res$flat$target_values,
-    tol)
+    tol
+  )
 
   res[names(res2)] <- res2
   res$residuals <- res$flat_weighted_values - res$flat$target_values

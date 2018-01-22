@@ -84,14 +84,18 @@
 #' )
 #' ye_problem
 fitting_problem <- function(ref_sample,
-                            controls = list(individual = individual_controls,
-                                            group = group_controls),
+                            controls = list(
+                              individual = individual_controls,
+                              group = group_controls
+                            ),
                             field_names,
                             individual_controls, group_controls,
                             prior_weights = NULL) {
   new_fitting_problem(
-    list(refSample = ref_sample, controls = controls, fieldNames = field_names,
-         priorWeights = prior_weights)
+    list(
+      refSample = ref_sample, controls = controls, fieldNames = field_names,
+      priorWeights = prior_weights
+    )
   )
 }
 

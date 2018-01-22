@@ -84,11 +84,14 @@ flatten_ml_fit_problem <- function(fitting_problem,
     formula_grp <- control_formula_components$group
     ref_sample_proxy <- plyr::rename(
       ref_sample[gid_lookup$proxy, c(field_names$groupId, names(control.names$group)), drop = FALSE],
-      control.names$group)
+      control.names$group
+    )
     rownames(ref_sample_proxy) <- NULL
-    ref_sample_grp.agg <- model_matrix(formula_grp,
+    ref_sample_grp.agg <- model_matrix(
+      formula_grp,
       ref_sample_proxy,
-      "group")
+      "group"
+    )
   } else {
     ref_sample_grp.agg <- Matrix(ncol = 0, nrow = sum(gid_lookup$proxy))
   }
@@ -98,12 +101,14 @@ flatten_ml_fit_problem <- function(fitting_problem,
   weights_transform <- sparseMatrix(
     i = gid_lookup$iidx,
     j = gid_lookup$gidx,
-    x = 1 / gid_lookup$n)
+    x = 1 / gid_lookup$n
+  )
 
   weights_transform_rev <- sparseMatrix(
     i = gid_lookup$gidx,
     j = gid_lookup$iidx,
-    x = 1L)
+    x = 1L
+  )
 
   message("Transforming weights")
   if (is.null(prior_weights)) {
@@ -115,9 +120,11 @@ flatten_ml_fit_problem <- function(fitting_problem,
   if (length(control_formula_components$individual) > 0) {
     message("Preparing reference sample (individuals)")
     formula_ind <- control_formula_components$individual
-    ref_sample_ind.mm <- model_matrix(formula_ind,
+    ref_sample_ind.mm <- model_matrix(
+      formula_ind,
       plyr::rename(ref_sample[c(field_names$groupId, names(control.names$individual))], control.names$individual),
-      "individual")
+      "individual"
+    )
 
     message("Aggregating")
     ref_sample_ind.agg <- weights_transform_rev %*% ref_sample_ind.mm
@@ -130,8 +137,10 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
   stopifnot(grepl("Matrix$", class(ref_sample.agg.m)))
 
-  control.totals <- .flatten_controls(control.terms.list = control.terms.list,
-                                      verbose = verbose)
+  control.totals <- .flatten_controls(
+    control.terms.list = control.terms.list,
+    verbose = verbose
+  )
 
   message("Reordering controls")
   intersect_names <- intersect(sort(colnames(ref_sample.agg.m)), names(control.totals))
@@ -139,13 +148,15 @@ flatten_ml_fit_problem <- function(fitting_problem,
   if (length(control.totals) > length(intersect_names)) {
     warning(
       "  The following controls do not have any corresponding observation in the reference sample:\n    ",
-      paste(setdiff(names(control.totals), intersect_names), collapse=", "))
+      paste(setdiff(names(control.totals), intersect_names), collapse = ", ")
+    )
   }
 
   if (ncol(ref_sample.agg.m) > length(intersect_names)) {
     warning(
       "  The following categories in the reference sample do not have a corresponding control:\n    ",
-      paste(setdiff(colnames(ref_sample.agg.m), intersect_names), collapse=", "))
+      paste(setdiff(colnames(ref_sample.agg.m), intersect_names), collapse = ", ")
+    )
   }
 
   ref_sample.agg.m <- ref_sample.agg.m[, intersect_names, drop = FALSE]
@@ -154,20 +165,24 @@ flatten_ml_fit_problem <- function(fitting_problem,
   message("Checking zero-valued controls")
   zero.control.totals <- (control.totals == 0)
   if (any(zero.control.totals)) {
-    message("  Found zero-valued controls (showing the first 10): ",
-            paste(head(names(control.totals)[zero.control.totals], 10), collapse = ", "))
+    message(
+      "  Found zero-valued controls (showing the first 10): ",
+      paste(head(names(control.totals)[zero.control.totals], 10), collapse = ", ")
+    )
     zero.observations <- apply(ref_sample.agg.m, 1, function(x) any(x[zero.control.totals] > 0))
     if (any(zero.observations)) {
       zero.observation.weights <- sum(prior_weights_agg[zero.observations])
       warning(
         "  Removing ", sum(zero.observations), " distinct entries from the reference sample ",
-        "(corresponding to zero-valued controls) with a total weight of ", sum(zero.observation.weights))
+        "(corresponding to zero-valued controls) with a total weight of ", sum(zero.observation.weights)
+      )
       prior_weights_agg <- prior_weights_agg[!zero.observations]
 
       nonzero.observations_w <- which(!zero.observations)
 
       zero_weights_transform <- sparseMatrix(
-        i=nonzero.observations_w, j=seq_along(nonzero.observations_w), x=1)
+        i = nonzero.observations_w, j = seq_along(nonzero.observations_w), x = 1
+      )
       weights_transform <- weights_transform %*% zero_weights_transform
     } else {
       message("  No observations matching those zero-valued controls.")
@@ -184,21 +199,24 @@ flatten_ml_fit_problem <- function(fitting_problem,
   if (any(missing.controls)) {
     warning(
       "  Found missing observations for the following non-zero controls: ",
-      paste(sprintf("%s=%s", names(control.totals)[missing.controls], control.totals[missing.controls]), collapse = ", "))
+      paste(sprintf("%s=%s", names(control.totals)[missing.controls], control.totals[missing.controls]), collapse = ", ")
+    )
 
     control.totals <- control.totals[!missing.controls]
     ref_sample.agg.m <- ref_sample.agg.m[, !missing.controls]
   }
 
   message("Computing reverse weights map")
-  reverse_weights_transform <- ( (1 / prior_weights_agg) * t(prior_weights * gid_lookup$n * weights_transform))
+  reverse_weights_transform <- ((1 / prior_weights_agg) * t(prior_weights * gid_lookup$n * weights_transform))
   stopifnot(all.equal(diag(reverse_weights_transform %*% weights_transform), rep(1, ncol(weights_transform))))
 
   message("Normalizing weights")
   prior_weights_agg <- prior_weights_agg / sum(prior_weights_agg) *
-    unname(coalesce.na(control.totals["(Intercept)_g"],
-                       control.totals["(Intercept)_i"],
-                       sum(prior_weights_agg)))
+    unname(coalesce.na(
+      control.totals["(Intercept)_g"],
+      control.totals["(Intercept)_i"],
+      sum(prior_weights_agg)
+    ))
 
   message("Done!")
   new_flat_ml_fit_problem(
@@ -227,13 +245,17 @@ flatten_ml_fit_problem <- function(fitting_problem,
   field_names <- fitting_problem$fieldNames
 
   if (length(controls$individual) + length(controls$group) == 0L) {
-    stop("Need at least one control at individual or group level.",
-         call. = FALSE)
+    stop(
+      "Need at least one control at individual or group level.",
+      call. = FALSE
+    )
   }
 
   if (any(is.na(ref_sample[[field_names$groupId]]))) {
-    stop("At least one individual has NA as group identifier.",
-         call. = FALSE)
+    stop(
+      "At least one individual has NA as group identifier.",
+      call. = FALSE
+    )
   }
 
   message("Collecting controls")
@@ -255,8 +277,10 @@ flatten_ml_fit_problem <- function(fitting_problem,
   control_names <- unique(unlist(control.names.list, recursive = TRUE))
 
   if (!all(control_names %in% colnames(ref_sample))) {
-    stop("Control variable(s) not found: ",
-         paste0(setdiff(control_names, colnames(ref_sample)), collapse = ", "))
+    stop(
+      "Control variable(s) not found: ",
+      paste0(setdiff(control_names, colnames(ref_sample)), collapse = ", ")
+    )
   }
 
   message("Converting to factor")
@@ -265,13 +289,15 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
   has_na <- vapply(ref_sample[control_names], anyNA, logical(1L))
   if (any(has_na)) {
-    stop("NA values for control variables in reference sample: ",
-         paste0(control_names[has_na], collapse = ", "))
+    stop(
+      "NA values for control variables in reference sample: ",
+      paste0(control_names[has_na], collapse = ", ")
+    )
   }
 
   message("Checking controls")
   prepared_controls <- llply(
-    setNames(nm=names(controls)),
+    setNames(nm = names(controls)),
     function(control.type) {
       control.list <- controls[[control.type]]
       control.columns <- llply(
@@ -296,15 +322,20 @@ flatten_ml_fit_problem <- function(fitting_problem,
               "Factor level mismatch between control and reference sample:\n",
               paste0(
                 "- ", control.names[!levels_identical], " (",
-                vapply(control_levels[!levels_identical],
-                       paste, collapse = ", ",
-                       character(1L)),
+                vapply(
+                  control_levels[!levels_identical],
+                  paste, collapse = ", ",
+                  character(1L)
+                ),
                 " vs. ",
-                vapply(ref_sample_levels[!levels_identical],
-                       paste, collapse = ", ",
-                       character(1L)),
+                vapply(
+                  ref_sample_levels[!levels_identical],
+                  paste, collapse = ", ",
+                  character(1L)
+                ),
                 ")",
-                collapse = "\n")
+                collapse = "\n"
+              )
             )
           }
 
@@ -314,22 +345,28 @@ flatten_ml_fit_problem <- function(fitting_problem,
             function(f) {
               length(levels(f))
             },
-            integer(1))
+            integer(1)
+          )
           if (any(control.levels == 0)) {
-            stop("All control variables must be factors or characters. ",
-                 "Offending control variable(s): ",
-                 paste0(control.names[control.levels == 0], collapse = ", "))
+            stop(
+              "All control variables must be factors or characters. ",
+              "Offending control variable(s): ",
+              paste0(control.names[control.levels == 0], collapse = ", ")
+            )
           }
 
           # Avoids hard-to-understand errors if categories are NA
           control.category.na <- vapply(
             control[control.names],
             function(f) any(is.na(f)),
-            logical(1))
+            logical(1)
+          )
           if (any(control.category.na)) {
-            stop("NA values in control variables not supported. ",
-                 "Offending control variable(s): ",
-                 paste0(control.names[control.category.na], collapse = ", "))
+            stop(
+              "NA values in control variables not supported. ",
+              "Offending control variable(s): ",
+              paste0(control.names[control.category.na], collapse = ", ")
+            )
           }
 
           # Make sure count column is at position 1
@@ -353,7 +390,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
 .ordered_control_names <- function(ref_sample, control, field_names) {
   count_name <- get_count_field_name(control, field_names$count, message)
-  control.and.count.names <- setNames(nm=colnames(control))
+  control.and.count.names <- setNames(nm = colnames(control))
   control.names.unordered <- setdiff(control.and.count.names, count_name)
   control.names <- colnames(ref_sample)[colnames(ref_sample) %in% control.names.unordered]
   stopifnot(length(control.names) == length(control.names.unordered))
@@ -361,7 +398,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
 }
 
 .updated_control_colnames <- function(control, control_names, new_control_names) {
-  control_and_count_names <- setNames(nm=colnames(control))
+  control_and_count_names <- setNames(nm = colnames(control))
   control_and_count_names[control_names] <- new_control_names
   control_and_count_names
 }
@@ -373,7 +410,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
   message("Preparing controls")
   control.terms.list <- llply(
-    setNames(nm=names(controls)),
+    setNames(nm = names(controls)),
     function(control.type) {
       control.list <- controls[[control.type]]
       control.columns <- llply(
@@ -392,23 +429,24 @@ flatten_ml_fit_problem <- function(fitting_problem,
             function(f) {
               length(levels(f))
             },
-            integer(1))
+            integer(1)
+          )
           control.names <- control.names[control.levels > 1]
 
           new.control.names <- sprintf("%s_%s_", control.names, .control.type.abbrev(control.type))
           colnames(control) <- .updated_control_colnames(control, control.names, new.control.names)
 
-          control.term <- paste0(new.control.names, collapse="*")
+          control.term <- paste0(new.control.names, collapse = "*")
           if (nchar(control.term) == 0)
             control.term <- "1"
 
           control.mm <- model_matrix(control.term, control, control.type)
 
           list(
-            control.names=control.names,
-            new.control.names=new.control.names,
-            term=control.term,
-            control = (control[[count_name]] %*% control.mm)[1,, drop = TRUE]
+            control.names = control.names,
+            new.control.names = new.control.names,
+            term = control.term,
+            control = (control[[count_name]] %*% control.mm)[1, , drop = TRUE]
           )
         }
       )
@@ -444,16 +482,19 @@ flatten_ml_fit_problem <- function(fitting_problem,
     mm <- sparse.model.matrix(as.formula(formula_as_character), data)
     .rename.intercept(mm, control.type)
   } else {
-    col_levels <- Map(function(name, value)
-      kimisc::ofactor(paste0(name, levels(value))),
-      col_names, data[col_names])
+    col_levels <- Map(
+      function(name, value)
+        kimisc::ofactor(paste0(name, levels(value))),
+      col_names, data[col_names]
+    )
     grid <- do.call(expand.grid, col_levels)
     all_levels <- .combine_levels(grid)
 
     col_values <- as.data.frame(Map(
       function(x, new_levels) `levels<-`(x, new_levels),
       data[col_names],
-      col_levels))
+      col_levels
+    ))
     all_values <- factor(.combine_levels(col_values), levels = all_levels)
 
     wide <- sparseMatrix(seq_len(nrow(data)), as.integer(all_values), x = 1)
@@ -498,12 +539,12 @@ flatten_ml_fit_problem <- function(fitting_problem,
       unname(llply(control.terms, `[[`, "control"))
     }
   )
-  control.totals.dup <- unlist(unname(control.totals.list), use.names=TRUE)
+  control.totals.dup <- unlist(unname(control.totals.list), use.names = TRUE)
 
   message("Checking controls for conflicts")
   control.totals.dup.rearrange <- llply(
-    setNames(nm=unique(names(control.totals.dup))),
-    function (control.name)
+    setNames(nm = unique(names(control.totals.dup))),
+    function(control.name)
       unname(control.totals.dup[names(control.totals.dup) == control.name])
   )
 
@@ -517,9 +558,13 @@ flatten_ml_fit_problem <- function(fitting_problem,
   )
   stopifnot(names(control.totals) == names(control.totals.conflicts))
   if (any(control.totals.conflicts)) {
-    warning("  The following controls are conflicting, values will be assumed as follows:\n    ",
-            paste(sprintf("%s=%s", names(control.totals)[control.totals.conflicts], control.totals[control.totals.conflicts]),
-                  collapse = ", "))
+    warning(
+      "  The following controls are conflicting, values will be assumed as follows:\n    ",
+      paste(
+        sprintf("%s=%s", names(control.totals)[control.totals.conflicts], control.totals[control.totals.conflicts]),
+        collapse = ", "
+      )
+    )
   }
 
   control.totals
@@ -538,17 +583,21 @@ get_count_field_name <- function(control, name, message) {
     numerics <- which(classes %in% c("integer", "numeric"))
 
     if (length(numerics) == 0) {
-      stop("No numeric column found among control columns ",
-           paste(names(control), collapse = ", "), ".")
+      stop(
+        "No numeric column found among control columns ",
+        paste(names(control), collapse = ", "), "."
+      )
     }
 
     if (length(numerics) > 1) {
       numerics <- numerics[[1L]]
     }
 
-    message("Using ", names(control)[numerics],
-            " as count column for ",
-            paste(names(control)[-numerics], collapse = ", "), ".")
+    message(
+      "Using ", names(control)[numerics],
+      " as count column for ",
+      paste(names(control)[-numerics], collapse = ", "), "."
+    )
     name <- names(control)[numerics]
   }
   name
@@ -573,8 +622,10 @@ as.flat_ml_fit_problem <- function(x, model_matrix_type = c("combined", "separat
 as.flat_ml_fit_problem.flat_ml_fit_problem <- function(x, model_matrix_type = c("combined", "separate"), ...) {
   model_matrix_type <- match.arg(model_matrix_type, several.ok = TRUE)
   if (!(x$model_matrix_type %in% model_matrix_type)) {
-    stop("Need flat problem with model matrix type ", paste(model_matrix_type, collapse = ", "),
-         ", got ", x$model_matrix_type, ".", call. = FALSE)
+    stop(
+      "Need flat problem with model matrix type ", paste(model_matrix_type, collapse = ", "),
+      ", got ", x$model_matrix_type, ".", call. = FALSE
+    )
   }
   x
 }

@@ -22,7 +22,9 @@ rs <- xt %>%
   mutate_each(funs(ofactor = kimisc::ofactor(.)), Var1, Var2) %>%
   select(-Var1, -Var2) %>%
   rename(WKSTAT = Var1_ofactor, AGE = Var2_ofactor) %>%
-  {.[rep(seq_along(.$Freq), .$Freq), ] } %>%
+  {
+    .[rep(seq_along(.$Freq), .$Freq), ]
+  } %>%
   select(-Freq) %>%
   `rownames<-`(NULL) %>%
   mutate(PNR = seq_along(WKSTAT) - 1, HHNR = seq_along(WKSTAT) - 1, APER = 1L) %>%
@@ -37,8 +39,10 @@ ct2 <-
   ct2 %>%
   gather(AGE, N)
 
-fp <- fitting_problem(rs, field_names = special_field_names("HHNR", "PNR", count = "N"),
-                      individual_controls = NULL,
-                      group_controls = list(ct1, ct2))
+fp <- fitting_problem(
+  rs, field_names = special_field_names("HHNR", "PNR", count = "N"),
+  individual_controls = NULL,
+  group_controls = list(ct1, ct2)
+)
 
 rextdata::use_extdata(flat = fp)
