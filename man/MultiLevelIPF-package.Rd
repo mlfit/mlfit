@@ -13,7 +13,8 @@ implementations for several algorithms that extend this to nested structures:
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://krlmlr.github.io/MultiLevelIPF}
+  \item \url{https://krlmlr.github.io/MultiLevelIPF}
+  \item \url{https://github.com/krlmlr/MultiLevelIPF}
   \item Report bugs at \url{https://github.com/krlmlr/MultiLevelIPF/issues}
 }
 

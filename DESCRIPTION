@@ -9,7 +9,7 @@ Description: The IPF algorithm operates on count data. This package offers
     implementations for several algorithms that extend this to nested structures:
     "parent" and "child" items for both of which constraints can be provided.
 License: GPL-3
-URL: http://krlmlr.github.io/MultiLevelIPF
+URL: https://krlmlr.github.io/MultiLevelIPF, https://github.com/krlmlr/MultiLevelIPF
 BugReports: https://github.com/krlmlr/MultiLevelIPF/issues
 Depends: 
     methods
@@ -28,4 +28,3 @@ Encoding: UTF-8
 Remotes: grake/grake
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
-URLNote: https://github.com/krlmlr/MultiLevelIPF
