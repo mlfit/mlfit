@@ -87,7 +87,12 @@
     </div>
 
     
-    <p>Create an instance of a fitting problem</p>
+    <p>The <code>fitting_problem()</code> function is the first step for fitting a reference
+sample to known control totals with <a href='MultiLevelIPF-package.html'>MultiLevelIPF</a>.
+All algorithms expect an object created by this function (or optionally
+processed with <code><a href='flatten_ml_fit_problem.html'>flatten_ml_fit_problem()</a></code>.</p>
+<p>The <code>special_field_names()</code> function is useful for the <code>field_names</code> argument
+to <code>fitting_problem</code>.</p>
     
 
     <pre class="usage"><span class='fu'>fitting_problem</span>(<span class='no'>ref_sample</span>, <span class='kw'>controls</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>individual</span> <span class='kw'>=</span> <span class='no'>individual_controls</span>,
@@ -170,6 +175,84 @@ and <code>group</code>. Each contains a list of controls as <code>data.frame</co
 
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Create example from Ye et al., 2009</span>
+
+<span class='co'># Provide reference sample</span>
+<span class='no'>ye</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>tribble</a></span>(
+  ~<span class='no'>HHNR</span>, ~<span class='no'>APER</span>, ~<span class='no'>HH_VAR</span>, ~<span class='no'>P_VAR</span>,
+  <span class='fl'>1</span>,     <span class='fl'>3</span>,     <span class='fl'>1</span>,       <span class='fl'>1</span>,
+  <span class='fl'>1</span>,     <span class='fl'>3</span>,     <span class='fl'>1</span>,       <span class='fl'>2</span>,
+  <span class='fl'>1</span>,     <span class='fl'>3</span>,     <span class='fl'>1</span>,       <span class='fl'>3</span>,
+  <span class='fl'>2</span>,     <span class='fl'>2</span>,     <span class='fl'>1</span>,       <span class='fl'>1</span>,
+  <span class='fl'>2</span>,     <span class='fl'>2</span>,     <span class='fl'>1</span>,       <span class='fl'>3</span>,
+  <span class='fl'>3</span>,     <span class='fl'>3</span>,     <span class='fl'>1</span>,       <span class='fl'>1</span>,
+  <span class='fl'>3</span>,     <span class='fl'>3</span>,     <span class='fl'>1</span>,       <span class='fl'>1</span>,
+  <span class='fl'>3</span>,     <span class='fl'>3</span>,     <span class='fl'>1</span>,       <span class='fl'>2</span>,
+  <span class='fl'>4</span>,     <span class='fl'>3</span>,     <span class='fl'>2</span>,       <span class='fl'>1</span>,
+  <span class='fl'>4</span>,     <span class='fl'>3</span>,     <span class='fl'>2</span>,       <span class='fl'>3</span>,
+  <span class='fl'>4</span>,     <span class='fl'>3</span>,     <span class='fl'>2</span>,       <span class='fl'>3</span>,
+  <span class='fl'>5</span>,     <span class='fl'>3</span>,     <span class='fl'>2</span>,       <span class='fl'>2</span>,
+  <span class='fl'>5</span>,     <span class='fl'>3</span>,     <span class='fl'>2</span>,       <span class='fl'>2</span>,
+  <span class='fl'>5</span>,     <span class='fl'>3</span>,     <span class='fl'>2</span>,       <span class='fl'>3</span>,
+  <span class='fl'>6</span>,     <span class='fl'>2</span>,     <span class='fl'>2</span>,       <span class='fl'>1</span>,
+  <span class='fl'>6</span>,     <span class='fl'>2</span>,     <span class='fl'>2</span>,       <span class='fl'>2</span>,
+  <span class='fl'>7</span>,     <span class='fl'>5</span>,     <span class='fl'>2</span>,       <span class='fl'>1</span>,
+  <span class='fl'>7</span>,     <span class='fl'>5</span>,     <span class='fl'>2</span>,       <span class='fl'>1</span>,
+  <span class='fl'>7</span>,     <span class='fl'>5</span>,     <span class='fl'>2</span>,       <span class='fl'>2</span>,
+  <span class='fl'>7</span>,     <span class='fl'>5</span>,     <span class='fl'>2</span>,       <span class='fl'>3</span>,
+  <span class='fl'>7</span>,     <span class='fl'>5</span>,     <span class='fl'>2</span>,       <span class='fl'>3</span>,
+  <span class='fl'>8</span>,     <span class='fl'>2</span>,     <span class='fl'>2</span>,       <span class='fl'>1</span>,
+  <span class='fl'>8</span>,     <span class='fl'>2</span>,     <span class='fl'>2</span>,       <span class='fl'>2</span>
+)
+<span class='no'>ye</span></div><div class='output co'>#&gt; # A tibble: 23 x 4
+#&gt;     HHNR  APER HH_VAR P_VAR
+#&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1  1.00  3.00   1.00  1.00
+#&gt;  2  1.00  3.00   1.00  2.00
+#&gt;  3  1.00  3.00   1.00  3.00
+#&gt;  4  2.00  2.00   1.00  1.00
+#&gt;  5  2.00  2.00   1.00  3.00
+#&gt;  6  3.00  3.00   1.00  1.00
+#&gt;  7  3.00  3.00   1.00  1.00
+#&gt;  8  3.00  3.00   1.00  2.00
+#&gt;  9  4.00  3.00   2.00  1.00
+#&gt; 10  4.00  3.00   2.00  3.00
+#&gt; # ... with 13 more rows</div><div class='input'>
+<span class='co'># Specify control at household level</span>
+<span class='no'>ye_hh</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>tribble</a></span>(
+  ~<span class='no'>HH_VAR</span>, ~<span class='no'>N</span>,
+  <span class='fl'>1</span>,       <span class='fl'>35</span>,
+  <span class='fl'>2</span>,       <span class='fl'>65</span>
+)
+<span class='no'>ye_hh</span></div><div class='output co'>#&gt; # A tibble: 2 x 2
+#&gt;   HH_VAR     N
+#&gt;    &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1   1.00  35.0
+#&gt; 2   2.00  65.0</div><div class='input'>
+<span class='co'># Specify control at person level</span>
+<span class='no'>ye_ind</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tribble'>tribble</a></span>(
+  ~<span class='no'>P_VAR</span>, ~<span class='no'>N</span>,
+  <span class='fl'>1</span>,      <span class='fl'>91</span>,
+  <span class='fl'>2</span>,      <span class='fl'>65</span>,
+  <span class='fl'>3</span>,      <span class='fl'>104</span>
+)
+<span class='no'>ye_ind</span></div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;   P_VAR     N
+#&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1  1.00  91.0
+#&gt; 2  2.00  65.0
+#&gt; 3  3.00 104  </div><div class='input'>
+<span class='no'>ye_problem</span> <span class='kw'>&lt;-</span> <span class='fu'>fitting_problem</span>(
+  <span class='kw'>ref_sample</span> <span class='kw'>=</span> <span class='no'>ye</span>,
+  <span class='kw'>field_names</span> <span class='kw'>=</span> <span class='fu'>special_field_names</span>(
+    <span class='kw'>groupId</span> <span class='kw'>=</span> <span class='st'>"HHNR"</span>, <span class='kw'>individualId</span> <span class='kw'>=</span> <span class='st'>"PNR"</span>, <span class='kw'>count</span> <span class='kw'>=</span> <span class='st'>"N"</span>
+  ),
+  <span class='kw'>group_controls</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>ye_hh</span>),
+  <span class='kw'>individual_controls</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>ye_ind</span>)
+)</div><div class='output co'>#&gt; <span class='message'>`nlist()` is deprecated, use `tibble::lst()` instead.</span></div><div class='input'><span class='no'>ye_problem</span></div><div class='output co'>#&gt; An object of class fitting_problem
+#&gt;   Reference sample: 23 observations
+#&gt;   Control totals: 1 at individual, and 1 at group level</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -177,7 +260,9 @@ and <code>group</code>. Each contains a list of controls as <code>data.frame</co
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

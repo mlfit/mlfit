@@ -134,7 +134,7 @@ essentially a named list.</p>
     <p>The standard way to build a model matrix (<code>model_matrix = "combined"</code>)
 is to include intercepts and avoid repeating redundant attributes.
 A simpler model matrix specification, available via <code>model_matrix = "separate"</code>,
-is used by Ye et al. (2009):
+is suggested by Ye et al. (2009) and required for the <code><a href='ml_fit.html'>ml_fit_ipu()</a></code> implementation:
 Here, simply one column per target value is used, which
 results in a larger model matrix if more than one control is given.</p>
     
