@@ -11,7 +11,7 @@
 #'
 #' @param algorithm Algorithm to use
 #' @param fitting_problem A fitting problem created by
-#'   [fitting_problem()].
+#'   [fitting_problem()] or returned by [flatten_ml_fit_problem()].
 #' @param tol Tolerance, the algorithm has succeeded when all target values are
 #'   reached within this tolerance.
 #' @param verbose If `TRUE`, print diagnostic output.
@@ -78,31 +78,49 @@ get_algo <- function(x) {
   }
 }
 
+#' @rdname ml_fit
+#' @aliases NULL
+#' @usage NULL
+#' @return
+#' All returned objects contain at least the following components, which can be
+#' accessed with `$` or `[[`:
 set_weights_success_and_residuals <- function(res, flat, flat_weights,
                                               tol, iterations) {
 
+  #' - `weights`: Resulting weights, compatible to the original reference sample
+  res$weights <- expand_weights(flat_weights, flat)
+  #' - `tol`: The input tolerance
+  res$tol <- tol
+  #' - `iterations`: The actual number of iterations required to obtain the result
+  res$iterations <- as.integer(iterations)
+
+  #' - `flat`: The flattened fitting problem, see `flatten_ml_fit_problem()`
   res$flat <- flat
+  #' - `flat_weights`: Weights in terms of the flattened fitting problem
   res$flat_weights <- flat_weights
 
-  res$tol <- tol
-  res$iterations <- as.integer(iterations)
-  res$weights <- expand_weights(flat_weights, res$flat)
-
   res2 <- get_success_and_residuals(
-    res$flat_weights %*% res$flat$ref_sample,
-    res$flat$target_values,
+    flat_weights %*% flat$ref_sample,
+    flat$target_values,
     tol
   )
 
   res[names(res2)] <- res2
-  res$residuals <- res$flat_weighted_values - res$flat$target_values
+  #' - `residuals`: Absolute residuals
+  res$residuals <- res$flat_weighted_values - flat$target_values
   res
 }
 
+#' @rdname ml_fit
+#' @aliases NULL
+#' @usage NULL
+#' @return
 get_success_and_residuals <- function(flat_weighted_values, target_values, tol) {
   res <- list()
   res$flat_weighted_values <- as.vector(flat_weighted_values)
+  #' - `rel_residuals`: Relative residuals
   res$rel_residuals <- rel_residuals(res$flat_weighted_values, target_values)
+  #' - `success`: Are the residuals within the tolerance?
   res$success <- is_abs_within_tol(res$rel_residuals, tol)
   res
 }

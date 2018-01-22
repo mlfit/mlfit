@@ -11,7 +11,7 @@ margin_to_df(controls, count = NULL, verbose = FALSE)
 }
 \arguments{
 \item{fitting_problem}{A fitting problem created by
-\code{\link[=fitting_problem]{fitting_problem()}}.}
+\code{\link[=fitting_problem]{fitting_problem()}} or returned by \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}.}
 
 \item{weights}{A vector with one entry per row of the original reference
 sample}
