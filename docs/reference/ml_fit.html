@@ -129,7 +129,7 @@ are compared to each other.
     <tr>
       <th>fitting_problem</th>
       <td><p>A fitting problem created by
-<code><a href='fitting_problem.html'>fitting_problem()</a></code>.</p></td>
+<code><a href='fitting_problem.html'>fitting_problem()</a></code> or returned by <code><a href='flatten_ml_fit_problem.html'>flatten_ml_fit_problem()</a></code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -175,6 +175,21 @@ control values between iterations drops below this value</p></td>
 a named list under the hood.  The class matches the function called,
 e.g., the return value of the <code>ml_fit_ipu</code> function also is of class
 <code>ml_fit_ipu</code>.</p>
+<p>All returned objects contain at least the following components, which can be
+accessed with <code>$</code> or <code>[[</code>:</p><ul>
+<li><p><code>weights</code>: Resulting weights, compatible to the original reference sample</p></li>
+<li><p><code>tol</code>: The input tolerance</p></li>
+<li><p><code>iterations</code>: The actual number of iterations required to obtain the result</p></li>
+<li><p><code>flat</code>: The flattened fitting problem, see <code><a href='flatten_ml_fit_problem.html'>flatten_ml_fit_problem()</a></code></p></li>
+<li><p><code>flat_weights</code>: Weights in terms of the flattened fitting problem</p></li>
+<li><p><code>residuals</code>: Absolute residuals</p></li>
+</ul>
+
+<ul>
+<li><p><code>rel_residuals</code>: Relative residuals</p></li>
+<li><p><code>success</code>: Are the residuals within the tolerance?</p></li>
+</ul>
+
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -202,7 +217,8 @@ January 2009.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='toy_example.html'>toy_example</a></span>(<span class='st'>"Tiny"</span>)
-<span class='fu'>ml_fit</span>(<span class='kw'>algorithm</span> <span class='kw'>=</span> <span class='st'>"entropy_o"</span>, <span class='kw'>fitting_problem</span> <span class='kw'>=</span> <span class='fu'>readRDS</span>(<span class='no'>path</span>))</div><div class='output co'>#&gt; An object of class ml_fit
+<span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>ml_fit</span>(<span class='kw'>algorithm</span> <span class='kw'>=</span> <span class='st'>"entropy_o"</span>, <span class='kw'>fitting_problem</span> <span class='kw'>=</span> <span class='fu'>readRDS</span>(<span class='no'>path</span>))
+<span class='no'>fit</span></div><div class='output co'>#&gt; An object of class ml_fit
 #&gt;   Algorithm: entropy_o
 #&gt;   Success: TRUE
 #&gt;   Residuals (absolute): min = -1.548604e-08, max = 4.156846e-09
@@ -214,7 +230,20 @@ January 2009.</p>
 #&gt;     An object of class fitting_problem
 #&gt;       Reference sample: 23 observations
 #&gt;       Control totals: 1 at individual, and 1 at group level
-#&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='fu'>ml_fit_dss</span>(<span class='kw'>fitting_problem</span> <span class='kw'>=</span> <span class='fu'>readRDS</span>(<span class='no'>path</span>))</div><div class='output co'>#&gt; An object of class ml_fit
+#&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='no'>fit</span>$<span class='no'>weights</span></div><div class='output co'>#&gt;  [1]  8.937470  8.937470  8.937470 23.448579 23.448579  2.613950  2.613950
+#&gt;  [8]  2.613950 25.899223 25.899223 25.899223 14.347802 14.347802 14.347802
+#&gt; [15] 11.009562 11.009562  2.733852  2.733852  2.733852  2.733852  2.733852
+#&gt; [22] 11.009562 11.009562</div><div class='input'><span class='no'>fit</span>$<span class='no'>tol</span></div><div class='output co'>#&gt; [1] 1e-06</div><div class='input'><span class='no'>fit</span>$<span class='no'>iterations</span></div><div class='output co'>#&gt; [1] 189</div><div class='input'><span class='no'>fit</span>$<span class='no'>flat</span></div><div class='output co'>#&gt; An object of class flat_ml_fit_problem
+#&gt;   Dimensions: 5 groups, 8 target values
+#&gt;   Model matrix type: combined
+#&gt;   Original fitting problem:
+#&gt;   An object of class fitting_problem
+#&gt;     Reference sample: 23 observations
+#&gt;     Control totals: 1 at individual, and 1 at group level
+#&gt;     Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='no'>fit</span>$<span class='no'>flat_weights</span></div><div class='output co'>#&gt;         1         2         3         4         5         6         7         8 
+#&gt;  8.937470 23.448579  2.613950 25.899223 14.347802 11.009562  2.733852 11.009562 </div><div class='input'><span class='no'>fit</span>$<span class='no'>residuals</span></div><div class='output co'>#&gt; (Intercept)_g (Intercept)_i       CAR_g_1    WKSTAT_i_2    WKSTAT_i_3 
+#&gt;  2.684047e-09  4.156846e-09 -1.548604e-08  3.542056e-10 -3.012659e-09 </div><div class='input'><span class='no'>fit</span>$<span class='no'>rel_residuals</span></div><div class='output co'>#&gt; (Intercept)_g (Intercept)_i       CAR_g_1    WKSTAT_i_2    WKSTAT_i_3 
+#&gt;  2.684053e-11  1.598788e-11 -2.382468e-10  5.449419e-12 -2.896783e-11 </div><div class='input'><span class='no'>fit</span>$<span class='no'>success</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>ml_fit_dss</span>(<span class='kw'>fitting_problem</span> <span class='kw'>=</span> <span class='fu'>readRDS</span>(<span class='no'>path</span>))</div><div class='output co'>#&gt; An object of class ml_fit
 #&gt;   Algorithm: dss
 #&gt;   Success: TRUE
 #&gt;   Residuals (absolute): min = 2.338017e-08, max = 1.613564e-07
@@ -229,7 +258,7 @@ January 2009.</p>
 #&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='fu'>ml_fit_dss</span>(<span class='kw'>fitting_problem</span> <span class='kw'>=</span> <span class='fu'>readRDS</span>(<span class='no'>path</span>), <span class='kw'>ginv</span> <span class='kw'>=</span> <span class='no'>solve</span>)</div><div class='output co'>#&gt; An object of class ml_fit
 #&gt;   Algorithm: dss
 #&gt;   Success: TRUE
-#&gt;   Residuals (absolute): min = 2.338015e-08, max = 1.613563e-07
+#&gt;   Residuals (absolute): min = 2.338014e-08, max = 1.613563e-07
 #&gt;   Flat problem:
 #&gt;   An object of class flat_ml_fit_problem
 #&gt;     Dimensions: 5 groups, 8 target values
