@@ -1,4 +1,6 @@
-# MultiLevelIPF [![wercker status](https://app.wercker.com/status/4c6df82f657e4fee539c60601da8944d/s/master "wercker status")](https://app.wercker.com/project/bykey/4c6df82f657e4fee539c60601da8944d) [![codecov.io](https://codecov.io/github/krlmlr/MultiLevelIPF/coverage.svg?branch=master)](https://codecov.io/github/krlmlr/MultiLevelIPF?branch=master)
+# MultiLevelIPF
+
+[![Travis build status](https://travis-ci.org/krlmlr/MultiLevelIPF.svg?branch=master)](https://travis-ci.org/krlmlr/MultiLevelIPF) [![codecov.io](https://codecov.io/github/krlmlr/MultiLevelIPF/coverage.svg?branch=master)](https://codecov.io/github/krlmlr/MultiLevelIPF?branch=master)
 
 Implementation of algorithms that extend IPF to nested structures.
 
