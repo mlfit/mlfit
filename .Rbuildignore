@@ -17,3 +17,4 @@
 ^appveyor\.yml$
 ^tic\.R$
 ^docs$
+^_pkgdown\.yml$
