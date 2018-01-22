@@ -2,13 +2,23 @@
 % Please edit documentation in R/MultiLevelIPF-package.R
 \docType{package}
 \name{MultiLevelIPF-package}
-\alias{MultiLevelIPF-package}
 \alias{MultiLevelIPF}
-\title{Implementation of algorithms that extend IPF to nested structures}
+\alias{MultiLevelIPF-package}
+\title{MultiLevelIPF: Implementation of algorithms that extend IPF to nested structures}
 \description{
-The IPF algorithm operates on count data.  This package offers
-implementations for several algorithms that extend this to nested
-structures: "parent" and "child" items for both of which constraints can be
-provided.
+The IPF algorithm operates on count data. This package offers
+implementations for several algorithms that extend this to nested structures:
+"parent" and "child" items for both of which constraints can be provided.
 }
-\keyword{package}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{http://krlmlr.github.io/MultiLevelIPF}
+  \item Report bugs at \url{https://github.com/krlmlr/MultiLevelIPF/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Kirill Müller \email{krlmlr+r@mailbox.org}
+
+}

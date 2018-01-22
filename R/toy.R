@@ -8,6 +8,8 @@
 #'
 #' @export
 #' @importFrom stats setNames
+#' @examples
+#' toy_example()
 toy_example <- function(name = NULL) {
   root <- system.file("extdata", package="MultiLevelIPF")
   if (is.null(name)) {

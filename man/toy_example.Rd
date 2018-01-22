@@ -16,3 +16,6 @@ A named vector of file system paths.
 Returns the paths to all available toy examples, or to a specific toy
 example.  Load via \code{\link[=readRDS]{readRDS()}}.
 }
+\examples{
+toy_example()
+}
