@@ -28,13 +28,17 @@ ml_fit_hipf <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
   res <- new_ml_fit_hipf(
     list(
       flat_ind = flat_ind,
-      flat_group = flat_group,
-      flat = flat,
-      flat_weights = hipf_res$weights
+      flat_group = flat_group
     )
   )
 
-  set_weights_success_and_residuals(res, tol, hipf_res$iter)
+  set_weights_success_and_residuals(
+    res,
+    flat,
+    flat_weights = hipf_res$weights,
+    tol,
+    iterations = hipf_res$iter
+  )
 }
 
 get_group_ind_totals <- function(flat, verbose) {

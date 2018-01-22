@@ -78,10 +78,15 @@ get_algo <- function(x) {
   }
 }
 
-set_weights_success_and_residuals <- function(res, tol, iterations) {
+set_weights_success_and_residuals <- function(res, flat, flat_weights,
+                                              tol, iterations) {
+
+  res$flat <- flat
+  res$flat_weights <- flat_weights
+
   res$tol <- tol
   res$iterations <- as.integer(iterations)
-  res$weights <- expand_weights(res$flat_weights, res$flat)
+  res$weights <- expand_weights(flat_weights, res$flat)
 
   res2 <- get_success_and_residuals(
     res$flat_weights %*% res$flat$ref_sample,

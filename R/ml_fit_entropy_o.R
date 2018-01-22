@@ -36,13 +36,17 @@ ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE, tol = 1e-6,
   message("Done!")
   res <- new_ml_fit_entropy_o(
     list(
-      flat = flat,
-      flat_weights = weights.agg,
       bbout = bbout
     )
   )
 
-  set_weights_success_and_residuals(res, tol, bbout$iter)
+  set_weights_success_and_residuals(
+    res,
+    flat,
+    flat_weights = weights.agg,
+    tol,
+    bbout$iter
+  )
 }
 
 new_ml_fit_entropy_o <- make_new(c("ml_fit_entropy_o", "ml_fit"))
