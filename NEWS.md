@@ -1,3 +1,10 @@
+## MultiLevelIPF 0.3-7 (2018-01-22)
+
+- Add overview in package documentation.
+- Add examples to all functions.
+- Explicitly document return values to `ml_fit()`.
+
+
 ## MultiLevelIPF 0.3-6 (2017-03-28)
 
 - Set default maximum number of iterations for HIPF to 2000.
