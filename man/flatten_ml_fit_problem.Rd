@@ -42,7 +42,12 @@ results in a larger model matrix if more than one control is given.
 }
 \examples{
 path <- toy_example("Tiny")
-flatten_ml_fit_problem(fitting_problem = readRDS(path))
+flat_problem <- flatten_ml_fit_problem(fitting_problem = readRDS(path))
+flat_problem
+
+fit <- ml_fit_dss(flat_problem)
+fit$flat_weights
+fit$weights
 }
 \seealso{
 \code{\link[=ml_fit]{ml_fit()}}

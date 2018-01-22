@@ -23,7 +23,12 @@
 #' @export
 #' @examples
 #' path <- toy_example("Tiny")
-#' flatten_ml_fit_problem(fitting_problem = readRDS(path))
+#' flat_problem <- flatten_ml_fit_problem(fitting_problem = readRDS(path))
+#' flat_problem
+#'
+#' fit <- ml_fit_dss(flat_problem)
+#' fit$flat_weights
+#' fit$weights
 flatten_ml_fit_problem <- function(fitting_problem,
                                    model_matrix_type = c("combined", "separate"),
                                    verbose = FALSE) {
