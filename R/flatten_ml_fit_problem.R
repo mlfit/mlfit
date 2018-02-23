@@ -186,7 +186,8 @@ flatten_ml_fit_problem <- function(fitting_problem,
       nonzero.observations_w <- which(!zero.observations)
 
       zero_weights_transform <- sparseMatrix(
-        i = nonzero.observations_w, j = seq_along(nonzero.observations_w), x = 1
+        i = nonzero.observations_w, j = seq_along(nonzero.observations_w), x = 1,
+        dims = c(length(zero.observations), length(nonzero.observations_w))
       )
       weights_transform <- weights_transform %*% zero_weights_transform
     } else {

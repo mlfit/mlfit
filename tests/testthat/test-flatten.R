@@ -167,3 +167,10 @@ test_that("error if group id is NA", {
   problem <- fitting_problem(ref_sample, controls, field_names, prior_weights = ref_sample$group_id)
   expect_error(flatten_ml_fit_problem(problem), "NA")
 })
+
+test_that("auto-removing last observation from reference sample (#30)", {
+  ye_problem <- readRDS(toy_example("Tiny"))
+  ye_problem$controls$individual$IND$N[[2]] <- 0L
+
+  expect_warning(flatten_ml_fit_problem(ye_problem), "6 distinct entries")
+})
