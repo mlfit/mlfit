@@ -18,6 +18,8 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -25,6 +27,7 @@
 <script src="../pkgdown.js"></script>
   
   
+<meta property="og:title" content="All news" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -138,14 +141,14 @@
 <h2 class="hasAnchor">
 <a href="#multilevelipf-0-3-1-2016-04-17" class="anchor"></a>MultiLevelIPF 0.3-1 (2016-04-17)</h2>
 <ul>
-<li>Fitting result contains <code>iterations</code> and <code>tol</code> members (#28).</li>
+<li>Fitting result contains <code>iterations</code> and <code>tol</code> members (<a href='https://github.com/krlmlr/MultiLevelIPF/issues/28'>#28</a>).</li>
 <li>Fixed model matrix of “separate” type if only grand totals are given.</li>
 <li>
 <code><a href="../reference/ml_fit.html">ml_fit()</a></code> gains <code>tol</code> argument, which determines the success of a fitting operation.</li>
 <li>
-<code>ml_fit</code> objects have new members <code>success</code>, <code>rel_residuals</code>, and <code>flat_weighted_values</code> (#28).</li>
+<code>ml_fit</code> objects have new members <code>success</code>, <code>rel_residuals</code>, and <code>flat_weighted_values</code> (<a href='https://github.com/krlmlr/MultiLevelIPF/issues/28'>#28</a>).</li>
 <li>HIPF and IPU stop iterating if tolerance is reached.</li>
-<li>IPU and HIPF abort iteration when the weights do not change measurably between two iterations (#27).</li>
+<li>IPU and HIPF abort iteration when the weights do not change measurably between two iterations (<a href='https://github.com/krlmlr/MultiLevelIPF/issues/27'>#27</a>).</li>
 </ul>
 </div>
     <div id="multilevelipf-0-3-2016-04-14" class="section level1">
@@ -154,7 +157,7 @@
 <ul>
 <li>Features
 <ul>
-<li>New algoritms: HIPF (#2) and IPU.</li>
+<li>New algoritms: HIPF (<a href='https://github.com/krlmlr/MultiLevelIPF/issues/2'>#2</a>) and IPU.</li>
 </ul>
 </li>
 <li>Interface
@@ -162,7 +165,7 @@
 <li>New <code><a href="../reference/flatten_ml_fit_problem.html">as.flat_ml_fit_problem()</a></code> is used to coerce input for the <code>ml_fit_</code> functions.</li>
 <li>
 <code>format()</code> and <code>print()</code> methods for classes <code>fitting_problem</code>, <code>flat_ml_fit_problem</code> and <code>ml_fit</code>.</li>
-<li>Flattened reference sample now contains observations in rows, and controls in columns (#26).</li>
+<li>Flattened reference sample now contains observations in rows, and controls in columns (<a href='https://github.com/krlmlr/MultiLevelIPF/issues/26'>#26</a>).</li>
 <li>
 <code><a href="../reference/flatten_ml_fit_problem.html">flatten_ml_fit_problem()</a></code> gains new <code>model_matrix_type</code> argument that allows selecting an alternative model matrix building method where all cross-classifications are allocated to a column, regardless of overlaps. Flattened problems store the type of model matrix used, it is also shown with the <code>format()</code> and <code>print()</code> methods.</li>
 </ul>
