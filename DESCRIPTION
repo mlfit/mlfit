@@ -21,8 +21,7 @@ Imports:
     kimisc,
     Matrix,
     plyr,
-    tibble,
-    data.table
+    tibble
 Suggests: 
     testthat (>= 2.1.0),
     XML

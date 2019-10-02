@@ -12,7 +12,6 @@
 #'
 #' @import methods
 #' @import dplyr
-#' @import data.table
 #' @importFrom Matrix Matrix sparseMatrix sparse.model.matrix
 #' @importMethodsFrom Matrix rowSums colSums diag tcrossprod t
 #' @importFrom plyr l_ply d_ply
