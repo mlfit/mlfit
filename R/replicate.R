@@ -84,22 +84,6 @@ trs.default <- function(x, w, hid_col, pid_col, verbose) {
       data.table::data.table(id = sampled_hh) %>%
       data.table::setnames(., old = "id", new = hid_col)
 
-    hh_sample <-
-      pop_sample[pop_sample[, .I[1], by = c(hid_col)]$V1]
-
-    sampled_hh <-
-      sample(
-        size = n_sample,
-        x = hh_sample[[hid_col]],
-        prob = hh_sample[["prob"]],
-        replace = FALSE
-      )
-
-    # turn it into a data.table
-    sampled_hh <-
-      data.table::data.table(id = sampled_hh) %>%
-      data.table::setnames(., old = "id", new = hid_col)
-
     # merge individuals to sampled households
     pop_S <-
       sampled_hh[x, , on = c(hid_col), nomatch = 0]
@@ -108,10 +92,12 @@ trs.default <- function(x, w, hid_col, pid_col, verbose) {
     data.table::setcolorder(pop_S, names(pop_R))
 
     # return
+    message("Done")
     return(rbind(pop_R, pop_S))
 
   } else {
     message("The sum of the remaining weights after the truncation equal to 0. No sampling is needed.")
+    message("Done")
     return(pop_R)
   }
 
