@@ -21,11 +21,12 @@ Imports:
     kimisc,
     Matrix,
     plyr,
-    tibble
+    tibble,
+    data.table
 Suggests: 
-    testthat,
+    testthat (>= 2.1.0),
     XML
 Encoding: UTF-8
 Remotes: krlmlr/grake
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

@@ -8,7 +8,8 @@
 flatten_ml_fit_problem(fitting_problem, model_matrix_type = c("combined",
   "separate"), verbose = FALSE)
 
-as.flat_ml_fit_problem(x, model_matrix_type = c("combined", "separate"), ...)
+as.flat_ml_fit_problem(x, model_matrix_type = c("combined", "separate"),
+  ...)
 }
 \arguments{
 \item{fitting_problem}{A fitting problem created by

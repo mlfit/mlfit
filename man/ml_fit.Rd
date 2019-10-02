@@ -79,15 +79,6 @@ aggregate controls.
 \code{ml_fit()} accepts an algorithm as argument and calls the
 corresponding function. This is useful if the result of multiple algorithms
 are compared to each other.
-
-\code{ml_fit_dss()} uses generalized raking and calls \code{grake::\link[grake]{dss}} internally.
-
-\code{ml_fit_entropy_o()} optimizes entropy using the
-\code{BB::\link[BB]{dfsane}} function.
-
-\code{ml_fit_hipf()} implements Hierarchical Iterative Proportional Fitting.
-
-\code{ml_fit_ipu()} implements Iterative Proportional Updating.
 }
 \examples{
 path <- toy_example("Tiny")

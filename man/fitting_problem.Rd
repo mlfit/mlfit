@@ -8,9 +8,9 @@
 \alias{special_field_names}
 \title{Create an instance of a fitting problem}
 \usage{
-fitting_problem(ref_sample, controls = list(individual = individual_controls,
-  group = group_controls), field_names, individual_controls, group_controls,
-  prior_weights = NULL)
+fitting_problem(ref_sample, controls = list(individual =
+  individual_controls, group = group_controls), field_names,
+  individual_controls, group_controls, prior_weights = NULL)
 
 is.fitting_problem(x)
 
