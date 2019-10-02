@@ -36,7 +36,7 @@ test_that("trs with integer weights works", {
       verbose = TRUE
     )
 
-  expect_true(all(dim(df_pop) == dim(ml_fit_pop)))
+  expect_true(nrow(df_pop) == length(fit$weights))
 
 })
 
