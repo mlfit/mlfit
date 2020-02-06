@@ -174,7 +174,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
       "  Found zero-valued controls (showing the first 10): ",
       paste(head(names(control.totals)[zero.control.totals], 10), collapse = ", ")
     )
-    zero.observations <- apply(ref_sample.agg.m, 1, function(x) any(x[zero.control.totals] > 0))
+    zero.observations <- rowSums(ref_sample.agg.m[, zero.control.totals, drop = FALSE] > 0)
     if (any(zero.observations)) {
       zero.observation.weights <- sum(prior_weights_agg[zero.observations])
       warning(
