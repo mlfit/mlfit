@@ -23,6 +23,7 @@ Imports:
     plyr,
     tibble
 Suggests: 
+    covr,
     testthat,
     XML
 Encoding: UTF-8

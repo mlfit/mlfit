@@ -1,6 +1,10 @@
 # MultiLevelIPF
 
-[![Travis build status](https://travis-ci.org/krlmlr/MultiLevelIPF.svg?branch=master)](https://travis-ci.org/krlmlr/MultiLevelIPF) [![codecov.io](https://codecov.io/github/krlmlr/MultiLevelIPF/coverage.svg?branch=master)](https://codecov.io/github/krlmlr/MultiLevelIPF?branch=master)
+<!-- badges: start -->
+[![rcc](https://github.com/krlmlr/MultiLevelIPF/workflows/rcc/badge.svg)](https://github.com/krlmlr/MultiLevelIPF/actions)
+[![codecov.io](https://codecov.io/github/krlmlr/MultiLevelIPF/coverage.svg?branch=master)](https://codecov.io/github/krlmlr/MultiLevelIPF?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/krlmlr/MultiLevelIPF/branch/master/graph/badge.svg)](https://codecov.io/gh/krlmlr/MultiLevelIPF?branch=master)
+<!-- badges: end -->
 
 Implementation of algorithms that extend IPF to nested structures.
 

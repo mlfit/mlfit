@@ -3,10 +3,8 @@
 ^\.gitignore$
 ^README\.md$
 ^tools$
-^\.travis\.yml$
 ^NEWS\.md$
 ^NEWS\.md\.tmpl$
-^wercker\.yml$
 ^\.lintr$
 ^Makefile$
 ^makeR
@@ -14,8 +12,7 @@
 ^Makefile\.in$
 ^makeR$
 ^data-raw$
-^appveyor\.yml$
-^tic\.R$
 ^docs$
 ^_pkgdown\.yml$
 ^\.github$
+^codecov\.yml$
