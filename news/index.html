@@ -57,9 +57,15 @@
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -183,10 +189,10 @@
 <ul>
 <li>New <code><a href="../reference/flatten_ml_fit_problem.html">as.flat_ml_fit_problem()</a></code> is used to coerce input for the <code>ml_fit_</code> functions.</li>
 <li>
-<code><a href="https://rdrr.io/r/base/format.html">format()</a></code> and <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> methods for classes <code>fitting_problem</code>, <code>flat_ml_fit_problem</code> and <code>ml_fit</code>.</li>
+<code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code> and <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> methods for classes <code>fitting_problem</code>, <code>flat_ml_fit_problem</code> and <code>ml_fit</code>.</li>
 <li>Flattened reference sample now contains observations in rows, and controls in columns (<a href='https://github.com/krlmlr/MultiLevelIPF/issues/26'>#26</a>).</li>
 <li>
-<code><a href="../reference/flatten_ml_fit_problem.html">flatten_ml_fit_problem()</a></code> gains new <code>model_matrix_type</code> argument that allows selecting an alternative model matrix building method where all cross-classifications are allocated to a column, regardless of overlaps. Flattened problems store the type of model matrix used, it is also shown with the <code><a href="https://rdrr.io/r/base/format.html">format()</a></code> and <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> methods.</li>
+<code><a href="../reference/flatten_ml_fit_problem.html">flatten_ml_fit_problem()</a></code> gains new <code>model_matrix_type</code> argument that allows selecting an alternative model matrix building method where all cross-classifications are allocated to a column, regardless of overlaps. Flattened problems store the type of model matrix used, it is also shown with the <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code> and <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> methods.</li>
 </ul>
 </li>
 <li>Improvements
@@ -203,14 +209,14 @@
 <li>Use <code>grake</code> package again for calibration, because the alternatives are worse: <code>sampling</code> uses a too low tolerance, <code>survey</code> forcibly loads <code>MASS</code>, and <code>laeken</code> could work but is unrelated (which is the reason <code>grake</code> has been started in the first place).</li>
 <li>Duplicate rows are kept in the reference sample.</li>
 <li>Rename <code>control_totals</code> to <code>target_values</code>.</li>
-<li>New <code><a href="../reference/toy_example.html">toy_example()</a></code> allows easier access to bundled examples, load with <code><a href="https://rdrr.io/r/base/readRDS.html">readRDS()</a></code>.</li>
+<li>New <code><a href="../reference/toy_example.html">toy_example()</a></code> allows easier access to bundled examples, load with <code><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS()</a></code>.</li>
 <li>Move legacy format (IPAF) and related functions to <code>data-raw</code> directory.</li>
 <li>Use factors internally.</li>
 </ul>
 </li>
 <li>Performance
 <ul>
-<li>Use <code>dplyr</code> functions instead of <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code>.</li>
+<li>Use <code>dplyr</code> functions instead of <code><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate()</a></code>.</li>
 </ul>
 </li>
 <li>Tests
@@ -246,7 +252,7 @@
 <li>If name of count column in controls is not specified, it is determined automatically (with a message in verbose mode)</li>
 <li>Expansion of weights loads <code>Matrix</code> package if necessary</li>
 <li>Clarify documentation</li>
-<li>Straighten out imports, use <code>importFrom</code> instead of <code><a href="https://rdrr.io/r/base/ns-dblcolon.html">::</a></code>
+<li>Straighten out imports, use <code>importFrom</code> instead of <code><a href="https://rdrr.io/r/base/ns-dblcolon.html" class="external-link">::</a></code>
 </li>
 </ul>
 </div>
@@ -263,11 +269,11 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kirill Müller.</p>
+  <p><p>Developed by Kirill Müller.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
 </div>
 
       </footer>
@@ -275,6 +281,8 @@
 
   
 
+
+  
 
   </body>
 </html>

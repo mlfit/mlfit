@@ -63,9 +63,15 @@ to fitting_problem." />
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -237,20 +243,20 @@ and <code>group</code>. Each contains a list of controls as <code>data.frame</co
   <span class='fl'>8</span>,     <span class='fl'>2</span>,     <span class='fl'>2</span>,       <span class='fl'>2</span>
 <span class='op'>)</span>
 <span class='va'>ye</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 23 x 4</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 23 x 4</span><span>
 #&gt;     HHNR  APER HH_VAR P_VAR
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>     1     3      1     1
-#&gt; </span><span style='color: #555555;'> 2</span><span>     1     3      1     2
-#&gt; </span><span style='color: #555555;'> 3</span><span>     1     3      1     3
-#&gt; </span><span style='color: #555555;'> 4</span><span>     2     2      1     1
-#&gt; </span><span style='color: #555555;'> 5</span><span>     2     2      1     3
-#&gt; </span><span style='color: #555555;'> 6</span><span>     3     3      1     1
-#&gt; </span><span style='color: #555555;'> 7</span><span>     3     3      1     1
-#&gt; </span><span style='color: #555555;'> 8</span><span>     3     3      1     2
-#&gt; </span><span style='color: #555555;'> 9</span><span>     4     3      2     1
-#&gt; </span><span style='color: #555555;'>10</span><span>     4     3      2     3
-#&gt; </span><span style='color: #555555;'># … with 13 more rows</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>     1     3      1     1
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>     1     3      1     2
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>     1     3      1     3
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>     2     2      1     1
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>     2     2      1     3
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>     3     3      1     1
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>     3     3      1     1
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>     3     3      1     2
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>     4     3      2     1
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span>     4     3      2     3
+#&gt; </span><span style='color: #949494;'># … with 13 more rows</span><span></div><div class='input'>
 <span class='co'># Specify control at household level</span>
 <span class='va'>ye_hh</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span><span class='op'>(</span>
   <span class='op'>~</span><span class='va'>HH_VAR</span>, <span class='op'>~</span><span class='va'>N</span>,
@@ -258,11 +264,11 @@ and <code>group</code>. Each contains a list of controls as <code>data.frame</co
   <span class='fl'>2</span>,       <span class='fl'>65</span>
 <span class='op'>)</span>
 <span class='va'>ye_hh</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 2</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 2</span><span>
 #&gt;   HH_VAR     N
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>      1    35
-#&gt; </span><span style='color: #555555;'>2</span><span>      2    65</div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>      1    35
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>      2    65</div><div class='input'>
 <span class='co'># Specify control at person level</span>
 <span class='va'>ye_ind</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span><span class='op'>(</span>
   <span class='op'>~</span><span class='va'>P_VAR</span>, <span class='op'>~</span><span class='va'>N</span>,
@@ -271,12 +277,12 @@ and <code>group</code>. Each contains a list of controls as <code>data.frame</co
   <span class='fl'>3</span>,      <span class='fl'>104</span>
 <span class='op'>)</span>
 <span class='va'>ye_ind</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 3 x 2</span><span>
 #&gt;   P_VAR     N
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>     1    91
-#&gt; </span><span style='color: #555555;'>2</span><span>     2    65
-#&gt; </span><span style='color: #555555;'>3</span><span>     3   104</div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     1    91
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     2    65
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     3   104</div><div class='input'>
 <span class='va'>ye_problem</span> <span class='op'>&lt;-</span> <span class='fu'>fitting_problem</span><span class='op'>(</span>
   ref_sample <span class='op'>=</span> <span class='va'>ye</span>,
   field_names <span class='op'>=</span> <span class='fu'>special_field_names</span><span class='op'>(</span>
@@ -306,11 +312,11 @@ and <code>group</code>. Each contains a list of controls as <code>data.frame</co
 
       <footer>
       <div class="copyright">
-  <p>Developed by Kirill Müller.</p>
+  <p><p>Developed by Kirill Müller.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p></p>
 </div>
 
       </footer>
@@ -318,6 +324,8 @@ and <code>group</code>. Each contains a list of controls as <code>data.frame</co
 
   
 
+
+  
 
   </body>
 </html>
