@@ -507,7 +507,13 @@ flatten_ml_fit_problem <- function(fitting_problem,
     ))
     all_values <- factor(.combine_levels(col_values), levels = all_levels)
 
-    wide <- sparseMatrix(seq_len(nrow(data)), as.integer(all_values), x = 1)
+    wide <- sparseMatrix(
+      i = seq_len(nrow(data)),
+      j = as.integer(all_values),
+      x = 1,
+      dims = c(nrow(data), length(levels(all_values)))
+    )
+
     colnames(wide) <- all_levels
     wide
   }
