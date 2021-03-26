@@ -1,3 +1,13 @@
+<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+
+# MultiLevelIPF 0.3.7.9000 (2021-03-26)
+
+- Fix the error when a level is missing from the reference sample (#32, @asiripanich).
+- Fix test on Windows.
+- Avoid converting sparse matrix to full matrix.
+- If the controls contain values of zero for existing observations in the reference sample, the removal of these observations now works in all cases (#30).
+
+
 ## MultiLevelIPF 0.3-7 (2018-01-22)
 
 - Add overview in package documentation.
