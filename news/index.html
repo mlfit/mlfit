@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MultiLevelIPF</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3-7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7.9000</span>
       </span>
     </div>
 
@@ -117,7 +117,16 @@
       <small>Source: <a href='https://github.com/krlmlr/MultiLevelIPF/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="multilevelipf-03-7-2018-01-22" class="section level2">
+    <div id="multilevelipf-0379000-2021-03-26" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.7.9000">
+<a href="#multilevelipf-0379000-2021-03-26" class="anchor"></a>MultiLevelIPF 0.3.7.9000 (2021-03-26)</h1>
+<ul>
+<li>Fix the error when a level is missing from the reference sample (<a href='https://github.com/krlmlr/MultiLevelIPF/issues/32'>#32</a>, <a href='https://github.com/asiripanich'>@asiripanich</a>).</li>
+<li>Fix test on Windows.</li>
+<li>Avoid converting sparse matrix to full matrix.</li>
+<li>If the controls contain values of zero for existing observations in the reference sample, the removal of these observations now works in all cases (<a href='https://github.com/krlmlr/MultiLevelIPF/issues/30'>#30</a>).</li>
+</ul>
+<div id="multilevelipf-03-7-2018-01-22" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multilevelipf-03-7-2018-01-22" class="anchor"></a>MultiLevelIPF 0.3-7 (2018-01-22)</h2>
 <ul>
@@ -126,7 +135,7 @@
 <li>Explicitly document return values to <code><a href="../reference/ml_fit.html">ml_fit()</a></code>.</li>
 </ul>
 </div>
-    <div id="multilevelipf-03-6-2017-03-28" class="section level2">
+<div id="multilevelipf-03-6-2017-03-28" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multilevelipf-03-6-2017-03-28" class="anchor"></a>MultiLevelIPF 0.3-6 (2017-03-28)</h2>
 <ul>
@@ -134,21 +143,21 @@
 <li>Convert documentation to Markdown.</li>
 </ul>
 </div>
-    <div id="multilevelipf-03-5-2016-09-03" class="section level2">
+<div id="multilevelipf-03-5-2016-09-03" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multilevelipf-03-5-2016-09-03" class="anchor"></a>MultiLevelIPF 0.3-5 (2016-09-03)</h2>
 <ul>
 <li>Add “Driven by” and “Related work” sections to the README.</li>
 </ul>
 </div>
-    <div id="multilevelipf-03-4-2016-08-03" class="section level2">
+<div id="multilevelipf-03-4-2016-08-03" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multilevelipf-03-4-2016-08-03" class="anchor"></a>MultiLevelIPF 0.3-4 (2016-08-03)</h2>
 <ul>
 <li>Use a sparse matrix for the flattened reference sample.</li>
 </ul>
 </div>
-    <div id="multilevelipf-03-3-2016-06-06" class="section level2">
+<div id="multilevelipf-03-3-2016-06-06" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multilevelipf-03-3-2016-06-06" class="anchor"></a>MultiLevelIPF 0.3-3 (2016-06-06)</h2>
 <ul>
@@ -156,14 +165,14 @@
 <li>Fail if <code>NA</code> group ID found.</li>
 </ul>
 </div>
-    <div id="multilevelipf-03-2-2016-04-25" class="section level2">
+<div id="multilevelipf-03-2-2016-04-25" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multilevelipf-03-2-2016-04-25" class="anchor"></a>MultiLevelIPF 0.3-2 (2016-04-25)</h2>
 <ul>
 <li>Reorganized and renamed internal datasets.</li>
 </ul>
 </div>
-    <div id="multilevelipf-03-1-2016-04-17" class="section level2">
+<div id="multilevelipf-03-1-2016-04-17" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multilevelipf-03-1-2016-04-17" class="anchor"></a>MultiLevelIPF 0.3-1 (2016-04-17)</h2>
 <ul>
@@ -176,6 +185,7 @@
 <li>HIPF and IPU stop iterating if tolerance is reached.</li>
 <li>IPU and HIPF abort iteration when the weights do not change measurably between two iterations (<a href='https://github.com/krlmlr/MultiLevelIPF/issues/27'>#27</a>).</li>
 </ul>
+</div>
 </div>
     <div id="multilevelipf-03-2016-04-14" class="section level1">
 <h1 class="page-header" data-toc-text="0.3">
