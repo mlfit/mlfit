@@ -10,11 +10,11 @@ test_that("A level is missing from the reference sample should raise a warning",
         )
 
     p_control <- 
-        dplyr::arrange(data.frame(
+        data.frame(
             gender = rep(c("male", "female"), 2) ,
             marital_status = c(rep("married", 2), rep("single", 2)),
             count = 1:4
-        ), gender, marital_status)
+        )
 
     h_control <-
         data.frame(
