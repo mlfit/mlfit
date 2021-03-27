@@ -135,7 +135,7 @@ test_that("don't need to sort by group id", {
   )
 
   problem <- fitting_problem(ref_sample, controls, field_names, prior_weights = ref_sample$group_id)
-  problem_sorted <- fitting_problem(arrange_(ref_sample, ~group_id), controls, field_names, prior_weights = sort(ref_sample$group_id))
+  problem_sorted <- fitting_problem(arrange(ref_sample, group_id), controls, field_names, prior_weights = sort(ref_sample$group_id))
   flat <- flatten_ml_fit_problem(problem)
   flat_sorted <- flatten_ml_fit_problem(problem_sorted)
 

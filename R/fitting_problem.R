@@ -138,7 +138,6 @@ print.fitting_problem <- default_print
 #' @param count Name of control total column in control tables (use first numeric
 #'   column in each control by default).
 #'
-#' @importFrom kimisc nlist
 #' @export
 #' @rdname fitting_problem
 special_field_names <- function(groupId, individualId, individualsPerGroup = NULL,

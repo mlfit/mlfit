@@ -15,13 +15,13 @@ test_that("trivially correlated variables", {
     )
   rs$id <- seq_along(rs$x2)
 
-  x2c <- data.frame(x2 = kimisc::ofactor(levels(rs$x2)))
+  x2c <- data.frame(x2 = forcats::fct_inorder(levels(rs$x2)))
   x2c$N <- 2
 
-  x5c <- data.frame(x5 = kimisc::ofactor(factor(levels(rs$x5))))
+  x5c <- data.frame(x5 = forcats::fct_inorder(factor(levels(rs$x5))))
   x5c$N <- 5
 
-  x10c <- data.frame(x10 = kimisc::ofactor(factor(levels(rs$x10))))
+  x10c <- data.frame(x10 = forcats::fct_inorder(factor(levels(rs$x10))))
   x10c$N <- 10
 
   problem <- fitting_problem(

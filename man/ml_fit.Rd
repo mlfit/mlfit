@@ -9,20 +9,44 @@
 \alias{ml_fit_ipu}
 \title{Estimate weights for a fitting problem}
 \usage{
-ml_fit(algorithm = c("entropy_o", "dss", "ipu", "hipf"), fitting_problem,
-  verbose = FALSE, ..., tol = 1e-06)
+ml_fit(
+  algorithm = c("entropy_o", "dss", "ipu", "hipf"),
+  fitting_problem,
+  verbose = FALSE,
+  ...,
+  tol = 1e-06
+)
 
-ml_fit_dss(fitting_problem, method = c("raking", "linear", "logit"),
-  ginv = grake::gginv(), tol = 1e-06, verbose = FALSE)
+ml_fit_dss(
+  fitting_problem,
+  method = c("raking", "linear", "logit"),
+  ginv = grake::gginv(),
+  tol = 1e-06,
+  verbose = FALSE
+)
 
-ml_fit_entropy_o(fitting_problem, verbose = FALSE, tol = 1e-06,
-  dfsane_args = list())
+ml_fit_entropy_o(
+  fitting_problem,
+  verbose = FALSE,
+  tol = 1e-06,
+  dfsane_args = list()
+)
 
-ml_fit_hipf(fitting_problem, diff_tol = 16 * .Machine$double.eps,
-  tol = 1e-06, maxiter = 2000, verbose = FALSE)
+ml_fit_hipf(
+  fitting_problem,
+  diff_tol = 16 * .Machine$double.eps,
+  tol = 1e-06,
+  maxiter = 2000,
+  verbose = FALSE
+)
 
-ml_fit_ipu(fitting_problem, diff_tol = 16 * .Machine$double.eps,
-  tol = 1e-06, maxiter = 2000, verbose = FALSE)
+ml_fit_ipu(
+  fitting_problem,
+  diff_tol = 16 * .Machine$double.eps,
+  tol = 1e-06,
+  maxiter = 2000,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{algorithm}{Algorithm to use}
@@ -79,15 +103,6 @@ aggregate controls.
 \code{ml_fit()} accepts an algorithm as argument and calls the
 corresponding function. This is useful if the result of multiple algorithms
 are compared to each other.
-
-\code{ml_fit_dss()} uses generalized raking and calls \code{grake::\link[grake]{dss}} internally.
-
-\code{ml_fit_entropy_o()} optimizes entropy using the
-\code{BB::\link[BB]{dfsane}} function.
-
-\code{ml_fit_hipf()} implements Hierarchical Iterative Proportional Fitting.
-
-\code{ml_fit_ipu()} implements Iterative Proportional Updating.
 }
 \examples{
 path <- toy_example("Tiny")

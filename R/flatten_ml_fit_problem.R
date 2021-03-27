@@ -18,8 +18,8 @@
 #' @return An object of classes `flat_ml_fit_problem`,
 #'   essentially a named list.
 #' @seealso [ml_fit()]
-#' @importFrom kimisc coalesce.na
 #' @importFrom plyr laply adply
+#' @importFrom rlang .data
 #' @export
 #' @examples
 #' path <- toy_example("Tiny")
@@ -70,18 +70,18 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
   message("Splitting")
   gid_lookup <-
-    data_frame(gid = ref_sample[[field_names$groupId]]) %>%
-    mutate_(iidx = ~seq_along(gid)) %>%
-    mutate_(canonical = ~match(gid, gid)) %>%
-    mutate_(proxy = ~!duplicated(canonical)) %>%
-    mutate_(gidx = ~cumsum(proxy)[canonical]) %>%
-    select_(~-canonical)
+    tibble(gid = ref_sample[[field_names$groupId]]) %>%
+    mutate(iidx = seq_along(.data$gid)) %>%
+    mutate(canonical = match(.data$gid, .data$gid)) %>%
+    mutate(proxy = !duplicated(.data$canonical)) %>%
+    mutate(gidx = cumsum(.data$proxy)[.data$canonical]) %>%
+    select(-.data$canonical)
 
   message("Splitting (2)")
   gid_lookup <-
     gid_lookup %>%
-    group_by_(~gid) %>%
-    mutate_(n = ~length(gid)) %>%
+    group_by(.data$gid) %>%
+    mutate(n = length(.data$gid)) %>%
     ungroup()
 
   if (length(control_formula_components$group) > 0L) {
@@ -219,7 +219,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
   message("Normalizing weights")
   prior_weights_agg <- prior_weights_agg / sum(prior_weights_agg) *
-    unname(coalesce.na(
+    unname(coalesce(
       control.totals["(Intercept)_g"],
       control.totals["(Intercept)_i"],
       sum(prior_weights_agg)
@@ -494,7 +494,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
   } else {
     col_levels <- Map(
       function(name, value)
-        kimisc::ofactor(paste0(name, levels(value))),
+        forcats::fct_inorder(paste0(name, levels(value))),
       col_names, data[col_names]
     )
     grid <- do.call(expand.grid, col_levels)

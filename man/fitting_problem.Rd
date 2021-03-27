@@ -8,9 +8,14 @@
 \alias{special_field_names}
 \title{Create an instance of a fitting problem}
 \usage{
-fitting_problem(ref_sample, controls = list(individual = individual_controls,
-  group = group_controls), field_names, individual_controls, group_controls,
-  prior_weights = NULL)
+fitting_problem(
+  ref_sample,
+  controls = list(individual = individual_controls, group = group_controls),
+  field_names,
+  individual_controls,
+  group_controls,
+  prior_weights = NULL
+)
 
 is.fitting_problem(x)
 
@@ -18,8 +23,12 @@ is.fitting_problem(x)
 
 \method{print}{fitting_problem}(x, ...)
 
-special_field_names(groupId, individualId, individualsPerGroup = NULL,
-  count = NULL)
+special_field_names(
+  groupId,
+  individualId,
+  individualsPerGroup = NULL,
+  count = NULL
+)
 }
 \arguments{
 \item{ref_sample}{The reference sample}

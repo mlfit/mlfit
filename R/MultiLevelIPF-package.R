@@ -17,4 +17,5 @@
 #' @importFrom plyr l_ply d_ply
 #' @importFrom stats as.formula
 #' @importFrom utils head
+#' @importFrom forcats fct_inorder
 "_PACKAGE"

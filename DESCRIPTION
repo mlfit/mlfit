@@ -21,7 +21,9 @@ Imports:
     kimisc,
     Matrix,
     plyr,
-    tibble
+    tibble,
+    forcats,
+    rlang
 Suggests: 
     covr,
     testthat,
@@ -29,4 +31,4 @@ Suggests:
 Encoding: UTF-8
 Remotes: krlmlr/grake
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.1
