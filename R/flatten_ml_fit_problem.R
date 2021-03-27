@@ -69,7 +69,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
   message("Splitting")
   gid_lookup <-
-    data_frame(gid = ref_sample[[field_names$groupId]]) %>%
+    tibble(gid = ref_sample[[field_names$groupId]]) %>%
     mutate(iidx = seq_along(gid)) %>%
     mutate(canonical = match(gid, gid)) %>%
     mutate(proxy = !duplicated(canonical)) %>%
