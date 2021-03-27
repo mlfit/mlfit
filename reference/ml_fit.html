@@ -44,12 +44,7 @@
 aggregate controls.
 ml_fit() accepts an algorithm as argument and calls the
 corresponding function. This is useful if the result of multiple algorithms
-are compared to each other.
-ml_fit_dss() uses generalized raking and calls grake::dss internally.
-ml_fit_entropy_o() optimizes entropy using the
-BB::dfsane function.
-ml_fit_hipf() implements Hierarchical Iterative Proportional Fitting.
-ml_fit_ipu() implements Iterative Proportional Updating." />
+are compared to each other." />
 
 
 
@@ -136,27 +131,46 @@ aggregate controls.</p>
 <p><code>ml_fit()</code> accepts an algorithm as argument and calls the
 corresponding function. This is useful if the result of multiple algorithms
 are compared to each other.</p>
-<p><code>ml_fit_dss()</code> uses generalized raking and calls <code>grake::<a href='https://rdrr.io/pkg/grake/man/dss.html'>dss</a></code> internally.</p>
-<p><code>ml_fit_entropy_o()</code> optimizes entropy using the
-<code>BB::<a href='https://rdrr.io/pkg/BB/man/dfsane.html'>dfsane</a></code> function.</p>
-<p><code>ml_fit_hipf()</code> implements Hierarchical Iterative Proportional Fitting.</p>
-<p><code>ml_fit_ipu()</code> implements Iterative Proportional Updating.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ml_fit</span><span class='op'>(</span>algorithm <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"entropy_o"</span>, <span class='st'>"dss"</span>, <span class='st'>"ipu"</span>, <span class='st'>"hipf"</span><span class='op'>)</span>, <span class='va'>fitting_problem</span>,
-  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span>, tol <span class='op'>=</span> <span class='fl'>1e-06</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>ml_fit</span><span class='op'>(</span>
+  algorithm <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"entropy_o"</span>, <span class='st'>"dss"</span>, <span class='st'>"ipu"</span>, <span class='st'>"hipf"</span><span class='op'>)</span>,
+  <span class='va'>fitting_problem</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>,
+  tol <span class='op'>=</span> <span class='fl'>1e-06</span>
+<span class='op'>)</span>
 
-<span class='fu'>ml_fit_dss</span><span class='op'>(</span><span class='va'>fitting_problem</span>, method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"raking"</span>, <span class='st'>"linear"</span>, <span class='st'>"logit"</span><span class='op'>)</span>,
-  ginv <span class='op'>=</span> <span class='fu'>grake</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/grake/man/gginv.html'>gginv</a></span><span class='op'>(</span><span class='op'>)</span>, tol <span class='op'>=</span> <span class='fl'>1e-06</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'>ml_fit_dss</span><span class='op'>(</span>
+  <span class='va'>fitting_problem</span>,
+  method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"raking"</span>, <span class='st'>"linear"</span>, <span class='st'>"logit"</span><span class='op'>)</span>,
+  ginv <span class='op'>=</span> <span class='fu'>grake</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/grake/man/gginv.html'>gginv</a></span><span class='op'>(</span><span class='op'>)</span>,
+  tol <span class='op'>=</span> <span class='fl'>1e-06</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>ml_fit_entropy_o</span><span class='op'>(</span><span class='va'>fitting_problem</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, tol <span class='op'>=</span> <span class='fl'>1e-06</span>,
-  dfsane_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>ml_fit_entropy_o</span><span class='op'>(</span>
+  <span class='va'>fitting_problem</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  tol <span class='op'>=</span> <span class='fl'>1e-06</span>,
+  dfsane_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>ml_fit_hipf</span><span class='op'>(</span><span class='va'>fitting_problem</span>, diff_tol <span class='op'>=</span> <span class='fl'>16</span> <span class='op'>*</span> <span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.eps</span>,
-  tol <span class='op'>=</span> <span class='fl'>1e-06</span>, maxiter <span class='op'>=</span> <span class='fl'>2000</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'>ml_fit_hipf</span><span class='op'>(</span>
+  <span class='va'>fitting_problem</span>,
+  diff_tol <span class='op'>=</span> <span class='fl'>16</span> <span class='op'>*</span> <span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.eps</span>,
+  tol <span class='op'>=</span> <span class='fl'>1e-06</span>,
+  maxiter <span class='op'>=</span> <span class='fl'>2000</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>ml_fit_ipu</span><span class='op'>(</span><span class='va'>fitting_problem</span>, diff_tol <span class='op'>=</span> <span class='fl'>16</span> <span class='op'>*</span> <span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.eps</span>,
-  tol <span class='op'>=</span> <span class='fl'>1e-06</span>, maxiter <span class='op'>=</span> <span class='fl'>2000</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+<span class='fu'>ml_fit_ipu</span><span class='op'>(</span>
+  <span class='va'>fitting_problem</span>,
+  diff_tol <span class='op'>=</span> <span class='fl'>16</span> <span class='op'>*</span> <span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.eps</span>,
+  tol <span class='op'>=</span> <span class='fl'>1e-06</span>,
+  maxiter <span class='op'>=</span> <span class='fl'>2000</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
