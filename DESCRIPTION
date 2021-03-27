@@ -22,7 +22,8 @@ Imports:
     Matrix,
     plyr,
     tibble,
-    forcats
+    forcats,
+    rlang
 Suggests: 
     covr,
     testthat,
