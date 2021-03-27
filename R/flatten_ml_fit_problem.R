@@ -494,7 +494,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
   } else {
     col_levels <- Map(
       function(name, value)
-        kimisc::ofactor(paste0(name, levels(value))),
+        forcats::fct_inorder(paste0(name, levels(value))),
       col_names, data[col_names]
     )
     grid <- do.call(expand.grid, col_levels)

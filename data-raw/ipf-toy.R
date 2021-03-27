@@ -19,7 +19,7 @@ rs <- xt %>%
   as.table() %>%
   as.data.frame() %>%
   as_data_frame() %>%
-  mutate_each(funs(ofactor = kimisc::ofactor(.)), Var1, Var2) %>%
+  mutate_each(funs(ofactor = forcats::fct_inorder(.)), Var1, Var2) %>%
   select(-Var1, -Var2) %>%
   rename(WKSTAT = Var1_ofactor, AGE = Var2_ofactor) %>%
   {
@@ -33,7 +33,7 @@ rs <- xt %>%
 ct1 <-
   ct1 %>%
   gather(WKSTAT, N) %>%
-  mutate(WKSTAT = kimisc::ofactor(WKSTAT))
+  mutate(WKSTAT = forcats::fct_inorder(WKSTAT))
 
 ct2 <-
   ct2 %>%

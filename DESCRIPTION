@@ -21,7 +21,8 @@ Imports:
     kimisc,
     Matrix,
     plyr,
-    tibble
+    tibble,
+    forcats
 Suggests: 
     covr,
     testthat,
