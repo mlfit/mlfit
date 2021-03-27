@@ -7,8 +7,8 @@
 \title{MultiLevelIPF: Implementation of algorithms that extend IPF to nested structures}
 \description{
 The IPF algorithm operates on count data. This package offers
-implementations for several algorithms that extend this to nested structures:
-"parent" and "child" items for both of which constraints can be provided.
+    implementations for several algorithms that extend this to nested structures:
+    "parent" and "child" items for both of which constraints can be provided.
 }
 \details{
 To use this package, you need to:

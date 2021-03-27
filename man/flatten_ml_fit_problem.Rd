@@ -5,8 +5,11 @@
 \alias{as.flat_ml_fit_problem}
 \title{Return a flattened representation of a multi-level fitting problem instance}
 \usage{
-flatten_ml_fit_problem(fitting_problem, model_matrix_type = c("combined",
-  "separate"), verbose = FALSE)
+flatten_ml_fit_problem(
+  fitting_problem,
+  model_matrix_type = c("combined", "separate"),
+  verbose = FALSE
+)
 
 as.flat_ml_fit_problem(x, model_matrix_type = c("combined", "separate"), ...)
 }
