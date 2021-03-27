@@ -70,17 +70,17 @@ flatten_ml_fit_problem <- function(fitting_problem,
   message("Splitting")
   gid_lookup <-
     data_frame(gid = ref_sample[[field_names$groupId]]) %>%
-    mutate_(iidx = ~seq_along(gid)) %>%
-    mutate_(canonical = ~match(gid, gid)) %>%
-    mutate_(proxy = ~!duplicated(canonical)) %>%
-    mutate_(gidx = ~cumsum(proxy)[canonical]) %>%
-    select_(~-canonical)
+    mutate(iidx = seq_along(gid)) %>%
+    mutate(canonical = match(gid, gid)) %>%
+    mutate(proxy = !duplicated(canonical)) %>%
+    mutate(gidx = cumsum(proxy)[canonical]) %>%
+    select(-canonical)
 
   message("Splitting (2)")
   gid_lookup <-
     gid_lookup %>%
-    group_by_(~gid) %>%
-    mutate_(n = ~length(gid)) %>%
+    group_by(gid) %>%
+    mutate(n = length(gid)) %>%
     ungroup()
 
   if (length(control_formula_components$group) > 0L) {
