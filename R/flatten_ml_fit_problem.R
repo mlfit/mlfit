@@ -18,7 +18,6 @@
 #' @return An object of classes `flat_ml_fit_problem`,
 #'   essentially a named list.
 #' @seealso [ml_fit()]
-#' @importFrom kimisc coalesce.na
 #' @importFrom plyr laply adply
 #' @export
 #' @examples
@@ -219,7 +218,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
   message("Normalizing weights")
   prior_weights_agg <- prior_weights_agg / sum(prior_weights_agg) *
-    unname(coalesce.na(
+    unname(coalesce(
       control.totals["(Intercept)_g"],
       control.totals["(Intercept)_i"],
       sum(prior_weights_agg)
