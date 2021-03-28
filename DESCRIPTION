@@ -26,6 +26,7 @@ Imports:
 Suggests: 
     covr,
     testthat,
+    MASS,
     XML
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
