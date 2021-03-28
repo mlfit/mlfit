@@ -20,7 +20,7 @@ ml_fit(
 ml_fit_dss(
   fitting_problem,
   method = c("raking", "linear", "logit"),
-  ginv = grake::gginv(),
+  ginv = gginv(),
   tol = 1e-06,
   verbose = FALSE
 )
@@ -143,7 +143,7 @@ Annual Meeting of the Transportation Research Board}, Washington, D.C.,
 January 2009.
 }
 \seealso{
-\code{\link[grake:dss]{grake::dss()}}, \code{\link[grake:gginv]{grake::gginv()}}
+\code{\link[=dss]{dss()}}, \code{\link[=gginv]{gginv()}}
 
 \code{\link[BB:dfsane]{BB::dfsane()}}
 }

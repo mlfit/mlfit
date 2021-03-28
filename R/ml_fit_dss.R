@@ -1,4 +1,4 @@
-#' `ml_fit_dss()` uses generalized raking and calls \code{grake::\link[grake]{dss}} internally.
+#' `ml_fit_dss()` uses generalized raking and calls [dss()] internally.
 #'
 #' @rdname ml_fit
 #' @param method Calibration method, one of `"raking"` (default),
@@ -12,14 +12,14 @@
 #' Generalized raking procedures in survey sampling. \emph{Journal of the
 #' American Statistical Association}, \bold{88 } (423), 1013--1020.
 #'
-#' @seealso [grake::dss()], [grake::gginv()]
+#' @seealso [dss()], [gginv()]
 #' @export
 #' @examples
 #' ml_fit_dss(fitting_problem = readRDS(path))
 #' ml_fit_dss(fitting_problem = readRDS(path), ginv = solve)
 ml_fit_dss <- function(fitting_problem,
                        method = c("raking", "linear", "logit"),
-                       ginv = grake::gginv(),
+                       ginv = gginv(),
                        tol = 1e-6,
                        verbose = FALSE) {
   .patch_verbose()
@@ -29,7 +29,7 @@ ml_fit_dss <- function(fitting_problem,
   message("Calibrating")
   method <- match.arg(method)
 
-  g <- grake::dss(
+  g <- dss(
     X = flat$ref_sample,
     d = flat$weights,
     totals = flat$target_values,

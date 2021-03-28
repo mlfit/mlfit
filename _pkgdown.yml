@@ -11,3 +11,7 @@ reference:
   - flatten_ml_fit_problem
   - ml_fit
   - compute_margins
+- title: Generalized raking
+  contents:
+  - dss
+  - gginv
