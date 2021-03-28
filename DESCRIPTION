@@ -27,6 +27,7 @@ Suggests:
     covr,
     testthat,
     MASS,
+    sampling,
     XML
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
