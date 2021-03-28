@@ -190,7 +190,7 @@ bounds are set to <code><a href='https://rdrr.io/r/base/c.html'>c(0, 10)</a></co
     <tr>
       <th>ginv</th>
       <td><p>a function that computes the Moore-Penrose generalized
-inverse (default: an optimized version of <code><a href='https://rdrr.io/pkg/MASS/man/ginv.html'>ginv</a></code>). In
+inverse (default: an optimized version of <code><a href='https://rdrr.io/pkg/MASS/man/ginv.html'>MASS::ginv()</a></code>). In
 some cases it is possible to speed up the process by using
 a function that computes a "regular" matrix inverse such as
 <code>{solve.default}</code>.</p></td>
@@ -216,17 +216,17 @@ if convergence within the given relative tolerance could not be achieved.</p></t
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>This is a faster implementation of parts of
-<code><a href='https://rdrr.io/pkg/sampling/man/calib.html'>calib</a></code> from package <code>sampling</code>.  Note that the
+<code><a href='https://rdrr.io/pkg/sampling/man/calib.html'>sampling::calib()</a></code> from package <code>sampling</code>.  Note that the
 default calibration method is raking and that the truncated linear method is
 not yet implemented.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Deville, J.-C. and Särndal, C.-E. (1992)
 Calibration estimators in survey sampling. <em>Journal of the American
-Statistical Association</em>, <b>87</b>(418), 376--382.</p>
+Statistical Association</em>, <strong>87</strong>(418), 376--382.</p>
 <p>Deville, J.-C., Särndal, C.-E. and Sautory, O. (1993)
 Generalized raking procedures in survey sampling. <em>Journal of the
-American Statistical Association</em>, <b>88</b>(423), 1013--1020.</p>
+American Statistical Association</em>, <strong>88</strong>(423), 1013--1020.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Andreas Alfons, with improvements by Kirill Müller</p>
