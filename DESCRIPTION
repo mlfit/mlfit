@@ -16,7 +16,6 @@ Depends:
 Imports: 
     BB,
     dplyr,
-    grake (>= 0.1-1),
     hms,
     kimisc,
     Matrix,
@@ -29,6 +28,5 @@ Suggests:
     testthat,
     XML
 Encoding: UTF-8
-Remotes: krlmlr/grake
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
