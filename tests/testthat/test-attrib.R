@@ -14,10 +14,11 @@ test_that("Calibrating a unit matrix against a unit vector, with attributes", {
     expect_is(attr(g, "iterations"), "integer")
     expect_lt(attr(g, "iterations"), 3)
     expect_equal(attr(g, "method"), method)
-    if (method == "logit")
+    if (method == "logit") {
       expect_equal(attr(g, "bounds"), c(0, 10))
-    else
+    } else {
       expect_null(attr(g, "bounds"))
+    }
   }
 })
 
@@ -29,7 +30,8 @@ test_that("Test non-convergence, with attributes", {
   for (method in eval(formals(dss)$method)) {
     expect_warning(
       g <- dss(X, d, totals, method = method, attributes = TRUE),
-      NA)
+      NA
+    )
     expect_false(attr(g, "success"))
     expect_equal(length(g), 2)
     expect_is(g, "numeric")

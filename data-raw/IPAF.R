@@ -23,7 +23,7 @@
 #' @importFrom stats setNames
 #' @export
 #' @examples
-#' path <- system.file("extdata/minitoy", package="MultiLevelIPF")
+#' path <- system.file("extdata/minitoy", package = "MultiLevelIPF")
 #' fitting_problem <- import_IPAF_results(path)
 #' names(fitting_problem)
 #' fitting_problem$controls
@@ -56,8 +56,9 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
         function(control) {
           control.df <- rd(control)
           control.columns <- setdiff(colnames(control.df), fieldNames$count)
-          for (control.column in setdiff(control.columns, fieldNames$count))
+          for (control.column in setdiff(control.columns, fieldNames$count)) {
             control.df[[control.column]] <- factor(control.df[[control.column]])
+          }
 
           control.df
         }
@@ -70,15 +71,17 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
     function(control.type) {
       llply(
         control.type,
-        function(control)
+        function(control) {
           names(control)
+        }
       )
     }
   )
 
   control.columns <- unique(unlist(control.columns))
-  for (control.column in setdiff(control.columns, fieldNames$count))
+  for (control.column in setdiff(control.columns, fieldNames$count)) {
     refSample[[control.column]] <- factor(refSample[[control.column]])
+  }
 
   algorithms <- setNames(nm = unlist(config$algorithms))
 
@@ -86,7 +89,8 @@ import_IPAF_results <- function(path, all_weights = FALSE, config_name = "config
     algorithms,
     function(algo) {
       subdir_paths <- dir(
-        path, pattern = glob2rx(sprintf("*-%s", algo)),
+        path,
+        pattern = glob2rx(sprintf("*-%s", algo)),
         full.names = TRUE
       )
       if (length(subdir_paths) == 0) {
@@ -147,13 +151,13 @@ new_IPAF_result <- make_new(c("IPAF_result", "fitting_problem"))
       XML::xmlSApply
     } else {
       XML::xmlApply
-    } )(node, .xmlToList, addAttributes)
+    })(node, .xmlToList, addAttributes)
     tt <- XML::xmlSApply(node, inherits, c("XMLTextNode", "XMLInternalTextNode"))
     vals[tt] <- (if (simplify) {
       sapply
     } else {
       lapply
-    } )(vals[tt], function(x) x[[1]])
+    })(vals[tt], function(x) x[[1]])
     if (length(attrs <- XML::xmlAttrs(node)) > 0) {
       if (addAttributes) {
         vals[[".attrs"]] <- attrs

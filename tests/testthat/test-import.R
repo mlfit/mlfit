@@ -17,8 +17,9 @@ test_that("import toy examples", {
       check_control <- function(control, type, weightedRefSample) {
         countVar <- result$fieldNames$count
         controlVars <- setdiff(names(control), countVar)
-        expect_true(all(laply(controlVars, function(n)
-          is.factor(weightedRefSample[[n]]) && is.factor(control[[n]]))))
+        expect_true(all(laply(controlVars, function(n) {
+          is.factor(weightedRefSample[[n]]) && is.factor(control[[n]])
+        })))
         d_ply(
           control,
           controlVars,
@@ -51,12 +52,14 @@ test_that("import toy examples", {
 
           l_ply(
             c("individual", "group"),
-            function(type) l_ply(
+            function(type) {
+              l_ply(
                 result$controls[[type]],
                 check_control,
                 type = type,
                 weightedRefSample = weightedRefSample
               )
+            }
           )
         }
       )

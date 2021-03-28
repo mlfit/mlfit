@@ -186,8 +186,7 @@ get_transform_group_to_groupsize <- function(group_reverse_weights_transform) {
   )
 }
 
-rescale_group_weights_for_ind_per_group <- function(
-                                                    group_weights, weights_transform_group_to_groupsize, group_ind_totals) {
+rescale_group_weights_for_ind_per_group <- function(group_weights, weights_transform_group_to_groupsize, group_ind_totals) {
 
   # Appendix A
   Fp <- group_weights %*% weights_transform_group_to_groupsize
@@ -202,7 +201,7 @@ rescale_group_weights_for_ind_per_group <- function(
     return(group_weights)
   }
 
-  dp <- d ** seq_along(Fp)
+  dp <- d**seq_along(Fp)
   c <- group_ind_totals$group / sum(Fp * dp)
 
   fhprime_by_fh <- c * dp

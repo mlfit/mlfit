@@ -47,7 +47,7 @@ run_ipu <- function(flat, tol, diff_tol, maxiter, verbose) {
 
   nonzero_ref_sample <- lapply(
     seq_len(ncol(ref_sample)),
-    function(col) ref_sample[nonzero_row_index[[col]], col ]
+    function(col) ref_sample[nonzero_row_index[[col]], col]
   )
 
   message("Start")

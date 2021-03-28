@@ -62,8 +62,9 @@ flatten_ml_fit_problem <- function(fitting_problem,
   control.names <- llply(
     control.terms.list,
     function(control.terms) {
-      control.names <- unlist(llply(unname(control.terms), function(control.term)
-        setNames(control.term$new.control.names, control.term$control.names)))
+      control.names <- unlist(llply(unname(control.terms), function(control.term) {
+        setNames(control.term$new.control.names, control.term$control.names)
+      }))
       control.names[!duplicated(control.names)]
     }
   )
@@ -331,13 +332,15 @@ flatten_ml_fit_problem <- function(fitting_problem,
                 "- ", control.names[!levels_identical], " (",
                 vapply(
                   control_levels[!levels_identical],
-                  paste, collapse = ", ",
+                  paste,
+                  collapse = ", ",
                   character(1L)
                 ),
                 " vs. ",
                 vapply(
                   ref_sample_levels[!levels_identical],
-                  paste, collapse = ", ",
+                  paste,
+                  collapse = ", ",
                   character(1L)
                 ),
                 ")",
@@ -493,8 +496,9 @@ flatten_ml_fit_problem <- function(fitting_problem,
     .rename.intercept(mm, control.type)
   } else {
     col_levels <- Map(
-      function(name, value)
-        forcats::fct_inorder(paste0(name, levels(value))),
+      function(name, value) {
+        forcats::fct_inorder(paste0(name, levels(value)))
+      },
       col_names, data[col_names]
     )
     grid <- do.call(expand.grid, col_levels)
@@ -524,8 +528,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
 }
 
 .get_model_matrix_fun <- function(model_matrix) {
-  switch(
-    model_matrix,
+  switch(model_matrix,
     combined = .model_matrix_combined,
     separate = .model_matrix_separate,
     stop("Unknown model matrix function: ", model_matrix, call. = FALSE)
@@ -560,8 +563,9 @@ flatten_ml_fit_problem <- function(fitting_problem,
   message("Checking controls for conflicts")
   control.totals.dup.rearrange <- llply(
     setNames(nm = unique(names(control.totals.dup))),
-    function(control.name)
+    function(control.name) {
       unname(control.totals.dup[names(control.totals.dup) == control.name])
+    }
   )
 
   control.totals <- sapply(control.totals.dup.rearrange, `[[`, 1L)
@@ -632,8 +636,9 @@ new_flat_ml_fit_problem <- make_new("flat_ml_fit_problem")
 #' @export
 #' @rdname flatten_ml_fit_problem
 #' @param x An object
-as.flat_ml_fit_problem <- function(x, model_matrix_type = c("combined", "separate"), ...)
+as.flat_ml_fit_problem <- function(x, model_matrix_type = c("combined", "separate"), ...) {
   UseMethod("as.flat_ml_fit_problem", x)
+}
 
 #' @export
 as.flat_ml_fit_problem.flat_ml_fit_problem <- function(x, model_matrix_type = c("combined", "separate"), ...) {
@@ -641,7 +646,8 @@ as.flat_ml_fit_problem.flat_ml_fit_problem <- function(x, model_matrix_type = c(
   if (!(x$model_matrix_type %in% model_matrix_type)) {
     stop(
       "Need flat problem with model matrix type ", paste(model_matrix_type, collapse = ", "),
-      ", got ", x$model_matrix_type, ".", call. = FALSE
+      ", got ", x$model_matrix_type, ".",
+      call. = FALSE
     )
   }
   x

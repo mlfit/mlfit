@@ -41,7 +41,8 @@ test_that("Test non-convergence", {
   for (method in eval(formals(dss)$method)) {
     expect_warning(
       g <- dss(X, d, totals, method = method),
-      "No convergence")
+      "No convergence"
+    )
     expect_null(attr(g, "success"))
     expect_equal(length(g), 2)
     expect_is(g, "numeric")
@@ -58,7 +59,8 @@ test_that("Calibrating a unit matrix against a unit vector with bounds, failing"
 
   expect_warning(
     g <- dss(X, d, totals, method = "logit", bounds = bounds),
-    "No convergence")
+    "No convergence"
+  )
   expect_null(attr(g, "success"))
   expect_equal(length(g), N)
   expect_is(g, "numeric")

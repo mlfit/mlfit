@@ -32,7 +32,8 @@ test_that("trivially correlated variables", {
   )
 
   flat <- MultiLevelIPF::flatten_ml_fit_problem(
-    problem, model_matrix_type = "combined", verbose = TRUE
+    problem,
+    model_matrix_type = "combined", verbose = TRUE
   )
 
   fit <- ml_fit_dss(flat, method = "linear")

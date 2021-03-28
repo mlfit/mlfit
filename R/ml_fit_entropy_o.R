@@ -82,7 +82,7 @@ dss.lhs.using.w.m <- function(x, F, d) {
   }
 }
 
-dss.objective.m <- function(x, control.totals, F, d, dss.lhs.m=dss.lhs.using.w.m) {
+dss.objective.m <- function(x, control.totals, F, d, dss.lhs.m = dss.lhs.using.w.m) {
   dss.lhs.f <- dss.lhs.m(x, F, d)
   function(lambda) {
     dss.lhs.f(lambda) - control.totals
