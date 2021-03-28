@@ -1,5 +1,5 @@
 #' `ml_fit_entropy_o()` optimizes entropy using the
-#'   \code{BB::\link[BB]{dfsane}} function.
+#'   `BB::[dfsane][BB::dfsane]` function.
 #'
 #' @rdname ml_fit
 #' @param dfsane_args Additional arguments (as a named list) passed to the

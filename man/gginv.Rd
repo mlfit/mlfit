@@ -26,12 +26,12 @@ implementation for computing the singular value decomposition.
 }
 \details{
 The \code{svd} argument is expected to adhere to the interface of
-\code{base::\link[base]{svd}}. It will be called as \code{svd(x)} (with the
+\verb{base::[svd][base::svd]}. It will be called as \code{svd(x)} (with the
 \code{nu} and \code{nv} arguments unset) and is expected to return a named
 list with components \code{d}, \code{u} and \code{v}.
 }
 \seealso{
-\code{\link[MASS]{ginv}}, \code{\link[base]{svd}}
+\code{\link[MASS:ginv]{MASS::ginv()}}, \code{\link[base:svd]{base::svd()}}
 }
 \author{
 Adapted implementation from the \code{MASS} package.

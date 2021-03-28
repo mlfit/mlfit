@@ -6,26 +6,26 @@
 
 #' Generalized Inverse of a Matrix using a custom tolerance or SVD implementation
 #'
-#' The \code{gginv} function creates a function that
+#' The `gginv` function creates a function that
 #' calculates the Moore-Penrose generalized inverse of a matrix X using a
 #' fixed tolerance value and a custom
 #' implementation for computing the singular value decomposition.
 #'
-#' The \code{svd} argument is expected to adhere to the interface of
-#' \code{base::\link[base]{svd}}. It will be called as \code{svd(x)} (with the
-#' \code{nu} and \code{nv} arguments unset) and is expected to return a named
-#' list with components \code{d}, \code{u} and \code{v}.
+#' The `svd` argument is expected to adhere to the interface of
+#' `base::[svd][base::svd]`. It will be called as `svd(x)` (with the
+#' `nu` and `nv` arguments unset) and is expected to return a named
+#' list with components `d`, `u` and `v`.
 #'
 #' @inheritParams MASS::ginv
 #' @param svd A function that computes the singular value decomposition of a
 #'   matrix
 #'
-#' @return A function that accepts one argument \code{X} that computes a MP
+#' @return A function that accepts one argument `X` that computes a MP
 #'   generalized inverse matrix for it.
 #'
-#' @seealso \code{\link[MASS]{ginv}}, \code{\link[base]{svd}}
+#' @seealso [MASS::ginv()], [base::svd()]
 #'
-#' @author Adapted implementation from the \code{MASS} package.
+#' @author Adapted implementation from the `MASS` package.
 #'
 #' @export
 gginv <- function(tol = sqrt(.Machine$double.eps), svd = base::svd) {
@@ -67,32 +67,32 @@ gginv <- function(tol = sqrt(.Machine$double.eps), svd = base::svd) {
 #' Calibrate sample weights
 #'
 #' Calibrate sample weights according to known marginal population totals.
-#' Based on initial sample weights, the so-called \emph{g}-weights are computed
+#' Based on initial sample weights, the so-called *g*-weights are computed
 #' by generalized raking procedures.
 #' The final sample weights need to be computed by multiplying the resulting
-#' \emph{g}-weights with the initial sample weights.
+#' *g*-weights with the initial sample weights.
 #'
 #' @encoding utf8
 #'
 #' @param X a matrix of calibration variables.
 #' @param d a numeric vector giving the initial sample (or design) weights.
 #' @param totals a numeric vector of population totals corresponding to the
-#'   calibration variables in \code{X}.
+#'   calibration variables in `X`.
 #' @param q a numeric vector of positive values accounting for
 #'   heteroscedasticity.  Small values reduce the variation of the
-#'   \emph{g}-weights.
+#'   *g*-weights.
 #' @param method a character string specifying the calibration method to be
-#'   used.  Possible values are \code{"linear"} for the linear method,
-#'   \code{"raking"} for the multiplicative method known as raking and
-#'   \code{"logit"} for the logit method.
+#'   used.  Possible values are `"linear"` for the linear method,
+#'   `"raking"` for the multiplicative method known as raking and
+#'   `"logit"` for the logit method.
 #' @param bounds a numeric vector of length two giving bounds for the g-weights
 #'   to be used in the logit method.  The first value gives the lower bound (which
 #'   must be smaller than or equal to 1) and the second value gives the upper
-#'   bound (which must be larger than or equal to 1).  If \code{NULL}, the
-#'   bounds are set to \code{c(0, 10)}.
+#'   bound (which must be larger than or equal to 1).  If `NULL`, the
+#'   bounds are set to `c(0, 10)`.
 #' @param maxit a numeric value giving the maximum number of iterations.
 #' @param ginv a function that computes the Moore-Penrose generalized
-#'   inverse (default: an optimized version of \code{\link[MASS]{ginv}}). In
+#'   inverse (default: an optimized version of [MASS::ginv()]). In
 #'   some cases it is possible to speed up the process by using
 #'   a function that computes a "regular" matrix inverse such as
 #'   \code{{solve.default}}.
@@ -100,26 +100,26 @@ gginv <- function(tol = sqrt(.Machine$double.eps), svd = base::svd) {
 #'   all residuals (relative to the corresponding total) is smaller than this
 #'   tolerance.
 #' @param attributes should additional attributes (currently
-#'   \code{success}, \code{iterations}, \code{method} and \code{bounds})
-#'   be added to the result? If \code{FALSE} (default), a warning is given
+#'   `success`, `iterations`, `method` and `bounds`)
+#'   be added to the result? If `FALSE` (default), a warning is given
 #'   if convergence within the given relative tolerance could not be achieved.
 #'
-#' @return A numeric vector containing the \emph{g}-weights.
+#' @return A numeric vector containing the *g*-weights.
 #'
 #' @note This is a faster implementation of parts of
-#' \code{\link[sampling]{calib}} from package \code{sampling}.  Note that the
+#' [sampling::calib()] from package `sampling`.  Note that the
 #' default calibration method is raking and that the truncated linear method is
 #' not yet implemented.
 #'
 #' @author Andreas Alfons, with improvements by Kirill Müller
 #'
 #' @references Deville, J.-C. and \enc{Särndal}{Saerndal}, C.-E. (1992)
-#' Calibration estimators in survey sampling. \emph{Journal of the American
-#' Statistical Association}, \bold{87}(418), 376--382.
+#' Calibration estimators in survey sampling. *Journal of the American
+#' Statistical Association*, **87**(418), 376--382.
 #'
 #' Deville, J.-C., \enc{Särndal}{Saerndal}, C.-E. and Sautory, O. (1993)
-#' Generalized raking procedures in survey sampling. \emph{Journal of the
-#' American Statistical Association}, \bold{88}(423), 1013--1020.
+#' Generalized raking procedures in survey sampling. *Journal of the
+#' American Statistical Association*, **88**(423), 1013--1020.
 #'
 #' @keywords survey
 #'

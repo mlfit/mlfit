@@ -44,7 +44,7 @@ bounds are set to \code{c(0, 10)}.}
 \item{maxit}{a numeric value giving the maximum number of iterations.}
 
 \item{ginv}{a function that computes the Moore-Penrose generalized
-inverse (default: an optimized version of \code{\link[MASS]{ginv}}). In
+inverse (default: an optimized version of \code{\link[MASS:ginv]{MASS::ginv()}}). In
 some cases it is possible to speed up the process by using
 a function that computes a "regular" matrix inverse such as
 \code{{solve.default}}.}
@@ -70,7 +70,7 @@ The final sample weights need to be computed by multiplying the resulting
 }
 \note{
 This is a faster implementation of parts of
-\code{\link[sampling]{calib}} from package \code{sampling}.  Note that the
+\code{\link[sampling:calib]{sampling::calib()}} from package \code{sampling}.  Note that the
 default calibration method is raking and that the truncated linear method is
 not yet implemented.
 }
@@ -86,11 +86,11 @@ g2 <- dss(Xs, d, totals, method = "raking")
 \references{
 Deville, J.-C. and \enc{Särndal}{Saerndal}, C.-E. (1992)
 Calibration estimators in survey sampling. \emph{Journal of the American
-Statistical Association}, \bold{87}(418), 376--382.
+Statistical Association}, \strong{87}(418), 376--382.
 
 Deville, J.-C., \enc{Särndal}{Saerndal}, C.-E. and Sautory, O. (1993)
 Generalized raking procedures in survey sampling. \emph{Journal of the
-American Statistical Association}, \bold{88}(423), 1013--1020.
+American Statistical Association}, \strong{88}(423), 1013--1020.
 }
 \author{
 Andreas Alfons, with improvements by Kirill Müller
