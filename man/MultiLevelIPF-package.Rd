@@ -35,4 +35,9 @@ Useful links:
 \author{
 \strong{Maintainer}: Kirill Müller \email{krlmlr+r@mailbox.org}
 
+Other contributors:
+\itemize{
+  \item Amarin Siripanich \email{amarin.siri@gmail.com} [contributor]
+}
+
 }
