@@ -1,17 +1,29 @@
 #' Replicate records in a reference sample based on its fitted weights
 #' 
 #' @description
-#' These functions replicate each entry in a reference sample based on its fitted weights.
+#' These functions replicate each entry in a reference sample based on its fitted
+#' weights.
 #' 
 #' `ml_replicate()` accepts a replication method as argument and calls the
 #' corresponding function. This is useful if the result of multiple 
 #' replication algorithms are compared to each other, or to generate a full synthetic
-#' population based on the result of a `ml_fit` object.
+#' population based on the result of a `ml_fit` object. Note that, the individual
+#' and group ids of the synthetic population are not the same as those in
+#' the original reference sample.
 #' 
-#' @param algorithm Replication algorithm to use
 #' @param ml_fit A `ml_fit` object created by the [ml_fit()] family. 
+#' @param algorithm Replication algorithm to use. "trs" is 
+#'  the 'Truncate, Replicate, and Sampling' algorithm proposed 
+#'  by Lovelace et al. (2013), "pp" is weighted sampling with 
+#'  replacement, and "round" is just simple rounding.
 #' @param verbose If `TRUE`, print diagnostic output.
-#' @param ... Further parameters passed to the algorithm
+#' @param .keep_original_ids If `TRUE`, the original individual and group
+#'  ids of the reference sample will be kept with suffix '_old'.
+#' 
+#' @references
+#'      Lovelace, R., & Ballas, D. (2013). ‘Truncate, replicate, sample’: 
+#'          A method for creating integer weights for spatial microsimulation.
+#'          Computers, Environment and Urban Systems, 41, 1-11.
 #' 
 #' @return All functions return a data.frame.
 #' 
