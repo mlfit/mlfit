@@ -31,39 +31,73 @@
 #' @examples
 #' path <- toy_example("Tiny")
 #' fit <- ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path)) 
-#' syn_pop <- ml_replicate(algorithm = "trs", fit)
-ml_replicate <- function(algorithm = c("pp", "trs", "round"), ml_fit, verbose = FALSE, ...) {
+#' syn_pop <- ml_replicate(fit, algorithm = "trs")
+ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE, .keep_original_ids = FALSE) {
+    
     algorithm <- match.arg(algorithm)
     fun.name <- sprintf("int_%s", algorithm)
     if (!exists(fun.name)) {
         stop("Unknown replication algorithm:", algorithm)
     }
-    
+
+    .patch_verbose()
+
     message("Replicate using '", algorithm, "' algorithm")
     group_id <- ml_fit$flat$fitting_problem$fieldNames$groupId
     count_col <- ml_fit$flat$fitting_problem$fieldNames$count
 
     message("Extracting fitted weights of each group")
-    number_of_persons_in_each_group <- 
+    number_of_persons_in_each_group <-
         ml_fit$flat$fitting_problem$refSample[[group_id]] %>%
-        table() %>% 
+        table() %>%
         as.integer()
     weights <-
-        ml_fit$weights[!duplicated(ml_fit$flat$fitting_problem$refSample[[group_id]])]
+        ml_fit$flat_weights
 
-    message("Integerising the fitted weights")   
+    message("Integerising the fitted weights")
     integerised_weights <- get(fun.name)(weights = weights)
 
     message("Duplicating the reference sample")
-    replications <- 
-        rep(integerised_weights, number_of_persons_in_each_group) %>% 
-        {rep(1:nrow(ml_fit$flat$fitting_problem$refSample), .)}
-    replicated_ref_sample <- 
+    ind_integerised_weights <-
+        rep(integerised_weights, number_of_persons_in_each_group)
+    replications <-
+        rep(
+            1:nrow(ml_fit$flat$fitting_problem$refSample),
+            ind_integerised_weights
+        )
+    replicated_ref_sample <-
         dplyr::slice(ml_fit$flat$fitting_problem$refSample, replications) %>%
         tibble::as_tibble()
-    
+
+    message("Assign new ids to individuals and groups")
+    field_names <- ml_fit$flat$fitting_problem$fieldNames
+    replicated_ref_sample <-
+        replicated_ref_sample %>%
+        dplyr::group_by(.data[[field_names$groupId]],
+                        .data[[field_names$individualId]]) %>%
+        dplyr::mutate(..rep_id.. = 1:n()) %>%
+        dplyr::group_by(.data[[field_names$groupId]],
+                        .data[["..rep_id.."]]) %>%
+        dplyr::mutate(..group_id.. = dplyr::cur_group_id()) %>%
+        dplyr::ungroup() %>% 
+        dplyr::arrange(..group_id..) %>%
+        dplyr::mutate(..ind_id.. = 1:n())
+
+    replicated_ref_sample[[field_names$groupId]] <- 
+            replicated_ref_sample[["..group_id.."]]
+    replicated_ref_sample[[field_names$individualId]] <- 
+            replicated_ref_sample[["..ind_id.."]]
+
+    if (.keep_original_ids) {
+        replicated_ref_sample[[paste0(field_names$groupId, "_old")]] <- 
+            replicated_ref_sample[[field_names$groupId]]
+        replicated_ref_sample[[paste0(field_names$individualId, "_old")]] <- 
+            replicated_ref_sample[[field_names$individualId]] 
+    } 
+
     message("Done!")
-    replicated_ref_sample
+    tmp_cols <- grepl("^\\.\\.(.*)\\.\\.$", names(replicated_ref_sample))
+    replicated_ref_sample[, !tmp_cols]
 }
 
 .check_is_ml_fit <- function(ml_fit) {
