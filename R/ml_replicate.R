@@ -80,7 +80,7 @@ ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = 
                         .data[["..rep_id.."]]) %>%
         dplyr::mutate(..group_id.. = dplyr::cur_group_id()) %>%
         dplyr::ungroup() %>% 
-        dplyr::arrange(..group_id..) %>%
+        dplyr::arrange(.data$..group_id..) %>%
         dplyr::mutate(..ind_id.. = 1:n())
 
     replicated_ref_sample[[field_names$groupId]] <- 
