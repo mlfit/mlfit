@@ -3,27 +3,30 @@ test_that("ml_replicate works", {
   problem <- readRDS(path)
   fit <- ml_fit(algorithm = "ipu", fitting_problem = problem)
   for (algo in c("trs", "pp", "round")) {
-    syn_pop <- ml_replicate(algorithm = algo, fit)
+    syn_pop <- ml_replicate(fit, algorithm = algo)
+    n_groups <- length(unique(syn_pop[[problem$fieldNames$groupId]]))
     expect_true(is.data.frame(syn_pop))
-    if (algo == "round") {
-      expect_true(nrow(syn_pop) >= sum(trunc(fit$weights)))
-    } else {
-      expect_true(nrow(syn_pop) >= round(sum(fit$weights)))
-    }
-    expect_true(ncol(syn_pop) == ncol(fit$flat$fitting_problem$refSample))
+    expect_gte(n_groups, sum(fit$flat_weights))
+    expect_true(ncol(syn_pop) == ncol(problem$refSample))
   }
+  syn_pop <- 
+    ml_replicate(fit, algorithm = "round", .keep_original_ids = TRUE)
+  id_cols <- 
+    c(problem$fieldNames$groupId, problem$fieldNames$individualId)
+  expect_true(ncol(syn_pop) == ncol(problem$refSample) + 2L)
+  expect_true(all(paste0(id_cols, "_old") %in% names(syn_pop)))
 })
 
 test_that("integerisation methods", {
   w <- 1:4 + runif(4)
-  w_rounded <- round(w)
+  w_rounded_sum <- round(sum(w))
 
   expect_length(int_trs(w), 4)
-  expect_true(sum(int_trs(w)) >= sum(w_rounded))
+  expect_gte(sum(int_trs(w)), w_rounded_sum)
 
   expect_length(int_pp(w), 4)
-  expect_true(sum(int_pp(w)) >= sum(w_rounded))
+  expect_gte(sum(int_pp(w)), w_rounded_sum)
 
   expect_length(int_round(w), 4)
-  expect_true(sum(int_round(w)) >= sum(w_rounded))
+  expect_gte(sum(int_round(w)), w_rounded_sum)
 })
