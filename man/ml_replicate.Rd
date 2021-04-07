@@ -4,30 +4,48 @@
 \alias{ml_replicate}
 \title{Replicate records in a reference sample based on its fitted weights}
 \usage{
-ml_replicate(algorithm = c("pp", "trs", "round"), ml_fit, verbose = FALSE, ...)
+ml_replicate(
+  ml_fit,
+  algorithm = c("pp", "trs", "round"),
+  verbose = FALSE,
+  .keep_original_ids = FALSE
+)
 }
 \arguments{
-\item{algorithm}{Replication algorithm to use}
-
 \item{ml_fit}{A \code{ml_fit} object created by the \code{\link[=ml_fit]{ml_fit()}} family.}
+
+\item{algorithm}{Replication algorithm to use. "trs" is
+the 'Truncate, Replicate, and Sampling' algorithm proposed
+by Lovelace et al. (2013), "pp" is weighted sampling with
+replacement, and "round" is just simple rounding.}
 
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
 
-\item{...}{Further parameters passed to the algorithm}
+\item{.keep_original_ids}{If \code{TRUE}, the original individual and group
+ids of the reference sample will be kept with suffix '_old'.}
 }
 \value{
 All functions return a data.frame.
 }
 \description{
-These functions replicate each entry in a reference sample based on its fitted weights.
+These functions replicate each entry in a reference sample based on its fitted
+weights.
 
 \code{ml_replicate()} accepts a replication method as argument and calls the
 corresponding function. This is useful if the result of multiple
 replication algorithms are compared to each other, or to generate a full synthetic
-population based on the result of a \code{ml_fit} object.
+population based on the result of a \code{ml_fit} object. Note that, the individual
+and group ids of the synthetic population are not the same as those in
+the original reference sample.
 }
 \examples{
 path <- toy_example("Tiny")
 fit <- ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path)) 
-syn_pop <- ml_replicate(algorithm = "trs", fit)
+syn_pop <- ml_replicate(fit, algorithm = "trs")
+}
+\references{
+\preformatted{ Lovelace, R., & Ballas, D. (2013). ‘Truncate, replicate, sample’: 
+     A method for creating integer weights for spatial microsimulation.
+     Computers, Environment and Urban Systems, 41, 1-11.
+}
 }
