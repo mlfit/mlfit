@@ -1,37 +1,36 @@
 #' Replicate records in a reference sample based on its fitted weights
-#' 
+#'
 #' @description
-#' These functions replicate each entry in a reference sample based on its fitted
-#' weights.
-#' 
-#' `ml_replicate()` accepts a replication method as argument and calls the
-#' corresponding function. This is useful if the result of multiple 
-#' replication algorithms are compared to each other, or to generate a full synthetic
-#' population based on the result of a `ml_fit` object. Note that, the individual
+#' This function replicates each entry in a reference sample based on its fitted
+#' weights. This is useful if the result of multiple replication algorithms 
+#' are compared to each other, or to generate a full synthetic population 
+#' based on the result of a `ml_fit` object. Note that, all individual 
 #' and group ids of the synthetic population are not the same as those in
-#' the original reference sample.
-#' 
-#' @param ml_fit A `ml_fit` object created by the [ml_fit()] family. 
-#' @param algorithm Replication algorithm to use. "trs" is 
-#'  the 'Truncate, Replicate, and Sampling' algorithm proposed 
-#'  by Lovelace et al. (2013), "pp" is weighted sampling with 
+#' the original reference sample, and the total number of groups replicated
+#' is always very close to or equal the sum of the fitted group weights.
+#'
+#' @param ml_fit A `ml_fit` object created by the [ml_fit()] family.
+#' @param algorithm Replication algorithm to use. "trs" is
+#'  the 'Truncate, replicate, sample' integerisation algorithm proposed
+#'  by Lovelace et al. (2013), "pp" is weighted sampling with
 #'  replacement, and "round" is just simple rounding.
 #' @param verbose If `TRUE`, print diagnostic output.
 #' @param .keep_original_ids If `TRUE`, the original individual and group
 #'  ids of the reference sample will be kept with suffix '_old'.
-#' 
+#'
 #' @references
-#'      Lovelace, R., & Ballas, D. (2013). ‘Truncate, replicate, sample’: 
+#'      Lovelace, R., & Ballas, D. (2013). ‘Truncate, replicate, sample’:
 #'          A method for creating integer weights for spatial microsimulation.
 #'          Computers, Environment and Urban Systems, 41, 1-11.
-#' 
+#'
 #' @return All functions return a data.frame.
-#' 
+#'
 #' @export
 #' @examples
 #' path <- toy_example("Tiny")
-#' fit <- ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path)) 
+#' fit <- ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
 #' syn_pop <- ml_replicate(fit, algorithm = "trs")
+#' syn_pop
 ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE, .keep_original_ids = FALSE) {
   algorithm <- match.arg(algorithm)
   fun.name <- sprintf("int_%s", algorithm)
