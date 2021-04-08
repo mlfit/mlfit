@@ -6,9 +6,9 @@ remove_leading_zeros <- function(x) {
 }
 
 .check_is_integer <- function(x) {
-    if (isTRUE(all.equal(x, as.integer(x)))) {
-        return(TRUE)
-    } else {
-        return(FALSE)
-    }
+  if (isTRUE(all.equal(x, as.integer(x)))) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
 }

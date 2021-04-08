@@ -9,9 +9,9 @@ test_that("ml_replicate works", {
     expect_gte(n_groups, sum(fit$flat_weights))
     expect_true(ncol(syn_pop) == ncol(problem$refSample))
   }
-  syn_pop <- 
+  syn_pop <-
     ml_replicate(fit, algorithm = "round", .keep_original_ids = TRUE)
-  id_cols <- 
+  id_cols <-
     c(problem$fieldNames$groupId, problem$fieldNames$individualId)
   expect_true(ncol(syn_pop) == ncol(problem$refSample) + 2L)
   expect_true(all(paste0(id_cols, "_old") %in% names(syn_pop)))
