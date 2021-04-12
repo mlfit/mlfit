@@ -29,7 +29,8 @@ Imports:
     plyr,
     tibble,
     forcats,
-    rlang
+    rlang,
+    utils
 Suggests: 
     covr,
     testthat,
