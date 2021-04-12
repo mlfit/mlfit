@@ -15,7 +15,7 @@ ml_replicate(
 \item{ml_fit}{A \code{ml_fit} object created by the \code{\link[=ml_fit]{ml_fit()}} family.}
 
 \item{algorithm}{Replication algorithm to use. "trs" is
-the 'Truncate, replicate, sample' algorithm proposed
+the 'Truncate, replicate, sample' integerisation algorithm proposed
 by Lovelace et al. (2013), "pp" is weighted sampling with
 replacement, and "round" is just simple rounding.}
 
