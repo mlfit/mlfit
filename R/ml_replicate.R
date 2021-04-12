@@ -110,7 +110,7 @@ ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = 
 is.ml_fit <- make_is("ml_fit")
 
 .get_int_fnc <- function(algorithm) {
-  get(sprintf("int_%s", algorithm),
+  getFromNamespace(sprintf("int_%s", algorithm),
     envir = as.environment("package:MultiLevelIPF")
   )
 }
