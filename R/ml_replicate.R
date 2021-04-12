@@ -2,9 +2,9 @@
 #'
 #' @description
 #' This function replicates each entry in a reference sample based on its fitted
-#' weights. This is useful if the result of multiple replication algorithms 
-#' are compared to each other, or to generate a full synthetic population 
-#' based on the result of a `ml_fit` object. Note that, all individual 
+#' weights. This is useful if the result of multiple replication algorithms
+#' are compared to each other, or to generate a full synthetic population
+#' based on the result of a `ml_fit` object. Note that, all individual
 #' and group ids of the synthetic population are not the same as those in
 #' the original reference sample, and the total number of groups replicated
 #' is always very close to or equal the sum of the fitted group weights.
@@ -32,13 +32,9 @@
 #' syn_pop <- ml_replicate(fit, algorithm = "trs")
 #' syn_pop
 ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE, .keep_original_ids = FALSE) {
-  algorithm <- match.arg(algorithm)
-  fun.name <- sprintf("int_%s", algorithm)
-  if (!exists(fun.name)) {
-    stop("Unknown replication algorithm:", algorithm)
-  }
-
   .patch_verbose()
+
+  algorithm <- match.arg(algorithm)
 
   message("Replicate using '", algorithm, "' algorithm")
   group_id <- ml_fit$flat$fitting_problem$fieldNames$groupId
@@ -53,7 +49,7 @@ ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = 
     ml_fit$flat_weights
 
   message("Integerising the fitted weights")
-  integerised_weights <- get(fun.name)(weights = weights)
+  integerised_weights <- .get_int_fnc(algorithm)(weights = weights)
 
   message("Duplicating the reference sample")
   ind_integerised_weights <-
@@ -112,6 +108,12 @@ ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = 
 #' @rdname ml_fit
 #' @param x An object
 is.ml_fit <- make_is("ml_fit")
+
+.get_int_fnc <- function(algorithm) {
+  get(sprintf("int_%s", algorithm),
+    envir = as.environment("package:MultiLevelIPF")
+  )
+}
 
 int_trs <- function(weights) {
   truncated <- trunc(weights)
