@@ -60,7 +60,7 @@ ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = 
     rep(integerised_weights, number_of_persons_in_each_group)
   replications <-
     rep(
-      1:nrow(ml_fit$flat$fitting_problem$refSample),
+      seq_len(nrow(ml_fit$flat$fitting_problem$refSample)),
       ind_integerised_weights
     )
   replicated_ref_sample <-
