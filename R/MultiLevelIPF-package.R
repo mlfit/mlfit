@@ -19,4 +19,5 @@
 #' @importFrom utils head
 #' @importFrom forcats fct_inorder
 #' @importFrom utils getFromNamespace
+#' @importFrom wrswoR sample_int_crank
 "_PACKAGE"

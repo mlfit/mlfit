@@ -121,9 +121,8 @@ int_trs <- function(weights) {
   deficit <- round(sum(weights) - sum(truncated))
   if (deficit != 0) {
     sampled_indexes <-
-      sample(length(weights),
+      sample_int_crank(length(weights),
         size = deficit,
-        replace = FALSE,
         prob = remainders
       )
     truncated[sampled_indexes] <-

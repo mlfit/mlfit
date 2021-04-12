@@ -30,7 +30,8 @@ Imports:
     tibble,
     forcats,
     rlang,
-    utils
+    utils,
+    wrswoR
 Suggests: 
     covr,
     testthat,
