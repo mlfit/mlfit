@@ -1,3 +1,3 @@
 library(testthat)
 
-test_check("MultiLevelIPF")
+test_check("mlfit")

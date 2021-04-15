@@ -111,7 +111,7 @@ is.ml_fit <- make_is("ml_fit")
 
 .get_int_fnc <- function(algorithm) {
   getFromNamespace(sprintf("int_%s", algorithm),
-    envir = as.environment("package:MultiLevelIPF")
+    envir = as.environment("package:mlfit")
   )
 }
 

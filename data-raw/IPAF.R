@@ -23,7 +23,7 @@
 #' @importFrom stats setNames
 #' @export
 #' @examples
-#' path <- system.file("extdata/minitoy", package = "MultiLevelIPF")
+#' path <- system.file("extdata/minitoy", package = "mlfit")
 #' fitting_problem <- import_IPAF_results(path)
 #' names(fitting_problem)
 #' fitting_problem$controls
