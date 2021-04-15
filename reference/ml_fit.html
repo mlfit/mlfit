@@ -121,7 +121,7 @@ are compared to each other." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Estimate weights for a fitting problem</h1>
-    <small class="dont-index">Source: <a href='https://github.com/krlmlr/MultiLevelIPF/blob/master/R/ml_fit.R'><code>R/ml_fit.R</code></a>, <a href='https://github.com/krlmlr/MultiLevelIPF/blob/master/R/ml_fit_dss.R'><code>R/ml_fit_dss.R</code></a>, <a href='https://github.com/krlmlr/MultiLevelIPF/blob/master/R/ml_fit_entropy_o.R'><code>R/ml_fit_entropy_o.R</code></a>, and 2 more</small>
+    <small class="dont-index">Source: <a href='https://github.com/krlmlr/MultiLevelIPF/blob/master/R/ml_fit.R'><code>R/ml_fit.R</code></a>, <a href='https://github.com/krlmlr/MultiLevelIPF/blob/master/R/ml_fit_dss.R'><code>R/ml_fit_dss.R</code></a>, <a href='https://github.com/krlmlr/MultiLevelIPF/blob/master/R/ml_fit_entropy_o.R'><code>R/ml_fit_entropy_o.R</code></a>, and 3 more</small>
     <div class="hidden name"><code>ml_fit.Rd</code></div>
     </div>
 
@@ -170,7 +170,9 @@ are compared to each other.</p>
   tol <span class='op'>=</span> <span class='fl'>1e-06</span>,
   maxiter <span class='op'>=</span> <span class='fl'>2000</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span>
+
+<span class='fu'>is.ml_fit</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -219,6 +221,10 @@ control values between iterations drops below this value</p></td>
     <tr>
       <th>maxiter</th>
       <td><p>Maximum number of iterations.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>An object</p></td>
     </tr>
     </table>
 
