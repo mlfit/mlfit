@@ -2,6 +2,7 @@
 
 # MultiLevelIPF 0.3.7.9000 (2021-03-26)
 
+- Add `ml_replicate()` for replicating the reference sample of a fitted problem (#38).
 - Fix the error when a level is missing from the reference sample (#32, @asiripanich).
 - Fix test on Windows.
 - Avoid converting sparse matrix to full matrix.

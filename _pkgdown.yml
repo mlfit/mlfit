@@ -10,6 +10,7 @@ reference:
   - fitting_problem
   - flatten_ml_fit_problem
   - ml_fit
+  - ml_replicate
   - compute_margins
 - title: Generalized raking
   contents:
