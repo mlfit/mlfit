@@ -11,8 +11,8 @@
 \title{Estimate weights for a fitting problem}
 \usage{
 ml_fit(
-  algorithm = c("entropy_o", "dss", "ipu", "hipf"),
   fitting_problem,
+  algorithm = c("entropy_o", "dss", "ipu", "hipf"),
   verbose = FALSE,
   ...,
   tol = 1e-06
@@ -52,10 +52,10 @@ ml_fit_ipu(
 is.ml_fit(x)
 }
 \arguments{
-\item{algorithm}{Algorithm to use}
-
 \item{fitting_problem}{A fitting problem created by
 \code{\link[=fitting_problem]{fitting_problem()}} or returned by \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}.}
+
+\item{algorithm}{Algorithm to use}
 
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
 
@@ -111,7 +111,7 @@ are compared to each other.
 }
 \examples{
 path <- toy_example("Tiny")
-fit <- ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
+fit <- ml_fit(fitting_problem = readRDS(path), algorithm = "entropy_o")
 fit
 fit$weights
 fit$tol

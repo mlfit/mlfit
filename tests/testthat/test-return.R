@@ -6,7 +6,7 @@ test_that("success = TRUE", {
   minitoy <- readRDS(toy_example("Tiny"))
 
   for (algo in algos) {
-    fit <- ml_fit(algo, minitoy)
+    fit <- ml_fit(minitoy, algo)
     expect_true(fit$success, info = algo)
     expect_equal(length(fit$residuals), 5, info = algo)
     expect_lt(max(abs(fit$residuals)), 1e-3)
@@ -24,7 +24,7 @@ test_that("success = FALSE", {
   bad_problem <- readRDS(toy_example("Conflict"))
 
   for (algo in algos) {
-    fit <- ml_fit(algo, bad_problem)
+    fit <- ml_fit(bad_problem, algo)
     expect_false(fit$success, info = algo)
   }
 })

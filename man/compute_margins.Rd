@@ -37,7 +37,7 @@ based on a reference sample and a weights vector.
 \examples{
 path <- toy_example("Tiny")
 problem <- readRDS(path)
-fit <- ml_fit(algorithm = "entropy_o", fitting_problem = problem)
+fit <- ml_fit(fitting_problem = problem, algorithm = "entropy_o")
 margins <- compute_margins(problem, fit$weights)
 margins
 

@@ -28,7 +28,7 @@
 #' @export
 #' @examples
 #' path <- toy_example("Tiny")
-#' fit <- ml_fit(algorithm = "entropy_o", fitting_problem = readRDS(path))
+#' fit <- ml_fit(fitting_problem = readRDS(path), algorithm = "entropy_o")
 #' syn_pop <- ml_replicate(fit, algorithm = "trs")
 #' syn_pop
 ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE, .keep_original_ids = FALSE) {
