@@ -13,7 +13,7 @@ test_that("algorithms", {
       if (algo == "hipf" && problem_name %in% c("Joint-Grouped", "onetoy", "Separate-Grouped")) {
         return()
       }
-      fit <- ml_fit(algo, problem)
+      fit <- ml_fit(problem, algo)
       if (!fit$success) {
         warning("No convergence of ", algo, " for ", problem_name, ".", call. = FALSE)
         return()

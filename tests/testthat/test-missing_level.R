@@ -32,7 +32,7 @@ test_that("A level is missing from the reference sample should raise a warning",
     )
 
   expect_warning(
-    ml_fit(algorithm = "ipu", toy_problem),
+    ml_fit(toy_problem, algorithm = "ipu"),
     regexp = "Found missing observations for the following non-zero controls: gender_i_male:marital_status_i_single"
   )
 })
