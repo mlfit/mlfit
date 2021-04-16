@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generalized Inverse of a Matrix using a custom tolerance or SVD implementation — gginv • mlfit</title>
+<title>mlfit: Implementation of algorithms that extend IPF to nested structures — mlfit-package • mlfit</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,10 @@
 
 
 
-<meta property="og:title" content="Generalized Inverse of a Matrix using a custom tolerance or SVD implementation — gginv" />
-<meta property="og:description" content="The gginv function creates a function that
-calculates the Moore-Penrose generalized inverse of a matrix X using a
-fixed tolerance value and a custom
-implementation for computing the singular value decomposition." />
+<meta property="og:title" content="mlfit: Implementation of algorithms that extend IPF to nested structures — mlfit-package" />
+<meta property="og:description" content="The IPF algorithm operates on count data. This package offers
+    implementations for several algorithms that extend this to nested structures:
+    &quot;parent&quot; and &quot;child&quot; items for both of which constraints can be provided." />
 
 
 
@@ -117,50 +116,49 @@ implementation for computing the singular value decomposition." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generalized Inverse of a Matrix using a custom tolerance or SVD implementation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/krlmlr/mlfit/blob/master/R/grake.R'><code>R/grake.R</code></a></small>
-    <div class="hidden name"><code>gginv.Rd</code></div>
+    <h1>mlfit: Implementation of algorithms that extend IPF to nested structures</h1>
+    <small class="dont-index">Source: <a href='https://github.com/krlmlr/mlfit/blob/master/R/MultiLevelIPF-package.R'><code>R/MultiLevelIPF-package.R</code></a></small>
+    <div class="hidden name"><code>mlfit-package.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The <code>gginv</code> function creates a function that
-calculates the Moore-Penrose generalized inverse of a matrix X using a
-fixed tolerance value and a custom
-implementation for computing the singular value decomposition.</p>
+    <p>The IPF algorithm operates on count data. This package offers
+    implementations for several algorithms that extend this to nested structures:
+    "parent" and "child" items for both of which constraints can be provided.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gginv</span><span class='op'>(</span>tol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.eps</span><span class='op'>)</span>, svd <span class='op'>=</span> <span class='fu'>base</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/r/base/svd.html'>svd</a></span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>tol</th>
-      <td><p>A relative tolerance to detect zero singular values.</p></td>
-    </tr>
-    <tr>
-      <th>svd</th>
-      <td><p>A function that computes the singular value decomposition of a
-matrix</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A function that accepts one argument <code>X</code> that computes a MP
-generalized inverse matrix for it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>svd</code> argument is expected to adhere to the interface of
-<code>base::[svd][base::svd]</code>. It will be called as <code><a href='https://rdrr.io/r/base/svd.html'>svd(x)</a></code> (with the
-<code>nu</code> and <code>nv</code> arguments unset) and is expected to return a named
-list with components <code>d</code>, <code>u</code> and <code>v</code>.</p>
+    <p>To use this package, you need to:</p><ol>
+<li><p>Specify your fitting problem with <code><a href='fitting_problem.html'>fitting_problem()</a></code></p></li>
+<li><p>Optionally, convert the fitting problem to a structure that can be
+processed by the algorithms with <code><a href='flatten_ml_fit_problem.html'>flatten_ml_fit_problem()</a></code>; this is
+helpful if you want to run the same fitting problem with multiple
+algorithms and compare results.</p></li>
+<li><p>Compute weights with one of the algorithms provided in this package with
+<code><a href='ml_fit.html'>ml_fit()</a></code> or one of the specialized functions</p></li>
+<li><p>Analyze weights or residuals, e.g. with <code><a href='compute_margins.html'>compute_margins()</a></code></p></li>
+</ol>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/MASS/man/ginv.html'>MASS::ginv()</a></code>, <code><a href='https://rdrr.io/r/base/svd.html'>base::svd()</a></code></p></div>
+    <div class='dont-index'><p>Useful links:</p><ul>
+<li><p><a href='https://krlmlr.github.io/mlfit'>https://krlmlr.github.io/mlfit</a></p></li>
+<li><p><a href='https://github.com/krlmlr/mlfit'>https://github.com/krlmlr/mlfit</a></p></li>
+<li><p>Report bugs at <a href='https://github.com/krlmlr/mlfit/issues'>https://github.com/krlmlr/mlfit/issues</a></p></li>
+</ul>
+
+</div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Adapted implementation from the <code>MASS</code> package.</p>
+    <p><strong>Maintainer</strong>: Kirill Müller <a href='mailto:krlmlr+r@mailbox.org'>krlmlr+r@mailbox.org</a></p>
+<p>Other contributors:</p><ul>
+<li><p>Amarin Siripanich <a href='mailto:amarin.siri@gmail.com'>amarin.siri@gmail.com</a> [contributor]</p></li>
+</ul>
+
+
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
