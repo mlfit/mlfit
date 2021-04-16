@@ -1,7 +1,7 @@
 #' Create an instance of a fitting problem
 #'
 #' The `fitting_problem()` function is the first step for fitting a reference
-#' sample to known control totals with [MultiLevelIPF].
+#' sample to known control totals with [mlfit].
 #' All algorithms (see [ml_fit()]) expect an object created by this function (or
 #' optionally processed with [flatten_ml_fit_problem()]).
 #'

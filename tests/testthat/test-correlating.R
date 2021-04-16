@@ -31,7 +31,7 @@ test_that("trivially correlated variables", {
     group_controls = list()
   )
 
-  flat <- MultiLevelIPF::flatten_ml_fit_problem(
+  flat <- mlfit::flatten_ml_fit_problem(
     problem,
     model_matrix_type = "combined", verbose = TRUE
   )

@@ -1,9 +1,9 @@
-# MultiLevelIPF
+# mlfit
 
 <!-- badges: start -->
-[![rcc](https://github.com/krlmlr/MultiLevelIPF/workflows/rcc/badge.svg)](https://github.com/krlmlr/MultiLevelIPF/actions)
-[![codecov.io](https://codecov.io/github/krlmlr/MultiLevelIPF/coverage.svg?branch=master)](https://codecov.io/github/krlmlr/MultiLevelIPF?branch=master)
-[![Codecov test coverage](https://codecov.io/gh/krlmlr/MultiLevelIPF/branch/master/graph/badge.svg)](https://codecov.io/gh/krlmlr/MultiLevelIPF?branch=master)
+[![rcc](https://github.com/krlmlr/mlfit/workflows/rcc/badge.svg)](https://github.com/krlmlr/mlfit/actions)
+[![codecov.io](https://codecov.io/github/krlmlr/mlfit/coverage.svg?branch=master)](https://codecov.io/github/krlmlr/mlfit?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/krlmlr/mlfit/branch/master/graph/badge.svg)](https://codecov.io/gh/krlmlr/mlfit?branch=master)
 <!-- badges: end -->
 
 Implementation of algorithms that extend IPF to nested structures.
@@ -28,5 +28,5 @@ The IPF algorithm operates on count data.  This package offers implementations f
 ## Installation
 
 ```s
-devtools::install_github("krlmlr/MultiLevelIPF")
+devtools::install_github("krlmlr/mlfit")
 ```

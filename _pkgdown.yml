@@ -5,7 +5,7 @@ template:
 reference:
 - title: Multi-level fitting
   contents:
-  - MultiLevelIPF-package
+  - mlfit-package
   - toy_example
   - fitting_problem
   - flatten_ml_fit_problem

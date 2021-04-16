@@ -1,5 +1,5 @@
 Type: Package
-Package: MultiLevelIPF
+Package: mlfit
 Title: Implementation of algorithms that extend IPF to nested structures
 Version: 0.3.7.9000
 Date: 2021-03-26
@@ -16,8 +16,8 @@ Description: The IPF algorithm operates on count data. This package offers
     implementations for several algorithms that extend this to nested structures:
     "parent" and "child" items for both of which constraints can be provided.
 License: GPL-3
-URL: https://krlmlr.github.io/MultiLevelIPF, https://github.com/krlmlr/MultiLevelIPF
-BugReports: https://github.com/krlmlr/MultiLevelIPF/issues
+URL: https://krlmlr.github.io/mlfit, https://github.com/krlmlr/mlfit
+BugReports: https://github.com/krlmlr/mlfit/issues
 Depends: 
     methods
 Imports: 

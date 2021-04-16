@@ -1,6 +1,6 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
-# MultiLevelIPF 0.3.7.9000 (2021-03-26)
+# mlfit 0.3.7.9000 (2021-03-26)
 
 - Add `ml_replicate()` for replicating the reference sample of a fitted problem (#38).
 - Fix the error when a level is missing from the reference sample (#32, @asiripanich).
@@ -9,41 +9,41 @@
 - If the controls contain values of zero for existing observations in the reference sample, the removal of these observations now works in all cases (#30).
 
 
-## MultiLevelIPF 0.3-7 (2018-01-22)
+## mlfit 0.3-7 (2018-01-22)
 
 - Add overview in package documentation.
 - Add examples to all functions.
 - Explicitly document return values to `ml_fit()`.
 
 
-## MultiLevelIPF 0.3-6 (2017-03-28)
+## mlfit 0.3-6 (2017-03-28)
 
 - Set default maximum number of iterations for HIPF to 2000.
 - Convert documentation to Markdown.
 
 
-## MultiLevelIPF 0.3-5 (2016-09-03)
+## mlfit 0.3-5 (2016-09-03)
 
 - Add "Driven by" and "Related work" sections to the README.
 
 
-## MultiLevelIPF 0.3-4 (2016-08-03)
+## mlfit 0.3-4 (2016-08-03)
 
 - Use a sparse matrix for the flattened reference sample.
 
 
-## MultiLevelIPF 0.3-3 (2016-06-06)
+## mlfit 0.3-3 (2016-06-06)
 
 - Status messages with `verbose = TRUE` are prepended with a time stamp.
 - Fail if `NA` group ID found.
 
 
-## MultiLevelIPF 0.3-2 (2016-04-25)
+## mlfit 0.3-2 (2016-04-25)
 
 - Reorganized and renamed internal datasets.
 
 
-## MultiLevelIPF 0.3-1 (2016-04-17)
+## mlfit 0.3-1 (2016-04-17)
 
 - Fitting result contains `iterations` and `tol` members (#28).
 - Fixed model matrix of "separate" type if only grand totals are given.
@@ -53,7 +53,7 @@
 - IPU and HIPF abort iteration when the weights do not change measurably between two iterations (#27).
 
 
-# MultiLevelIPF 0.3 (2016-04-14)
+# mlfit 0.3 (2016-04-14)
 
 - Features
     - New algoritms: HIPF (#2) and IPU.

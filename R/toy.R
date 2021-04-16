@@ -14,7 +14,7 @@
 #' # Load example with results from Ye et al. (2009)
 #' readRDS(toy_example("Tiny"))
 toy_example <- function(name = NULL) {
-  root <- system.file("extdata", package = "MultiLevelIPF")
+  root <- system.file("extdata", package = "mlfit")
   if (is.null(name)) {
     name <- dir(root)
     name <- gsub("[.]rds$", "", name)
