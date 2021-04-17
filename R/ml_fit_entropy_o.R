@@ -7,12 +7,12 @@
 #' @seealso [BB::dfsane()]
 #' @export
 #' @examples
-#' ml_fit_entropy_o(fitting_problem = readRDS(path))
-ml_fit_entropy_o <- function(fitting_problem, verbose = FALSE, tol = 1e-6,
+#' ml_fit_entropy_o(ml_problem = readRDS(path))
+ml_fit_entropy_o <- function(ml_problem, verbose = FALSE, tol = 1e-6,
                              dfsane_args = list()) {
   .patch_verbose()
 
-  flat <- as.flat_ml_fit_problem(fitting_problem, verbose = verbose)
+  flat <- as.flat_ml_fit_problem(ml_problem, verbose = verbose)
 
   t_ref_sample <- t(flat$ref_sample)
 

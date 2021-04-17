@@ -9,16 +9,16 @@
 #'        Barcelona, Barcelona.
 #' @export
 #' @examples
-#' ml_fit_hipf(fitting_problem = readRDS(path))
-ml_fit_hipf <- function(fitting_problem, diff_tol = 16 * .Machine$double.eps,
+#' ml_fit_hipf(ml_problem = readRDS(path))
+ml_fit_hipf <- function(ml_problem, diff_tol = 16 * .Machine$double.eps,
                         tol = 1e-6, maxiter = 2000, verbose = FALSE) {
   .patch_verbose()
 
-  flat <- flatten_ml_fit_problem(fitting_problem)
+  flat <- flatten_ml_fit_problem(ml_problem)
   group_ind_totals <- get_group_ind_totals(flat, verbose)
 
-  flat_ind <- create_flat_ind(fitting_problem, verbose)
-  flat_group <- create_flat_group(fitting_problem, verbose)
+  flat_ind <- create_flat_ind(ml_problem, verbose)
+  flat_group <- create_flat_group(ml_problem, verbose)
   hipf_res <- run_hipf(
     flat, flat_group, flat_ind, group_ind_totals,
     tol, diff_tol, maxiter, verbose
@@ -54,42 +54,42 @@ get_group_ind_totals <- function(flat, verbose) {
   ret
 }
 
-create_flat_ind <- function(fitting_problem, verbose) {
-  fitting_problem_ind <- fitting_problem(
-    ref_sample = fitting_problem$refSample,
+create_flat_ind <- function(ml_problem, verbose) {
+  ml_problem_ind <- ml_problem(
+    ref_sample = ml_problem$refSample,
     individual_controls = list(),
-    group_controls = fitting_problem$controls$individual,
+    group_controls = ml_problem$controls$individual,
     field_names = special_field_names(
-      fitting_problem$fieldNames$individualId,
-      fitting_problem$fieldNames$individualId,
-      count = fitting_problem$fieldNames$count
+      ml_problem$fieldNames$individualId,
+      ml_problem$fieldNames$individualId,
+      count = ml_problem$fieldNames$count
     )
   )
 
-  flat_ind <- as.flat_ml_fit_problem(fitting_problem_ind, model_matrix_type = "separate", verbose = verbose)
+  flat_ind <- as.flat_ml_fit_problem(ml_problem_ind, model_matrix_type = "separate", verbose = verbose)
 
-  stopifnot(nrow(flat_ind$ref_sample) == nrow(fitting_problem$refSample))
+  stopifnot(nrow(flat_ind$ref_sample) == nrow(ml_problem$refSample))
   stopifnot(all(flat_ind$ref_sample@x %in% 0:1))
 
   flat_ind
 }
 
-create_flat_group <- function(fitting_problem, verbose) {
-  fitting_problem_group <- fitting_problem(
-    ref_sample = fitting_problem$refSample,
+create_flat_group <- function(ml_problem, verbose) {
+  ml_problem_group <- ml_problem(
+    ref_sample = ml_problem$refSample,
     individual_controls = list(),
-    group_controls = fitting_problem$controls$group,
+    group_controls = ml_problem$controls$group,
     field_names = special_field_names(
-      fitting_problem$fieldNames$groupId,
-      fitting_problem$fieldNames$groupId,
-      count = fitting_problem$fieldNames$count
+      ml_problem$fieldNames$groupId,
+      ml_problem$fieldNames$groupId,
+      count = ml_problem$fieldNames$count
     )
   )
 
-  flat_group <- as.flat_ml_fit_problem(fitting_problem_group, model_matrix_type = "separate", verbose = verbose)
+  flat_group <- as.flat_ml_fit_problem(ml_problem_group, model_matrix_type = "separate", verbose = verbose)
 
   stopifnot(nrow(flat_group$ref_sample) ==
-    sum(!duplicated(fitting_problem$refSample[[fitting_problem$fieldNames$groupId]])))
+    sum(!duplicated(ml_problem$refSample[[ml_problem$fieldNames$groupId]])))
   stopifnot(all(flat_group$ref_sample@x %in% 0:1))
 
   flat_group

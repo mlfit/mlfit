@@ -23,25 +23,25 @@
 #' @export
 #' @examples
 #' path <- toy_example("Tiny")
-#' flat_problem <- flatten_ml_fit_problem(fitting_problem = readRDS(path))
+#' flat_problem <- flatten_ml_fit_problem(ml_problem = readRDS(path))
 #' flat_problem
 #'
 #' fit <- ml_fit_dss(flat_problem)
 #' fit$flat_weights
 #' fit$weights
-flatten_ml_fit_problem <- function(fitting_problem,
+flatten_ml_fit_problem <- function(ml_problem,
                                    model_matrix_type = c("combined", "separate"),
                                    verbose = FALSE) {
-  .check_is_fitting_problem(fitting_problem)
-  field_names <- fitting_problem$fieldNames
-  prior_weights <- fitting_problem$priorWeights
+  .check_is_ml_problem(ml_problem)
+  field_names <- ml_problem$fieldNames
+  prior_weights <- ml_problem$priorWeights
 
   model_matrix_type <- match.arg(model_matrix_type)
   model_matrix <- .get_model_matrix_fun(model_matrix_type)
 
   .patch_verbose()
 
-  prepared_ref_sample <- .prepare_ref_sample_and_controls(fitting_problem, verbose = verbose)
+  prepared_ref_sample <- .prepare_ref_sample_and_controls(ml_problem, verbose = verbose)
   ref_sample <- prepared_ref_sample$ref_sample
   controls <- prepared_ref_sample$controls
   control_names <- prepared_ref_sample$control_names
@@ -235,7 +235,7 @@ flatten_ml_fit_problem <- function(fitting_problem,
       weights_transform = weights_transform,
       reverse_weights_transform = reverse_weights_transform,
       model_matrix_type = model_matrix_type,
-      fitting_problem = fitting_problem
+      ml_problem = ml_problem
     )
   )
 }
@@ -245,12 +245,12 @@ flatten_ml_fit_problem <- function(fitting_problem,
 
 # Prepare ref sample and controls -----------------------------------------
 
-.prepare_ref_sample_and_controls <- function(fitting_problem, verbose) {
+.prepare_ref_sample_and_controls <- function(ml_problem, verbose) {
   .patch_verbose()
 
-  ref_sample <- fitting_problem$refSample
-  controls <- fitting_problem$controls
-  field_names <- fitting_problem$fieldNames
+  ref_sample <- ml_problem$refSample
+  controls <- ml_problem$controls
+  field_names <- ml_problem$fieldNames
 
   if (length(controls$individual) + length(controls$group) == 0L) {
     stop(
@@ -654,7 +654,7 @@ as.flat_ml_fit_problem.flat_ml_fit_problem <- function(x, model_matrix_type = c(
 }
 
 #' @export
-as.flat_ml_fit_problem.fitting_problem <- function(x, model_matrix_type = c("combined", "separate"), verbose = FALSE, ...) {
+as.flat_ml_fit_problem.ml_problem <- function(x, model_matrix_type = c("combined", "separate"), verbose = FALSE, ...) {
   model_matrix_type <- match.arg(model_matrix_type, several.ok = TRUE)[[1L]]
   flatten_ml_fit_problem(x, model_matrix_type = model_matrix_type, verbose = verbose)
 }
@@ -667,7 +667,7 @@ format.flat_ml_fit_problem <- function(x, ...) {
       nrow(x$ref_sample) %+% " target values",
     "  Model matrix type: " %+% x$model_matrix_type,
     "  Original fitting problem:",
-    "  " %+% format(x$fitting_problem)
+    "  " %+% format(x$ml_problem)
   )
 }
 

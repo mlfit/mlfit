@@ -13,7 +13,7 @@ The IPF algorithm operates on count data. This package offers
 \details{
 To use this package, you need to:
 \enumerate{
-\item Specify your fitting problem with \code{\link[=fitting_problem]{fitting_problem()}}
+\item Specify your fitting problem with \code{\link[=ml_problem]{ml_problem()}}
 \item Optionally, convert the fitting problem to a structure that can be
 processed by the algorithms with \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}; this is
 helpful if you want to run the same fitting problem with multiple

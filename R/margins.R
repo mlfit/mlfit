@@ -5,7 +5,7 @@
 #' @details
 #' `compute_margins()` computes margins in the format used for the input
 #' controls (i.e., as expected by the `controls` parameter of the
-#' [fitting_problem()] function),
+#' [ml_problem()] function),
 #' based on a reference sample and a weights vector.
 #'
 #' @inheritParams ml_fit
@@ -17,14 +17,14 @@
 #' @examples
 #' path <- toy_example("Tiny")
 #' problem <- readRDS(path)
-#' fit <- ml_fit(fitting_problem = problem, algorithm = "entropy_o")
+#' fit <- ml_fit(ml_problem = problem, algorithm = "entropy_o")
 #' margins <- compute_margins(problem, fit$weights)
 #' margins
-compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
-  .check_is_fitting_problem(fitting_problem)
-  ref_sample <- fitting_problem$refSample
-  controls <- fitting_problem$controls
-  field_names <- fitting_problem$fieldNames
+compute_margins <- function(ml_problem, weights, verbose = FALSE) {
+  .check_is_ml_problem(ml_problem)
+  ref_sample <- ml_problem$refSample
+  controls <- ml_problem$controls
+  field_names <- ml_problem$fieldNames
 
   .patch_verbose()
 
@@ -69,7 +69,7 @@ compute_margins <- function(fitting_problem, weights, verbose = FALSE) {
 #' `margins_to_df()` converts margins to a data frame for easier comparison.
 #'
 #' @param controls Margins as returned by `compute_margins` or as passed
-#'   to the `controls` parameter of [fitting_problem()].
+#'   to the `controls` parameter of [ml_problem()].
 #' @param count Name of control total column, autodetected by default.
 #'
 #' @rdname compute_margins

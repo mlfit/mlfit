@@ -33,7 +33,7 @@ test_that("Grand totals only", {
   for (ref_sample in ref_sample_list) {
     for (group_controls in group_control_list) {
       for (individual_controls in individual_control_list) {
-        problem <- fitting_problem(
+        problem <- ml_problem(
           ref_sample,
           field_names = special_field_names("gid", "iid", count = "N"),
           individual_controls = individual_controls,

@@ -22,7 +22,7 @@ test_that("A level is missing from the reference sample should raise a warning",
     )
 
   toy_problem <-
-    fitting_problem(
+    ml_problem(
       ref_sample = ref_sample,
       controls = list(
         individual = list(p_control),

@@ -28,7 +28,7 @@
 #' @export
 #' @examples
 #' path <- toy_example("Tiny")
-#' fit <- ml_fit(fitting_problem = readRDS(path), algorithm = "entropy_o")
+#' fit <- ml_fit(ml_problem = readRDS(path), algorithm = "entropy_o")
 #' syn_pop <- ml_replicate(fit, algorithm = "trs")
 #' syn_pop
 ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE, .keep_original_ids = FALSE) {
@@ -37,12 +37,12 @@ ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = 
   algorithm <- match.arg(algorithm)
 
   message("Replicate using '", algorithm, "' algorithm")
-  group_id <- ml_fit$flat$fitting_problem$fieldNames$groupId
-  count_col <- ml_fit$flat$fitting_problem$fieldNames$count
+  group_id <- ml_fit$flat$ml_problem$fieldNames$groupId
+  count_col <- ml_fit$flat$ml_problem$fieldNames$count
 
   message("Extracting fitted weights of each group")
   number_of_persons_in_each_group <-
-    ml_fit$flat$fitting_problem$refSample[[group_id]] %>%
+    ml_fit$flat$ml_problem$refSample[[group_id]] %>%
     table() %>%
     as.integer()
   weights <-
@@ -56,15 +56,15 @@ ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = 
     rep(integerised_weights, number_of_persons_in_each_group)
   replications <-
     rep(
-      seq_len(nrow(ml_fit$flat$fitting_problem$refSample)),
+      seq_len(nrow(ml_fit$flat$ml_problem$refSample)),
       ind_integerised_weights
     )
   replicated_ref_sample <-
-    dplyr::slice(ml_fit$flat$fitting_problem$refSample, replications) %>%
+    dplyr::slice(ml_fit$flat$ml_problem$refSample, replications) %>%
     tibble::as_tibble()
 
   message("Assign new ids to individuals and groups")
-  field_names <- ml_fit$flat$fitting_problem$fieldNames
+  field_names <- ml_fit$flat$ml_problem$fieldNames
   replicated_ref_sample <-
     replicated_ref_sample %>%
     dplyr::group_by(

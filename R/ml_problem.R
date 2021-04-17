@@ -1,6 +1,6 @@
 #' Create an instance of a fitting problem
 #'
-#' The `fitting_problem()` function is the first step for fitting a reference
+#' The `ml_problem()` function is the first step for fitting a reference
 #' sample to known control totals with [mlfit].
 #' All algorithms (see [ml_fit()]) expect an object created by this function (or
 #' optionally processed with [flatten_ml_fit_problem()]).
@@ -16,7 +16,7 @@
 #' @param prior_weights Prior (or design) weights at group level; by default
 #'   a vector of ones will be used, which corresponds to random sampling of
 #'   groups
-#' @return An object of class `fitting_problem`, essentially a named list
+#' @return An object of class `ml_problem`, essentially a named list
 #'   with the following components:
 #' \describe{
 #'   \item{`refSample`}{The reference sample, a `data.frame`.}
@@ -74,7 +74,7 @@
 #' )
 #' ye_ind
 #'
-#' ye_problem <- fitting_problem(
+#' ye_problem <- ml_problem(
 #'   ref_sample = ye,
 #'   field_names = special_field_names(
 #'     groupId = "HHNR", individualId = "PNR", count = "N"
@@ -86,6 +86,24 @@
 #'
 #' fit <- ml_fit_dss(ye_problem)
 #' fit$weights
+ml_problem <- function(ref_sample,
+                       controls = list(
+                         individual = individual_controls,
+                         group = group_controls
+                       ),
+                       field_names,
+                       individual_controls, group_controls,
+                       prior_weights = NULL) {
+  new_ml_problem(
+    list(
+      refSample = ref_sample, controls = controls, fieldNames = field_names,
+      priorWeights = prior_weights
+    )
+  )
+}
+
+#' @export
+#' @rdname ml_problem
 fitting_problem <- function(ref_sample,
                             controls = list(
                               individual = individual_controls,
@@ -94,27 +112,29 @@ fitting_problem <- function(ref_sample,
                             field_names,
                             individual_controls, group_controls,
                             prior_weights = NULL) {
-  new_fitting_problem(
-    list(
-      refSample = ref_sample, controls = controls, fieldNames = field_names,
-      priorWeights = prior_weights
-    )
+  .Deprecated("ml_problem")
+  ml_problem(
+    ref_sample, controls,
+    field_names,
+    individual_controls, group_controls,
+    prior_weights
   )
 }
 
-new_fitting_problem <- make_new("fitting_problem")
+
+new_ml_problem <- make_new("ml_problem")
 
 #' @export
-#' @rdname fitting_problem
+#' @rdname ml_problem
 #' @param x An object
-is.fitting_problem <- make_is("fitting_problem")
+is.ml_problem <- make_is("ml_problem")
 
 #' @export
-#' @rdname fitting_problem
+#' @rdname ml_problem
 #' @param ... Ignored.
-format.fitting_problem <- function(x, ...) {
+format.ml_problem <- function(x, ...) {
   c(
-    "An object of class fitting_problem",
+    "An object of class ml_problem",
     "  Reference sample: " %+% nrow(x$refSample) %+% " observations",
     "  Control totals: " %+% length(x$controls$individual) %+%
       " at individual, and " %+% length(x$controls$group) %+% " at group level",
@@ -125,12 +145,12 @@ format.fitting_problem <- function(x, ...) {
 }
 
 #' @export
-#' @rdname fitting_problem
-print.fitting_problem <- default_print
+#' @rdname ml_problem
+print.ml_problem <- default_print
 
 #' @description
 #' The `special_field_names()` function is useful for the `field_names` argument
-#' to `fitting_problem`.
+#' to `ml_problem`.
 #'
 #' @param groupId,individualId Name of the column that defines the ID of the
 #'   group or the individual
@@ -139,7 +159,7 @@ print.fitting_problem <- default_print
 #'   column in each control by default).
 #'
 #' @export
-#' @rdname fitting_problem
+#' @rdname ml_problem
 special_field_names <- function(groupId, individualId, individualsPerGroup = NULL,
                                 count = NULL) {
   if (!is.null(individualsPerGroup)) {

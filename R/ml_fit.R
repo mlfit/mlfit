@@ -10,8 +10,8 @@
 #'   are compared to each other.
 #'
 #' @param algorithm Algorithm to use
-#' @param fitting_problem A fitting problem created by
-#'   [fitting_problem()] or returned by [flatten_ml_fit_problem()].
+#' @param ml_problem A fitting problem created by
+#'   [ml_problem()] or returned by [flatten_ml_fit_problem()].
 #' @param tol Tolerance, the algorithm has succeeded when all target values are
 #'   reached within this tolerance.
 #' @param verbose If `TRUE`, print diagnostic output.
@@ -23,7 +23,7 @@
 #' @export
 #' @examples
 #' path <- toy_example("Tiny")
-#' fit <- ml_fit(fitting_problem = readRDS(path), algorithm = "entropy_o")
+#' fit <- ml_fit(ml_problem = readRDS(path), algorithm = "entropy_o")
 #' fit
 #' fit$weights
 #' fit$tol
@@ -33,7 +33,7 @@
 #' fit$residuals
 #' fit$rel_residuals
 #' fit$success
-ml_fit <- function(fitting_problem,
+ml_fit <- function(ml_problem,
                    algorithm = c("entropy_o", "dss", "ipu", "hipf"),
                    verbose = FALSE, ..., tol = 1e-6) {
   algorithm <- match.arg(algorithm)
@@ -43,14 +43,14 @@ ml_fit <- function(fitting_problem,
   }
 
   get(fun.name)(
-    fitting_problem = fitting_problem,
+    ml_problem = ml_problem,
     tol = tol,
     verbose = verbose, ...)
 }
 
-.check_is_fitting_problem <- function(fitting_problem) {
-  if (!is.fitting_problem(fitting_problem)) {
-    stop("Please create a fitting problem using the fitting_problem function.")
+.check_is_ml_problem <- function(ml_problem) {
+  if (!is.ml_problem(ml_problem)) {
+    stop("Please create a fitting problem using the ml_problem function.")
   }
 }
 
