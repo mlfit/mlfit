@@ -102,8 +102,12 @@ ml_problem <- function(ref_sample,
   )
 }
 
+#' Create a fitting problem
+#'
+#' Soft-deprecated, new code should use [ml_problem()].
+#' @importFrom lifecycle deprecate_soft
 #' @export
-#' @rdname ml_problem
+#' @keywords internal
 fitting_problem <- function(ref_sample,
                             controls = list(
                               individual = individual_controls,
@@ -112,7 +116,7 @@ fitting_problem <- function(ref_sample,
                             field_names,
                             individual_controls, group_controls,
                             prior_weights = NULL) {
-  .Deprecated("ml_problem")
+  deprecate_soft("0.4.0", "mlfit::fitting_problem()", "mlfit::ml_problem()")
   ml_problem(
     ref_sample, controls,
     field_names,

@@ -2,7 +2,6 @@
 % Please edit documentation in R/ml_problem.R
 \name{ml_problem}
 \alias{ml_problem}
-\alias{fitting_problem}
 \alias{is.ml_problem}
 \alias{format.ml_problem}
 \alias{print.ml_problem}
@@ -10,15 +9,6 @@
 \title{Create an instance of a fitting problem}
 \usage{
 ml_problem(
-  ref_sample,
-  controls = list(individual = individual_controls, group = group_controls),
-  field_names,
-  individual_controls,
-  group_controls,
-  prior_weights = NULL
-)
-
-fitting_problem(
   ref_sample,
   controls = list(individual = individual_controls, group = group_controls),
   field_names,
