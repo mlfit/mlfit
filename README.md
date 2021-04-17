@@ -36,8 +36,8 @@ be provided.
 
 ## Installation
 
-The package is yet to be on CRAN. Hence, the only way to install it
-right now is via GitHub:
+The package is not currently on CRAN, but can be installed from GitHub
+with:
 
 ``` r
 # install.packages("devtools")
