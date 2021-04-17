@@ -2,7 +2,7 @@
 % Please edit documentation in R/flatten_ml_fit_problem.R
 \name{flatten_ml_fit_problem}
 \alias{flatten_ml_fit_problem}
-\alias{as.flat_ml_fit_problem}
+\alias{as_flat_ml_fit_problem}
 \title{Return a flattened representation of a multi-level fitting problem instance}
 \usage{
 flatten_ml_fit_problem(
@@ -11,7 +11,7 @@ flatten_ml_fit_problem(
   verbose = FALSE
 )
 
-as.flat_ml_fit_problem(x, model_matrix_type = c("combined", "separate"), ...)
+as_flat_ml_fit_problem(x, model_matrix_type = c("combined", "separate"), ...)
 }
 \arguments{
 \item{ml_problem}{A fitting problem created by
