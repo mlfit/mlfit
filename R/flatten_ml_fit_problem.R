@@ -636,12 +636,12 @@ new_flat_ml_fit_problem <- make_new("flat_ml_fit_problem")
 #' @export
 #' @rdname flatten_ml_fit_problem
 #' @param x An object
-as_flat_ml_fit_problem <- function(x, model_matrix_type = c("combined", "separate"), ...) {
-  UseMethod("as_flat_ml_fit_problem", x)
+as.flat_ml_fit_problem <- function(x, model_matrix_type = c("combined", "separate"), ...) {
+  UseMethod("as.flat_ml_fit_problem", x)
 }
 
 #' @export
-as_flat_ml_fit_problem.flat_ml_fit_problem <- function(x, model_matrix_type = c("combined", "separate"), ...) {
+as.flat_ml_fit_problem.flat_ml_fit_problem <- function(x, model_matrix_type = c("combined", "separate"), ...) {
   model_matrix_type <- match.arg(model_matrix_type, several.ok = TRUE)
   if (!(x$model_matrix_type %in% model_matrix_type)) {
     stop(
@@ -654,7 +654,7 @@ as_flat_ml_fit_problem.flat_ml_fit_problem <- function(x, model_matrix_type = c(
 }
 
 #' @export
-as_flat_ml_fit_problem.ml_problem <- function(x, model_matrix_type = c("combined", "separate"), verbose = FALSE, ...) {
+as.flat_ml_fit_problem.ml_problem <- function(x, model_matrix_type = c("combined", "separate"), verbose = FALSE, ...) {
   model_matrix_type <- match.arg(model_matrix_type, several.ok = TRUE)[[1L]]
   flatten_ml_fit_problem(x, model_matrix_type = model_matrix_type, verbose = verbose)
 }

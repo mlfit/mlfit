@@ -24,7 +24,7 @@ ml_fit_dss <- function(ml_problem,
                        verbose = FALSE) {
   .patch_verbose()
 
-  flat <- as_flat_ml_fit_problem(ml_problem, verbose = verbose)
+  flat <- as.flat_ml_fit_problem(ml_problem, verbose = verbose)
 
   message("Calibrating")
   method <- match.arg(method)
