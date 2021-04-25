@@ -67,16 +67,13 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="mlfit" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#mlfit" class="anchor"></a>mlfit</h1></div>
-<!-- badges: start -->
+
 
 <p>Implementation of algorithms that extend IPF to nested structures.</p>
 <p>The IPF algorithm operates on count data. This package offers implementations for several algorithms that extend this to nested structures: “parent” and “child” items for both of which constraints can be provided.</p>
 <div id="powered-by" class="section level2">
 <h2 class="hasAnchor">
-<a href="#powered-by" class="anchor"></a>Powered by</h2>
+<a href="#powered-by" class="anchor" aria-hidden="true"></a>Powered by</h2>
 <ul>
 <li>
 <a href="http://krlmlr.github.io/grake" class="external-link"><code>grake</code></a>: A reimplementation of generalized raking (<a href="http://amstat.tandfonline.com/doi/abs/10.1080/01621459.1992.10475217" class="external-link">Deville and Särndal, 1992</a>; <a href="http://www.tandfonline.com/doi/abs/10.1080/01621459.1993.10476369" class="external-link">Deville, Särndal and Sautory, 1993</a>)</li>
@@ -84,19 +81,34 @@
 </div>
 <div id="related-work" class="section level2">
 <h2 class="hasAnchor">
-<a href="#related-work" class="anchor"></a>Related work</h2>
+<a href="#related-work" class="anchor" aria-hidden="true"></a>Related work</h2>
 <ul>
-<li><p><a href="http://krlmlr.github.io/wrswoR" class="external-link"><code>wrswoR</code></a>: An implementation of fast weighted random sampling without replacement (<a href="http://www.sciencedirect.com/science/article/pii/S002001900500298X" class="external-link">Efraimidis and Spirakis, 2006</a>)</p></li>
-<li><p><a href="http://krlmlr.github.io/mangow" class="external-link"><code>mangow</code></a>: Embed the Gower distance metric in L1</p></li>
-<li><p><a href="https://github.com/jefferis/RANN/tree/master-L1#readme" class="external-link"><code>RANN.L1</code></a>: k-nearest neighbors using the L1 metric</p></li>
+<li>
+<a href="http://krlmlr.github.io/wrswoR" class="external-link"><code>wrswoR</code></a>: An implementation of fast weighted random sampling without replacement (<a href="http://www.sciencedirect.com/science/article/pii/S002001900500298X" class="external-link">Efraimidis and Spirakis, 2006</a>)</li>
+<li>
+<a href="http://krlmlr.github.io/mangow" class="external-link"><code>mangow</code></a>: Embed the Gower distance metric in L1</li>
+<li>
+<a href="https://github.com/jefferis/RANN/tree/master-L1#readme" class="external-link"><code>RANN.L1</code></a>: k-nearest neighbors using the L1 metric</li>
 </ul>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode s"><code class="sourceCode gnuassembler"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">devtools::</span>install_github(<span class="st">"krlmlr/mlfit"</span>)</span></code></pre></div>
+<a href="#installation" class="anchor" aria-hidden="true"></a>Installation</h2>
+<p>The package is not currently on CRAN, but can be installed from GitHub with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"krlmlr/mlfit"</span><span class="op">)</span></code></pre></div>
+<div id="where-is-multilevelipf" class="section level3">
+<h3 class="hasAnchor">
+<a href="#where-is-multilevelipf" class="anchor" aria-hidden="true"></a>Where is <code>MultiLeveLIPF</code>?</h3>
+<p>From version <code>0.4.0</code> onwards the package is now to be known as <code>mlfit</code>. If you would like to install any version that is older than <code>0.4.0</code> please use:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># See https://github.com/krlmlr/mlfit/releases for the releases that are available</span>
+<span class="co"># To install a certain branch or commit or tag, append it to the repo name, after an @:</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"krlmlr/MultiLevelIPF@v0.3-7"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
