@@ -134,7 +134,7 @@ are compared to each other.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ml_fit</span><span class='op'>(</span>
-  <span class='va'>fitting_problem</span>,
+  <span class='va'>ml_problem</span>,
   algorithm <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"entropy_o"</span>, <span class='st'>"dss"</span>, <span class='st'>"ipu"</span>, <span class='st'>"hipf"</span><span class='op'>)</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>,
@@ -142,7 +142,7 @@ are compared to each other.</p>
 <span class='op'>)</span>
 
 <span class='fu'>ml_fit_dss</span><span class='op'>(</span>
-  <span class='va'>fitting_problem</span>,
+  <span class='va'>ml_problem</span>,
   method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"raking"</span>, <span class='st'>"linear"</span>, <span class='st'>"logit"</span><span class='op'>)</span>,
   ginv <span class='op'>=</span> <span class='fu'><a href='gginv.html'>gginv</a></span><span class='op'>(</span><span class='op'>)</span>,
   tol <span class='op'>=</span> <span class='fl'>1e-06</span>,
@@ -150,14 +150,14 @@ are compared to each other.</p>
 <span class='op'>)</span>
 
 <span class='fu'>ml_fit_entropy_o</span><span class='op'>(</span>
-  <span class='va'>fitting_problem</span>,
+  <span class='va'>ml_problem</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
   tol <span class='op'>=</span> <span class='fl'>1e-06</span>,
   dfsane_args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>ml_fit_hipf</span><span class='op'>(</span>
-  <span class='va'>fitting_problem</span>,
+  <span class='va'>ml_problem</span>,
   diff_tol <span class='op'>=</span> <span class='fl'>16</span> <span class='op'>*</span> <span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.eps</span>,
   tol <span class='op'>=</span> <span class='fl'>1e-06</span>,
   maxiter <span class='op'>=</span> <span class='fl'>2000</span>,
@@ -165,7 +165,7 @@ are compared to each other.</p>
 <span class='op'>)</span>
 
 <span class='fu'>ml_fit_ipu</span><span class='op'>(</span>
-  <span class='va'>fitting_problem</span>,
+  <span class='va'>ml_problem</span>,
   diff_tol <span class='op'>=</span> <span class='fl'>16</span> <span class='op'>*</span> <span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.eps</span>,
   tol <span class='op'>=</span> <span class='fl'>1e-06</span>,
   maxiter <span class='op'>=</span> <span class='fl'>2000</span>,
@@ -178,9 +178,9 @@ are compared to each other.</p>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>fitting_problem</th>
+      <th>ml_problem</th>
       <td><p>A fitting problem created by
-<code><a href='fitting_problem.html'>fitting_problem()</a></code> or returned by <code><a href='flatten_ml_fit_problem.html'>flatten_ml_fit_problem()</a></code>.</p></td>
+<code><a href='ml_problem.html'>ml_problem()</a></code> or returned by <code><a href='flatten_ml_fit_problem.html'>flatten_ml_fit_problem()</a></code>.</p></td>
     </tr>
     <tr>
       <th>algorithm</th>
@@ -273,7 +273,7 @@ January 2009.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='toy_example.html'>toy_example</a></span><span class='op'>(</span><span class='st'>"Tiny"</span><span class='op'>)</span>
-<span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'>ml_fit</span><span class='op'>(</span>fitting_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>, algorithm <span class='op'>=</span> <span class='st'>"entropy_o"</span><span class='op'>)</span>
+<span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'>ml_fit</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>, algorithm <span class='op'>=</span> <span class='st'>"entropy_o"</span><span class='op'>)</span>
 <span class='va'>fit</span>
 </div><div class='output co'>#&gt; An object of class ml_fit
 #&gt;   Algorithm: entropy_o
@@ -284,7 +284,7 @@ January 2009.</p>
 #&gt;     Dimensions: 5 groups, 8 target values
 #&gt;     Model matrix type: combined
 #&gt;     Original fitting problem:
-#&gt;     An object of class fitting_problem
+#&gt;     An object of class ml_problem
 #&gt;       Reference sample: 23 observations
 #&gt;       Control totals: 1 at individual, and 1 at group level
 #&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='va'>fit</span><span class='op'>$</span><span class='va'>weights</span>
@@ -298,7 +298,7 @@ January 2009.</p>
 #&gt;   Dimensions: 5 groups, 8 target values
 #&gt;   Model matrix type: combined
 #&gt;   Original fitting problem:
-#&gt;   An object of class fitting_problem
+#&gt;   An object of class ml_problem
 #&gt;     Reference sample: 23 observations
 #&gt;     Control totals: 1 at individual, and 1 at group level
 #&gt;     Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='va'>fit</span><span class='op'>$</span><span class='va'>flat_weights</span>
@@ -308,7 +308,7 @@ January 2009.</p>
 #&gt;  2.684047e-09  4.156846e-09 -1.548604e-08  3.542056e-10 -3.012659e-09 </div><div class='input'><span class='va'>fit</span><span class='op'>$</span><span class='va'>rel_residuals</span>
 </div><div class='output co'>#&gt; (Intercept)_g (Intercept)_i       CAR_g_1    WKSTAT_i_2    WKSTAT_i_3 
 #&gt;  2.684053e-11  1.598788e-11 -2.382468e-10  5.449419e-12 -2.896783e-11 </div><div class='input'><span class='va'>fit</span><span class='op'>$</span><span class='va'>success</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>ml_fit_dss</span><span class='op'>(</span>fitting_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>ml_fit_dss</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; An object of class ml_fit
 #&gt;   Algorithm: dss
 #&gt;   Success: TRUE
@@ -318,10 +318,10 @@ January 2009.</p>
 #&gt;     Dimensions: 5 groups, 8 target values
 #&gt;     Model matrix type: combined
 #&gt;     Original fitting problem:
-#&gt;     An object of class fitting_problem
+#&gt;     An object of class ml_problem
 #&gt;       Reference sample: 23 observations
 #&gt;       Control totals: 1 at individual, and 1 at group level
-#&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='fu'>ml_fit_dss</span><span class='op'>(</span>fitting_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>, ginv <span class='op'>=</span> <span class='va'>solve</span><span class='op'>)</span>
+#&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='fu'>ml_fit_dss</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>, ginv <span class='op'>=</span> <span class='va'>solve</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; An object of class ml_fit
 #&gt;   Algorithm: dss
 #&gt;   Success: TRUE
@@ -331,10 +331,10 @@ January 2009.</p>
 #&gt;     Dimensions: 5 groups, 8 target values
 #&gt;     Model matrix type: combined
 #&gt;     Original fitting problem:
-#&gt;     An object of class fitting_problem
+#&gt;     An object of class ml_problem
 #&gt;       Reference sample: 23 observations
 #&gt;       Control totals: 1 at individual, and 1 at group level
-#&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='fu'>ml_fit_entropy_o</span><span class='op'>(</span>fitting_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span><span class='op'>)</span>
+#&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='fu'>ml_fit_entropy_o</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; An object of class ml_fit
 #&gt;   Algorithm: entropy_o
 #&gt;   Success: TRUE
@@ -344,10 +344,10 @@ January 2009.</p>
 #&gt;     Dimensions: 5 groups, 8 target values
 #&gt;     Model matrix type: combined
 #&gt;     Original fitting problem:
-#&gt;     An object of class fitting_problem
+#&gt;     An object of class ml_problem
 #&gt;       Reference sample: 23 observations
 #&gt;       Control totals: 1 at individual, and 1 at group level
-#&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='fu'>ml_fit_hipf</span><span class='op'>(</span>fitting_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span><span class='op'>)</span>
+#&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='fu'>ml_fit_hipf</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; An object of class ml_fit
 #&gt;   Algorithm: hipf
 #&gt;   Success: TRUE
@@ -357,10 +357,10 @@ January 2009.</p>
 #&gt;     Dimensions: 5 groups, 8 target values
 #&gt;     Model matrix type: combined
 #&gt;     Original fitting problem:
-#&gt;     An object of class fitting_problem
+#&gt;     An object of class ml_problem
 #&gt;       Reference sample: 23 observations
 #&gt;       Control totals: 1 at individual, and 1 at group level
-#&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='fu'>ml_fit_ipu</span><span class='op'>(</span>fitting_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span><span class='op'>)</span>
+#&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='fu'>ml_fit_ipu</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; An object of class ml_fit
 #&gt;   Algorithm: ipu
 #&gt;   Success: TRUE
@@ -370,7 +370,7 @@ January 2009.</p>
 #&gt;     Dimensions: 5 groups, 8 target values
 #&gt;     Model matrix type: separate
 #&gt;     Original fitting problem:
-#&gt;     An object of class fitting_problem
+#&gt;     An object of class ml_problem
 #&gt;       Reference sample: 23 observations
 #&gt;       Control totals: 1 at individual, and 1 at group level
 #&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div></pre>
