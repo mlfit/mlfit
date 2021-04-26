@@ -1,5 +1,18 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mlfit 0.4.0 (2021-04-26)
+
+- Rename `fitting_problem()` to `ml_problem()` to be consistent with the other main functions (`ml_fit()` and `ml_replicate()`) (#42).
+- Convert toy examples from `fitting_problem` objects to `ml_problem` objects (#46).
+- Rename `as.flat_ml_fit_problem()` to `as_flat_ml_fit_problem()` (#48)
+- Document how to install the old MultiLevelIPF package (#49).
+- Rename the package to 'mlfit' (#39).
+- `ml_fit()` now uses `fitting_problem` as first argument to better support pipe workflows (#41).
+- add `ml_replicate()` which helps to replicate the reference sample of a fitted problem.
+- Inline code from grake package (#36, @asiripanich).
+- Use tidy evaluation (#33, @asiripanich).
+
+
 # mlfit 0.3.7.9000 (2021-03-26)
 
 - Add `ml_replicate()` for replicating the reference sample of a fitted problem (#38).
