@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mlfit</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.7.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -117,6 +117,22 @@
       <small>Source: <a href='https://github.com/krlmlr/mlfit/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="mlfit-040-2021-04-26" class="section level1">
+<h1 class="page-header" data-toc-text="0.4.0">
+<a href="#mlfit-040-2021-04-26" class="anchor" aria-hidden="true"></a>mlfit 0.4.0 (2021-04-26)</h1>
+<ul>
+<li>Rename <code><a href="../reference/fitting_problem.html">fitting_problem()</a></code> to <code><a href="../reference/ml_problem.html">ml_problem()</a></code> to be consistent with the other main functions (<code><a href="../reference/ml_fit.html">ml_fit()</a></code> and <code><a href="../reference/ml_replicate.html">ml_replicate()</a></code>) (<a href='https://github.com/krlmlr/mlfit/issues/42'>#42</a>).</li>
+<li>Convert toy examples from <code>fitting_problem</code> objects to <code>ml_problem</code> objects (<a href='https://github.com/krlmlr/mlfit/issues/46'>#46</a>).</li>
+<li>Rename <code>as.flat_ml_fit_problem()</code> to <code><a href="../reference/flatten_ml_fit_problem.html">as_flat_ml_fit_problem()</a></code> (<a href='https://github.com/krlmlr/mlfit/issues/48'>#48</a>)</li>
+<li>Document how to install the old MultiLevelIPF package (<a href='https://github.com/krlmlr/mlfit/issues/49'>#49</a>).</li>
+<li>Rename the package to ‘mlfit’ (<a href='https://github.com/krlmlr/mlfit/issues/39'>#39</a>).</li>
+<li>
+<code><a href="../reference/ml_fit.html">ml_fit()</a></code> now uses <code>fitting_problem</code> as first argument to better support pipe workflows (<a href='https://github.com/krlmlr/mlfit/issues/41'>#41</a>).</li>
+<li>add <code><a href="../reference/ml_replicate.html">ml_replicate()</a></code> which helps to replicate the reference sample of a fitted problem.</li>
+<li>Inline code from grake package (<a href='https://github.com/krlmlr/mlfit/issues/36'>#36</a>, <a href='https://github.com/asiripanich'>@asiripanich</a>).</li>
+<li>Use tidy evaluation (<a href='https://github.com/krlmlr/mlfit/issues/33'>#33</a>, <a href='https://github.com/asiripanich'>@asiripanich</a>).</li>
+</ul>
+</div>
     <div id="mlfit-0379000-2021-03-26" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.7.9000">
 <a href="#mlfit-0379000-2021-03-26" class="anchor" aria-hidden="true"></a>mlfit 0.3.7.9000 (2021-03-26)</h1>
