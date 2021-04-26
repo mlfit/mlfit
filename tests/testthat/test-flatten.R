@@ -12,9 +12,9 @@ test_that("forward and reverse maps", {
     count = "N",
     groupId = "group_id"
   )
-  problem <- fitting_problem(ref_sample, controls, field_names)
+  problem <- ml_problem(ref_sample, controls, field_names)
   flat <- flatten_ml_fit_problem(problem)
-  expect_equal(flat$fitting_problem, problem)
+  expect_equal(flat$ml_problem, problem)
   expect_equal(
     as.vector(group_id %*% flat$weights_transform %*% flat$reverse_weights_transform),
     group_id
@@ -36,9 +36,9 @@ test_that("factors", {
     count = "N",
     groupId = "group_id"
   )
-  problem <- fitting_problem(ref_sample, controls, field_names)
+  problem <- ml_problem(ref_sample, controls, field_names)
   flat <- flatten_ml_fit_problem(problem)
-  expect_equal(flat$fitting_problem, problem)
+  expect_equal(flat$ml_problem, problem)
 })
 
 test_that("auto controls", {
@@ -56,12 +56,12 @@ test_that("auto controls", {
     groupId = "group_id"
   )
 
-  problem <- fitting_problem(ref_sample, controls, field_names)
+  problem <- ml_problem(ref_sample, controls, field_names)
   expect_message(
     flat <- flatten_ml_fit_problem(problem, verbose = TRUE),
     "as count column"
   )
-  expect_equal(flat$fitting_problem, problem)
+  expect_equal(flat$ml_problem, problem)
   expect_equal(
     as.vector(group_id %*% flat$weights_transform %*% flat$reverse_weights_transform),
     group_id
@@ -83,7 +83,7 @@ test_that("error with auto controls", {
     groupId = "group_id"
   )
 
-  problem <- fitting_problem(ref_sample, controls, field_names)
+  problem <- ml_problem(ref_sample, controls, field_names)
   expect_error(
     flat <- flatten_ml_fit_problem(problem, verbose = TRUE),
     "among control columns"
@@ -106,9 +106,9 @@ test_that("identical households", {
     count = "N",
     groupId = "group_id"
   )
-  problem <- fitting_problem(ref_sample, controls, field_names, prior_weights = ref_sample$group_id)
+  problem <- ml_problem(ref_sample, controls, field_names, prior_weights = ref_sample$group_id)
   flat <- flatten_ml_fit_problem(problem)
-  expect_equal(flat$fitting_problem, problem)
+  expect_equal(flat$ml_problem, problem)
   test_weights <- ref_sample$group_id
   test_weights_flat <- test_weights %*% flat$weights_transform %>% as.vector()
   expect_equal(
@@ -134,8 +134,8 @@ test_that("don't need to sort by group id", {
     groupId = "group_id"
   )
 
-  problem <- fitting_problem(ref_sample, controls, field_names, prior_weights = ref_sample$group_id)
-  problem_sorted <- fitting_problem(arrange(ref_sample, group_id), controls, field_names, prior_weights = sort(ref_sample$group_id))
+  problem <- ml_problem(ref_sample, controls, field_names, prior_weights = ref_sample$group_id)
+  problem_sorted <- ml_problem(arrange(ref_sample, group_id), controls, field_names, prior_weights = sort(ref_sample$group_id))
   flat <- flatten_ml_fit_problem(problem)
   flat_sorted <- flatten_ml_fit_problem(problem_sorted)
 
@@ -164,7 +164,7 @@ test_that("error if group id is NA", {
     groupId = "group_id"
   )
 
-  problem <- fitting_problem(ref_sample, controls, field_names, prior_weights = ref_sample$group_id)
+  problem <- ml_problem(ref_sample, controls, field_names, prior_weights = ref_sample$group_id)
   expect_error(flatten_ml_fit_problem(problem), "NA")
 })
 

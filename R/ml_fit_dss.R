@@ -15,16 +15,16 @@
 #' @seealso [dss()], [gginv()]
 #' @export
 #' @examples
-#' ml_fit_dss(fitting_problem = readRDS(path))
-#' ml_fit_dss(fitting_problem = readRDS(path), ginv = solve)
-ml_fit_dss <- function(fitting_problem,
+#' ml_fit_dss(ml_problem = readRDS(path))
+#' ml_fit_dss(ml_problem = readRDS(path), ginv = solve)
+ml_fit_dss <- function(ml_problem,
                        method = c("raking", "linear", "logit"),
                        ginv = gginv(),
                        tol = 1e-6,
                        verbose = FALSE) {
   .patch_verbose()
 
-  flat <- as.flat_ml_fit_problem(fitting_problem, verbose = verbose)
+  flat <- as_flat_ml_fit_problem(ml_problem, verbose = verbose)
 
   message("Calibrating")
   method <- match.arg(method)

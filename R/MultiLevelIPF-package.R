@@ -1,7 +1,7 @@
 #' @details
 #' To use this package, you need to:
 #'
-#' 1. Specify your fitting problem with [fitting_problem()]
+#' 1. Specify your fitting problem with [ml_problem()]
 #' 1. Optionally, convert the fitting problem to a structure that can be
 #'     processed by the algorithms with [flatten_ml_fit_problem()]; this is
 #'     helpful if you want to run the same fitting problem with multiple

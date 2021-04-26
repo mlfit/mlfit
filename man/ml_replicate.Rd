@@ -38,7 +38,7 @@ is always very close to or equal the sum of the fitted group weights.
 }
 \examples{
 path <- toy_example("Tiny")
-fit <- ml_fit(fitting_problem = readRDS(path), algorithm = "entropy_o")
+fit <- ml_fit(ml_problem = readRDS(path), algorithm = "entropy_o")
 syn_pop <- ml_replicate(fit, algorithm = "trs")
 syn_pop
 }

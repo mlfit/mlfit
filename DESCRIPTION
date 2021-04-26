@@ -31,7 +31,8 @@ Imports:
     forcats,
     rlang,
     utils,
-    wrswoR
+    wrswoR,
+    lifecycle
 Suggests: 
     covr,
     testthat,

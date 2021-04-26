@@ -11,7 +11,7 @@
 \title{Estimate weights for a fitting problem}
 \usage{
 ml_fit(
-  fitting_problem,
+  ml_problem,
   algorithm = c("entropy_o", "dss", "ipu", "hipf"),
   verbose = FALSE,
   ...,
@@ -19,7 +19,7 @@ ml_fit(
 )
 
 ml_fit_dss(
-  fitting_problem,
+  ml_problem,
   method = c("raking", "linear", "logit"),
   ginv = gginv(),
   tol = 1e-06,
@@ -27,14 +27,14 @@ ml_fit_dss(
 )
 
 ml_fit_entropy_o(
-  fitting_problem,
+  ml_problem,
   verbose = FALSE,
   tol = 1e-06,
   dfsane_args = list()
 )
 
 ml_fit_hipf(
-  fitting_problem,
+  ml_problem,
   diff_tol = 16 * .Machine$double.eps,
   tol = 1e-06,
   maxiter = 2000,
@@ -42,7 +42,7 @@ ml_fit_hipf(
 )
 
 ml_fit_ipu(
-  fitting_problem,
+  ml_problem,
   diff_tol = 16 * .Machine$double.eps,
   tol = 1e-06,
   maxiter = 2000,
@@ -52,8 +52,8 @@ ml_fit_ipu(
 is.ml_fit(x)
 }
 \arguments{
-\item{fitting_problem}{A fitting problem created by
-\code{\link[=fitting_problem]{fitting_problem()}} or returned by \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}.}
+\item{ml_problem}{A fitting problem created by
+\code{\link[=ml_problem]{ml_problem()}} or returned by \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}.}
 
 \item{algorithm}{Algorithm to use}
 
@@ -111,7 +111,7 @@ are compared to each other.
 }
 \examples{
 path <- toy_example("Tiny")
-fit <- ml_fit(fitting_problem = readRDS(path), algorithm = "entropy_o")
+fit <- ml_fit(ml_problem = readRDS(path), algorithm = "entropy_o")
 fit
 fit$weights
 fit$tol
@@ -121,11 +121,11 @@ fit$flat_weights
 fit$residuals
 fit$rel_residuals
 fit$success
-ml_fit_dss(fitting_problem = readRDS(path))
-ml_fit_dss(fitting_problem = readRDS(path), ginv = solve)
-ml_fit_entropy_o(fitting_problem = readRDS(path))
-ml_fit_hipf(fitting_problem = readRDS(path))
-ml_fit_ipu(fitting_problem = readRDS(path))
+ml_fit_dss(ml_problem = readRDS(path))
+ml_fit_dss(ml_problem = readRDS(path), ginv = solve)
+ml_fit_entropy_o(ml_problem = readRDS(path))
+ml_fit_hipf(ml_problem = readRDS(path))
+ml_fit_ipu(ml_problem = readRDS(path))
 }
 \references{
 Deville, J.-C. and \enc{Särndal}{Saerndal}, C.-E. (1992)

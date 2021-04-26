@@ -2,20 +2,20 @@
 % Please edit documentation in R/flatten_ml_fit_problem.R
 \name{flatten_ml_fit_problem}
 \alias{flatten_ml_fit_problem}
-\alias{as.flat_ml_fit_problem}
+\alias{as_flat_ml_fit_problem}
 \title{Return a flattened representation of a multi-level fitting problem instance}
 \usage{
 flatten_ml_fit_problem(
-  fitting_problem,
+  ml_problem,
   model_matrix_type = c("combined", "separate"),
   verbose = FALSE
 )
 
-as.flat_ml_fit_problem(x, model_matrix_type = c("combined", "separate"), ...)
+as_flat_ml_fit_problem(x, model_matrix_type = c("combined", "separate"), ...)
 }
 \arguments{
-\item{fitting_problem}{A fitting problem created by
-\code{\link[=fitting_problem]{fitting_problem()}} or returned by \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}.}
+\item{ml_problem}{A fitting problem created by
+\code{\link[=ml_problem]{ml_problem()}} or returned by \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}.}
 
 \item{model_matrix_type}{Which model matrix building strategy to use? See details.}
 
@@ -45,7 +45,7 @@ results in a larger model matrix if more than one control is given.
 }
 \examples{
 path <- toy_example("Tiny")
-flat_problem <- flatten_ml_fit_problem(fitting_problem = readRDS(path))
+flat_problem <- flatten_ml_fit_problem(ml_problem = readRDS(path))
 flat_problem
 
 fit <- ml_fit_dss(flat_problem)

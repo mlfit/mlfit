@@ -1,7 +1,7 @@
 test_that("ml_replicate works", {
   path <- toy_example("Tiny")
   problem <- readRDS(path)
-  fit <- ml_fit(fitting_problem = problem, algorithm = "ipu")
+  fit <- ml_fit(ml_problem = problem, algorithm = "ipu")
   for (algo in c("trs", "pp", "round")) {
     syn_pop <- ml_replicate(fit, algorithm = algo)
     number_of_groups <- length(unique(syn_pop[[problem$fieldNames$groupId]]))

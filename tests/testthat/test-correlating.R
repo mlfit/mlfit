@@ -24,7 +24,7 @@ test_that("trivially correlated variables", {
   x10c <- data.frame(x10 = forcats::fct_inorder(factor(levels(rs$x10))))
   x10c$N <- 10
 
-  problem <- fitting_problem(
+  problem <- ml_problem(
     rs,
     field_names = special_field_names("id", "id", count = "N"),
     individual_controls = list(x2c, x5c, x10c),
