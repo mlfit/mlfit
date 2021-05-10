@@ -26,7 +26,7 @@ implementation for computing the singular value decomposition.
 }
 \details{
 The \code{svd} argument is expected to adhere to the interface of
-\verb{base::[svd][base::svd]}. It will be called as \code{svd(x)} (with the
+\code{\link[base:svd]{base::svd()}}. It will be called as \code{svd(x)} (with the
 \code{nu} and \code{nv} arguments unset) and is expected to return a named
 list with components \code{d}, \code{u} and \code{v}.
 }
