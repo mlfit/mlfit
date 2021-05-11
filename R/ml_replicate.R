@@ -23,7 +23,7 @@
 #'          A method for creating integer weights for spatial microsimulation.
 #'          Computers, Environment and Urban Systems, 41, 1-11.
 #'
-#' @return All functions return a data.frame.
+#' @return The function returns a data.frame. 
 #'
 #' @export
 #' @examples
