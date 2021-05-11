@@ -164,6 +164,7 @@ is_abs_within_tol <- function(x, tol) {
 #' @return `is.ml_fit()` returns a logical.
 is.ml_fit <- make_is("ml_fit")
 
+#' @rdname ml_fit
 #' @export
 format.ml_fit <- function(x, ...) {
   c(
@@ -177,5 +178,6 @@ format.ml_fit <- function(x, ...) {
   )
 }
 
+#' @rdname ml_fit
 #' @export
 print.ml_fit <- default_print
