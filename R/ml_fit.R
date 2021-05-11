@@ -161,6 +161,7 @@ is_abs_within_tol <- function(x, tol) {
 #' @export
 #' @rdname ml_fit
 #' @param x An object
+#' @return `is.ml_fit()` returns a logical.
 is.ml_fit <- make_is("ml_fit")
 
 #' @export
