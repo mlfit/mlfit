@@ -4,9 +4,9 @@
 \name{mlfit-package}
 \alias{mlfit}
 \alias{mlfit-package}
-\title{mlfit: Implementation of algorithms that extend IPF to nested structures}
+\title{mlfit: Implementation of algorithms that extend Iterative Proportional Fitting to nested structures}
 \description{
-The IPF algorithm operates on count data. This package offers
+The Iterative Proportional Fitting (IPF) algorithm operates on count data. This package offers
     implementations for several algorithms that extend this to nested structures:
     "parent" and "child" items for both of which constraints can be provided.
 }

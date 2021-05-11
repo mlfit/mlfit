@@ -1,6 +1,6 @@
 Type: Package
 Package: mlfit
-Title: Implementation of algorithms that extend IPF to nested structures
+Title: Implementation of algorithms that extend Iterative Proportional Fitting to nested structures
 Version: 0.4.0
 Date: 2021-04-26
 Authors@R: 
@@ -10,9 +10,7 @@ Authors@R:
               email = "krlmlr+r@mailbox.org"),
        person(given = "Amarin",
               family = "Siripanich", 
-              role = c("ctb"), 
-              email = "amarin.siri@gmail.com"))
-Description: The IPF algorithm operates on count data. This package offers
+Description: The Iterative Proportional Fitting (IPF) algorithm operates on count data. This package offers
     implementations for several algorithms that extend this to nested structures:
     "parent" and "child" items for both of which constraints can be provided.
 License: GPL-3
