@@ -151,7 +151,17 @@ is_abs_within_tol <- function(x, tol) {
   max(abs(x)) < tol
 }
 
+.check_is_ml_fit <- function(ml_fit) {
+  if (!is.ml_fit(ml_fit)) {
+    stop("Please create a ml_fit object using one of the `ml_fit` functions.")
+  }
+}
+
 # S3 ----------------------------------------------------------------------
+#' @export
+#' @rdname ml_fit
+#' @param x An object
+is.ml_fit <- make_is("ml_fit")
 
 #' @export
 format.ml_fit <- function(x, ...) {
