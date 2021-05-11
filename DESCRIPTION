@@ -4,12 +4,32 @@ Title: Implementation of algorithms that extend Iterative Proportional Fitting t
 Version: 0.4.0
 Date: 2021-04-26
 Authors@R: 
-     c(person(given = "Kirill", 
-              family = "Müller", 
-              role = c("aut","cre"), 
-              email = "krlmlr+r@mailbox.org"),
-       person(given = "Amarin",
-              family = "Siripanich", 
+    c(
+        person(
+            given = "Kirill",
+            family = "Müller",
+            role = c("aut", "cre"),
+            email = "krlmlr+r@mailbox.org"
+        ),
+        person(
+            given = "Kay",
+            family = "Axhausen",
+            role = "ths",
+            email = "axhausen@ivt.baug.ethz.ch"
+        ),
+        person(
+            given = "Amarin",
+            family = "Siripanich",
+            role = c("aut"),
+            email = "amarin.siri@gmail.com"
+        ),
+        person(
+            given = "Taha",
+            family = "Rashidi",
+            role = "ths",
+            email = "rashidi@unsw.edu.au"
+        )
+    )
 Description: The Iterative Proportional Fitting (IPF) algorithm operates on count data. This package offers
     implementations for several algorithms that extend this to nested structures:
     "parent" and "child" items for both of which constraints can be provided.
