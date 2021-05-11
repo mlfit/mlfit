@@ -25,7 +25,7 @@ replacement, and "round" is just simple rounding.}
 ids of the reference sample will be kept with suffix '_old'.}
 }
 \value{
-All functions return a data.frame.
+The function returns a data.frame.
 }
 \description{
 This function replicates each entry in a reference sample based on its fitted

@@ -35,9 +35,15 @@ Useful links:
 \author{
 \strong{Maintainer}: Kirill Müller \email{krlmlr+r@mailbox.org}
 
+Authors:
+\itemize{
+  \item Amarin Siripanich \email{amarin.siri@gmail.com}
+}
+
 Other contributors:
 \itemize{
-  \item Amarin Siripanich \email{amarin.siri@gmail.com} [contributor]
+  \item Kay Axhausen \email{axhausen@ivt.baug.ethz.ch} [thesis advisor]
+  \item Taha Rashidi \email{rashidi@unsw.edu.au} [thesis advisor]
 }
 
 }

@@ -68,6 +68,8 @@ with the following components:
 and \code{group}. Each contains a list of controls as \code{data.frame}s.}
 \item{\code{fieldNames}}{A named list with the names of special fields.}
 }
+
+\code{is.ml_problem()} returns a logical.
 }
 \description{
 The \code{ml_problem()} function is the first step for fitting a reference
