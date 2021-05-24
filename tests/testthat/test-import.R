@@ -1,5 +1,3 @@
-context("import")
-
 test_that("import toy examples", {
   test_names <- c("Tiny", "Single", "dummytoy", "Joint-Grouped")
   test_paths <- toy_example(test_names)

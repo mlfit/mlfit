@@ -1,5 +1,3 @@
-context("Sparse")
-
 test_that("Calibrating a sparse diagonal matrix against a vector", {
   N <- 5
   X_dense <- diag(N)

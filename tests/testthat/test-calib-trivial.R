@@ -1,5 +1,3 @@
-context("Trivial")
-
 set.seed(20150120)
 
 test_that("Calibrating a unit matrix against a unit vector", {
