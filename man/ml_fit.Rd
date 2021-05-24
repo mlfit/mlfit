@@ -143,6 +143,10 @@ Statistical Association}, **87 ** (418), 376--382.
 Deville, J.-C., \enc{Särndal}{Saerndal}, C.-E. and Sautory, O. (1993)
 Generalized raking procedures in survey sampling. \emph{Journal of the
 American Statistical Association}, **88 ** (423), 1013--1020.
+Bar-Gera, H., Konduri, K. C., Sana, B., Ye, X., & Pendyala, R. M.
+(2009, January). Estimating survey weights with multiple
+constraints using entropy optimization methods. In 88th Annual
+Meeting of the Transportation Research Board, Washington, DC.
 
 Müller, K. and Axhausen, K. W. (2011), Hierarchical IPF: Generating a
 synthetic population for Switzerland, paper presented at the 51st
