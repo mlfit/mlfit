@@ -2,9 +2,20 @@
 % Please edit documentation in R/ml_replicate.R
 \name{ml_replicate}
 \alias{ml_replicate}
+\alias{ml_replicate.ml_fit}
+\alias{ml_replicate.list}
 \title{Replicate records in a reference sample based on its fitted weights}
 \usage{
-ml_replicate(
+ml_replicate(ml_fit, ...)
+
+\method{ml_replicate}{ml_fit}(
+  ml_fit,
+  algorithm = c("pp", "trs", "round"),
+  verbose = FALSE,
+  .keep_original_ids = FALSE
+)
+
+\method{ml_replicate}{list}(
   ml_fit,
   algorithm = c("pp", "trs", "round"),
   verbose = FALSE,
@@ -12,7 +23,7 @@ ml_replicate(
 )
 }
 \arguments{
-\item{ml_fit}{A \code{ml_fit} object created by the \code{\link[=ml_fit]{ml_fit()}} family.}
+\item{ml_fit}{A \code{ml_fit} object or a list of them created by the \code{\link[=ml_fit]{ml_fit()}} family.}
 
 \item{algorithm}{Replication algorithm to use. "trs" is
 the 'Truncate, replicate, sample' integerisation algorithm proposed

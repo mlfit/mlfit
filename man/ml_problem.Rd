@@ -14,7 +14,8 @@ ml_problem(
   field_names,
   individual_controls,
   group_controls,
-  prior_weights = NULL
+  prior_weights = NULL,
+  geo_hierachy
 )
 
 is.ml_problem(x)
@@ -27,7 +28,9 @@ special_field_names(
   groupId,
   individualId,
   individualsPerGroup = NULL,
-  count = NULL
+  count = NULL,
+  zone = NULL,
+  region = NULL
 )
 }
 \arguments{
@@ -47,6 +50,11 @@ defines a control}
 a vector of ones will be used, which corresponds to random sampling of
 groups}
 
+\item{geo_hierachy}{A table shows mapping between a larger zoning level to
+many zones of a smaller zoning level. The column name of the larger level
+should be specified in \code{field_names} as 'region' and the smaller one as
+'zone'.}
+
 \item{x}{An object}
 
 \item{...}{Ignored.}
@@ -60,8 +68,8 @@ group or the individual}
 column in each control by default).}
 }
 \value{
-An object of class \code{ml_problem}, essentially a named list
-with the following components:
+An object of class \code{ml_problem} of a list of them if geo_hierachy was
+given, essentially a named list with the following components:
 \describe{
 \item{\code{refSample}}{The reference sample, a \code{data.frame}.}
 \item{\code{controls}}{A named list with two components, \code{individual}
@@ -83,30 +91,30 @@ to \code{ml_problem}.
 
 # Provide reference sample
 ye <- tibble::tribble(
-  ~HHNR, ~APER, ~HH_VAR, ~P_VAR,
-  1, 3, 1, 1,
-  1, 3, 1, 2,
-  1, 3, 1, 3,
-  2, 2, 1, 1,
-  2, 2, 1, 3,
-  3, 3, 1, 1,
-  3, 3, 1, 1,
-  3, 3, 1, 2,
-  4, 3, 2, 1,
-  4, 3, 2, 3,
-  4, 3, 2, 3,
-  5, 3, 2, 2,
-  5, 3, 2, 2,
-  5, 3, 2, 3,
-  6, 2, 2, 1,
-  6, 2, 2, 2,
-  7, 5, 2, 1,
-  7, 5, 2, 1,
-  7, 5, 2, 2,
-  7, 5, 2, 3,
-  7, 5, 2, 3,
-  8, 2, 2, 1,
-  8, 2, 2, 2
+  ~HHNR, ~PNR, ~APER, ~HH_VAR, ~P_VAR,
+  1, 1, 3, 1, 1,
+  1, 2, 3, 1, 2,
+  1, 3, 3, 1, 3,
+  2, 4, 2, 1, 1,
+  2, 5, 2, 1, 3,
+  3, 6, 3, 1, 1,
+  3, 7, 3, 1, 1,
+  3, 8, 3, 1, 2,
+  4, 9, 3, 2, 1,
+  4, 10, 3, 2, 3,
+  4, 11, 3, 2, 3,
+  5, 12, 3, 2, 2,
+  5, 13, 3, 2, 2,
+  5, 14, 3, 2, 3,
+  6, 15, 2, 2, 1,
+  6, 16, 2, 2, 2,
+  7, 17, 5, 2, 1,
+  7, 18, 5, 2, 1,
+  7, 19, 5, 2, 2,
+  7, 20, 5, 2, 3,
+  7, 21, 5, 2, 3,
+  8, 22, 2, 2, 1,
+  8, 23, 2, 2, 2
 )
 ye
 

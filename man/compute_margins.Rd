@@ -10,7 +10,7 @@ compute_margins(ml_problem, weights, verbose = FALSE)
 margin_to_df(controls, count = NULL, verbose = FALSE)
 }
 \arguments{
-\item{ml_problem}{A fitting problem created by
+\item{ml_problem}{A fitting problem or a list of fitting problems created by
 \code{\link[=ml_problem]{ml_problem()}} or returned by \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}.}
 
 \item{weights}{A vector with one entry per row of the original reference

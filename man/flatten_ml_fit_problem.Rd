@@ -14,7 +14,7 @@ flatten_ml_fit_problem(
 as_flat_ml_fit_problem(x, model_matrix_type = c("combined", "separate"), ...)
 }
 \arguments{
-\item{ml_problem}{A fitting problem created by
+\item{ml_problem}{A fitting problem or a list of fitting problems created by
 \code{\link[=ml_problem]{ml_problem()}} or returned by \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}.}
 
 \item{model_matrix_type}{Which model matrix building strategy to use? See details.}
