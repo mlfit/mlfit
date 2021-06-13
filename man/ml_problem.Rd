@@ -66,6 +66,10 @@ group or the individual}
 
 \item{count}{Name of control total column in control tables (use first numeric
 column in each control by default).}
+
+\item{region, zone}{Name of the column that defines the region of the reference
+sample or the zone of the controls. Note that region is a larger area that contains
+more than one zone.}
 }
 \value{
 An object of class \code{ml_problem} of a list of them if geo_hierachy was

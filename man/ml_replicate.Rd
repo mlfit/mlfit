@@ -25,6 +25,8 @@ ml_replicate(ml_fit, ...)
 \arguments{
 \item{ml_fit}{A \code{ml_fit} object or a list of them created by the \code{\link[=ml_fit]{ml_fit()}} family.}
 
+\item{...}{Not being used.}
+
 \item{algorithm}{Replication algorithm to use. "trs" is
 the 'Truncate, replicate, sample' integerisation algorithm proposed
 by Lovelace et al. (2013), "pp" is weighted sampling with

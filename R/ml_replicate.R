@@ -17,6 +17,7 @@
 #' @param verbose If `TRUE`, print diagnostic output.
 #' @param .keep_original_ids If `TRUE`, the original individual and group
 #'  ids of the reference sample will be kept with suffix '_old'.
+#' @param ... Not being used.
 #'
 #' @references
 #'      Lovelace, R., & Ballas, D. (2013). ‘Truncate, replicate, sample’:
