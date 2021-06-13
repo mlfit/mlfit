@@ -12,14 +12,16 @@ ml_replicate(ml_fit, ...)
   ml_fit,
   algorithm = c("pp", "trs", "round"),
   verbose = FALSE,
-  .keep_original_ids = FALSE
+  .keep_original_ids = FALSE,
+  ...
 )
 
 \method{ml_replicate}{list}(
   ml_fit,
   algorithm = c("pp", "trs", "round"),
   verbose = FALSE,
-  .keep_original_ids = FALSE
+  .keep_original_ids = FALSE,
+  ...
 )
 }
 \arguments{

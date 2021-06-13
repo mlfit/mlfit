@@ -38,7 +38,7 @@ ml_replicate <- function(ml_fit, ...) {
 
 #' @rdname ml_replicate
 #' @export
-ml_replicate.ml_fit <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE, .keep_original_ids = FALSE) {
+ml_replicate.ml_fit <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE, .keep_original_ids = FALSE, ...) {
   .patch_verbose()
 
   algorithm <- match.arg(algorithm)
@@ -110,7 +110,7 @@ ml_replicate.ml_fit <- function(ml_fit, algorithm = c("pp", "trs", "round"), ver
 
 #' @rdname ml_replicate
 #' @export
-ml_replicate.list <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE, .keep_original_ids = FALSE) {
+ml_replicate.list <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE, .keep_original_ids = FALSE, ...) {
   if (!all(sapply(ml_fit, is.ml_fit))) {
     stop("Not all objects in the list are `ml_fit`.")
   }
