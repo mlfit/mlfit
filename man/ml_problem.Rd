@@ -15,7 +15,7 @@ ml_problem(
   individual_controls,
   group_controls,
   prior_weights = NULL,
-  geo_hierachy
+  geo_hierarchy
 )
 
 is.ml_problem(x)
@@ -50,7 +50,7 @@ defines a control}
 a vector of ones will be used, which corresponds to random sampling of
 groups}
 
-\item{geo_hierachy}{A table shows mapping between a larger zoning level to
+\item{geo_hierarchy}{A table shows mapping between a larger zoning level to
 many zones of a smaller zoning level. The column name of the larger level
 should be specified in \code{field_names} as 'region' and the smaller one as
 'zone'.}
@@ -72,7 +72,7 @@ sample or the zone of the controls. Note that region is a larger area that conta
 more than one zone.}
 }
 \value{
-An object of class \code{ml_problem} of a list of them if geo_hierachy was
+An object of class \code{ml_problem} of a list of them if geo_hierarchy was
 given, essentially a named list with the following components:
 \describe{
 \item{\code{refSample}}{The reference sample, a \code{data.frame}.}

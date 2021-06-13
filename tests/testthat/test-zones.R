@@ -61,7 +61,7 @@ ind_ctrl <- tibble::tribble(
   4, 3, 104
 )
 
-geo_hierachy <- tibble::tribble(
+geo_hierarchy <- tibble::tribble(
   ~REGION, ~ZONE,
   1, 1,
   1, 2,
@@ -78,7 +78,7 @@ test_that("Create ml_problem by zones", {
     ),
     group_controls = list(hh_ctrl),
     individual_controls = list(ind_ctrl),
-    geo_hierachy = geo_hierachy
+    geo_hierarchy = geo_hierarchy
   )
 
   expect_true(all(sapply(problems, is.ml_problem)))
@@ -99,9 +99,9 @@ test_that("bad zone-by-zone arguments", {
       ),
       group_controls = list(hh_ctrl, hh_ctrl),
       individual_controls = list(ind_ctrl, ind_ctrl),
-      geo_hierachy = geo_hierachy
+      geo_hierarchy = geo_hierarchy
     ),
-    regex = "\\{NON-EXISTED-ZONE\\} is not in `geo_hierachy`"
+    regex = "\\{NON-EXISTED-ZONE\\} is not in `geo_hierarchy`"
   )
 
   expect_error(
@@ -113,9 +113,9 @@ test_that("bad zone-by-zone arguments", {
       ),
       group_controls = list(hh_ctrl, hh_ctrl),
       individual_controls = list(ind_ctrl, ind_ctrl),
-      geo_hierachy = geo_hierachy
+      geo_hierarchy = geo_hierarchy
     ),
-    regex = "\\{NON-EXISTED-REGION\\} is not in `geo_hierachy`"
+    regex = "\\{NON-EXISTED-REGION\\} is not in `geo_hierarchy`"
   )
 
   expect_error(
@@ -127,7 +127,7 @@ test_that("bad zone-by-zone arguments", {
       ),
       group_controls = list(hh_ctrl, hh_ctrl),
       individual_controls = list(ind_ctrl, ind_ctrl),
-      geo_hierachy = geo_hierachy
+      geo_hierarchy = geo_hierarchy
     ),
     regex = "\\{REGION\\} is not in `ref_sample`"
   )
@@ -142,7 +142,7 @@ test_that("bad zone-by-zone arguments", {
       ),
       group_controls = list(bad_hh_ctrl),
       individual_controls = list(ind_ctrl, ind_ctrl),
-      geo_hierachy = geo_hierachy
+      geo_hierarchy = geo_hierarchy
     ),
     regex = "Zone mismatch between individual and group controls:"
   )

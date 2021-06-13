@@ -16,11 +16,11 @@
 #' @param prior_weights Prior (or design) weights at group level; by default
 #'   a vector of ones will be used, which corresponds to random sampling of
 #'   groups
-#' @param geo_hierachy A table shows mapping between a larger zoning level to
+#' @param geo_hierarchy A table shows mapping between a larger zoning level to
 #'  many zones of a smaller zoning level. The column name of the larger level
 #'  should be specified in `field_names` as 'region' and the smaller one as
 #'  'zone'.
-#' @return An object of class `ml_problem` of a list of them if geo_hierachy was
+#' @return An object of class `ml_problem` of a list of them if geo_hierarchy was
 #'  given, essentially a named list with the following components:
 #' \describe{
 #'   \item{`refSample`}{The reference sample, a `data.frame`.}
@@ -98,15 +98,15 @@ ml_problem <- function(ref_sample,
                        field_names,
                        individual_controls, group_controls,
                        prior_weights = NULL,
-                       geo_hierachy) {
-  if (!missing(geo_hierachy)) {
+                       geo_hierarchy) {
+  if (!missing(geo_hierarchy)) {
     message("Creating a list of fitting problems by zone")
     return(ml_problem_by_zone(
       ref_sample,
       controls,
       field_names,
       prior_weights,
-      geo_hierachy
+      geo_hierarchy
     ))
   }
 
@@ -122,18 +122,18 @@ ml_problem_by_zone <- function(ref_sample,
                                controls,
                                field_names,
                                prior_weights = NULL,
-                               geo_hierachy) {
+                               geo_hierarchy) {
   if (is.null(field_names$region)) {
     stop("field_names$zone is not specified.")
   }
   if (is.null(field_names$zone)) {
     stop("field_names$zone is not specified.")
   }
-  if (!field_names$zone %in% names(geo_hierachy)) {
-    stop(sprintf("`zone` field {%s} is not in `geo_hierachy`", field_names$zone))
+  if (!field_names$zone %in% names(geo_hierarchy)) {
+    stop(sprintf("`zone` field {%s} is not in `geo_hierarchy`", field_names$zone))
   }
-  if (!field_names$region %in% names(geo_hierachy)) {
-    stop(sprintf("`region` field {%s} is not in `geo_hierachy`", field_names$region))
+  if (!field_names$region %in% names(geo_hierarchy)) {
+    stop(sprintf("`region` field {%s} is not in `geo_hierarchy`", field_names$region))
   }
   if (!field_names$region %in% names(ref_sample)) {
     stop(sprintf("`region` field {%s} is not in `ref_sample`", field_names$region))
@@ -183,7 +183,7 @@ ml_problem_by_zone <- function(ref_sample,
   }
 
   fitting_problems <- lapply(zones_from_group_controls, function(zone) {
-    zone_region <- geo_hierachy[[field_names$region]][which(geo_hierachy[[field_names$zone]] == zone)]
+    zone_region <- geo_hierarchy[[field_names$region]][which(geo_hierarchy[[field_names$zone]] == zone)]
     zone_ref_sample <- ref_sample[ref_sample[[field_names$region]] == zone_region, ]
     zone_ref_sample[[field_names$region]] <- NULL
     zone_controls <- list(
