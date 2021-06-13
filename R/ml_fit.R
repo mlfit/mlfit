@@ -10,7 +10,7 @@
 #'   are compared to each other.
 #'
 #' @param algorithm Algorithm to use
-#' @param ml_problem A fitting problem created by
+#' @param ml_problem A fitting problem or a list of fitting problems created by
 #'   [ml_problem()] or returned by [flatten_ml_fit_problem()].
 #' @param tol Tolerance, the algorithm has succeeded when all target values are
 #'   reached within this tolerance.
@@ -33,9 +33,15 @@
 #' fit$residuals
 #' fit$rel_residuals
 #' fit$success
-ml_fit <- function(ml_problem,
-                   algorithm = c("entropy_o", "dss", "ipu", "hipf"),
-                   verbose = FALSE, ..., tol = 1e-6) {
+ml_fit <- function(ml_problem, ...) {
+  UseMethod("ml_fit", ml_problem)
+}
+
+#' @rdname ml_fit
+#' @export
+ml_fit.ml_problem <- function(ml_problem,
+                              algorithm = c("entropy_o", "dss", "ipu", "hipf"),
+                              verbose = FALSE, ..., tol = 1e-6) {
   algorithm <- match.arg(algorithm)
   fun.name <- sprintf("ml_fit_%s", algorithm)
   if (!exists(fun.name)) {
@@ -46,6 +52,17 @@ ml_fit <- function(ml_problem,
     ml_problem = ml_problem,
     tol = tol,
     verbose = verbose, ...)
+}
+
+#' @rdname ml_fit
+#' @export
+ml_fit.list <- function(ml_problem,
+                        algorithm = c("entropy_o", "dss", "ipu", "hipf"),
+                        verbose = FALSE, ..., tol = 1e-6) {
+  if (!all(sapply(ml_problem, is.ml_problem))) {
+    stop("Not all objects in the list are `ml_problem`.")
+  }
+  lapply(ml_problem, ml_fit, algorithm = algorithm, verbose = verbose, ..., tol = tol)
 }
 
 .check_is_ml_problem <- function(ml_problem) {
