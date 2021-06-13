@@ -9,7 +9,7 @@
 #' the original reference sample, and the total number of groups replicated
 #' is always very close to or equal the sum of the fitted group weights.
 #'
-#' @param ml_fit A `ml_fit` object created by the [ml_fit()] family.
+#' @param ml_fit A `ml_fit` object or a list of them created by the [ml_fit()] family.
 #' @param algorithm Replication algorithm to use. "trs" is
 #'  the 'Truncate, replicate, sample' integerisation algorithm proposed
 #'  by Lovelace et al. (2013), "pp" is weighted sampling with
@@ -31,7 +31,13 @@
 #' fit <- ml_fit(ml_problem = readRDS(path), algorithm = "entropy_o")
 #' syn_pop <- ml_replicate(fit, algorithm = "trs")
 #' syn_pop
-ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE, .keep_original_ids = FALSE) {
+ml_replicate <- function(ml_fit, ...) {
+  UseMethod("ml_replicate", ml_fit)
+}
+
+#' @rdname ml_replicate
+#' @export
+ml_replicate.ml_fit <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE, .keep_original_ids = FALSE) {
   .patch_verbose()
 
   algorithm <- match.arg(algorithm)
@@ -62,7 +68,6 @@ ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = 
   replicated_ref_sample <-
     dplyr::slice(ml_fit$flat$ml_problem$refSample, replications) %>%
     tibble::as_tibble()
-
   message("Assign new ids to individuals and groups")
   field_names <- ml_fit$flat$ml_problem$fieldNames
   replicated_ref_sample <-
@@ -86,6 +91,10 @@ ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = 
   replicated_ref_sample[[field_names$individualId]] <-
     replicated_ref_sample[["..ind_id.."]]
 
+  if (!is.null(field_names$zone)) {
+    replicated_ref_sample[[field_names$zone]] <- ml_fit$flat$ml_problem$zone
+  }
+
   if (.keep_original_ids) {
     replicated_ref_sample[[paste0(field_names$groupId, "_old")]] <-
       replicated_ref_sample[[field_names$groupId]]
@@ -96,6 +105,19 @@ ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = 
   message("Done!")
   tmp_cols <- grepl("^\\.\\.(.*)\\.\\.$", names(replicated_ref_sample))
   replicated_ref_sample[, !tmp_cols]
+}
+
+#' @rdname ml_replicate
+#' @export
+ml_replicate.list <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE, .keep_original_ids = FALSE) {
+  if (!all(sapply(ml_fit, is.ml_fit))) {
+    stop("Not all objects in the list are `ml_fit`.")
+  }
+  lapply(
+    ml_fit,
+    ml_replicate,
+    algorithm = algorithm, verbose = verbose, .keep_original_ids = .keep_original_ids
+  )
 }
 
 .check_is_ml_fit <- function(ml_fit) {
