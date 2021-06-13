@@ -16,8 +16,12 @@
 #' @param prior_weights Prior (or design) weights at group level; by default
 #'   a vector of ones will be used, which corresponds to random sampling of
 #'   groups
-#' @return An object of class `ml_problem`, essentially a named list
-#'   with the following components:
+#' @param geo_hierachy A table shows mapping between a larger zoning level to
+#'  many zones of a smaller zoning level. The column name of the larger level
+#'  should be specified in `field_names` as 'region' and the smaller one as
+#'  'zone'.
+#' @return An object of class `ml_problem` of a list of them if geo_hierachy was
+#'  given, essentially a named list with the following components:
 #' \describe{
 #'   \item{`refSample`}{The reference sample, a `data.frame`.}
 #'   \item{`controls`}{A named list with two components, `individual`
@@ -30,30 +34,30 @@
 #'
 #' # Provide reference sample
 #' ye <- tibble::tribble(
-#'   ~HHNR, ~APER, ~HH_VAR, ~P_VAR,
-#'   1, 3, 1, 1,
-#'   1, 3, 1, 2,
-#'   1, 3, 1, 3,
-#'   2, 2, 1, 1,
-#'   2, 2, 1, 3,
-#'   3, 3, 1, 1,
-#'   3, 3, 1, 1,
-#'   3, 3, 1, 2,
-#'   4, 3, 2, 1,
-#'   4, 3, 2, 3,
-#'   4, 3, 2, 3,
-#'   5, 3, 2, 2,
-#'   5, 3, 2, 2,
-#'   5, 3, 2, 3,
-#'   6, 2, 2, 1,
-#'   6, 2, 2, 2,
-#'   7, 5, 2, 1,
-#'   7, 5, 2, 1,
-#'   7, 5, 2, 2,
-#'   7, 5, 2, 3,
-#'   7, 5, 2, 3,
-#'   8, 2, 2, 1,
-#'   8, 2, 2, 2
+#'   ~HHNR, ~PNR, ~APER, ~HH_VAR, ~P_VAR,
+#'   1, 1, 3, 1, 1,
+#'   1, 2, 3, 1, 2,
+#'   1, 3, 3, 1, 3,
+#'   2, 4, 2, 1, 1,
+#'   2, 5, 2, 1, 3,
+#'   3, 6, 3, 1, 1,
+#'   3, 7, 3, 1, 1,
+#'   3, 8, 3, 1, 2,
+#'   4, 9, 3, 2, 1,
+#'   4, 10, 3, 2, 3,
+#'   4, 11, 3, 2, 3,
+#'   5, 12, 3, 2, 2,
+#'   5, 13, 3, 2, 2,
+#'   5, 14, 3, 2, 3,
+#'   6, 15, 2, 2, 1,
+#'   6, 16, 2, 2, 2,
+#'   7, 17, 5, 2, 1,
+#'   7, 18, 5, 2, 1,
+#'   7, 19, 5, 2, 2,
+#'   7, 20, 5, 2, 3,
+#'   7, 21, 5, 2, 3,
+#'   8, 22, 2, 2, 1,
+#'   8, 23, 2, 2, 2
 #' )
 #' ye
 #'
@@ -93,13 +97,117 @@ ml_problem <- function(ref_sample,
                        ),
                        field_names,
                        individual_controls, group_controls,
-                       prior_weights = NULL) {
+                       prior_weights = NULL,
+                       geo_hierachy) {
+  if (!missing(geo_hierachy)) {
+    message("Creating a list of fitting problems by zone")
+    return(ml_problem_by_zone(
+      ref_sample,
+      controls,
+      field_names,
+      prior_weights,
+      geo_hierachy
+    ))
+  }
+
   new_ml_problem(
     list(
       refSample = ref_sample, controls = controls, fieldNames = field_names,
       priorWeights = prior_weights
     )
   )
+}
+
+ml_problem_by_zone <- function(ref_sample,
+                               controls,
+                               field_names,
+                               prior_weights = NULL,
+                               geo_hierachy) {
+  if (is.null(field_names$region)) {
+    stop("field_names$zone is not specified.")
+  }
+  if (is.null(field_names$zone)) {
+    stop("field_names$zone is not specified.")
+  }
+  if (!field_names$zone %in% names(geo_hierachy)) {
+    stop(sprintf("`zone` field {%s} is not in `geo_hierachy`", field_names$zone))
+  }
+  if (!field_names$region %in% names(geo_hierachy)) {
+    stop(sprintf("`region` field {%s} is not in `geo_hierachy`", field_names$region))
+  }
+  if (!field_names$region %in% names(ref_sample)) {
+    stop(sprintf("`region` field {%s} is not in `ref_sample`", field_names$region))
+  }
+  if (!all(sapply(controls$group, function(x) {
+    field_names$zone %in% names(x)
+  }))) {
+    stop("There are one or more group controls that don't have the zone field.")
+  }
+  if (!all(sapply(controls$individual, function(x) {
+    field_names$zone %in% names(x)
+  }))) {
+    stop("There are one or more individual controls that don't have the zone field.")
+  }
+
+  group_controls <-
+    lapply(controls$group, function(x) {
+      splits <- split(x, x[[field_names$zone]])
+      lapply(splits, function(x) {
+        x[, !names(x) %in% field_names$zone]
+      })
+    })
+  individual_controls <- lapply(controls$individual, function(x) {
+    splits <- split(x, x[[field_names$zone]])
+    lapply(splits, function(x) {
+      x[, !names(x) %in% field_names$zone]
+    })
+  })
+
+  zones_from_group_controls <- unique(unlist(lapply(group_controls, names)))
+  zones_from_individual_controls <- unique(unlist(lapply(individual_controls, names)))
+  if (!isTRUE(all.equal(zones_from_individual_controls, zones_from_group_controls))) {
+    if (requireNamespace("waldo")) {
+      comparison <-
+        waldo::compare(zones_from_individual_controls, zones_from_group_controls,
+          x_arg = "zones from individual controls",
+          y_arg = "zones from group controls"
+        )
+    } else {
+      comparison <- "To see the comparison install the `waldo` package and run this again."
+    }
+    stop("Zone mismatch between individual and group controls:\n", comparison)
+  }
+
+  if (!is.null(prior_weights)) {
+    warning("Creating ml_problems by zone doesn't utilise `prior_weights`.")
+  }
+
+  fitting_problems <- lapply(zones_from_group_controls, function(zone) {
+    zone_region <- geo_hierachy[[field_names$region]][which(geo_hierachy[[field_names$zone]] == zone)]
+    zone_ref_sample <- ref_sample[ref_sample[[field_names$region]] == zone_region, ]
+    zone_ref_sample[[field_names$region]] <- NULL
+    zone_controls <- list(
+      group = unlist(lapply(group_controls, function(x) {
+        x[names(x) %in% zone]
+      }), recursive = FALSE),
+      individual = unlist(lapply(individual_controls, function(x) {
+        x[names(x) %in% zone]
+      }), recursive = FALSE)
+    )
+    new_ml_problem(
+      list(
+        refSample = zone_ref_sample,
+        controls = zone_controls,
+        fieldNames = field_names,
+        priorWeights = NULL,
+        zone = zone
+      )
+    )
+  })
+
+  names(fitting_problems) <- zones_from_group_controls
+
+  fitting_problems
 }
 
 #' Create a fitting problem
@@ -166,9 +274,9 @@ print.ml_problem <- default_print
 #' @export
 #' @rdname ml_problem
 special_field_names <- function(groupId, individualId, individualsPerGroup = NULL,
-                                count = NULL) {
+                                count = NULL, zone = NULL, region = NULL) {
   if (!is.null(individualsPerGroup)) {
     warning("The individualsPerGroup argument is obsolete.", call. = FALSE)
   }
-  tibble::lst(groupId, individualId, count)
+  tibble::lst(groupId, individualId, count, zone, region)
 }
