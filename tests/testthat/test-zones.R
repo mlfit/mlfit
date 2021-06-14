@@ -85,8 +85,15 @@ test_that("Create ml_problem by zones", {
 
   fits <- ml_fit(problems, algorithm = "ipu")
 
-
   expect_true(all(sapply(fits, is.ml_fit)))
+  
+  replicates <- ml_replicate(fits)
+
+  expect_true(
+    all(sapply(replicates, 
+    function(x) {is.data.frame(x) & nrow(x) != 0}))
+  )
+
 })
 
 test_that("bad zone-by-zone arguments", {
