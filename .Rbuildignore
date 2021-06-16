@@ -17,3 +17,4 @@
 ^\.github$
 ^codecov\.yml$
 ^README\.Rmd$
+^cran-comments\.md$
