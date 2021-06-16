@@ -18,16 +18,15 @@ be provided.
 
 ## Example
 
-Here is a multi-level fitting example with a reference sample and two
-control tables. The reference sample represents a sample of a
-population. The first control table, `individual_control`, is for
-individual level and the second table, `group_control`, is for group
-level. Each row of the reference sample represents an individual, where
-`HHNR` is their group ID and `PNR` is their individual ID, `APER` and
-`WKSTAT` are individial-level charateristics, and `CAR` is the only
-household characteristic of the sample population. The ‘N’ columns in
-both control tables denote how many units of individuals or groups
-belong to each category.
+Here is a multi-level fitting example with a reference sample
+(`reference_sample`) and two control tables (`individual_control` and
+`group_control`). Each row of `reference_sample` represents an
+individual in a sample of a population, where `HHNR` is their group ID
+and `PNR` is their individual ID, `APER` and `WKSTAT` are
+individial-level charateristics, and `CAR` is the only household
+characteristic of the sample population. The ‘N’ columns in both control
+tables denote how many units of individuals or groups belong to each
+category.
 
 ``` r
 library(mlfit)
@@ -123,7 +122,7 @@ find out which integerisation algorithms are available.
 ``` r
 syn_pop <- ml_replicate(fit, algorithm = "trs")
 syn_pop
-#> # A tibble: 262 x 5
+#> # A tibble: 261 x 5
 #>     HHNR   PNR  APER CAR   WKSTAT
 #>    <int> <int> <int> <chr> <chr> 
 #>  1     1     1     3 0     1     
@@ -136,7 +135,7 @@ syn_pop
 #>  8     4     8     2 0     1     
 #>  9     4     9     2 0     3     
 #> 10     5    10     2 0     1     
-#> # … with 252 more rows
+#> # … with 251 more rows
 ```
 
 ## Powered by

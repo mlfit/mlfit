@@ -25,7 +25,7 @@ The IPF algorithm operates on count data. This package offers implementations fo
 
 ## Example
 
-Here is a multi-level fitting example with a reference sample and two control tables. The reference sample represents a sample of a population. The first control table, `individual_control`, is for individual level and the second table, `group_control`, is for group level. Each row of the reference sample represents an individual, where `HHNR` is their group ID and `PNR` is their individual ID, `APER` and `WKSTAT` are individial-level charateristics, and `CAR` is the only household characteristic of the sample population. The 'N' columns in both control tables denote how many units of individuals or groups belong to each category.
+Here is a multi-level fitting example with a reference sample (`reference_sample`) and two control tables (`individual_control` and `group_control`). Each row of `reference_sample` represents an individual in a sample of a population, where `HHNR` is their group ID and `PNR` is their individual ID, `APER` and `WKSTAT` are individial-level charateristics, and `CAR` is the only household characteristic of the sample population. The 'N' columns in both control tables denote how many units of individuals or groups belong to each category.
 
 ```{r}
 library(mlfit)
