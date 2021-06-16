@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mlfit 0.4.1 (2021-06-16)
+
+- Prepare for first CRAN release (#51).
+- Cite Bar-Gera et al. 2009 for `ml_fit_dss()` (#55).
+- Rename `is.ml_problem()` and `is.ml_fit()` to `is_ml_problem()` and `is_ml_fit()`.
+
+
 # mlfit 0.4.0 (2021-04-26)
 
 - Rename `fitting_problem()` to `ml_problem()` to be consistent with the other main functions (`ml_fit()` and `ml_replicate()`) (#42).
