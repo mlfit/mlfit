@@ -18,6 +18,18 @@ mlfit 0.4.1
 
 ## R CMD check results on win-builder, R devel
 
+- IPF is an acronymn for Iterative Proportional Fitting.
+
+```
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: 'Amarin Siripanich <amarin.siri@gmail.com>'
+
+New submission
+
+Possibly mis-spelled words in DESCRIPTION:
+  IPF (35:50)
+```
+
 - Failed with one error because the error message was in German, but the failed check was expecting the word 'file' in the returned error message. However, when we translated the error message from German to English the check result was as expected.
 
 ``` r
@@ -31,7 +43,7 @@ Complete output:
   -- Failure (test-toy.R:9:3): Can enumerate toy examples ------------------------
   `toy_example("nonexisting-toy")` threw an error with unexpected message.
   Expected match: "file"
-  Actual message: "path[1]=\"D:/temp/RtmpQLLWlD/RLIBS_708456d2480c/mlfit/extdata/nonexisting-toy.rds\": Das System kann die angegebene Datei nicht finden"
+  Actual message: "path[1]=\"D:/temp/RtmpmC0yXC/RLIBS_c2f439f63fbf/mlfit/extdata/nonexisting-toy.rds\": Das System kann die angegebene Datei nicht finden"
   Backtrace:
       x
    1. +-testthat::expect_error(toy_example("nonexisting-toy"), "file") test-toy.R:9:2
@@ -48,20 +60,9 @@ Complete output:
 * checking PDF version of manual ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 1 ERROR, 2 NOTEs
+Status: 1 ERROR, 1 NOTE
 ```
 
-- IPF is an acronymn for Iterative Proportional Fitting.
-
-```
-* checking CRAN incoming feasibility ... NOTE
-Maintainer: 'Amarin Siripanich <amarin.siri@gmail.com>'
-
-New submission
-
-Possibly mis-spelled words in DESCRIPTION:
-  IPF (35:50)
-```
 
 ## Reverse dependencies
 
