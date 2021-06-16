@@ -1,5 +1,3 @@
-context("Corner cases")
-
 test_that("Grand totals only", {
   ref_sample_full <- data.frame(gid = 1:3, A = factor("a"))
   ref_sample_full <- adply(ref_sample_full, 1, function(chunk) {

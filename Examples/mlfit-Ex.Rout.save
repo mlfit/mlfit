@@ -17,22 +17,22 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> pkgname <- "MultiLevelIPF"
+> pkgname <- "mlfit"
 > source(file.path(R.home("share"), "R", "examples-header.R"))
 > options(warn = 1)
-> library('MultiLevelIPF')
+> library('mlfit')
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
-> nameEx("MultiLevelIPF-package")
-> ### * MultiLevelIPF-package
+> nameEx("mlfit-package")
+> ### * mlfit-package
 > 
 > flush(stderr()); flush(stdout())
 > 
-> ### Name: MultiLevelIPF-package
+> ### Name: mlfit-package
 > ### Title: Implementation of algorithms that extend IPF to nested
 > ###   structures
-> ### Aliases: MultiLevelIPF MultiLevelIPF-package
+> ### Aliases: mlfit mlfit-package
 > ### Keywords: package
 > 
 > ### ** Examples
@@ -53,7 +53,7 @@ Type 'q()' to quit R.
 > 
 > ### ** Examples
 > 
-> path <- system.file("extdata/minitoy", package="MultiLevelIPF")
+> path <- system.file("extdata/minitoy", package="mlfit")
 > ml_fit(algorithm = "entropy_o", ref_sample = import_IPAF_results(path))
 Loading required namespace: XML
 Loading required namespace: kimisc
@@ -128,7 +128,7 @@ attr(,"class")
 > 
 > ### ** Examples
 > 
-> path <- system.file("extdata/minitoy", package="MultiLevelIPF")
+> path <- system.file("extdata/minitoy", package="mlfit")
 > ml_fit_entropy_o(ref_sample = import_IPAF_results(path))
   Successful convergence.
 $weights

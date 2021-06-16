@@ -1,5 +1,3 @@
-context("return")
-
 algos <- eval(formals(ml_fit)$algorithm)
 
 test_that("success = TRUE", {

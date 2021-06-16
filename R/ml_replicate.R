@@ -23,7 +23,7 @@
 #'          A method for creating integer weights for spatial microsimulation.
 #'          Computers, Environment and Urban Systems, 41, 1-11.
 #'
-#' @return All functions return a data.frame.
+#' @return The function returns a data.frame.
 #'
 #' @export
 #' @examples
@@ -97,17 +97,6 @@ ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = 
   tmp_cols <- grepl("^\\.\\.(.*)\\.\\.$", names(replicated_ref_sample))
   replicated_ref_sample[, !tmp_cols]
 }
-
-.check_is_ml_fit <- function(ml_fit) {
-  if (!is.ml_fit(ml_fit)) {
-    stop("Please create a ml_fit object using one of the `ml_fit` functions.")
-  }
-}
-
-#' @export
-#' @rdname ml_fit
-#' @param x An object
-is.ml_fit <- make_is("ml_fit")
 
 .get_int_fnc <- function(algorithm) {
   getFromNamespace(sprintf("int_%s", algorithm),

@@ -1,5 +1,3 @@
-context("correlating")
-
 test_that("trivially correlated variables", {
   N <- 1000
   M <- 60

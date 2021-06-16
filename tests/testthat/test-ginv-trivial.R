@@ -1,5 +1,3 @@
-context("ginv: Trivial")
-
 set.seed(20150121)
 
 test_that("Compare ginv results", {

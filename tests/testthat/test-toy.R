@@ -1,5 +1,3 @@
-context("toy")
-
 test_that("Can enumerate toy examples", {
   all_toys <- toy_example()
   expect_is(all_toys, "character")

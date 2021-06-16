@@ -49,7 +49,7 @@ ml_fit <- function(ml_problem,
 }
 
 .check_is_ml_problem <- function(ml_problem) {
-  if (!is.ml_problem(ml_problem)) {
+  if (!is_ml_problem(ml_problem)) {
     stop("Please create a fitting problem using the ml_problem function.")
   }
 }
@@ -151,8 +151,20 @@ is_abs_within_tol <- function(x, tol) {
   max(abs(x)) < tol
 }
 
-# S3 ----------------------------------------------------------------------
+.check_is_ml_fit <- function(ml_fit) {
+  if (!is_ml_fit(ml_fit)) {
+    stop("Please create a ml_fit object using one of the `ml_fit` functions.")
+  }
+}
 
+# S3 ----------------------------------------------------------------------
+#' @export
+#' @rdname ml_fit
+#' @param x An object
+#' @return `is_ml_fit()` returns a logical.
+is_ml_fit <- make_is("ml_fit")
+
+#' @rdname ml_fit
 #' @export
 format.ml_fit <- function(x, ...) {
   c(
@@ -166,5 +178,6 @@ format.ml_fit <- function(x, ...) {
   )
 }
 
+#' @rdname ml_fit
 #' @export
 print.ml_fit <- default_print

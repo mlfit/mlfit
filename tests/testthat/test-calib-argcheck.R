@@ -1,5 +1,3 @@
-context("Argument checks")
-
 test_that("NA values are rejected", {
   N <- 10
   X <- diag(N)

@@ -5,6 +5,11 @@
 #' @param dfsane_args Additional arguments (as a named list) passed to the
 #'   [BB::dfsane()] function used internally for the optimization.
 #' @seealso [BB::dfsane()]
+#' @references
+#'    Bar-Gera, H., Konduri, K. C., Sana, B., Ye, X., & Pendyala, R. M.
+#'        (2009, January). Estimating survey weights with multiple
+#'        constraints using entropy optimization methods. In 88th Annual
+#'        Meeting of the Transportation Research Board, Washington, DC.
 #' @export
 #' @examples
 #' ml_fit_entropy_o(ml_problem = readRDS(path))

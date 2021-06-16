@@ -2,7 +2,7 @@
 % Please edit documentation in R/ml_problem.R
 \name{ml_problem}
 \alias{ml_problem}
-\alias{is.ml_problem}
+\alias{is_ml_problem}
 \alias{format.ml_problem}
 \alias{print.ml_problem}
 \alias{special_field_names}
@@ -17,7 +17,7 @@ ml_problem(
   prior_weights = NULL
 )
 
-is.ml_problem(x)
+is_ml_problem(x)
 
 \method{format}{ml_problem}(x, ...)
 
@@ -68,6 +68,8 @@ with the following components:
 and \code{group}. Each contains a list of controls as \code{data.frame}s.}
 \item{\code{fieldNames}}{A named list with the names of special fields.}
 }
+
+\code{is_ml_problem()} returns a logical.
 }
 \description{
 The \code{ml_problem()} function is the first step for fitting a reference

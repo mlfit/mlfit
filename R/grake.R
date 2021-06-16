@@ -12,7 +12,7 @@
 #' implementation for computing the singular value decomposition.
 #'
 #' The `svd` argument is expected to adhere to the interface of
-#' `base::[svd][base::svd]`. It will be called as `svd(x)` (with the
+#' [base::svd()]. It will be called as `svd(x)` (with the
 #' `nu` and `nv` arguments unset) and is expected to return a named
 #' list with components `d`, `u` and `v`.
 #'
