@@ -49,7 +49,7 @@ ml_fit <- function(ml_problem,
 }
 
 .check_is_ml_problem <- function(ml_problem) {
-  if (!is.ml_problem(ml_problem)) {
+  if (!is_ml_problem(ml_problem)) {
     stop("Please create a fitting problem using the ml_problem function.")
   }
 }

@@ -131,8 +131,8 @@ new_ml_problem <- make_new("ml_problem")
 #' @export
 #' @rdname ml_problem
 #' @param x An object
-#' @return `is.ml_problem()` returns a logical.
-is.ml_problem <- make_is("ml_problem")
+#' @return `is_ml_problem()` returns a logical.
+is_ml_problem <- make_is("ml_problem")
 
 #' @export
 #' @rdname ml_problem
