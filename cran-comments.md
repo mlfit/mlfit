@@ -61,13 +61,6 @@ New submission
 
 Possibly mis-spelled words in DESCRIPTION:
   IPF (35:50)
-
-Found the following (possibly) invalid URLs:
-  URL: https://krlmlr.github.io/mlfit (moved to https://krlmlr.github.io/mlfit/)
-    From: DESCRIPTION
-          man/mlfit-package.Rd
-    Status: 200
-    Message: OK
 ```
 
 ## Reverse dependencies
