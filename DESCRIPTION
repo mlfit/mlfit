@@ -9,7 +9,7 @@ Authors@R:
             given = "Kirill",
             family = "Müller",
             role = c("aut"),
-            comment = "The main author of the package"
+            comment = "Creator of the package"
         ),
         person(
             given = "Kay W.",
@@ -22,13 +22,13 @@ Authors@R:
             family = "Siripanich",
             role = c("aut", "cre"),
             email = "amarin.siri@gmail.com",
-            comment = "Contributed to `ml_replicate()` and some fixes"
+            comment = "Contributed `ml_replicate()`"
         ),
         person(
             given = "Taha H.",
             family = "Rashidi",
             role = "ths",
-            comment = "Advisor to Amarin Siripanich"
+            comment = "Advisor of Amarin Siripanich"
         )
     )
 Description: The Iterative Proportional Fitting (IPF) algorithm operates on count data. This package offers

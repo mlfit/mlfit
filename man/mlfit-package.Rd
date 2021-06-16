@@ -33,17 +33,17 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Amarin Siripanich \email{amarin.siri@gmail.com} (Contributed to `ml_replicate()` and some fixes)
+\strong{Maintainer}: Amarin Siripanich \email{amarin.siri@gmail.com} (Contributed `ml_replicate()` and some fixes)
 
 Authors:
 \itemize{
-  \item Kirill Müller (The main author of the package)
+  \item Kirill Müller (Creator of the package)
 }
 
 Other contributors:
 \itemize{
   \item Kay W. Axhausen (Advisor of Kirill Müller) [thesis advisor]
-  \item Taha H. Rashidi (Advisor to Amarin Siripanich) [thesis advisor]
+  \item Taha H. Rashidi (Advisor of Amarin Siripanich) [thesis advisor]
 }
 
 }
