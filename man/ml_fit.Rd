@@ -3,7 +3,7 @@
 %   R/ml_fit_hipf.R, R/ml_fit_ipu.R
 \name{ml_fit}
 \alias{ml_fit}
-\alias{is.ml_fit}
+\alias{is_ml_fit}
 \alias{format.ml_fit}
 \alias{print.ml_fit}
 \alias{ml_fit_dss}
@@ -20,7 +20,7 @@ ml_fit(
   tol = 1e-06
 )
 
-is.ml_fit(x)
+is_ml_fit(x)
 
 \method{format}{ml_fit}(x, ...)
 
@@ -107,7 +107,7 @@ accessed with \code{$} or \code{[[}:
 \item \code{success}: Are the residuals within the tolerance?
 }
 
-\code{is.ml_fit()} returns a logical.
+\code{is_ml_fit()} returns a logical.
 }
 \description{
 These functions reweight a reference sample to match constraints given by

@@ -152,7 +152,7 @@ is_abs_within_tol <- function(x, tol) {
 }
 
 .check_is_ml_fit <- function(ml_fit) {
-  if (!is.ml_fit(ml_fit)) {
+  if (!is_ml_fit(ml_fit)) {
     stop("Please create a ml_fit object using one of the `ml_fit` functions.")
   }
 }
@@ -161,8 +161,8 @@ is_abs_within_tol <- function(x, tol) {
 #' @export
 #' @rdname ml_fit
 #' @param x An object
-#' @return `is.ml_fit()` returns a logical.
-is.ml_fit <- make_is("ml_fit")
+#' @return `is_ml_fit()` returns a logical.
+is_ml_fit <- make_is("ml_fit")
 
 #' @rdname ml_fit
 #' @export
