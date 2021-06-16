@@ -57,7 +57,6 @@
 
 
 
-
   
 
   
@@ -120,8 +119,7 @@
     <div id="mlfit-040-2021-04-26" class="section level1">
 <h1 class="page-header" data-toc-text="0.4.0">
 <a href="#mlfit-040-2021-04-26" class="anchor" aria-hidden="true"></a>mlfit 0.4.0 (2021-04-26)</h1>
-<ul>
-<li>Rename <code><a href="../reference/fitting_problem.html">fitting_problem()</a></code> to <code><a href="../reference/ml_problem.html">ml_problem()</a></code> to be consistent with the other main functions (<code><a href="../reference/ml_fit.html">ml_fit()</a></code> and <code><a href="../reference/ml_replicate.html">ml_replicate()</a></code>) (<a href='https://github.com/krlmlr/mlfit/issues/42'>#42</a>).</li>
+<ul><li>Rename <code><a href="../reference/fitting_problem.html">fitting_problem()</a></code> to <code><a href="../reference/ml_problem.html">ml_problem()</a></code> to be consistent with the other main functions (<code><a href="../reference/ml_fit.html">ml_fit()</a></code> and <code><a href="../reference/ml_replicate.html">ml_replicate()</a></code>) (<a href='https://github.com/krlmlr/mlfit/issues/42'>#42</a>).</li>
 <li>Convert toy examples from <code>fitting_problem</code> objects to <code>ml_problem</code> objects (<a href='https://github.com/krlmlr/mlfit/issues/46'>#46</a>).</li>
 <li>Rename <code>as.flat_ml_fit_problem()</code> to <code><a href="../reference/flatten_ml_fit_problem.html">as_flat_ml_fit_problem()</a></code> (<a href='https://github.com/krlmlr/mlfit/issues/48'>#48</a>)</li>
 <li>Document how to install the old MultiLevelIPF package (<a href='https://github.com/krlmlr/mlfit/issues/49'>#49</a>).</li>
@@ -131,69 +129,53 @@
 <li>add <code><a href="../reference/ml_replicate.html">ml_replicate()</a></code> which helps to replicate the reference sample of a fitted problem.</li>
 <li>Inline code from grake package (<a href='https://github.com/krlmlr/mlfit/issues/36'>#36</a>, <a href='https://github.com/asiripanich'>@asiripanich</a>).</li>
 <li>Use tidy evaluation (<a href='https://github.com/krlmlr/mlfit/issues/33'>#33</a>, <a href='https://github.com/asiripanich'>@asiripanich</a>).</li>
-</ul>
-</div>
+</ul></div>
     <div id="mlfit-0379000-2021-03-26" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.7.9000">
 <a href="#mlfit-0379000-2021-03-26" class="anchor" aria-hidden="true"></a>mlfit 0.3.7.9000 (2021-03-26)</h1>
-<ul>
-<li>Add <code><a href="../reference/ml_replicate.html">ml_replicate()</a></code> for replicating the reference sample of a fitted problem (<a href='https://github.com/krlmlr/mlfit/issues/38'>#38</a>).</li>
+<ul><li>Add <code><a href="../reference/ml_replicate.html">ml_replicate()</a></code> for replicating the reference sample of a fitted problem (<a href='https://github.com/krlmlr/mlfit/issues/38'>#38</a>).</li>
 <li>Fix the error when a level is missing from the reference sample (<a href='https://github.com/krlmlr/mlfit/issues/32'>#32</a>, <a href='https://github.com/asiripanich'>@asiripanich</a>).</li>
 <li>Fix test on Windows.</li>
 <li>Avoid converting sparse matrix to full matrix.</li>
 <li>If the controls contain values of zero for existing observations in the reference sample, the removal of these observations now works in all cases (<a href='https://github.com/krlmlr/mlfit/issues/30'>#30</a>).</li>
-</ul>
-<div id="mlfit-03-7-2018-01-22" class="section level2">
+</ul><div id="mlfit-03-7-2018-01-22" class="section level2">
 <h2 class="hasAnchor">
 <a href="#mlfit-03-7-2018-01-22" class="anchor" aria-hidden="true"></a>mlfit 0.3-7 (2018-01-22)</h2>
-<ul>
-<li>Add overview in package documentation.</li>
+<ul><li>Add overview in package documentation.</li>
 <li>Add examples to all functions.</li>
 <li>Explicitly document return values to <code><a href="../reference/ml_fit.html">ml_fit()</a></code>.</li>
-</ul>
-</div>
+</ul></div>
 <div id="mlfit-03-6-2017-03-28" class="section level2">
 <h2 class="hasAnchor">
 <a href="#mlfit-03-6-2017-03-28" class="anchor" aria-hidden="true"></a>mlfit 0.3-6 (2017-03-28)</h2>
-<ul>
-<li>Set default maximum number of iterations for HIPF to 2000.</li>
+<ul><li>Set default maximum number of iterations for HIPF to 2000.</li>
 <li>Convert documentation to Markdown.</li>
-</ul>
-</div>
+</ul></div>
 <div id="mlfit-03-5-2016-09-03" class="section level2">
 <h2 class="hasAnchor">
 <a href="#mlfit-03-5-2016-09-03" class="anchor" aria-hidden="true"></a>mlfit 0.3-5 (2016-09-03)</h2>
-<ul>
-<li>Add “Driven by” and “Related work” sections to the README.</li>
-</ul>
-</div>
+<ul><li>Add “Driven by” and “Related work” sections to the README.</li>
+</ul></div>
 <div id="mlfit-03-4-2016-08-03" class="section level2">
 <h2 class="hasAnchor">
 <a href="#mlfit-03-4-2016-08-03" class="anchor" aria-hidden="true"></a>mlfit 0.3-4 (2016-08-03)</h2>
-<ul>
-<li>Use a sparse matrix for the flattened reference sample.</li>
-</ul>
-</div>
+<ul><li>Use a sparse matrix for the flattened reference sample.</li>
+</ul></div>
 <div id="mlfit-03-3-2016-06-06" class="section level2">
 <h2 class="hasAnchor">
 <a href="#mlfit-03-3-2016-06-06" class="anchor" aria-hidden="true"></a>mlfit 0.3-3 (2016-06-06)</h2>
-<ul>
-<li>Status messages with <code>verbose = TRUE</code> are prepended with a time stamp.</li>
+<ul><li>Status messages with <code>verbose = TRUE</code> are prepended with a time stamp.</li>
 <li>Fail if <code>NA</code> group ID found.</li>
-</ul>
-</div>
+</ul></div>
 <div id="mlfit-03-2-2016-04-25" class="section level2">
 <h2 class="hasAnchor">
 <a href="#mlfit-03-2-2016-04-25" class="anchor" aria-hidden="true"></a>mlfit 0.3-2 (2016-04-25)</h2>
-<ul>
-<li>Reorganized and renamed internal datasets.</li>
-</ul>
-</div>
+<ul><li>Reorganized and renamed internal datasets.</li>
+</ul></div>
 <div id="mlfit-03-1-2016-04-17" class="section level2">
 <h2 class="hasAnchor">
 <a href="#mlfit-03-1-2016-04-17" class="anchor" aria-hidden="true"></a>mlfit 0.3-1 (2016-04-17)</h2>
-<ul>
-<li>Fitting result contains <code>iterations</code> and <code>tol</code> members (<a href='https://github.com/krlmlr/mlfit/issues/28'>#28</a>).</li>
+<ul><li>Fitting result contains <code>iterations</code> and <code>tol</code> members (<a href='https://github.com/krlmlr/mlfit/issues/28'>#28</a>).</li>
 <li>Fixed model matrix of “separate” type if only grand totals are given.</li>
 <li>
 <code><a href="../reference/ml_fit.html">ml_fit()</a></code> gains <code>tol</code> argument, which determines the success of a fitting operation.</li>
@@ -201,75 +183,55 @@
 <code>ml_fit</code> objects have new members <code>success</code>, <code>rel_residuals</code>, and <code>flat_weighted_values</code> (<a href='https://github.com/krlmlr/mlfit/issues/28'>#28</a>).</li>
 <li>HIPF and IPU stop iterating if tolerance is reached.</li>
 <li>IPU and HIPF abort iteration when the weights do not change measurably between two iterations (<a href='https://github.com/krlmlr/mlfit/issues/27'>#27</a>).</li>
-</ul>
-</div>
+</ul></div>
 </div>
     <div id="mlfit-03-2016-04-14" class="section level1">
 <h1 class="page-header" data-toc-text="0.3">
 <a href="#mlfit-03-2016-04-14" class="anchor" aria-hidden="true"></a>mlfit 0.3 (2016-04-14)</h1>
-<ul>
-<li>Features
-<ul>
-<li>New algoritms: HIPF (<a href='https://github.com/krlmlr/mlfit/issues/2'>#2</a>) and IPU.</li>
-</ul>
-</li>
+<ul><li>Features
+<ul><li>New algoritms: HIPF (<a href='https://github.com/krlmlr/mlfit/issues/2'>#2</a>) and IPU.</li>
+</ul></li>
 <li>Interface
-<ul>
-<li>New <code>as.flat_ml_fit_problem()</code> is used to coerce input for the <code>ml_fit_</code> functions.</li>
+<ul><li>New <code>as.flat_ml_fit_problem()</code> is used to coerce input for the <code>ml_fit_</code> functions.</li>
 <li>
 <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code> and <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> methods for classes <code>fitting_problem</code>, <code>flat_ml_fit_problem</code> and <code>ml_fit</code>.</li>
 <li>Flattened reference sample now contains observations in rows, and controls in columns (<a href='https://github.com/krlmlr/mlfit/issues/26'>#26</a>).</li>
 <li>
 <code><a href="../reference/flatten_ml_fit_problem.html">flatten_ml_fit_problem()</a></code> gains new <code>model_matrix_type</code> argument that allows selecting an alternative model matrix building method where all cross-classifications are allocated to a column, regardless of overlaps. Flattened problems store the type of model matrix used, it is also shown with the <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code> and <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> methods.</li>
-</ul>
-</li>
+</ul></li>
 <li>Improvements
-<ul>
-<li>Reference sample doesn’t need to be ordered by group ID anymore.</li>
+<ul><li>Reference sample doesn’t need to be ordered by group ID anymore.</li>
 <li>Remove <code>individualsPerGroup</code> special variable.</li>
 <li>Allow problems with individual-only controls.</li>
 <li>Check for correspondence of levels between sample and controls.</li>
 <li>Check for <code>NA</code> values in controls.</li>
-</ul>
-</li>
+</ul></li>
 <li>Technical changes
-<ul>
-<li>Use <code>grake</code> package again for calibration, because the alternatives are worse: <code>sampling</code> uses a too low tolerance, <code>survey</code> forcibly loads <code>MASS</code>, and <code>laeken</code> could work but is unrelated (which is the reason <code>grake</code> has been started in the first place).</li>
+<ul><li>Use <code>grake</code> package again for calibration, because the alternatives are worse: <code>sampling</code> uses a too low tolerance, <code>survey</code> forcibly loads <code>MASS</code>, and <code>laeken</code> could work but is unrelated (which is the reason <code>grake</code> has been started in the first place).</li>
 <li>Duplicate rows are kept in the reference sample.</li>
 <li>Rename <code>control_totals</code> to <code>target_values</code>.</li>
 <li>New <code><a href="../reference/toy_example.html">toy_example()</a></code> allows easier access to bundled examples, load with <code><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS()</a></code>.</li>
 <li>Move legacy format (IPAF) and related functions to <code>data-raw</code> directory.</li>
 <li>Use factors internally.</li>
-</ul>
-</li>
+</ul></li>
 <li>Performance
-<ul>
-<li>Use <code>dplyr</code> functions instead of <code><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate()</a></code>.</li>
-</ul>
-</li>
+<ul><li>Use <code>dplyr</code> functions instead of <code><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate()</a></code>.</li>
+</ul></li>
 <li>Tests
-<ul>
-<li>Specific test for households with the same signature.</li>
-</ul>
-</li>
+<ul><li>Specific test for households with the same signature.</li>
+</ul></li>
 <li>Documentation
-<ul>
-<li>Enhance example.</li>
+<ul><li>Enhance example.</li>
 <li>Include flat example problem (group size = 1 for all groups).</li>
-</ul>
-</li>
+</ul></li>
 <li>Cleanup
-<ul>
-<li>Cleanup and split of <code><a href="../reference/flatten_ml_fit_problem.html">flatten_ml_fit_problem()</a></code>.</li>
-</ul>
-</li>
-</ul>
-</div>
+<ul><li>Cleanup and split of <code><a href="../reference/flatten_ml_fit_problem.html">flatten_ml_fit_problem()</a></code>.</li>
+</ul></li>
+</ul></div>
     <div id="version-02-2016-01-30" class="section level1">
 <h1 class="page-header" data-toc-text="0.2">
 <a href="#version-02-2016-01-30" class="anchor" aria-hidden="true"></a>Version 0.2 (2016-01-30)</h1>
-<ul>
-<li>New functions <code><a href="../reference/compute_margins.html">compute_margins()</a></code> and <code>margins_to_df()</code> for validation</li>
+<ul><li>New functions <code><a href="../reference/compute_margins.html">compute_margins()</a></code> and <code>margins_to_df()</code> for validation</li>
 <li>Support specification of prior weights in construction of fitting problems</li>
 <li>Use <code>survey::grake()</code> instead of <code>grake::calibWeights()</code>.</li>
 <li>Adapt to change of undocumented behavior in base R.</li>
@@ -280,10 +242,9 @@
 <li>If name of count column in controls is not specified, it is determined automatically (with a message in verbose mode)</li>
 <li>Expansion of weights loads <code>Matrix</code> package if necessary</li>
 <li>Clarify documentation</li>
-<li>Straighten out imports, use <code>importFrom</code> instead of <code><a href="https://rdrr.io/r/base/ns-dblcolon.html" class="external-link">::</a></code>
+<li>Straighten out imports, use <code>importFrom</code> instead of <code>::</code>
 </li>
-</ul>
-</div>
+</ul></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -297,7 +258,7 @@
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by Kirill Müller.</p></p>
+  <p><p>Developed by Kirill Müller, Amarin Siripanich.</p></p>
 </div>
 
 <div class="pkgdown">

@@ -58,9 +58,6 @@
 
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -125,9 +122,9 @@
     <p>These functions allows checking a fit in terms of the original input data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>compute_margins</span><span class='op'>(</span><span class='va'>ml_problem</span>, <span class='va'>weights</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>compute_margins</span><span class='op'>(</span><span class='va'>ml_problem</span>, <span class='va'>weights</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>margin_to_df</span><span class='op'>(</span><span class='va'>controls</span>, count <span class='op'>=</span> <span class='cn'>NULL</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+<span class='fu'>margin_to_df</span><span class='op'>(</span><span class='va'>controls</span>, count <span class='op'>=</span> <span class='cn'>NULL</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,39 +166,42 @@ based on a reference sample and a weights vector.</p>
     <div class='dont-index'><p><code><a href='ml_fit.html'>ml_fit()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='toy_example.html'>toy_example</a></span><span class='op'>(</span><span class='st'>"Tiny"</span><span class='op'>)</span>
-<span class='va'>problem</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>
-<span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ml_fit.html'>ml_fit</a></span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='va'>problem</span>, algorithm <span class='op'>=</span> <span class='st'>"entropy_o"</span><span class='op'>)</span>
-<span class='va'>margins</span> <span class='op'>&lt;-</span> <span class='fu'>compute_margins</span><span class='op'>(</span><span class='va'>problem</span>, <span class='va'>fit</span><span class='op'>$</span><span class='va'>weights</span><span class='op'>)</span>
-<span class='va'>margins</span>
-</div><div class='output co'>#&gt; $individual
-#&gt; $individual$IND
-#&gt;   WKSTAT   N
-#&gt; 1      1  91
-#&gt; 2      2  65
-#&gt; 3      3 104
-#&gt; 
-#&gt; 
-#&gt; $group
-#&gt; $group$GROUP
-#&gt;   CAR  N
-#&gt; 1   0 35
-#&gt; 2   1 65
-#&gt; 
-#&gt; </div><div class='input'>
-<span class='fu'>margin_to_df</span><span class='op'>(</span><span class='va'>problem</span><span class='op'>$</span><span class='va'>controls</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   ..control.type.. ..control.name.. ..id.. ..count..
-#&gt; 1       individual              IND      1        91
-#&gt; 2       individual              IND      2        65
-#&gt; 3       individual              IND      3       104
-#&gt; 4            group            GROUP      0        35
-#&gt; 5            group            GROUP      1        65</div><div class='input'><span class='fu'>margin_to_df</span><span class='op'>(</span><span class='va'>margins</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   ..control.type.. ..control.name.. ..id.. ..count..
-#&gt; 1       individual              IND      1        91
-#&gt; 2       individual              IND      2        65
-#&gt; 3       individual              IND      3       104
-#&gt; 4            group            GROUP      0        35
-#&gt; 5            group            GROUP      1        65</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='toy_example.html'>toy_example</a></span><span class='op'>(</span><span class='st'>"Tiny"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>problem</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ml_fit.html'>ml_fit</a></span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='va'>problem</span>, algorithm <span class='op'>=</span> <span class='st'>"entropy_o"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>margins</span> <span class='op'>&lt;-</span> <span class='fu'>compute_margins</span><span class='op'>(</span><span class='va'>problem</span>, <span class='va'>fit</span><span class='op'>$</span><span class='va'>weights</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>margins</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $individual</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $individual$IND</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   WKSTAT   N</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1      1  91</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2      2  65</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3      3 104</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $group</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $group$GROUP</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   CAR  N</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   0 35</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   1 65</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>margin_to_df</span><span class='op'>(</span><span class='va'>problem</span><span class='op'>$</span><span class='va'>controls</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..control.type.. ..control.name.. ..id.. ..count..</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1       individual              IND      1        91</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2       individual              IND      2        65</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3       individual              IND      3       104</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4            group            GROUP      0        35</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5            group            GROUP      1        65</span>
+<span class='r-in'><span class='fu'>margin_to_df</span><span class='op'>(</span><span class='va'>margins</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..control.type.. ..control.name.. ..id.. ..count..</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1       individual              IND      1        91</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2       individual              IND      2        65</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3       individual              IND      3       104</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4            group            GROUP      0        35</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5            group            GROUP      1        65</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -213,7 +213,7 @@ based on a reference sample and a weights vector.</p>
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by Kirill Müller.</p></p>
+  <p><p>Developed by Kirill Müller, Amarin Siripanich.</p></p>
 </div>
 
 <div class="pkgdown">

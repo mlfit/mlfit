@@ -61,7 +61,6 @@ implementation for computing the singular value decomposition." />
 
 
 
-
   
 
   
@@ -129,7 +128,7 @@ fixed tolerance value and a custom
 implementation for computing the singular value decomposition.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gginv</span><span class='op'>(</span>tol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.eps</span><span class='op'>)</span>, svd <span class='op'>=</span> <span class='fu'>base</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/r/base/svd.html'>svd</a></span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>gginv</span><span class='op'>(</span>tol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.eps</span><span class='op'>)</span>, svd <span class='op'>=</span> <span class='fu'>base</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/r/base/svd.html'>svd</a></span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,7 +151,7 @@ generalized inverse matrix for it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The <code>svd</code> argument is expected to adhere to the interface of
-<code>base::[svd][base::svd]</code>. It will be called as <code><a href='https://rdrr.io/r/base/svd.html'>svd(x)</a></code> (with the
+<code><a href='https://rdrr.io/r/base/svd.html'>base::svd()</a></code>. It will be called as <code>svd(x)</code> (with the
 <code>nu</code> and <code>nv</code> arguments unset) and is expected to return a named
 list with components <code>d</code>, <code>u</code> and <code>v</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -173,7 +172,7 @@ list with components <code>d</code>, <code>u</code> and <code>v</code>.</p>
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by Kirill Müller.</p></p>
+  <p><p>Developed by Kirill Müller, Amarin Siripanich.</p></p>
 </div>
 
 <div class="pkgdown">

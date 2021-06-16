@@ -62,9 +62,6 @@ are compared to each other." />
 
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -121,7 +118,7 @@ are compared to each other." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Estimate weights for a fitting problem</h1>
-    <small class="dont-index">Source: <a href='https://github.com/krlmlr/mlfit/blob/master/R/ml_fit.R'><code>R/ml_fit.R</code></a>, <a href='https://github.com/krlmlr/mlfit/blob/master/R/ml_fit_dss.R'><code>R/ml_fit_dss.R</code></a>, <a href='https://github.com/krlmlr/mlfit/blob/master/R/ml_fit_entropy_o.R'><code>R/ml_fit_entropy_o.R</code></a>, and 3 more</small>
+    <small class="dont-index">Source: <a href='https://github.com/krlmlr/mlfit/blob/master/R/ml_fit.R'><code>R/ml_fit.R</code></a>, <a href='https://github.com/krlmlr/mlfit/blob/master/R/ml_fit_dss.R'><code>R/ml_fit_dss.R</code></a>, <a href='https://github.com/krlmlr/mlfit/blob/master/R/ml_fit_entropy_o.R'><code>R/ml_fit_entropy_o.R</code></a>, and 2 more</small>
     <div class="hidden name"><code>ml_fit.Rd</code></div>
     </div>
 
@@ -133,13 +130,21 @@ corresponding function. This is useful if the result of multiple algorithms
 are compared to each other.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ml_fit</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>ml_fit</span><span class='op'>(</span>
   <span class='va'>ml_problem</span>,
   algorithm <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"entropy_o"</span>, <span class='st'>"dss"</span>, <span class='st'>"ipu"</span>, <span class='st'>"hipf"</span><span class='op'>)</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>,
   tol <span class='op'>=</span> <span class='fl'>1e-06</span>
 <span class='op'>)</span>
+
+<span class='fu'>is_ml_fit</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='co'># S3 method for ml_fit</span>
+<span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for ml_fit</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>ml_fit_dss</span><span class='op'>(</span>
   <span class='va'>ml_problem</span>,
@@ -170,9 +175,7 @@ are compared to each other.</p>
   tol <span class='op'>=</span> <span class='fl'>1e-06</span>,
   maxiter <span class='op'>=</span> <span class='fl'>2000</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span>
-
-<span class='fu'>is.ml_fit</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -200,6 +203,10 @@ are compared to each other.</p>
 reached within this tolerance.</p></td>
     </tr>
     <tr>
+      <th>x</th>
+      <td><p>An object</p></td>
+    </tr>
+    <tr>
       <th>method</th>
       <td><p>Calibration method, one of <code>"raking"</code> (default),
 <code>"linear"</code>, or <code>"logit"</code></p></td>
@@ -222,10 +229,6 @@ control values between iterations drops below this value</p></td>
       <th>maxiter</th>
       <td><p>Maximum number of iterations.</p></td>
     </tr>
-    <tr>
-      <th>x</th>
-      <td><p>An object</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -235,7 +238,7 @@ a named list under the hood.  The class matches the function called,
 e.g., the return value of the <code>ml_fit_ipu</code> function also is of class
 <code>ml_fit_ipu</code>.</p>
 <p>All returned objects contain at least the following components, which can be
-accessed with <code><a href='https://rdrr.io/r/base/Extract.html'>$</a></code> or <code><a href='https://rdrr.io/r/base/Extract.html'>[[</a></code>:</p><ul>
+accessed with <code>$</code> or <code>[[</code>:</p><ul>
 <li><p><code>weights</code>: Resulting weights, compatible to the original reference sample</p></li>
 <li><p><code>tol</code>: The input tolerance</p></li>
 <li><p><code>iterations</code>: The actual number of iterations required to obtain the result</p></li>
@@ -249,14 +252,19 @@ accessed with <code><a href='https://rdrr.io/r/base/Extract.html'>$</a></code> o
 <li><p><code>success</code>: Are the residuals within the tolerance?</p></li>
 </ul>
 
+<p><code>is_ml_fit()</code> returns a logical.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Deville, J.-C. and Särndal, C.-E. (1992)
 Calibration estimators in survey sampling. <em>Journal of the American
-Statistical Association</em>, **87 ** (418), 376--382.</p>
+Statistical Association</em>, <strong>87</strong> (418), 376--382.</p>
 <p>Deville, J.-C., Särndal, C.-E. and Sautory, O. (1993)
 Generalized raking procedures in survey sampling. <em>Journal of the
-American Statistical Association</em>, **88 ** (423), 1013--1020.</p>
+American Statistical Association</em>, <strong>88</strong> (423), 1013--1020.</p>
+<p>Bar-Gera, H., Konduri, K. C., Sana, B., Ye, X., &amp; Pendyala, R. M.
+(2009, January). Estimating survey weights with multiple
+constraints using entropy optimization methods. In 88th Annual
+Meeting of the Transportation Research Board, Washington, DC.</p>
 <p>Müller, K. and Axhausen, K. W. (2011), Hierarchical IPF: Generating a
 synthetic population for Switzerland, paper presented at the 51st
 Congress of the European Regional Science Association, University of
@@ -272,108 +280,122 @@ January 2009.</p>
 <p><code><a href='https://rdrr.io/pkg/BB/man/dfsane.html'>BB::dfsane()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='toy_example.html'>toy_example</a></span><span class='op'>(</span><span class='st'>"Tiny"</span><span class='op'>)</span>
-<span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'>ml_fit</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>, algorithm <span class='op'>=</span> <span class='st'>"entropy_o"</span><span class='op'>)</span>
-<span class='va'>fit</span>
-</div><div class='output co'>#&gt; An object of class ml_fit
-#&gt;   Algorithm: entropy_o
-#&gt;   Success: TRUE
-#&gt;   Residuals (absolute): min = -1.548604e-08, max = 4.156846e-09
-#&gt;   Flat problem:
-#&gt;   An object of class flat_ml_fit_problem
-#&gt;     Dimensions: 5 groups, 8 target values
-#&gt;     Model matrix type: combined
-#&gt;     Original fitting problem:
-#&gt;     An object of class ml_problem
-#&gt;       Reference sample: 23 observations
-#&gt;       Control totals: 1 at individual, and 1 at group level
-#&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='va'>fit</span><span class='op'>$</span><span class='va'>weights</span>
-</div><div class='output co'>#&gt;  [1]  8.937470  8.937470  8.937470 23.448579 23.448579  2.613950  2.613950
-#&gt;  [8]  2.613950 25.899223 25.899223 25.899223 14.347802 14.347802 14.347802
-#&gt; [15] 11.009562 11.009562  2.733852  2.733852  2.733852  2.733852  2.733852
-#&gt; [22] 11.009562 11.009562</div><div class='input'><span class='va'>fit</span><span class='op'>$</span><span class='va'>tol</span>
-</div><div class='output co'>#&gt; [1] 1e-06</div><div class='input'><span class='va'>fit</span><span class='op'>$</span><span class='va'>iterations</span>
-</div><div class='output co'>#&gt; [1] 189</div><div class='input'><span class='va'>fit</span><span class='op'>$</span><span class='va'>flat</span>
-</div><div class='output co'>#&gt; An object of class flat_ml_fit_problem
-#&gt;   Dimensions: 5 groups, 8 target values
-#&gt;   Model matrix type: combined
-#&gt;   Original fitting problem:
-#&gt;   An object of class ml_problem
-#&gt;     Reference sample: 23 observations
-#&gt;     Control totals: 1 at individual, and 1 at group level
-#&gt;     Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='va'>fit</span><span class='op'>$</span><span class='va'>flat_weights</span>
-</div><div class='output co'>#&gt;         1         2         3         4         5         6         7         8 
-#&gt;  8.937470 23.448579  2.613950 25.899223 14.347802 11.009562  2.733852 11.009562 </div><div class='input'><span class='va'>fit</span><span class='op'>$</span><span class='va'>residuals</span>
-</div><div class='output co'>#&gt; (Intercept)_g (Intercept)_i       CAR_g_1    WKSTAT_i_2    WKSTAT_i_3 
-#&gt;  2.684047e-09  4.156846e-09 -1.548604e-08  3.542056e-10 -3.012659e-09 </div><div class='input'><span class='va'>fit</span><span class='op'>$</span><span class='va'>rel_residuals</span>
-</div><div class='output co'>#&gt; (Intercept)_g (Intercept)_i       CAR_g_1    WKSTAT_i_2    WKSTAT_i_3 
-#&gt;  2.684053e-11  1.598788e-11 -2.382468e-10  5.449419e-12 -2.896783e-11 </div><div class='input'><span class='va'>fit</span><span class='op'>$</span><span class='va'>success</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>ml_fit_dss</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class ml_fit
-#&gt;   Algorithm: dss
-#&gt;   Success: TRUE
-#&gt;   Residuals (absolute): min = 2.338017e-08, max = 1.613564e-07
-#&gt;   Flat problem:
-#&gt;   An object of class flat_ml_fit_problem
-#&gt;     Dimensions: 5 groups, 8 target values
-#&gt;     Model matrix type: combined
-#&gt;     Original fitting problem:
-#&gt;     An object of class ml_problem
-#&gt;       Reference sample: 23 observations
-#&gt;       Control totals: 1 at individual, and 1 at group level
-#&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='fu'>ml_fit_dss</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>, ginv <span class='op'>=</span> <span class='va'>solve</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class ml_fit
-#&gt;   Algorithm: dss
-#&gt;   Success: TRUE
-#&gt;   Residuals (absolute): min = 2.338015e-08, max = 1.613563e-07
-#&gt;   Flat problem:
-#&gt;   An object of class flat_ml_fit_problem
-#&gt;     Dimensions: 5 groups, 8 target values
-#&gt;     Model matrix type: combined
-#&gt;     Original fitting problem:
-#&gt;     An object of class ml_problem
-#&gt;       Reference sample: 23 observations
-#&gt;       Control totals: 1 at individual, and 1 at group level
-#&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='fu'>ml_fit_entropy_o</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class ml_fit
-#&gt;   Algorithm: entropy_o
-#&gt;   Success: TRUE
-#&gt;   Residuals (absolute): min = -1.548604e-08, max = 4.156846e-09
-#&gt;   Flat problem:
-#&gt;   An object of class flat_ml_fit_problem
-#&gt;     Dimensions: 5 groups, 8 target values
-#&gt;     Model matrix type: combined
-#&gt;     Original fitting problem:
-#&gt;     An object of class ml_problem
-#&gt;       Reference sample: 23 observations
-#&gt;       Control totals: 1 at individual, and 1 at group level
-#&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='fu'>ml_fit_hipf</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class ml_fit
-#&gt;   Algorithm: hipf
-#&gt;   Success: TRUE
-#&gt;   Residuals (absolute): min = -0.000103996, max = 0
-#&gt;   Flat problem:
-#&gt;   An object of class flat_ml_fit_problem
-#&gt;     Dimensions: 5 groups, 8 target values
-#&gt;     Model matrix type: combined
-#&gt;     Original fitting problem:
-#&gt;     An object of class ml_problem
-#&gt;       Reference sample: 23 observations
-#&gt;       Control totals: 1 at individual, and 1 at group level
-#&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div><div class='input'><span class='fu'>ml_fit_ipu</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class ml_fit
-#&gt;   Algorithm: ipu
-#&gt;   Success: TRUE
-#&gt;   Residuals (absolute): min = -6.41906e-05, max = 0
-#&gt;   Flat problem:
-#&gt;   An object of class flat_ml_fit_problem
-#&gt;     Dimensions: 5 groups, 8 target values
-#&gt;     Model matrix type: separate
-#&gt;     Original fitting problem:
-#&gt;     An object of class ml_problem
-#&gt;       Reference sample: 23 observations
-#&gt;       Control totals: 1 at individual, and 1 at group level
-#&gt;       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='toy_example.html'>toy_example</a></span><span class='op'>(</span><span class='st'>"Tiny"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'>ml_fit</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>, algorithm <span class='op'>=</span> <span class='st'>"entropy_o"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>fit</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class ml_fit</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Algorithm: entropy_o</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Success: TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Residuals (absolute): min = -1.548604e-08, max = 4.156846e-09</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Flat problem:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   An object of class flat_ml_fit_problem</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Dimensions: 5 groups, 8 target values</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Model matrix type: combined</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Original fitting problem:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     An object of class ml_problem</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Reference sample: 23 observations</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Control totals: 1 at individual, and 1 at group level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</span>
+<span class='r-in'><span class='va'>fit</span><span class='op'>$</span><span class='va'>weights</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1]  8.937470  8.937470  8.937470 23.448579 23.448579  2.613950  2.613950</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8]  2.613950 25.899223 25.899223 25.899223 14.347802 14.347802 14.347802</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15] 11.009562 11.009562  2.733852  2.733852  2.733852  2.733852  2.733852</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [22] 11.009562 11.009562</span>
+<span class='r-in'><span class='va'>fit</span><span class='op'>$</span><span class='va'>tol</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1e-06</span>
+<span class='r-in'><span class='va'>fit</span><span class='op'>$</span><span class='va'>iterations</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 189</span>
+<span class='r-in'><span class='va'>fit</span><span class='op'>$</span><span class='va'>flat</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class flat_ml_fit_problem</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Dimensions: 5 groups, 8 target values</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Model matrix type: combined</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Original fitting problem:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   An object of class ml_problem</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Reference sample: 23 observations</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Control totals: 1 at individual, and 1 at group level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</span>
+<span class='r-in'><span class='va'>fit</span><span class='op'>$</span><span class='va'>flat_weights</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         1         2         3         4         5         6         7         8 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  8.937470 23.448579  2.613950 25.899223 14.347802 11.009562  2.733852 11.009562 </span>
+<span class='r-in'><span class='va'>fit</span><span class='op'>$</span><span class='va'>residuals</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (Intercept)_g (Intercept)_i       CAR_g_1    WKSTAT_i_2    WKSTAT_i_3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  2.684047e-09  4.156846e-09 -1.548604e-08  3.542056e-10 -3.012659e-09 </span>
+<span class='r-in'><span class='va'>fit</span><span class='op'>$</span><span class='va'>rel_residuals</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> (Intercept)_g (Intercept)_i       CAR_g_1    WKSTAT_i_2    WKSTAT_i_3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  2.684053e-11  1.598788e-11 -2.382468e-10  5.449419e-12 -2.896783e-11 </span>
+<span class='r-in'><span class='va'>fit</span><span class='op'>$</span><span class='va'>success</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'><span class='fu'>ml_fit_dss</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class ml_fit</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Algorithm: dss</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Success: TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Residuals (absolute): min = 2.338017e-08, max = 1.613564e-07</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Flat problem:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   An object of class flat_ml_fit_problem</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Dimensions: 5 groups, 8 target values</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Model matrix type: combined</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Original fitting problem:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     An object of class ml_problem</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Reference sample: 23 observations</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Control totals: 1 at individual, and 1 at group level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</span>
+<span class='r-in'><span class='fu'>ml_fit_dss</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>, ginv <span class='op'>=</span> <span class='va'>solve</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class ml_fit</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Algorithm: dss</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Success: TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Residuals (absolute): min = 2.338015e-08, max = 1.613563e-07</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Flat problem:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   An object of class flat_ml_fit_problem</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Dimensions: 5 groups, 8 target values</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Model matrix type: combined</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Original fitting problem:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     An object of class ml_problem</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Reference sample: 23 observations</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Control totals: 1 at individual, and 1 at group level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</span>
+<span class='r-in'><span class='fu'>ml_fit_entropy_o</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class ml_fit</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Algorithm: entropy_o</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Success: TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Residuals (absolute): min = -1.548604e-08, max = 4.156846e-09</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Flat problem:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   An object of class flat_ml_fit_problem</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Dimensions: 5 groups, 8 target values</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Model matrix type: combined</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Original fitting problem:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     An object of class ml_problem</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Reference sample: 23 observations</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Control totals: 1 at individual, and 1 at group level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</span>
+<span class='r-in'><span class='fu'>ml_fit_hipf</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class ml_fit</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Algorithm: hipf</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Success: TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Residuals (absolute): min = -0.000103996, max = 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Flat problem:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   An object of class flat_ml_fit_problem</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Dimensions: 5 groups, 8 target values</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Model matrix type: combined</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Original fitting problem:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     An object of class ml_problem</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Reference sample: 23 observations</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Control totals: 1 at individual, and 1 at group level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</span>
+<span class='r-in'><span class='fu'>ml_fit_ipu</span><span class='op'>(</span>ml_problem <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class ml_fit</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Algorithm: ipu</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Success: TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Residuals (absolute): min = -6.41906e-05, max = 0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Flat problem:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   An object of class flat_ml_fit_problem</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Dimensions: 5 groups, 8 target values</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Model matrix type: separate</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     Original fitting problem:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     An object of class ml_problem</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Reference sample: 23 observations</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Control totals: 1 at individual, and 1 at group level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -385,7 +407,7 @@ January 2009.</p>
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by Kirill Müller.</p></p>
+  <p><p>Developed by Kirill Müller, Amarin Siripanich.</p></p>
 </div>
 
 <div class="pkgdown">

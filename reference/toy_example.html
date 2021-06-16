@@ -59,9 +59,6 @@ example.  Load via readRDS()." />
 
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -127,7 +124,7 @@ example.  Load via readRDS()." />
 example.  Load via <code><a href='https://rdrr.io/r/base/readRDS.html'>readRDS()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>toy_example</span><span class='op'>(</span>name <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>toy_example</span><span class='op'>(</span>name <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,39 +140,41 @@ example.  Load via <code><a href='https://rdrr.io/r/base/readRDS.html'>readRDS()
     <p>A named vector of file system paths.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>toy_example</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                                                             Conflict 
-#&gt;         "/home/runner/work/_temp/Library/mlfit/extdata/Conflict.rds" 
-#&gt;                                                             dummytoy 
-#&gt;         "/home/runner/work/_temp/Library/mlfit/extdata/dummytoy.rds" 
-#&gt;                                                                 flat 
-#&gt;             "/home/runner/work/_temp/Library/mlfit/extdata/flat.rds" 
-#&gt;                                                        Joint-Grouped 
-#&gt;    "/home/runner/work/_temp/Library/mlfit/extdata/Joint-Grouped.rds" 
-#&gt;                                                                Joint 
-#&gt;            "/home/runner/work/_temp/Library/mlfit/extdata/Joint.rds" 
-#&gt;                                                          minitoy-1x3 
-#&gt;      "/home/runner/work/_temp/Library/mlfit/extdata/minitoy-1x3.rds" 
-#&gt;                                                          minitoy-2x2 
-#&gt;      "/home/runner/work/_temp/Library/mlfit/extdata/minitoy-2x2.rds" 
-#&gt;                                                          minitoy-2x3 
-#&gt;      "/home/runner/work/_temp/Library/mlfit/extdata/minitoy-2x3.rds" 
-#&gt;                                                               onetoy 
-#&gt;           "/home/runner/work/_temp/Library/mlfit/extdata/onetoy.rds" 
-#&gt;                                                     Separate-Grouped 
-#&gt; "/home/runner/work/_temp/Library/mlfit/extdata/Separate-Grouped.rds" 
-#&gt;                                                             Separate 
-#&gt;         "/home/runner/work/_temp/Library/mlfit/extdata/Separate.rds" 
-#&gt;                                                               Single 
-#&gt;           "/home/runner/work/_temp/Library/mlfit/extdata/Single.rds" 
-#&gt;                                                                 Tiny 
-#&gt;             "/home/runner/work/_temp/Library/mlfit/extdata/Tiny.rds" </div><div class='input'>
-<span class='co'># Load example with results from Ye et al. (2009)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'>toy_example</span><span class='op'>(</span><span class='st'>"Tiny"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class ml_problem
-#&gt;   Reference sample: 23 observations
-#&gt;   Control totals: 1 at individual, and 1 at group level
-#&gt;   Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='fu'>toy_example</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                             Conflict </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "/home/runner/work/_temp/Library/mlfit/extdata/Conflict.rds" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                        Joint-Grouped </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    "/home/runner/work/_temp/Library/mlfit/extdata/Joint-Grouped.rds" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                Joint </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            "/home/runner/work/_temp/Library/mlfit/extdata/Joint.rds" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     Separate-Grouped </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> "/home/runner/work/_temp/Library/mlfit/extdata/Separate-Grouped.rds" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                             Separate </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "/home/runner/work/_temp/Library/mlfit/extdata/Separate.rds" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                               Single </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           "/home/runner/work/_temp/Library/mlfit/extdata/Single.rds" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                 Tiny </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             "/home/runner/work/_temp/Library/mlfit/extdata/Tiny.rds" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                             dummytoy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         "/home/runner/work/_temp/Library/mlfit/extdata/dummytoy.rds" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                 flat </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             "/home/runner/work/_temp/Library/mlfit/extdata/flat.rds" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                          minitoy-1x3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      "/home/runner/work/_temp/Library/mlfit/extdata/minitoy-1x3.rds" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                          minitoy-2x2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      "/home/runner/work/_temp/Library/mlfit/extdata/minitoy-2x2.rds" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                          minitoy-2x3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      "/home/runner/work/_temp/Library/mlfit/extdata/minitoy-2x3.rds" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                               onetoy </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           "/home/runner/work/_temp/Library/mlfit/extdata/onetoy.rds" </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Load example with results from Ye et al. (2009)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='fu'>toy_example</span><span class='op'>(</span><span class='st'>"Tiny"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class ml_problem</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Reference sample: 23 observations</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Control totals: 1 at individual, and 1 at group level</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Results for algorithms: entropy_o(1,0), entropy_o(0,1), entropy_o(1,1), entropy, ml_ipf, ipu</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -187,7 +186,7 @@ example.  Load via <code><a href='https://rdrr.io/r/base/readRDS.html'>readRDS()
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by Kirill Müller.</p></p>
+  <p><p>Developed by Kirill Müller, Amarin Siripanich.</p></p>
 </div>
 
 <div class="pkgdown">
