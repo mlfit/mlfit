@@ -33,7 +33,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Amarin Siripanich \email{amarin.siri@gmail.com} (Contributed `ml_replicate()` and some fixes)
+\strong{Maintainer}: Amarin Siripanich \email{amarin.siri@gmail.com} (Contributed `ml_replicate()`)
 
 Authors:
 \itemize{
