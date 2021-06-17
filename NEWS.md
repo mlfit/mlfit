@@ -1,5 +1,11 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mlfit 0.4.2 (2021-06-18)
+
+- Add more changes for first CRAN submission. These changes do not affect any functionalities.
+- Add an example section to README
+
+
 # mlfit 0.4.1 (2021-06-16)
 
 - Prepare for first CRAN release (#51).
