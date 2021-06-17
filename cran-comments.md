@@ -18,6 +18,8 @@ mlfit 0.4.1
 
 ## R CMD check results on win-builder, R devel
 
+Status: 1 ERROR, 1 NOTE
+
 - IPF is an acronymn for Iterative Proportional Fitting.
 
 ```
@@ -60,9 +62,7 @@ Complete output:
 * checking PDF version of manual ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 1 ERROR, 1 NOTE
 ```
-
 
 ## Reverse dependencies
 
