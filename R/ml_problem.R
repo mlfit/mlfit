@@ -98,8 +98,8 @@ ml_problem <- function(ref_sample,
                        field_names,
                        individual_controls, group_controls,
                        prior_weights = NULL,
-                       geo_hierarchy) {
-  if (!missing(geo_hierarchy)) {
+                       geo_hierarchy = NULL) {
+  if (!is.null(geo_hierarchy)) {
     message("Creating a list of fitting problems by zone")
     return(ml_problem_by_zone(
       ref_sample,
