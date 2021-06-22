@@ -122,7 +122,7 @@ find out which integerisation algorithms are available.
 ``` r
 syn_pop <- ml_replicate(fit, algorithm = "trs")
 syn_pop
-#> # A tibble: 261 x 5
+#> # A tibble: 259 x 5
 #>     HHNR   PNR  APER CAR   WKSTAT
 #>    <int> <int> <int> <chr> <chr> 
 #>  1     1     1     3 0     1     
@@ -135,26 +135,27 @@ syn_pop
 #>  8     3     8     2 0     3     
 #>  9     4     9     2 0     1     
 #> 10     4    10     2 0     3     
-#> # … with 251 more rows
+#> # … with 249 more rows
 ```
 
 ## Example - multiple zones
 
 This example is almost identical to the previous example, except we are
 creating sub-fitting problems based on zones. `ml_problem()` has the
-`geo_hierarchy` argument where you can specify a geographical hierarchy,
-a `data.frame` object with two columns: `region` and `zone`. Region is a
-larger zoning system and zone is a smaller zoning system, and a zone can
-only belong to one region. The image below shows an example of that,
-where the orange patch is a zone that is within the green region. When
-`geo_hierarchy` is validly specified, `ml_problem()` would return a list
-of fitting problems, one fitting problem per zone. Each fitting problem
-will only contains relevant data, a subset of the reference sample and
-control totals, for its zone. Basically, the reference sample is a
-population survey sample taken at a region level and the control totals
-should be at a zone level.
+`geo_hierarchy` argument, where it lets you specify a geographical
+hierarchy, a `data.frame` with two columns: `region` and `zone`. To put
+it simply, a zone can only belong to one region. The image below shows
+an example of that, where the orange patch is a zone that is within the
+green region.
 
 ![](https://user-images.githubusercontent.com/17020181/113852241-afed5580-97df-11eb-80ed-2b458e8fcbda.png)
+
+When `geo_hierarchy` is validly specified, `ml_problem()` would return a
+list of fitting problems, one fitting problem per zone. Each fitting
+problem will contain only relevant subsets of the reference sample and
+control totals for its zone. Basically, the reference sample is a
+population survey sample taken at a regional level and the control
+totals should be at a zonal level.
 
 ``` r
 ref_sample <- tibble::tribble(
