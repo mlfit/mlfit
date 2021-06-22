@@ -16,7 +16,7 @@ implementations for several algorithms that extend this to nested
 structures: “parent” and “child” items for both of which constraints can
 be provided.
 
-## Example
+## Example - single zone
 
 Here is a multi-level fitting example with a reference sample
 (`reference_sample`) and two control tables (`individual_control` and
@@ -128,14 +128,137 @@ syn_pop
 #>  1     1     1     3 0     1     
 #>  2     1     2     3 0     2     
 #>  3     1     3     3 0     3     
-#>  4     2     4     2 0     1     
-#>  5     2     5     2 0     3     
-#>  6     3     6     2 0     1     
-#>  7     3     7     2 0     3     
-#>  8     4     8     2 0     1     
-#>  9     4     9     2 0     3     
-#> 10     5    10     2 0     1     
+#>  4     2     4     3 0     1     
+#>  5     2     5     3 0     2     
+#>  6     2     6     3 0     3     
+#>  7     3     7     2 0     1     
+#>  8     3     8     2 0     3     
+#>  9     4     9     2 0     1     
+#> 10     4    10     2 0     3     
 #> # … with 251 more rows
+```
+
+## Example - multiple zones
+
+This example is almost identical to the previous example, except we are
+creating sub-fitting problems based on zones. `ml_problem()` has the
+`geo_hierarchy` argument where you can specify a geographical hierarchy,
+a `data.frame` object with two columns: `region` and `zone`. Region is a
+larger zoning system and zone is a smaller zoning system, and a zone can
+only belong to one region. The image below shows an example of that,
+where the orange patch is a zone that is within the green region. When
+`geo_hierarchy` is validly specified, `ml_problem()` would return a list
+of fitting problems, one fitting problem per zone. Each fitting problem
+will only contains relevant data, a subset of the reference sample and
+control totals, for its zone. Basically, the reference sample is a
+population survey sample taken at a region level and the control totals
+should be at a zone level.
+
+![](https://user-images.githubusercontent.com/17020181/113852241-afed5580-97df-11eb-80ed-2b458e8fcbda.png)
+
+``` r
+ref_sample <- tibble::tribble(
+  ~HHNR, ~PNR, ~APER, ~HH_VAR, ~P_VAR, ~REGION,
+      1,    1,     3,       1,      1,       1,
+      1,    2,     3,       1,      2,       1,
+      1,    3,     3,       1,      3,       1,
+      2,    4,     2,       1,      1,       1,
+      2,    5,     2,       1,      3,       1,
+      3,    6,     3,       1,      1,       1,
+      3,    7,     3,       1,      1,       1,
+      3,    8,     3,       1,      2,       1,
+      4,    9,     3,       2,      1,       1,
+      4,   10,     3,       2,      3,       1,
+      4,   11,     3,       2,      3,       1,
+      5,   12,     3,       2,      2,       1,
+      5,   13,     3,       2,      2,       1,
+      5,   14,     3,       2,      3,       1,
+      6,   15,     2,       2,      1,       1,
+      6,   16,     2,       2,      2,       1,
+      7,   17,     5,       2,      1,       1,
+      7,   18,     5,       2,      1,       1,
+      7,   19,     5,       2,      2,       1,
+      7,   20,     5,       2,      3,       1,
+      7,   21,     5,       2,      3,       1,
+      8,   22,     2,       2,      1,       1,
+      8,   23,     2,       2,      2,       1,
+      9,   24,     3,       1,      1,       2,
+      9,   25,     3,       1,      2,       2,
+      9,   26,     3,       1,      3,       2,
+     10,   27,     2,       1,      1,       2,
+     10,   28,     2,       1,      3,       2,
+     11,   29,     3,       1,      1,       2,
+     11,   30,     3,       1,      1,       2,
+     11,   31,     3,       1,      2,       2,
+     12,   32,     3,       2,      1,       2,
+     12,   33,     3,       2,      3,       2,
+     12,   34,     3,       2,      3,       2,
+     13,   35,     3,       2,      2,       2,
+     13,   36,     3,       2,      2,       2,
+     13,   37,     3,       2,      3,       2,
+     14,   38,     2,       2,      1,       2,
+     14,   39,     2,       2,      2,       2,
+     15,   40,     5,       2,      1,       2,
+     15,   41,     5,       2,      1,       2,
+     15,   42,     5,       2,      2,       2,
+     15,   43,     5,       2,      3,       2,
+     15,   44,     5,       2,      3,       2,
+     16,   45,     2,       2,      1,       2,
+     16,   46,     2,       2,      2,       2
+  )
+
+
+hh_ctrl <- tibble::tribble(
+  ~ZONE, ~HH_VAR, ~N,
+  1, 1, 35,
+  1, 2, 65,
+  2, 1, 35,
+  2, 2, 65,
+  3, 1, 35,
+  3, 2, 65,
+  4, 1, 35,
+  4, 2, 65
+)
+
+ind_ctrl <- tibble::tribble(
+  ~ZONE, ~P_VAR, ~N,
+  1, 1, 91,
+  1, 2, 65,
+  1, 3, 104,
+  2, 1, 91,
+  2, 2, 65,
+  2, 3, 104,
+  3, 1, 91,
+  3, 2, 65,
+  3, 3, 104,
+  4, 1, 91,
+  4, 2, 65,
+  4, 3, 104
+)
+
+geo_hierarchy <- tibble::tribble(
+  ~REGION, ~ZONE,
+  1, 1,
+  1, 2,
+  2, 3,
+  2, 4
+)
+
+fitting_problems <- ml_problem(
+    ref_sample = ref_sample,
+    field_names = special_field_names(
+      groupId = "HHNR", individualId = "PNR", count = "N",
+      zone = "ZONE", region = "REGION"
+    ),
+    group_controls = list(hh_ctrl),
+    individual_controls = list(ind_ctrl),
+    geo_hierarchy = geo_hierarchy
+  )
+#> Creating a list of fitting problems by zone
+
+fits <- fitting_problems %>%
+  lapply(ml_fit, algorithm = "ipu") %>%
+  lapply(ml_replicate, algorithm = "trs")
 ```
 
 ## Powered by
