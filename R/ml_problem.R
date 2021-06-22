@@ -270,6 +270,9 @@ print.ml_problem <- default_print
 #' @param individualsPerGroup Obsolete.
 #' @param count Name of control total column in control tables (use first numeric
 #'   column in each control by default).
+#' @param region,zone Name of the column that defines the region of the reference
+#' sample or the zone of the controls. Note that region is a larger area that contains
+#' more than one zone.
 #'
 #' @export
 #' @rdname ml_problem
