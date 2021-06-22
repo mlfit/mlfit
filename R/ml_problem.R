@@ -253,6 +253,9 @@ format.ml_problem <- function(x, ...) {
       " at individual, and " %+% length(x$controls$group) %+% " at group level",
     if (length(x$algorithms) > 0L) {
       "  Results for algorithms: " %+% paste(x$algorithms, collapse = ", ")
+    },
+    if (!is.null(x$zone)) {
+      "  Zone: " %+% x$zone
     }
   )
 }
