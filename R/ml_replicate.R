@@ -32,18 +32,35 @@
 #' fit <- ml_fit(ml_problem = readRDS(path), algorithm = "entropy_o")
 #' syn_pop <- ml_replicate(fit, algorithm = "trs")
 #' syn_pop
-ml_replicate <- function(ml_fit, ...) {
-  UseMethod("ml_replicate", ml_fit)
+ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE, .keep_original_ids = FALSE, ...) {
+  ml_fit <- make_ml_list(ml_fit, "ml_fit")
+  algorithm <- match.arg(algorithm)
+  message("Replicate using '", algorithm, "' algorithm")
+  if (length(ml_fit) > 1) {
+    message(sprintf("replicating %s ml_fits", length(ml_fit)))
+  }
+  replicates <- lapply(
+    seq_along(ml_fit),
+    function(idx) {
+      if (length(ml_fit) > 1) {
+        message(sprintf("---- ml_fit: %s ----", idx))
+      }
+      ml_replicate_impl(ml_fit[[idx]],
+        int_fnc = .get_int_fnc(algorithm),
+        verbose = verbose,
+        .keep_original_ids = .keep_original_ids,
+        ...
+      )
+    }
+  )
+  if (length(replicates) == 1) {
+    return(replicates[[1]])
+  }
+  replicates
 }
 
-#' @rdname ml_replicate
-#' @export
-ml_replicate.ml_fit <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE, .keep_original_ids = FALSE, ...) {
+ml_replicate_impl <- function(ml_fit, int_fnc, verbose = FALSE, .keep_original_ids = FALSE, ...) {
   .patch_verbose()
-
-  algorithm <- match.arg(algorithm)
-
-  message("Replicate using '", algorithm, "' algorithm")
   group_id <- ml_fit$flat$ml_problem$fieldNames$groupId
   count_col <- ml_fit$flat$ml_problem$fieldNames$count
 
@@ -56,7 +73,7 @@ ml_replicate.ml_fit <- function(ml_fit, algorithm = c("pp", "trs", "round"), ver
     ml_fit$flat_weights
 
   message("Integerising the fitted weights")
-  integerised_weights <- .get_int_fnc(algorithm)(weights = weights)
+  integerised_weights <- int_fnc(weights = weights)
 
   message("Duplicating the reference sample")
   ind_integerised_weights <-
@@ -108,21 +125,8 @@ ml_replicate.ml_fit <- function(ml_fit, algorithm = c("pp", "trs", "round"), ver
   replicated_ref_sample[, !tmp_cols]
 }
 
-#' @rdname ml_replicate
-#' @export
-ml_replicate.list <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE, .keep_original_ids = FALSE, ...) {
-  if (!all(sapply(ml_fit, is.ml_fit))) {
-    stop("Not all objects in the list are `ml_fit`.")
-  }
-  lapply(
-    ml_fit,
-    ml_replicate,
-    algorithm = algorithm, verbose = verbose, .keep_original_ids = .keep_original_ids
-  )
-}
-
 .check_is_ml_fit <- function(ml_fit) {
-  if (!is.ml_fit(ml_fit)) {
+  if (!is_ml_fit(ml_fit)) {
     stop("Please create a ml_fit object using one of the `ml_fit` functions.")
   }
 }
@@ -130,7 +134,7 @@ ml_replicate.list <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbo
 #' @export
 #' @rdname ml_fit
 #' @param x An object
-is.ml_fit <- make_is("ml_fit")
+is_ml_fit <- make_is("ml_fit")
 
 .get_int_fnc <- function(algorithm) {
   getFromNamespace(sprintf("int_%s", algorithm),

@@ -81,11 +81,11 @@ test_that("Create ml_problem by zones", {
     geo_hierarchy = geo_hierarchy
   )
 
-  expect_true(all(sapply(problems, is.ml_problem)))
+  expect_true(all(sapply(problems, is_ml_problem)))
 
   fits <- ml_fit(problems, algorithm = "ipu")
 
-  expect_true(all(sapply(fits, is.ml_fit)))
+  expect_true(all(sapply(fits, is_ml_fit)))
   
   replicates <- ml_replicate(fits)
 

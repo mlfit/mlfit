@@ -2,21 +2,9 @@
 % Please edit documentation in R/ml_replicate.R
 \name{ml_replicate}
 \alias{ml_replicate}
-\alias{ml_replicate.ml_fit}
-\alias{ml_replicate.list}
 \title{Replicate records in a reference sample based on its fitted weights}
 \usage{
-ml_replicate(ml_fit, ...)
-
-\method{ml_replicate}{ml_fit}(
-  ml_fit,
-  algorithm = c("pp", "trs", "round"),
-  verbose = FALSE,
-  .keep_original_ids = FALSE,
-  ...
-)
-
-\method{ml_replicate}{list}(
+ml_replicate(
   ml_fit,
   algorithm = c("pp", "trs", "round"),
   verbose = FALSE,
@@ -27,8 +15,6 @@ ml_replicate(ml_fit, ...)
 \arguments{
 \item{ml_fit}{A \code{ml_fit} object or a list of them created by the \code{\link[=ml_fit]{ml_fit()}} family.}
 
-\item{...}{Not being used.}
-
 \item{algorithm}{Replication algorithm to use. "trs" is
 the 'Truncate, replicate, sample' integerisation algorithm proposed
 by Lovelace et al. (2013), "pp" is weighted sampling with
@@ -38,6 +24,8 @@ replacement, and "round" is just simple rounding.}
 
 \item{.keep_original_ids}{If \code{TRUE}, the original individual and group
 ids of the reference sample will be kept with suffix '_old'.}
+
+\item{...}{Not being used.}
 }
 \value{
 All functions return a data.frame.

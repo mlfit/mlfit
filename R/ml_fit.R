@@ -33,40 +33,28 @@
 #' fit$residuals
 #' fit$rel_residuals
 #' fit$success
-ml_fit <- function(ml_problem, ...) {
-  UseMethod("ml_fit", ml_problem)
-}
-
-#' @rdname ml_fit
-#' @export
-ml_fit.ml_problem <- function(ml_problem,
-                              algorithm = c("entropy_o", "dss", "ipu", "hipf"),
-                              verbose = FALSE, ..., tol = 1e-6) {
+ml_fit <- function(ml_problem,
+                   algorithm = c("entropy_o", "dss", "ipu", "hipf"),
+                   verbose = FALSE, ..., tol = 1e-6) {
+  ml_problem <- make_ml_list(ml_problem, "ml_problem")
   algorithm <- match.arg(algorithm)
   fun.name <- sprintf("ml_fit_%s", algorithm)
   if (!exists(fun.name)) {
     stop("Unknown algorithm:", algorithm)
   }
-
-  get(fun.name)(
-    ml_problem = ml_problem,
-    tol = tol,
-    verbose = verbose, ...)
-}
-
-#' @rdname ml_fit
-#' @export
-ml_fit.list <- function(ml_problem,
-                        algorithm = c("entropy_o", "dss", "ipu", "hipf"),
-                        verbose = FALSE, ..., tol = 1e-6) {
-  if (!all(sapply(ml_problem, is.ml_problem))) {
-    stop("Not all objects in the list are `ml_problem`.")
+  fits <- lapply(ml_problem, get(fun.name), verbose = verbose, ..., tol = tol)
+  if (length(fits) == 1) {
+    return(fits[[1]])
   }
-  lapply(ml_problem, ml_fit, algorithm = algorithm, verbose = verbose, ..., tol = tol)
+  fits
 }
+
+#' @export 
+#' @rdname ml_problem
+is_ml_problem <- make_is("ml_problem")
 
 .check_is_ml_problem <- function(ml_problem) {
-  if (!is.ml_problem(ml_problem)) {
+  if (!is_ml_problem(ml_problem)) {
     stop("Please create a fitting problem using the ml_problem function.")
   }
 }

@@ -3,26 +3,14 @@
 %   R/ml_fit_hipf.R, R/ml_fit_ipu.R, R/ml_replicate.R
 \name{ml_fit}
 \alias{ml_fit}
-\alias{ml_fit.ml_problem}
-\alias{ml_fit.list}
 \alias{ml_fit_dss}
 \alias{ml_fit_entropy_o}
 \alias{ml_fit_hipf}
 \alias{ml_fit_ipu}
-\alias{is.ml_fit}
+\alias{is_ml_fit}
 \title{Estimate weights for a fitting problem}
 \usage{
-ml_fit(ml_problem, ...)
-
-\method{ml_fit}{ml_problem}(
-  ml_problem,
-  algorithm = c("entropy_o", "dss", "ipu", "hipf"),
-  verbose = FALSE,
-  ...,
-  tol = 1e-06
-)
-
-\method{ml_fit}{list}(
+ml_fit(
   ml_problem,
   algorithm = c("entropy_o", "dss", "ipu", "hipf"),
   verbose = FALSE,
@@ -61,17 +49,17 @@ ml_fit_ipu(
   verbose = FALSE
 )
 
-is.ml_fit(x)
+is_ml_fit(x)
 }
 \arguments{
 \item{ml_problem}{A fitting problem or a list of fitting problems created by
 \code{\link[=ml_problem]{ml_problem()}} or returned by \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}.}
 
-\item{...}{Further parameters passed to the algorithm}
-
 \item{algorithm}{Algorithm to use}
 
 \item{verbose}{If \code{TRUE}, print diagnostic output.}
+
+\item{...}{Further parameters passed to the algorithm}
 
 \item{tol}{Tolerance, the algorithm has succeeded when all target values are
 reached within this tolerance.}
