@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mlfit 0.5.1 (2021-06-24)
+
+- Make a file check test more robust as per CRAN's suggestion
+
+
 # mlfit 0.5.0 (2021-06-24)
 
 - `ml_problem()` gains a `geo_hierarchy` argument, which let the user specifies a region and zone table for creating a list of `ml_problem` objects based on zones. See the `README` page for an example. Printing `ml_problem` will also show its zone, if exists.
