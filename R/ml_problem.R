@@ -213,6 +213,8 @@ ml_problem_by_zone <- function(ref_sample,
 #' Create a fitting problem
 #'
 #' Soft-deprecated, new code should use [ml_problem()].
+#' 
+#' @return See [ml_problem()].
 #' @importFrom lifecycle deprecate_soft
 #' @export
 #' @keywords internal
