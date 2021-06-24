@@ -10,8 +10,8 @@
 #' @inheritParams ml_fit
 #' @param weights A vector with one entry per row of the original reference
 #'   sample
-#' @return A named list with two components, `individual` and `group`. 
-#'   Each contains a list of margins as `data.frame`s.
+#' @return `compute_margins()` returns a named list with two components, 
+#'   `individual` and `group`. Each contains a list of margins as `data.frame`s.
 #'   
 #' @seealso [ml_fit()]
 #' @export
@@ -75,6 +75,13 @@ compute_margins <- function(ml_problem, weights, verbose = FALSE) {
 #' @param count Name of control total column, autodetected by default.
 #'
 #' @rdname compute_margins
+#' @return `margins_to_df()` returns a data frame with the following columns:
+#' \describe{
+#'   \item{`..control.type..`}{Type of the control total: either `individual` or `group`.}
+#'   \item{`..control.name..`}{Name of the control total, if exists.}
+#'   \item{`..id..`}{Name of the control category.}
+#'   \item{`..count..`}{Count of the control category.}
+#' }
 #' @importFrom plyr ldply
 #' @export
 #' @examples
