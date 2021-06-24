@@ -50,7 +50,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/krlmlr/mlfit/">
+  <a href="https://github.com/mlfit/mlfit/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -71,12 +71,12 @@
 
 <p>Implementation of algorithms that extend Iterative Proportional Fitting (IPF) to nested structures.</p>
 <p>The IPF algorithm operates on count data. This package offers implementations for several algorithms that extend this to nested structures: “parent” and “child” items for both of which constraints can be provided.</p>
-<div id="example" class="section level2">
+<div id="example---single-zone" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example" class="anchor" aria-hidden="true"></a>Example</h2>
+<a href="#example---single-zone" class="anchor" aria-hidden="true"></a>Example - single zone</h2>
 <p>Here is a multi-level fitting example with a reference sample (<code>reference_sample</code>) and two control tables (<code>individual_control</code> and <code>group_control</code>). Each row of <code>reference_sample</code> represents an individual in a sample of a population, where <code>HHNR</code> is their group ID and <code>PNR</code> is their individual ID, <code>APER</code> and <code>WKSTAT</code> are individial-level charateristics, and <code>CAR</code> is the only household characteristic of the sample population. The ‘N’ columns in both control tables denote how many units of individuals or groups belong to each category.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://krlmlr.github.io/mlfit/" class="external-link">mlfit</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mlfit.github.io/mlfit/" class="external-link">mlfit</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/" class="external-link">tibble</a></span><span class="op">)</span>
 
 <span class="va">reference_sample</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span>
@@ -152,27 +152,137 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">syn_pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ml_replicate.html">ml_replicate</a></span><span class="op">(</span><span class="va">fit</span>, algorithm <span class="op">=</span> <span class="st">"trs"</span><span class="op">)</span>
 <span class="va">syn_pop</span>
-<span class="co">#&gt; # A tibble: 261 x 5</span>
+<span class="co">#&gt; # A tibble: 259 x 5</span>
 <span class="co">#&gt;     HHNR   PNR  APER CAR   WKSTAT</span>
 <span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; </span>
 <span class="co">#&gt;  1     1     1     3 0     1     </span>
 <span class="co">#&gt;  2     1     2     3 0     2     </span>
 <span class="co">#&gt;  3     1     3     3 0     3     </span>
-<span class="co">#&gt;  4     2     4     2 0     1     </span>
-<span class="co">#&gt;  5     2     5     2 0     3     </span>
-<span class="co">#&gt;  6     3     6     2 0     1     </span>
-<span class="co">#&gt;  7     3     7     2 0     3     </span>
-<span class="co">#&gt;  8     4     8     2 0     1     </span>
-<span class="co">#&gt;  9     4     9     2 0     3     </span>
-<span class="co">#&gt; 10     5    10     2 0     1     </span>
-<span class="co">#&gt; # … with 251 more rows</span></code></pre></div>
+<span class="co">#&gt;  4     2     4     3 0     1     </span>
+<span class="co">#&gt;  5     2     5     3 0     2     </span>
+<span class="co">#&gt;  6     2     6     3 0     3     </span>
+<span class="co">#&gt;  7     3     7     2 0     1     </span>
+<span class="co">#&gt;  8     3     8     2 0     3     </span>
+<span class="co">#&gt;  9     4     9     2 0     1     </span>
+<span class="co">#&gt; 10     4    10     2 0     3     </span>
+<span class="co">#&gt; # … with 249 more rows</span></code></pre></div>
+</div>
+<div id="example---multiple-zones" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example---multiple-zones" class="anchor" aria-hidden="true"></a>Example - multiple zones</h2>
+<p>This example is almost identical to the previous example, except we are creating sub-fitting problems based on zones. <code><a href="reference/ml_problem.html">ml_problem()</a></code> has the <code>geo_hierarchy</code> argument, where it lets you specify a geographical hierarchy, a <code>data.frame</code> with two columns: <code>region</code> and <code>zone</code>. To put it simply, a zone can only belong to one region. The image below shows an example of that, where the orange patch is a zone that is within the green region.</p>
+<p><img src="https://user-images.githubusercontent.com/17020181/113852241-afed5580-97df-11eb-80ed-2b458e8fcbda.png"></p>
+<p>When <code>geo_hierarchy</code> is validly specified, <code><a href="reference/ml_problem.html">ml_problem()</a></code> would return a list of fitting problems, one fitting problem per zone. Each fitting problem will contain only relevant subsets of the reference sample and control totals for its zone. Basically, the reference sample is a population survey sample taken at a regional level and the control totals should be at a zonal level.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ref_sample</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span>
+  <span class="op">~</span><span class="va">HHNR</span>, <span class="op">~</span><span class="va">PNR</span>, <span class="op">~</span><span class="va">APER</span>, <span class="op">~</span><span class="va">HH_VAR</span>, <span class="op">~</span><span class="va">P_VAR</span>, <span class="op">~</span><span class="va">REGION</span>,
+      <span class="fl">1</span>,    <span class="fl">1</span>,     <span class="fl">3</span>,       <span class="fl">1</span>,      <span class="fl">1</span>,       <span class="fl">1</span>,
+      <span class="fl">1</span>,    <span class="fl">2</span>,     <span class="fl">3</span>,       <span class="fl">1</span>,      <span class="fl">2</span>,       <span class="fl">1</span>,
+      <span class="fl">1</span>,    <span class="fl">3</span>,     <span class="fl">3</span>,       <span class="fl">1</span>,      <span class="fl">3</span>,       <span class="fl">1</span>,
+      <span class="fl">2</span>,    <span class="fl">4</span>,     <span class="fl">2</span>,       <span class="fl">1</span>,      <span class="fl">1</span>,       <span class="fl">1</span>,
+      <span class="fl">2</span>,    <span class="fl">5</span>,     <span class="fl">2</span>,       <span class="fl">1</span>,      <span class="fl">3</span>,       <span class="fl">1</span>,
+      <span class="fl">3</span>,    <span class="fl">6</span>,     <span class="fl">3</span>,       <span class="fl">1</span>,      <span class="fl">1</span>,       <span class="fl">1</span>,
+      <span class="fl">3</span>,    <span class="fl">7</span>,     <span class="fl">3</span>,       <span class="fl">1</span>,      <span class="fl">1</span>,       <span class="fl">1</span>,
+      <span class="fl">3</span>,    <span class="fl">8</span>,     <span class="fl">3</span>,       <span class="fl">1</span>,      <span class="fl">2</span>,       <span class="fl">1</span>,
+      <span class="fl">4</span>,    <span class="fl">9</span>,     <span class="fl">3</span>,       <span class="fl">2</span>,      <span class="fl">1</span>,       <span class="fl">1</span>,
+      <span class="fl">4</span>,   <span class="fl">10</span>,     <span class="fl">3</span>,       <span class="fl">2</span>,      <span class="fl">3</span>,       <span class="fl">1</span>,
+      <span class="fl">4</span>,   <span class="fl">11</span>,     <span class="fl">3</span>,       <span class="fl">2</span>,      <span class="fl">3</span>,       <span class="fl">1</span>,
+      <span class="fl">5</span>,   <span class="fl">12</span>,     <span class="fl">3</span>,       <span class="fl">2</span>,      <span class="fl">2</span>,       <span class="fl">1</span>,
+      <span class="fl">5</span>,   <span class="fl">13</span>,     <span class="fl">3</span>,       <span class="fl">2</span>,      <span class="fl">2</span>,       <span class="fl">1</span>,
+      <span class="fl">5</span>,   <span class="fl">14</span>,     <span class="fl">3</span>,       <span class="fl">2</span>,      <span class="fl">3</span>,       <span class="fl">1</span>,
+      <span class="fl">6</span>,   <span class="fl">15</span>,     <span class="fl">2</span>,       <span class="fl">2</span>,      <span class="fl">1</span>,       <span class="fl">1</span>,
+      <span class="fl">6</span>,   <span class="fl">16</span>,     <span class="fl">2</span>,       <span class="fl">2</span>,      <span class="fl">2</span>,       <span class="fl">1</span>,
+      <span class="fl">7</span>,   <span class="fl">17</span>,     <span class="fl">5</span>,       <span class="fl">2</span>,      <span class="fl">1</span>,       <span class="fl">1</span>,
+      <span class="fl">7</span>,   <span class="fl">18</span>,     <span class="fl">5</span>,       <span class="fl">2</span>,      <span class="fl">1</span>,       <span class="fl">1</span>,
+      <span class="fl">7</span>,   <span class="fl">19</span>,     <span class="fl">5</span>,       <span class="fl">2</span>,      <span class="fl">2</span>,       <span class="fl">1</span>,
+      <span class="fl">7</span>,   <span class="fl">20</span>,     <span class="fl">5</span>,       <span class="fl">2</span>,      <span class="fl">3</span>,       <span class="fl">1</span>,
+      <span class="fl">7</span>,   <span class="fl">21</span>,     <span class="fl">5</span>,       <span class="fl">2</span>,      <span class="fl">3</span>,       <span class="fl">1</span>,
+      <span class="fl">8</span>,   <span class="fl">22</span>,     <span class="fl">2</span>,       <span class="fl">2</span>,      <span class="fl">1</span>,       <span class="fl">1</span>,
+      <span class="fl">8</span>,   <span class="fl">23</span>,     <span class="fl">2</span>,       <span class="fl">2</span>,      <span class="fl">2</span>,       <span class="fl">1</span>,
+      <span class="fl">9</span>,   <span class="fl">24</span>,     <span class="fl">3</span>,       <span class="fl">1</span>,      <span class="fl">1</span>,       <span class="fl">2</span>,
+      <span class="fl">9</span>,   <span class="fl">25</span>,     <span class="fl">3</span>,       <span class="fl">1</span>,      <span class="fl">2</span>,       <span class="fl">2</span>,
+      <span class="fl">9</span>,   <span class="fl">26</span>,     <span class="fl">3</span>,       <span class="fl">1</span>,      <span class="fl">3</span>,       <span class="fl">2</span>,
+     <span class="fl">10</span>,   <span class="fl">27</span>,     <span class="fl">2</span>,       <span class="fl">1</span>,      <span class="fl">1</span>,       <span class="fl">2</span>,
+     <span class="fl">10</span>,   <span class="fl">28</span>,     <span class="fl">2</span>,       <span class="fl">1</span>,      <span class="fl">3</span>,       <span class="fl">2</span>,
+     <span class="fl">11</span>,   <span class="fl">29</span>,     <span class="fl">3</span>,       <span class="fl">1</span>,      <span class="fl">1</span>,       <span class="fl">2</span>,
+     <span class="fl">11</span>,   <span class="fl">30</span>,     <span class="fl">3</span>,       <span class="fl">1</span>,      <span class="fl">1</span>,       <span class="fl">2</span>,
+     <span class="fl">11</span>,   <span class="fl">31</span>,     <span class="fl">3</span>,       <span class="fl">1</span>,      <span class="fl">2</span>,       <span class="fl">2</span>,
+     <span class="fl">12</span>,   <span class="fl">32</span>,     <span class="fl">3</span>,       <span class="fl">2</span>,      <span class="fl">1</span>,       <span class="fl">2</span>,
+     <span class="fl">12</span>,   <span class="fl">33</span>,     <span class="fl">3</span>,       <span class="fl">2</span>,      <span class="fl">3</span>,       <span class="fl">2</span>,
+     <span class="fl">12</span>,   <span class="fl">34</span>,     <span class="fl">3</span>,       <span class="fl">2</span>,      <span class="fl">3</span>,       <span class="fl">2</span>,
+     <span class="fl">13</span>,   <span class="fl">35</span>,     <span class="fl">3</span>,       <span class="fl">2</span>,      <span class="fl">2</span>,       <span class="fl">2</span>,
+     <span class="fl">13</span>,   <span class="fl">36</span>,     <span class="fl">3</span>,       <span class="fl">2</span>,      <span class="fl">2</span>,       <span class="fl">2</span>,
+     <span class="fl">13</span>,   <span class="fl">37</span>,     <span class="fl">3</span>,       <span class="fl">2</span>,      <span class="fl">3</span>,       <span class="fl">2</span>,
+     <span class="fl">14</span>,   <span class="fl">38</span>,     <span class="fl">2</span>,       <span class="fl">2</span>,      <span class="fl">1</span>,       <span class="fl">2</span>,
+     <span class="fl">14</span>,   <span class="fl">39</span>,     <span class="fl">2</span>,       <span class="fl">2</span>,      <span class="fl">2</span>,       <span class="fl">2</span>,
+     <span class="fl">15</span>,   <span class="fl">40</span>,     <span class="fl">5</span>,       <span class="fl">2</span>,      <span class="fl">1</span>,       <span class="fl">2</span>,
+     <span class="fl">15</span>,   <span class="fl">41</span>,     <span class="fl">5</span>,       <span class="fl">2</span>,      <span class="fl">1</span>,       <span class="fl">2</span>,
+     <span class="fl">15</span>,   <span class="fl">42</span>,     <span class="fl">5</span>,       <span class="fl">2</span>,      <span class="fl">2</span>,       <span class="fl">2</span>,
+     <span class="fl">15</span>,   <span class="fl">43</span>,     <span class="fl">5</span>,       <span class="fl">2</span>,      <span class="fl">3</span>,       <span class="fl">2</span>,
+     <span class="fl">15</span>,   <span class="fl">44</span>,     <span class="fl">5</span>,       <span class="fl">2</span>,      <span class="fl">3</span>,       <span class="fl">2</span>,
+     <span class="fl">16</span>,   <span class="fl">45</span>,     <span class="fl">2</span>,       <span class="fl">2</span>,      <span class="fl">1</span>,       <span class="fl">2</span>,
+     <span class="fl">16</span>,   <span class="fl">46</span>,     <span class="fl">2</span>,       <span class="fl">2</span>,      <span class="fl">2</span>,       <span class="fl">2</span>
+  <span class="op">)</span>
+
+
+<span class="va">hh_ctrl</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span>
+  <span class="op">~</span><span class="va">ZONE</span>, <span class="op">~</span><span class="va">HH_VAR</span>, <span class="op">~</span><span class="va">N</span>,
+  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">35</span>,
+  <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">65</span>,
+  <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">35</span>,
+  <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">65</span>,
+  <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">35</span>,
+  <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">65</span>,
+  <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">35</span>,
+  <span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">65</span>
+<span class="op">)</span>
+
+<span class="va">ind_ctrl</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span>
+  <span class="op">~</span><span class="va">ZONE</span>, <span class="op">~</span><span class="va">P_VAR</span>, <span class="op">~</span><span class="va">N</span>,
+  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">91</span>,
+  <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">65</span>,
+  <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">104</span>,
+  <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">91</span>,
+  <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">65</span>,
+  <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">104</span>,
+  <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">91</span>,
+  <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">65</span>,
+  <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">104</span>,
+  <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">91</span>,
+  <span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">65</span>,
+  <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">104</span>
+<span class="op">)</span>
+
+<span class="va">geo_hierarchy</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span>
+  <span class="op">~</span><span class="va">REGION</span>, <span class="op">~</span><span class="va">ZONE</span>,
+  <span class="fl">1</span>, <span class="fl">1</span>,
+  <span class="fl">1</span>, <span class="fl">2</span>,
+  <span class="fl">2</span>, <span class="fl">3</span>,
+  <span class="fl">2</span>, <span class="fl">4</span>
+<span class="op">)</span>
+
+<span class="va">fitting_problems</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ml_problem.html">ml_problem</a></span><span class="op">(</span>
+    ref_sample <span class="op">=</span> <span class="va">ref_sample</span>,
+    field_names <span class="op">=</span> <span class="fu"><a href="reference/ml_problem.html">special_field_names</a></span><span class="op">(</span>
+      groupId <span class="op">=</span> <span class="st">"HHNR"</span>, individualId <span class="op">=</span> <span class="st">"PNR"</span>, count <span class="op">=</span> <span class="st">"N"</span>,
+      zone <span class="op">=</span> <span class="st">"ZONE"</span>, region <span class="op">=</span> <span class="st">"REGION"</span>
+    <span class="op">)</span>,
+    group_controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">hh_ctrl</span><span class="op">)</span>,
+    individual_controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">ind_ctrl</span><span class="op">)</span>,
+    geo_hierarchy <span class="op">=</span> <span class="va">geo_hierarchy</span>
+  <span class="op">)</span>
+<span class="co">#&gt; Creating a list of fitting problems by zone</span>
+
+<span class="va">fits</span> <span class="op">&lt;-</span> <span class="va">fitting_problems</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">ml_fit</span>, algorithm <span class="op">=</span> <span class="st">"ipu"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">ml_replicate</span>, algorithm <span class="op">=</span> <span class="st">"trs"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="powered-by" class="section level2">
 <h2 class="hasAnchor">
 <a href="#powered-by" class="anchor" aria-hidden="true"></a>Powered by</h2>
 <ul>
 <li>
-<a href="http://krlmlr.github.io/grake" class="external-link"><code>grake</code></a>: A reimplementation of generalized raking (<a href="http://amstat.tandfonline.com/doi/abs/10.1080/01621459.1992.10475217" class="external-link">Deville and Särndal, 1992</a>; <a href="http://www.tandfonline.com/doi/abs/10.1080/01621459.1993.10476369" class="external-link">Deville, Särndal and Sautory, 1993</a>)</li>
+<a href="https://krlmlr.github.io/grake/" class="external-link"><code>grake</code></a>: A reimplementation of generalized raking (<a href="https://amstat.tandfonline.com/doi/abs/10.1080/01621459.1992.10475217" class="external-link">Deville and Särndal, 1992</a>; <a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1993.10476369" class="external-link">Deville, Särndal and Sautory, 1993</a>)</li>
 </ul>
 </div>
 <div id="related-work" class="section level2">
@@ -180,28 +290,29 @@
 <a href="#related-work" class="anchor" aria-hidden="true"></a>Related work</h2>
 <ul>
 <li>
-<a href="http://krlmlr.github.io/wrswoR" class="external-link"><code>wrswoR</code></a>: An implementation of fast weighted random sampling without replacement (<a href="http://www.sciencedirect.com/science/article/pii/S002001900500298X" class="external-link">Efraimidis and Spirakis, 2006</a>)</li>
+<a href="https://krlmlr.github.io/wrswoR/" class="external-link"><code>wrswoR</code></a>: An implementation of fast weighted random sampling without replacement (<a href="https://www.sciencedirect.com/science/article/pii/S002001900500298X" class="external-link">Efraimidis and Spirakis, 2006</a>)</li>
 <li>
-<a href="http://krlmlr.github.io/mangow" class="external-link"><code>mangow</code></a>: Embed the Gower distance metric in L1</li>
+<a href="https://krlmlr.github.io/mangow/" class="external-link"><code>mangow</code></a>: Embed the Gower distance metric in L1</li>
 <li>
-<a href="https://github.com/jefferis/RANN/tree/master-L1#readme" class="external-link"><code>RANN.L1</code></a>: k-nearest neighbors using the L1 metric</li>
+<a href="https://github.com/jefferislab/RANN/tree/master-L1" class="external-link"><code>RANN.L1</code></a>: k-nearest neighbors using the L1 metric</li>
 </ul>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor" aria-hidden="true"></a>Installation</h2>
 <p>The package is not currently on CRAN, but can be installed from GitHub with:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"krlmlr/mlfit"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mlfit/mlfit"</span><span class="op">)</span></code></pre></div>
 <div id="where-is-multilevelipf" class="section level3">
 <h3 class="hasAnchor">
 <a href="#where-is-multilevelipf" class="anchor" aria-hidden="true"></a>Where is <code>MultiLeveLIPF</code>?</h3>
 <p>From version <code>0.4.0</code> onwards the package is now to be known as <code>mlfit</code>. If you would like to install any version that is older than <code>0.4.0</code> please use:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># See https://github.com/krlmlr/mlfit/releases for the releases that are available</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># See https://github.com/mlfit/mlfit/releases for the releases that are available</span>
 <span class="co"># To install a certain branch or commit or tag, append it to the repo name, after an @:</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"krlmlr/MultiLevelIPF@v0.3-7"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mlfit/mlfit@v0.3-7"</span><span class="op">)</span></code></pre></div>
+<p>Note that, all versions prior to <code>0.4.0</code> should be used as <code>MultiLeveLIPF</code> not <code>mlfit</code>.</p>
 </div>
 </div>
 
@@ -211,9 +322,9 @@
     <div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/krlmlr/mlfit/">https://​github.com/​krlmlr/​mlfit/​</a>
+<li>Browse source code at <br><a href="https://github.com/mlfit/mlfit/">https://​github.com/​mlfit/​mlfit/​</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/krlmlr/mlfit/issues">https://​github.com/​krlmlr/​mlfit/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/mlfit/mlfit/issues">https://​github.com/​mlfit/​mlfit/​issues</a>
 </li>
 </ul>
 </div>
@@ -221,7 +332,8 @@
 <div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small>GPL (&gt;= 3)</small></li>
 </ul>
 </div>
 
@@ -229,7 +341,7 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Kirill Müller <br><small class="roles"> Author </small>  </li>
+<li>Kirill Müller <br><small class="roles"> Author, copyright holder </small>  </li>
 <li>Amarin Siripanich <br><small class="roles"> Author, maintainer </small>  </li>
 <li><a href="authors.html">More on authors...</a></li>
 </ul>
@@ -238,9 +350,9 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/krlmlr/mlfit/actions" class="external-link"><img src="https://github.com/krlmlr/mlfit/workflows/rcc/badge.svg" alt="rcc"></a></li>
-<li><a href="https://codecov.io/github/krlmlr/mlfit?branch=master" class="external-link"><img src="https://codecov.io/github/krlmlr/mlfit/coverage.svg?branch=master" alt="codecov.io"></a></li>
-<li><a href="https://codecov.io/gh/krlmlr/mlfit?branch=master" class="external-link"><img src="https://codecov.io/gh/krlmlr/mlfit/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/mlfit/mlfit/actions" class="external-link"><img src="https://github.com/mlfit/mlfit/workflows/rcc/badge.svg" alt="rcc"></a></li>
+<li><a href="https://codecov.io/github/mlfit/mlfit?branch=master" class="external-link"><img src="https://codecov.io/github/mlfit/mlfit/coverage.svg?branch=master" alt="codecov.io"></a></li>
+<li><a href="https://codecov.io/gh/mlfit/mlfit?branch=master" class="external-link"><img src="https://codecov.io/gh/mlfit/mlfit/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 
