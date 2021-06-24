@@ -13,6 +13,9 @@ fitting_problem(
   prior_weights = NULL
 )
 }
+\value{
+See \code{\link[=ml_problem]{ml_problem()}}.
+}
 \description{
 Soft-deprecated, new code should use \code{\link[=ml_problem]{ml_problem()}}.
 }

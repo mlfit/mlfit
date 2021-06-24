@@ -25,7 +25,8 @@ replacement, and "round" is just simple rounding.}
 ids of the reference sample will be kept with suffix '_old'.}
 }
 \value{
-The function returns a data.frame.
+The function returns a replicated sample in data.frame
+in the format used in the reference sample of the input \code{ml_fit} object.
 }
 \description{
 This function replicates each entry in a reference sample based on its fitted

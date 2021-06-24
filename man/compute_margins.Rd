@@ -23,14 +23,25 @@ to the \code{controls} parameter of \code{\link[=ml_problem]{ml_problem()}}.}
 
 \item{count}{Name of control total column, autodetected by default.}
 }
+\value{
+\code{compute_margins()} returns a named list with two components,
+\code{individual} and \code{group}. Each contains a list of margins as \code{data.frame}s.
+
+\code{margins_to_df()} returns a data frame with the following columns:
+\describe{
+\item{\code{..control.type..}}{Type of the control total: either \code{individual} or \code{group}.}
+\item{\code{..control.name..}}{Name of the control total, if exists.}
+\item{\code{..id..}}{Name of the control category.}
+\item{\code{..count..}}{Count of the control category.}
+}
+}
 \description{
 These functions allows checking a fit in terms of the original input data.
 }
 \details{
 \code{compute_margins()} computes margins in the format used for the input
 controls (i.e., as expected by the \code{controls} parameter of the
-\code{\link[=ml_problem]{ml_problem()}} function),
-based on a reference sample and a weights vector.
+\code{\link[=ml_problem]{ml_problem()}} function), based on a reference sample and a weight vector.
 
 \code{margins_to_df()} converts margins to a data frame for easier comparison.
 }

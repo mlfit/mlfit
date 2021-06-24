@@ -72,8 +72,8 @@ sample or the zone of the controls. Note that region is a larger area that conta
 more than one zone.}
 }
 \value{
-An object of class \code{ml_problem} of a list of them if geo_hierarchy was
-given, essentially a named list with the following components:
+An object of class \code{ml_problem} or a list of them if \code{geo_hierarchy}
+was given, essentially a named list with the following components:
 \describe{
 \item{\code{refSample}}{The reference sample, a \code{data.frame}.}
 \item{\code{controls}}{A named list with two components, \code{individual}
