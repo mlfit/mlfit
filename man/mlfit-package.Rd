@@ -26,9 +26,9 @@ algorithms and compare results.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://krlmlr.github.io/mlfit/}
-  \item \url{https://github.com/krlmlr/mlfit}
-  \item Report bugs at \url{https://github.com/krlmlr/mlfit/issues}
+  \item \url{https://mlfit.github.io/mlfit/}
+  \item \url{https://github.com/mlfit/mlfit}
+  \item Report bugs at \url{https://github.com/mlfit/mlfit/issues}
 }
 
 }

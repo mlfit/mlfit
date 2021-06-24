@@ -15,9 +15,9 @@ set.seed(728)
 ```
 
 <!-- badges: start -->
-[![rcc](https://github.com/krlmlr/mlfit/workflows/rcc/badge.svg)](https://github.com/krlmlr/mlfit/actions)
-[![codecov.io](https://codecov.io/github/krlmlr/mlfit/coverage.svg?branch=master)](https://codecov.io/github/krlmlr/mlfit?branch=master)
-[![Codecov test coverage](https://codecov.io/gh/krlmlr/mlfit/branch/master/graph/badge.svg)](https://codecov.io/gh/krlmlr/mlfit?branch=master)
+[![rcc](https://github.com/mlfit/mlfit/workflows/rcc/badge.svg)](https://github.com/mlfit/mlfit/actions)
+[![codecov.io](https://codecov.io/github/mlfit/mlfit/coverage.svg?branch=master)](https://codecov.io/github/mlfit/mlfit?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/mlfit/mlfit/branch/master/graph/badge.svg)](https://codecov.io/gh/mlfit/mlfit?branch=master)
 <!-- badges: end -->
 
 Implementation of algorithms that extend Iterative Proportional Fitting (IPF) to nested structures.
@@ -236,7 +236,7 @@ The package is not currently on CRAN, but can be installed from GitHub with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("krlmlr/mlfit")
+devtools::install_github("mlfit/mlfit")
 ```
 
 ### Where is `MultiLeveLIPF`?
@@ -244,7 +244,9 @@ devtools::install_github("krlmlr/mlfit")
 From version `0.4.0` onwards the package is now to be known as `mlfit`. If you would like to install any version that is older than `0.4.0` please use:
 
 ``` r
-# See https://github.com/krlmlr/mlfit/releases for the releases that are available
+# See https://github.com/mlfit/mlfit/releases for the releases that are available
 # To install a certain branch or commit or tag, append it to the repo name, after an @:
-devtools::install_github("krlmlr/MultiLevelIPF@v0.3-7")
+devtools::install_github("mlfit/mlfit@v0.3-7")
 ```
+
+Note that, all versions prior to `0.4.0` should be used as `MultiLeveLIPF` not `mlfit`.

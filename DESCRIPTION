@@ -35,8 +35,8 @@ Description: The Iterative Proportional Fitting (IPF) algorithm operates on coun
     implementations for several algorithms that extend this to nested structures:
     "parent" and "child" items for both of which constraints can be provided.
 License: GPL (>= 3)
-URL: https://krlmlr.github.io/mlfit/, https://github.com/krlmlr/mlfit
-BugReports: https://github.com/krlmlr/mlfit/issues
+URL: https://mlfit.github.io/mlfit/, https://github.com/mlfit/mlfit
+BugReports: https://github.com/mlfit/mlfit/issues
 Depends: 
     methods
 Imports: 
