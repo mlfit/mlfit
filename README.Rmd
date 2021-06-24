@@ -11,19 +11,20 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+set.seed(728)
 ```
 
 <!-- badges: start -->
-[![rcc](https://github.com/krlmlr/mlfit/workflows/rcc/badge.svg)](https://github.com/krlmlr/mlfit/actions)
-[![codecov.io](https://codecov.io/github/krlmlr/mlfit/coverage.svg?branch=master)](https://codecov.io/github/krlmlr/mlfit?branch=master)
-[![Codecov test coverage](https://codecov.io/gh/krlmlr/mlfit/branch/master/graph/badge.svg)](https://codecov.io/gh/krlmlr/mlfit?branch=master)
+[![rcc](https://github.com/mlfit/mlfit/workflows/rcc/badge.svg)](https://github.com/mlfit/mlfit/actions)
+[![codecov.io](https://codecov.io/github/mlfit/mlfit/coverage.svg?branch=master)](https://codecov.io/github/mlfit/mlfit?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/mlfit/mlfit/branch/master/graph/badge.svg)](https://codecov.io/gh/mlfit/mlfit?branch=master)
 <!-- badges: end -->
 
 Implementation of algorithms that extend Iterative Proportional Fitting (IPF) to nested structures.
 
 The IPF algorithm operates on count data. This package offers implementations for several algorithms that extend this to nested structures: "parent" and "child" items for both of which constraints can be provided.
 
-## Example
+## Example - single zone
 
 Here is a multi-level fitting example with a reference sample (`reference_sample`) and two control tables (`individual_control` and `group_control`). Each row of `reference_sample` represents an individual in a sample of a population, where `HHNR` is their group ID and `PNR` is their individual ID, `APER` and `WKSTAT` are individial-level charateristics, and `CAR` is the only household characteristic of the sample population. The 'N' columns in both control tables denote how many units of individuals or groups belong to each category.
 
@@ -103,16 +104,130 @@ syn_pop <- ml_replicate(fit, algorithm = "trs")
 syn_pop
 ```
 
+## Example - multiple zones
+
+This example is almost identical to the previous example, except we are creating sub-fitting problems based on zones. `ml_problem()` has the `geo_hierarchy` argument, where it lets you specify a geographical hierarchy, a `data.frame` with two columns: `region` and `zone`. To put it simply, a zone can only belong to one region. The image below shows an example of that, where the orange patch is a zone that is within the green region. 
+
+
+![](https://user-images.githubusercontent.com/17020181/113852241-afed5580-97df-11eb-80ed-2b458e8fcbda.png)
+
+
+When `geo_hierarchy` is validly specified, `ml_problem()` would return a list of fitting problems, one fitting problem per zone. Each fitting problem will contain only relevant subsets of the reference sample and control totals for its zone. Basically, the reference sample is a population survey sample taken at a regional level and the control totals should be at a zonal level.  
+
+```{r}
+ref_sample <- tibble::tribble(
+  ~HHNR, ~PNR, ~APER, ~HH_VAR, ~P_VAR, ~REGION,
+      1,    1,     3,       1,      1,       1,
+      1,    2,     3,       1,      2,       1,
+      1,    3,     3,       1,      3,       1,
+      2,    4,     2,       1,      1,       1,
+      2,    5,     2,       1,      3,       1,
+      3,    6,     3,       1,      1,       1,
+      3,    7,     3,       1,      1,       1,
+      3,    8,     3,       1,      2,       1,
+      4,    9,     3,       2,      1,       1,
+      4,   10,     3,       2,      3,       1,
+      4,   11,     3,       2,      3,       1,
+      5,   12,     3,       2,      2,       1,
+      5,   13,     3,       2,      2,       1,
+      5,   14,     3,       2,      3,       1,
+      6,   15,     2,       2,      1,       1,
+      6,   16,     2,       2,      2,       1,
+      7,   17,     5,       2,      1,       1,
+      7,   18,     5,       2,      1,       1,
+      7,   19,     5,       2,      2,       1,
+      7,   20,     5,       2,      3,       1,
+      7,   21,     5,       2,      3,       1,
+      8,   22,     2,       2,      1,       1,
+      8,   23,     2,       2,      2,       1,
+      9,   24,     3,       1,      1,       2,
+      9,   25,     3,       1,      2,       2,
+      9,   26,     3,       1,      3,       2,
+     10,   27,     2,       1,      1,       2,
+     10,   28,     2,       1,      3,       2,
+     11,   29,     3,       1,      1,       2,
+     11,   30,     3,       1,      1,       2,
+     11,   31,     3,       1,      2,       2,
+     12,   32,     3,       2,      1,       2,
+     12,   33,     3,       2,      3,       2,
+     12,   34,     3,       2,      3,       2,
+     13,   35,     3,       2,      2,       2,
+     13,   36,     3,       2,      2,       2,
+     13,   37,     3,       2,      3,       2,
+     14,   38,     2,       2,      1,       2,
+     14,   39,     2,       2,      2,       2,
+     15,   40,     5,       2,      1,       2,
+     15,   41,     5,       2,      1,       2,
+     15,   42,     5,       2,      2,       2,
+     15,   43,     5,       2,      3,       2,
+     15,   44,     5,       2,      3,       2,
+     16,   45,     2,       2,      1,       2,
+     16,   46,     2,       2,      2,       2
+  )
+
+
+hh_ctrl <- tibble::tribble(
+  ~ZONE, ~HH_VAR, ~N,
+  1, 1, 35,
+  1, 2, 65,
+  2, 1, 35,
+  2, 2, 65,
+  3, 1, 35,
+  3, 2, 65,
+  4, 1, 35,
+  4, 2, 65
+)
+
+ind_ctrl <- tibble::tribble(
+  ~ZONE, ~P_VAR, ~N,
+  1, 1, 91,
+  1, 2, 65,
+  1, 3, 104,
+  2, 1, 91,
+  2, 2, 65,
+  2, 3, 104,
+  3, 1, 91,
+  3, 2, 65,
+  3, 3, 104,
+  4, 1, 91,
+  4, 2, 65,
+  4, 3, 104
+)
+
+geo_hierarchy <- tibble::tribble(
+  ~REGION, ~ZONE,
+  1, 1,
+  1, 2,
+  2, 3,
+  2, 4
+)
+
+fitting_problems <- ml_problem(
+    ref_sample = ref_sample,
+    field_names = special_field_names(
+      groupId = "HHNR", individualId = "PNR", count = "N",
+      zone = "ZONE", region = "REGION"
+    ),
+    group_controls = list(hh_ctrl),
+    individual_controls = list(ind_ctrl),
+    geo_hierarchy = geo_hierarchy
+  )
+
+fits <- fitting_problems %>%
+  lapply(ml_fit, algorithm = "ipu") %>%
+  lapply(ml_replicate, algorithm = "trs")
+```
+
 ## Powered by
 
-- [`grake`](http://krlmlr.github.io/grake): A reimplementation of generalized raking ([Deville and Särndal, 1992](http://amstat.tandfonline.com/doi/abs/10.1080/01621459.1992.10475217); [Deville, Särndal and Sautory, 1993](http://www.tandfonline.com/doi/abs/10.1080/01621459.1993.10476369))
+- [`grake`](https://krlmlr.github.io/grake/): A reimplementation of generalized raking ([Deville and Särndal, 1992](https://amstat.tandfonline.com/doi/abs/10.1080/01621459.1992.10475217); [Deville, Särndal and Sautory, 1993](https://www.tandfonline.com/doi/abs/10.1080/01621459.1993.10476369))
 
 
 ## Related work
 
-- [`wrswoR`](http://krlmlr.github.io/wrswoR): An implementation of fast weighted random sampling without replacement ([Efraimidis and Spirakis, 2006](http://www.sciencedirect.com/science/article/pii/S002001900500298X))
-- [`mangow`](http://krlmlr.github.io/mangow): Embed the Gower distance metric in L1
-- [`RANN.L1`](https://github.com/jefferis/RANN/tree/master-L1#readme): k-nearest neighbors using the L1 metric
+- [`wrswoR`](https://krlmlr.github.io/wrswoR/): An implementation of fast weighted random sampling without replacement ([Efraimidis and Spirakis, 2006](https://www.sciencedirect.com/science/article/pii/S002001900500298X))
+- [`mangow`](https://krlmlr.github.io/mangow/): Embed the Gower distance metric in L1
+- [`RANN.L1`](https://github.com/jefferislab/RANN/tree/master-L1): k-nearest neighbors using the L1 metric
 
 
 ## Installation
@@ -121,7 +236,7 @@ The package is not currently on CRAN, but can be installed from GitHub with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("krlmlr/mlfit")
+devtools::install_github("mlfit/mlfit")
 ```
 
 ### Where is `MultiLeveLIPF`?
@@ -129,7 +244,9 @@ devtools::install_github("krlmlr/mlfit")
 From version `0.4.0` onwards the package is now to be known as `mlfit`. If you would like to install any version that is older than `0.4.0` please use:
 
 ``` r
-# See https://github.com/krlmlr/mlfit/releases for the releases that are available
+# See https://github.com/mlfit/mlfit/releases for the releases that are available
 # To install a certain branch or commit or tag, append it to the repo name, after an @:
-devtools::install_github("krlmlr/MultiLevelIPF@v0.3-7")
+devtools::install_github("mlfit/mlfit@v0.3-7")
 ```
+
+Note that, all versions prior to `0.4.0` should be used as `MultiLeveLIPF` not `mlfit`.
