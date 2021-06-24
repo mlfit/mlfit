@@ -5,12 +5,14 @@
 #' @details
 #' `compute_margins()` computes margins in the format used for the input
 #' controls (i.e., as expected by the `controls` parameter of the
-#' [ml_problem()] function),
-#' based on a reference sample and a weights vector.
+#' [ml_problem()] function), based on a reference sample and a weight vector.
 #'
 #' @inheritParams ml_fit
 #' @param weights A vector with one entry per row of the original reference
 #'   sample
+#' @return A named list with two components, `individual` and `group`. 
+#'   Each contains a list of margins as `data.frame`s.
+#'   
 #' @seealso [ml_fit()]
 #' @export
 #' @importFrom plyr llply
