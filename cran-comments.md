@@ -1,4 +1,4 @@
-mlfit 0.4.1
+mlfit 0.5.0
 
 ## Cran Repository Policy
 
@@ -12,9 +12,19 @@ mlfit 0.4.1
 
 ## R CMD check results on local R 4.1.0 and CI system
 
-0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+0 errors ✔ | 0 warnings ✔ | 1 notes ✔
 
 * This is a new release.
+
+```
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: ‘Amarin Siripanich <amarin.siri@gmail.com>’
+
+New submission
+
+Possibly mis-spelled words in DESCRIPTION:
+  IPF (35:50)
+```
 
 ## R CMD check results on win-builder, R devel
 
