@@ -8,7 +8,7 @@ Authors@R:
         person(
             given = "Kirill",
             family = "Müller",
-            role = c("aut"),
+            role = c("aut", "cph"),
             comment = "Creator of the package"
         ),
         person(

@@ -37,7 +37,7 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Kirill Müller (Creator of the package)
+  \item Kirill Müller (Creator of the package) [copyright holder]
 }
 
 Other contributors:
