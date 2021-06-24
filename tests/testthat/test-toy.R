@@ -6,5 +6,5 @@ test_that("Can enumerate toy examples", {
   some_toys <- toy_example(names(all_toys)[1:3])
   expect_equal(length(some_toys), 3L)
 
-  expect_error(toy_example("nonexisting-toy"), "file")
+  expect_error(file.exists(toy_example("nonexisting-toy")))
 })
