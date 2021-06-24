@@ -1,5 +1,15 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mlfit 0.5.0 (2021-06-24)
+
+- `ml_problem()` gains a `geo_hierarchy` argument, which let the user specifies a region and zone table for creating a list of `ml_problem` objects based on zones. See the `README` page for an example. Printing `ml_problem` will also show its zone, if exists.
+- Add a person ID column to Ye's example. (#57)
+- Fix the package's URL (#56) and URLs used in the package.
+- Add a GPL-3 license file and the copyright holder role to Kirill.
+- Add more changes for first CRAN submission. These changes do not affect any functionalities.
+- Add an example section to README
+
+
 # mlfit 0.4.2 (2021-06-18)
 
 - Add more changes for first CRAN submission. These changes do not affect any functionalities.
