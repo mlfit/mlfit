@@ -4,7 +4,7 @@
 \name{mlfit-package}
 \alias{mlfit}
 \alias{mlfit-package}
-\title{mlfit: Implementation of Algorithms that Extend Iterative Proportional Fitting to Nested Structures}
+\title{mlfit: Iterative Proportional Fitting Algorithms for Nested Structures}
 \description{
 The Iterative Proportional Fitting (IPF) algorithm operates on count data. This package offers
     implementations for several algorithms that extend this to nested structures:
