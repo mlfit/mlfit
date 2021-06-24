@@ -20,8 +20,8 @@
 #'  many zones of a smaller zoning level. The column name of the larger level
 #'  should be specified in `field_names` as 'region' and the smaller one as
 #'  'zone'.
-#' @return An object of class `ml_problem` of a list of them if geo_hierarchy was
-#'  given, essentially a named list with the following components:
+#' @return An object of class `ml_problem` or a list of them if `geo_hierarchy` 
+#'  was given, essentially a named list with the following components:
 #' \describe{
 #'   \item{`refSample`}{The reference sample, a `data.frame`.}
 #'   \item{`controls`}{A named list with two components, `individual`
