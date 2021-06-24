@@ -154,12 +154,23 @@ to the <code>controls</code> parameter of <code><a href='ml_problem.html'>ml_pro
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>compute_margins()</code> returns a named list with two components,
+<code>individual</code> and <code>group</code>. Each contains a list of margins as <code>data.frame</code>s.</p>
+<p><code>margins_to_df()</code> returns a data frame with the following columns:</p><dl>
+<dt><code>..control.type..</code></dt><dd><p>Type of the control total: either <code>individual</code> or <code>group</code>.</p></dd>
+<dt><code>..control.name..</code></dt><dd><p>Name of the control total, if exists.</p></dd>
+<dt><code>..id..</code></dt><dd><p>Name of the control category.</p></dd>
+<dt><code>..count..</code></dt><dd><p>Count of the control category.</p></dd>
+
+</dl>
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>compute_margins()</code> computes margins in the format used for the input
 controls (i.e., as expected by the <code>controls</code> parameter of the
-<code><a href='ml_problem.html'>ml_problem()</a></code> function),
-based on a reference sample and a weights vector.</p>
+<code><a href='ml_problem.html'>ml_problem()</a></code> function), based on a reference sample and a weight vector.</p>
 <p><code>margins_to_df()</code> converts margins to a data frame for easier comparison.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
