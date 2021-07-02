@@ -18,6 +18,21 @@ implementations for several algorithms that extend this to nested
 structures: “parent” and “child” items for both of which constraints can
 be provided.
 
+## Installation
+
+Install from CRAN with:
+
+``` r
+install.packages("mlfit")
+```
+
+Or the development version from GitHub:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("mlfit/mlfit")
+```
+
 ## Example - single zone
 
 Here is a multi-level fitting example with a reference sample
@@ -282,16 +297,6 @@ fits <- fitting_problems %>%
     distance metric in L1
 -   [`RANN.L1`](https://github.com/jefferislab/RANN/tree/master-L1):
     k-nearest neighbors using the L1 metric
-
-## Installation
-
-The package is not currently on CRAN, but can be installed from GitHub
-with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("mlfit/mlfit")
-```
 
 ### Where is `MultiLeveLIPF`?
 
