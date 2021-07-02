@@ -2,6 +2,8 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/mlfit)](https://CRAN.R-project.org/package=mlfit)
 [![rcc](https://github.com/mlfit/mlfit/workflows/rcc/badge.svg)](https://github.com/mlfit/mlfit/actions)
 [![codecov.io](https://codecov.io/github/mlfit/mlfit/coverage.svg?branch=master)](https://codecov.io/github/mlfit/mlfit?branch=master)
 [![Codecov test

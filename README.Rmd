@@ -15,6 +15,7 @@ set.seed(728)
 ```
 
 <!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/mlfit)](https://CRAN.R-project.org/package=mlfit)
 [![rcc](https://github.com/mlfit/mlfit/workflows/rcc/badge.svg)](https://github.com/mlfit/mlfit/actions)
 [![codecov.io](https://codecov.io/github/mlfit/mlfit/coverage.svg?branch=master)](https://codecov.io/github/mlfit/mlfit?branch=master)
 [![Codecov test coverage](https://codecov.io/gh/mlfit/mlfit/branch/master/graph/badge.svg)](https://codecov.io/gh/mlfit/mlfit?branch=master)
