@@ -1,8 +1,17 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mlfit 0.5.2 (2021-07-02)
+
+- Address CRAN comments (#62).
+- Improve documentation.
+- Document the return values of `compute_margins()` and `margin_to_df()` (#62)
+- Add a return tag for `compute_margins()`. (#62)
+- Shorten the package title to less than 65 chars (#62).
+
+
 # mlfit 0.5.1 (2021-06-24)
 
-- Make a file check test more robust as per CRAN's suggestion
+- Make a file check test more robust as per CRAN's suggestion.
 
 
 # mlfit 0.5.0 (2021-06-24)
@@ -12,7 +21,7 @@
 - Fix the package's URL (#56) and URLs used in the package.
 - Add a GPL-3 license file and the copyright holder role to Kirill.
 - Add more changes for first CRAN submission. These changes do not affect any functionalities.
-- Add an example section to README
+- Add an example section to README.
 
 
 # mlfit 0.4.2 (2021-06-18)
