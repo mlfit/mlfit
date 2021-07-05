@@ -1,0 +1,55 @@
+---
+title: 'mlfit: Iterative Proportional Fitting Algorithms for Nested Structures'
+tags:
+  - R
+  - multi-level fitting algorithms
+  - population systhesis
+authors:
+  - name: Kirill Müller
+    affiliation: 1
+  - name: Amarin Siripanich^[corresponding author]
+    affiliation: 2
+  - name: Kay W. Axhausen
+    affiliation: 3
+  - name: Taha H. Rashidi
+    affiliation: 2
+affiliations:
+  - name: Cynkra GmbH
+    index: 1
+  - name: UNSW Sydney, Australia
+    index: 2
+  - name: ETH Zürich, Switzerland
+    index: 3
+date: "`r Sys.Date()`"
+bibliography: paper.bib
+output: rticles::joss_article
+# csl: apa.csl
+journal: JOSS
+link-citations: yes
+---
+
+# Summary
+<!-- A summary describing the high-level functionality and purpose of the software for a diverse, non-specialist audience. -->
+The `mlfit` package provides well-known multi-level fitting and integerisation algorithms for creating synthetic data. 
+
+# Statement of need
+<!-- A Statement of Need section that clearly illustrates the research purpose of the software. -->
+
+# `mlfit` package
+
+``` r
+install.packages("mlfit")
+```
+
+The package was designed to support pipe workflows. Here is an example of how a `mlfit` workflow can be established using the data from @ye2009methodology:
+
+```{r}
+library("mlfit")
+
+```
+
+# Acknowledgements
+
+This work was supported by ...
+
+# References
