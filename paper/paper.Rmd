@@ -40,11 +40,8 @@ The `mlfit` package provides several well-known multi-level fitting algorithms a
 
 Synthetic population is a crucial initial input of many agent-based and microsimulation models that also represents the initial state of their simulation environment. Multi-level fitting algorithms allow synthetic populations that respect both individual and group marginal constraints to be generated. Such capability is highly important for simulation models that consider both individual and group characteristics such as in transport and land use models [@waddell2002; @salvini2005ilute; @moeckel2016] and demographic microsimulation models [@chingcuanco2017; @siripanich2020]. With `mlfit`, results from different multi-level fitting algorithms can be compared and allow the best result to be selected based on the statistical measures provided. Furthermore, `mlfit` facilitates all steps in population synthesis from fitting, assessment, to replication. Various utility functions are also provided to perform zone-by-zone fitting [@müller2010], compute margins of fitted weights, and more. Ultimately, it is one of a few population synthesis packages that offer implementations of several well-known multi-level fitting algorithms.
 
-
-
-
-
 # Acknowledgements
 
 This work was supported by ...
 
+# References
