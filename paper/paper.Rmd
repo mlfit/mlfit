@@ -32,7 +32,7 @@ link-citations: yes
 
 <!-- A summary describing the high-level functionality and purpose of the software for a diverse, non-specialist audience. -->
 
-The `mlfit` package provides several well-known multi-level fitting algorithms and weighted sampling algorithms for generating synthetic populations, including: '**Iterative Proportional Updating**' [@ye2009methodology], '**Hierachical Iterative Proportional Fitting'** [@müller2011], '**Entropy Optimization'** [@bar2009estimating], **'Generalised Raking'** [@deville1993]**,** and an efficient weighted random sampling without replacement implementation [@müller2020], and '**Truncate, replicate, sample**' [@lovelace2013truncate]. 
+The `mlfit` package provides several well-known multi-level fitting algorithms and weighted sampling algorithms for generating synthetic populations, including: '**Iterative Proportional Updating**' [@ye2009methodology], '**Hierachical Iterative Proportional Fitting'** [@müller2011], '**Entropy Optimization'** [@bar2009estimating], **'Generalised Raking'** [@deville1993], an efficient weighted random sampling without replacement implementation [@müller2020], and '**Truncate, replicate, sample**' [@lovelace2013truncate]. 
 Creating a synthetic population only requires marginal constraints and a reference sample, also known as 'seed population'. 
 `mlfit` allows constraints to be specified at two levels: individual and group.
 The fitting algorithms that the package offers can calibrate the record weights of the reference sample to closely fit to all constraints in both levels. 
