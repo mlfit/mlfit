@@ -31,13 +31,13 @@ compute_margins <- function(x, ...) {
 }
 
 #' @rdname compute_margins
-#' @export 
+#' @export
 compute_margins.ml_fit <- function(x, verbose = FALSE, ...) {
   compute_margins(x = x$flat$ml_problem, weights, weights = x$weights, verbose = verbose)
 }
 
 #' @rdname compute_margins
-#' @export 
+#' @export
 compute_margins.ml_problem <- function(x, weights, verbose = FALSE, ...) {
   .check_is_ml_problem(x)
   ref_sample <- x$refSample
