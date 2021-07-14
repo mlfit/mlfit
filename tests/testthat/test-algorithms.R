@@ -17,7 +17,7 @@ test_that("algorithms", {
         return()
       }
 
-      margins <- compute_margins(problem, fit$weights)
+      margins <- compute_margins(fit)
       control_df <- margin_to_df(problem$controls)
       expect_message(margin_df <- margin_to_df(margins, verbose = TRUE), "as count column for")
       expect_equal(

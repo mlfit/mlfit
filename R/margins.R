@@ -1,18 +1,20 @@
 #' Compute margins for a weighting of a multi-level fitting problem
 #'
-#' These functions allows checking a fit in terms of the original input data.
+#' These functions allow checking a fit in terms of the original input data.
 #'
 #' @details
 #' `compute_margins()` computes margins in the format used for the input
 #' controls (i.e., as expected by the `controls` parameter of the
 #' [ml_problem()] function), based on a reference sample and a weight vector.
 #'
-#' @inheritParams ml_fit
+#' @param x an `ml_fit` or `ml_problem` object.
 #' @param weights A vector with one entry per row of the original reference
 #'   sample
-#' @return `compute_margins()` returns a named list with two components, 
+#' @param verbose If `TRUE`, print diagnostic output.
+#' @param ... Not being used.
+#' @return `compute_margins()` returns a named list with two components,
 #'   `individual` and `group`. Each contains a list of margins as `data.frame`s.
-#'   
+#'
 #' @seealso [ml_fit()]
 #' @export
 #' @importFrom plyr llply
@@ -22,11 +24,25 @@
 #' fit <- ml_fit(ml_problem = problem, algorithm = "entropy_o")
 #' margins <- compute_margins(problem, fit$weights)
 #' margins
-compute_margins <- function(ml_problem, weights, verbose = FALSE) {
-  .check_is_ml_problem(ml_problem)
-  ref_sample <- ml_problem$refSample
-  controls <- ml_problem$controls
-  field_names <- ml_problem$fieldNames
+#' # Alternatively
+#' compute_margins(fit)
+compute_margins <- function(x, ...) {
+  UseMethod("compute_margins", x)
+}
+
+#' @rdname compute_margins
+#' @export 
+compute_margins.ml_fit <- function(x, verbose = FALSE, ...) {
+  compute_margins(x = x$flat$ml_problem, weights, weights = x$weights, verbose = verbose)
+}
+
+#' @rdname compute_margins
+#' @export 
+compute_margins.ml_problem <- function(x, weights, verbose = FALSE, ...) {
+  .check_is_ml_problem(x)
+  ref_sample <- x$refSample
+  controls <- x$controls
+  field_names <- x$fieldNames
 
   .patch_verbose()
 
