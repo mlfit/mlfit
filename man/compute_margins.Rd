@@ -2,21 +2,28 @@
 % Please edit documentation in R/margins.R
 \name{compute_margins}
 \alias{compute_margins}
+\alias{compute_margins.ml_fit}
+\alias{compute_margins.ml_problem}
 \alias{margin_to_df}
 \title{Compute margins for a weighting of a multi-level fitting problem}
 \usage{
-compute_margins(ml_problem, weights, verbose = FALSE)
+compute_margins(x, ...)
+
+\method{compute_margins}{ml_fit}(x, verbose = FALSE, ...)
+
+\method{compute_margins}{ml_problem}(x, weights, verbose = FALSE, ...)
 
 margin_to_df(controls, count = NULL, verbose = FALSE)
 }
 \arguments{
-\item{ml_problem}{A fitting problem created by
-\code{\link[=ml_problem]{ml_problem()}} or returned by \code{\link[=flatten_ml_fit_problem]{flatten_ml_fit_problem()}}.}
+\item{x}{an \code{ml_fit} or \code{ml_problem} object.}
+
+\item{...}{Not being used.}
+
+\item{verbose}{If \code{TRUE}, print diagnostic output.}
 
 \item{weights}{A vector with one entry per row of the original reference
 sample}
-
-\item{verbose}{If \code{TRUE}, print diagnostic output.}
 
 \item{controls}{Margins as returned by \code{compute_margins} or as passed
 to the \code{controls} parameter of \code{\link[=ml_problem]{ml_problem()}}.}
@@ -36,7 +43,7 @@ to the \code{controls} parameter of \code{\link[=ml_problem]{ml_problem()}}.}
 }
 }
 \description{
-These functions allows checking a fit in terms of the original input data.
+These functions allow checking a fit in terms of the original input data.
 }
 \details{
 \code{compute_margins()} computes margins in the format used for the input
@@ -51,6 +58,8 @@ problem <- readRDS(path)
 fit <- ml_fit(ml_problem = problem, algorithm = "entropy_o")
 margins <- compute_margins(problem, fit$weights)
 margins
+# Alternatively
+compute_margins(fit)
 
 margin_to_df(problem$controls)
 margin_to_df(margins)
