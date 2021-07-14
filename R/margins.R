@@ -130,3 +130,53 @@ margin_to_df <- function(controls, count = NULL, verbose = FALSE) {
     .id = "..control.type.."
   )
 }
+
+#' Combine fitted margins and control margins
+#' 
+#' This function is useful for extracting margins for 
+#' further analysis.
+#' 
+#' @param ml_fit a `ml_fit` object.
+#' 
+#' @return returns a named list with two components,
+#'  `individual` and `group`. Each contains a list of margins 
+#'  as `data.frame`s.
+#' @export
+#' @examples
+#' fit <- ml_fit(readRDS(toy_example("Tiny")), "ipu")
+#' combine_margins(fit)
+combine_margins <- function(ml_fit) {
+  stopifnot(is_ml_fit(ml_fit))
+  control_margins <- ml_fit$flat$ml_problem$controls
+  fit_margins <- compute_margins(ml_fit)
+  count_name <- ml_fit$flat$ml_problem$fieldNames$count
+
+  .combine_margin <- function(ctrl_lst, fit_lst, count_name) {
+    mapply(
+      function(ctrl, fit) {
+        res <- cbind(ctrl, ..fit_count.. = fit[[count_name]])
+        names(res)[names(res) == count_name] <- "..ctrl_count.."
+        res$..residual.. <- res$..ctrl_count.. - res$..fit_count..
+        res$..rel_residual.. <- rel_residuals(res$..ctrl_count.., res$..fit_count..)
+        res
+      },
+      ctrl_lst,
+      fit_lst,
+      SIMPLIFY = FALSE
+    )
+  }
+
+  ind_margins <- .combine_margin(
+    control_margins$individual,
+    fit_margins$individual,
+    count_name
+  )
+
+  group_margins <- .combine_margin(
+    control_margins$group,
+    fit_margins$group,
+    count_name
+  )
+
+  list(individual = ind_margins, group = group_margins)
+}
