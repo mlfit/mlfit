@@ -107,7 +107,10 @@ set_weights_success_and_residuals <- function(res, flat, flat_weights,
   #' - `flat`: The flattened fitting problem, see `flatten_ml_fit_problem()`
   res$flat <- flat
   #' - `flat_weights`: Weights in terms of the flattened fitting problem
-  res$flat_weights <- flat_weights
+  res$flat_weights <- get_all_flat_weights(
+    res$weights, 
+    flat$ml_problem$refSample[[flat$ml_problem$fieldNames$groupId]]
+  )
 
   res2 <- get_success_and_residuals(
     flat_weights %*% flat$ref_sample,
@@ -119,6 +122,10 @@ set_weights_success_and_residuals <- function(res, flat, flat_weights,
   #' - `residuals`: Absolute residuals
   res$residuals <- res$flat_weighted_values - flat$target_values
   res
+}
+
+get_all_flat_weights <- function(weights, group_ids) {
+  weights[!duplicated(group_ids)]
 }
 
 #' @rdname ml_fit

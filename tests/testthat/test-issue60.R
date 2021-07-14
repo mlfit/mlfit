@@ -39,6 +39,12 @@ test_that("Fixes issue#60 - minimal example", {
         )
     )
 
-    fit <- ml_fit(problem, algorithm = "ipu")
-    expect_equal(length(fit$flat_weights), length(unique(fit$flat$ml_problem$refSample)))
+    algos <- eval(formals(ml_fit)$algorithm)
+    fits <- lapply(algos, function(x) {ml_fit(problem, algorithm = x)})
+    for (fit in fits) {
+        expect_equal(
+            length(fit$flat_weights), 
+            length(unique(fit$flat$ml_problem$refSample))
+        )
+    }
 })
