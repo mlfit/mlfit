@@ -88,8 +88,6 @@ create_flat_group <- function(ml_problem, verbose) {
 
   flat_group <- as_flat_ml_fit_problem(ml_problem_group, model_matrix_type = "separate", verbose = verbose)
 
-  stopifnot(nrow(flat_group$ref_sample) ==
-    sum(!duplicated(ml_problem$refSample[[ml_problem$fieldNames$groupId]])))
   stopifnot(all(flat_group$ref_sample@x %in% 0:1))
 
   flat_group
