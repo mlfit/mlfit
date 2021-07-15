@@ -33,7 +33,7 @@ compute_margins <- function(x, ...) {
 #' @rdname compute_margins
 #' @export
 compute_margins.ml_fit <- function(x, verbose = FALSE, ...) {
-  compute_margins(x = x$flat$ml_problem, weights, weights = x$weights, verbose = verbose)
+  compute_margins(x = x$flat$ml_problem, weights = x$weights, verbose = verbose)
 }
 
 #' @rdname compute_margins
