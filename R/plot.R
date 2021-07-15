@@ -1,5 +1,6 @@
 #' @export
-#' @importFrom ggplot2 autoplot
+#' @importFrom ggplot2 autoplot ggplot aes geom_vline 
+#'  geom_boxplot labs facet_wrap theme_bw
 autoplot.ml_fit <- function(object, metric = c("rel_residual", "residual"), ...) {
   metric <- match.arg(metric)
   plot_data <-
