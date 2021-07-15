@@ -55,7 +55,8 @@ Imports:
     rlang,
     utils,
     wrswoR,
-    lifecycle
+    lifecycle,
+    ggplot2
 Suggests: 
     covr,
     testthat,
@@ -63,7 +64,6 @@ Suggests:
     sampling,
     XML,
     waldo,
-    ggplot2,
     vdiffr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
