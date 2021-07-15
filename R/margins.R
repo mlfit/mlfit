@@ -154,10 +154,20 @@ combine_margins <- function(ml_fit) {
   .combine_margin <- function(ctrl_lst, fit_lst, count_name) {
     mapply(
       function(ctrl, fit) {
-        res <- cbind(ctrl, ..fit_count.. = fit[[count_name]])
-        names(res)[names(res) == count_name] <- "..ctrl_count.."
+        ctrl_vars <- names(ctrl)[names(ctrl) != count_name]
+        res <- merge(
+          x = ctrl, 
+          y = fit, 
+          by = ctrl_vars, 
+          all = TRUE, 
+          suffix = c("_ctrl", "_fit")
+        )
+        names(res)[names(res) == paste0(count_name, "_ctrl")] <- "..ctrl_count.."
+        names(res)[names(res) == paste0(count_name, "_fit")] <- "..fit_count.."
+        res$..ctrl_count..[is.na(res$..ctrl_count..)] <- 0
+        res$..fit_count..[is.na(res$..fit_count..)] <- 0
         res$..residual.. <- res$..ctrl_count.. - res$..fit_count..
-        res$..rel_residual.. <- rel_residuals(res$..ctrl_count.., res$..fit_count..)
+        res$..rel_residual.. <- res$..fit_count.. / res$..ctrl_count.. - 1
         res
       },
       ctrl_lst,
@@ -179,4 +189,23 @@ combine_margins <- function(ml_fit) {
   )
 
   list(individual = ind_margins, group = group_margins)
+}
+
+tidy_combined_margins <- function(margins) {
+  unlist(margins, recursive = FALSE) %>%
+    lapply(function(x) {
+      control_vars <- grep("^\\.\\..*\\.\\.$", names(x), value = TRUE, invert = TRUE)
+      non_control_vars <- names(x)[!names(x) %in% control_vars]
+      x$..var.. <- paste0(control_vars, collapse = "|")
+      x$..cat.. <- do.call(paste, c(x[control_vars], sep = "|"))
+      x[, c("..var..", "..cat..", non_control_vars)]
+    }) %>%
+    mapply(function(x, y) {
+      x$..level.. <- ifelse(grepl("^individual", y), "individual", "group")
+      x[, c("..level..", names(x)[-ncol(x)])]
+    },
+    ., names(.),
+    SIMPLIFY = FALSE
+    ) %>%
+    do.call(rbind, .)
 }
