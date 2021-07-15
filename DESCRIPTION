@@ -55,14 +55,16 @@ Imports:
     rlang,
     utils,
     wrswoR,
-    lifecycle
+    lifecycle,
+    ggplot2
 Suggests: 
     covr,
     testthat,
     MASS,
     sampling,
     XML,
-    waldo
+    waldo,
+    vdiffr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
