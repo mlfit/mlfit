@@ -132,14 +132,14 @@ margin_to_df <- function(controls, count = NULL, verbose = FALSE) {
 }
 
 #' Combine fitted margins and control margins
-#' 
-#' This function is useful for extracting margins for 
+#'
+#' This function is useful for extracting margins for
 #' further analysis.
-#' 
+#'
 #' @param ml_fit a `ml_fit` object.
-#' 
+#'
 #' @return returns a named list with two components,
-#'  `individual` and `group`. Each contains a list of margins 
+#'  `individual` and `group`. Each contains a list of margins
 #'  as `data.frame`s.
 #' @export
 #' @examples
@@ -156,10 +156,10 @@ combine_margins <- function(ml_fit) {
       function(ctrl, fit) {
         ctrl_vars <- names(ctrl)[names(ctrl) != count_name]
         res <- merge(
-          x = ctrl, 
-          y = fit, 
-          by = ctrl_vars, 
-          all = TRUE, 
+          x = ctrl,
+          y = fit,
+          by = ctrl_vars,
+          all = TRUE,
           suffix = c("_ctrl", "_fit")
         )
         names(res)[names(res) == paste0(count_name, "_ctrl")] <- "..ctrl_count.."

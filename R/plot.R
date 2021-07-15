@@ -19,7 +19,7 @@ autoplot.ml_fit <- function(object, metric = c("rel_residual", "residual"), ...)
     data = plot_data,
     mapping = aes(
       y = .data[["..cat.."]],
-      x = round(.data[[paste0("..", metric, "..")]] , 2)
+      x = round(.data[[paste0("..", metric, "..")]], 2)
     )
   ) +
     geom_vline(xintercept = 0, color = "red", linetype = "dashed") +

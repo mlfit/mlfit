@@ -6,7 +6,7 @@ test_that("plot `ml_fit` object", {
   expect_s3_class(p_rr, "ggplot")
   expect_s3_class(p_r, "ggplot")
   expect_error(
-    plot(fit, metric = "non-existed-metric"), 
+    plot(fit, metric = "non-existed-metric"),
     regex = "should be one of"
   )
 })

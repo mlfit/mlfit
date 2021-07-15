@@ -20,7 +20,7 @@
 #'  many zones of a smaller zoning level. The column name of the larger level
 #'  should be specified in `field_names` as 'region' and the smaller one as
 #'  'zone'.
-#' @return An object of class `ml_problem` or a list of them if `geo_hierarchy` 
+#' @return An object of class `ml_problem` or a list of them if `geo_hierarchy`
 #'  was given, essentially a named list with the following components:
 #' \describe{
 #'   \item{`refSample`}{The reference sample, a `data.frame`.}
@@ -213,7 +213,7 @@ ml_problem_by_zone <- function(ref_sample,
 #' Create a fitting problem
 #'
 #' Soft-deprecated, new code should use [ml_problem()].
-#' 
+#'
 #' @return See [ml_problem()].
 #' @importFrom lifecycle deprecate_soft
 #' @export
