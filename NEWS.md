@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mlfit 0.5.2.9000 (2021-10-08)
+
+- Upgraded to `testthat` 3rd edition.
+- Replaced deprecated functions.
+
 # mlfit 0.5.2 (2021-07-02)
 
 - Address CRAN comments (#62).
