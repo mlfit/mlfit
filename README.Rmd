@@ -257,3 +257,29 @@ devtools::install_github("mlfit/mlfit@v0.3-7")
 ```
 
 Note that, all versions prior to `0.4.0` should be used as `MultiLeveLIPF` not `mlfit`.
+
+## Citation
+
+To cite package ‘mlfit’ in publications use:
+
+  Kirill Müller and Amarin Siripanich (2021). mlfit: Iterative Proportional Fitting Algorithms for Nested Structures. https://mlfit.github.io/mlfit/, https://github.com/mlfit/mlfit.
+
+A BibTeX entry for LaTeX users is
+
+```
+@Manual{,
+  title = {mlfit: Iterative Proportional Fitting Algorithms for Nested Structures},
+  author = {Kirill Müller and Amarin Siripanich},
+  year = {2021},
+  note = {https://mlfit.github.io/mlfit/, https://github.com/mlfit/mlfit},
+}
+```
+
+## Used in
+
+- Casati, D., Müller, K., Fourie, P. J., Erath, A., & Axhausen, K. W. (2015). Synthetic population generation by combining a hierarchical, simulation-based approach with reweighting by generalized raking. Transportation Research Record, 2493(1), 107-116.
+- Bösch, P. M., Müller, K., & Ciari, F. (2016). The IVT 2015 baseline scenario. In 16th Swiss Transport Research Conference (STRC 2016). 16th Swiss Transport Research Conference (STRC 2016).
+- Müller, K. (2017). A generalized approach to population synthesis (Doctoral dissertation, ETH Zurich).
+- Ilahi, A., & Axhausen, K. W. (2018). Implementing Bayesian network and generalized raking multilevel IPF for constructing population synthesis in megacities. In 18th Swiss Transport Research Conference (STRC 2018). STRC.
+- Ilahi, A., & Axhausen, K. W. (2019). Integrating Bayesian network and generalized raking for population synthesis in Greater Jakarta. Regional Studies, Regional Science, 6(1), 623-636.
+- Yameogo, B. F., Vandanjon, P. O., Gastineau, P., & Hankach, P. (2021). Generating a two-layered synthetic population for French municipalities: Results and evaluation of four synthetic reconstruction methods. JASSS-Journal of Artificial Societies and Social Simulation, 24, 27p.
