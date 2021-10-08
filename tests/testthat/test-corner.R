@@ -118,9 +118,12 @@ test_that("`flat_weights` has same length as no. groups - Issue 60", {
         )
     )
 
-    algos <- eval(formals(ml_fit)$algorithm)
-    fits <- lapply(algos, function(x) {ml_fit(problem, algorithm = x)})
-    for (fit in fits) {
+    algos <- eval(formals(ml_fit)$algorithm)[1]
+    for (algo in algos) {
+        fit <- expect_warning(
+          ml_fit(problem, algorithm = algo), 
+          regexp = "Removing 1 distinct entries from the reference sample \\(corresponding to zero-valued controls\\) with a total weight of 1"
+        )
         expect_equal(
             length(fit$flat_weights), 
             length(unique(fit$flat$ml_problem$refSample))
