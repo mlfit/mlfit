@@ -10,9 +10,9 @@
 #' @inheritParams ml_fit
 #' @param weights A vector with one entry per row of the original reference
 #'   sample
-#' @return `compute_margins()` returns a named list with two components, 
+#' @return `compute_margins()` returns a named list with two components,
 #'   `individual` and `group`. Each contains a list of margins as `data.frame`s.
-#'   
+#'
 #' @seealso [ml_fit()]
 #' @export
 #' @importFrom plyr llply
