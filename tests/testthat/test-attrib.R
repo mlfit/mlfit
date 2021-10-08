@@ -8,8 +8,8 @@ test_that("Calibrating a unit matrix against a unit vector, with attributes", {
     expect_equal(as.numeric(g), totals, info = method)
     expect_true(attr(g, "success"))
     expect_equal(length(g), N)
-    expect_is(g, "numeric")
-    expect_is(attr(g, "iterations"), "integer")
+    expect_type(g, "double")
+    expect_type(attr(g, "iterations"), "integer")
     expect_lt(attr(g, "iterations"), 3)
     expect_equal(attr(g, "method"), method)
     if (method == "logit") {
@@ -32,7 +32,7 @@ test_that("Test non-convergence, with attributes", {
     )
     expect_false(attr(g, "success"))
     expect_equal(length(g), 2)
-    expect_is(g, "numeric")
-    expect_is(attr(g, "iterations"), "integer")
+    expect_type(g, "double")
+    expect_type(attr(g, "iterations"), "integer")
   }
 })
