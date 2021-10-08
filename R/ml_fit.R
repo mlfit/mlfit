@@ -108,7 +108,7 @@ set_weights_success_and_residuals <- function(res, flat, flat_weights,
   res$flat <- flat
   #' - `flat_weights`: Weights in terms of the flattened fitting problem
   res$flat_weights <- get_all_flat_weights(
-    res$weights, 
+    res$weights,
     flat$ml_problem$refSample[[flat$ml_problem$fieldNames$groupId]]
   )
 
