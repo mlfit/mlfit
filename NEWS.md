@@ -1,9 +1,11 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
-# mlfit 0.5.2.9000 (2021-10-08)
+# mlfit 0.5.3 (2021-10-08)
 
+- Fixed the length of the `flat_weights` field of an `ml_fit` object when there are one or more entries that correspond to zero-valued controls in its `ml_problem` object. (#60)
 - Upgraded to `testthat` 3rd edition.
 - Replaced deprecated functions.
+
 
 # mlfit 0.5.2 (2021-07-02)
 
