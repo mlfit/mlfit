@@ -75,7 +75,7 @@ new_timed_message <- function() {
 
   function(...) {
     current_time <- Sys.time() - start_time
-    message(hms::as.hms(current_time), ": ", ...)
+    message(hms::as_hms(current_time), ": ", ...)
   }
 }
 

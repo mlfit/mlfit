@@ -23,7 +23,7 @@
 #'          A method for creating integer weights for spatial microsimulation.
 #'          Computers, Environment and Urban Systems, 41, 1-11.
 #'
-#' @return The function returns a replicated sample in data.frame 
+#' @return The function returns a replicated sample in data.frame
 #'   in the format used in the reference sample of the input `ml_fit` object.
 #'
 #' @export

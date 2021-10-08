@@ -10,7 +10,7 @@ test_that("Calibrating a sparse diagonal matrix against a vector", {
       expect_equal(g, totals, info = method, tolerance = 1e-6)
       expect_null(attr(g, "success"))
       expect_equal(length(g), N)
-      expect_is(g, "numeric")
+      expect_type(g, "double")
     }
   }
 })

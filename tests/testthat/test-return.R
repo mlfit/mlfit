@@ -14,7 +14,7 @@ test_that("success = TRUE", {
     expect_equal(length(fit$weights), 23, info = algo)
     expect_equal(length(fit$flat_weights), 8, info = algo)
     expect_equal(fit$tol, 1e-6, info = algo)
-    expect_is(fit$iterations, "integer", info = algo)
+    expect_type(fit$iterations, "integer")
   }
 })
 

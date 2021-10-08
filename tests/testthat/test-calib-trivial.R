@@ -10,7 +10,7 @@ test_that("Calibrating a unit matrix against a unit vector", {
     expect_equal(g, totals, info = method)
     expect_null(attr(g, "success"))
     expect_equal(length(g), N)
-    expect_is(g, "numeric")
+    expect_type(g, "double")
   }
 })
 
@@ -26,7 +26,7 @@ test_that("Calibrating a unit matrix against a vector with random totals", {
     expect_equal(g, totals, info = method)
     expect_null(attr(g, "success"))
     expect_equal(length(g), N)
-    expect_is(g, "numeric")
+    expect_type(g, "double")
   }
 })
 
@@ -43,7 +43,7 @@ test_that("Test non-convergence", {
     )
     expect_null(attr(g, "success"))
     expect_equal(length(g), 2)
-    expect_is(g, "numeric")
+    expect_type(g, "double")
   }
 })
 
@@ -61,5 +61,5 @@ test_that("Calibrating a unit matrix against a unit vector with bounds, failing"
   )
   expect_null(attr(g, "success"))
   expect_equal(length(g), N)
-  expect_is(g, "numeric")
+  expect_type(g, "double")
 })
