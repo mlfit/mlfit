@@ -5,9 +5,10 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/mlfit)](https://CRAN.R-project.org/package=mlfit)
 [![rcc](https://github.com/mlfit/mlfit/workflows/rcc/badge.svg)](https://github.com/mlfit/mlfit/actions)
-[![codecov.io](https://codecov.io/github/mlfit/mlfit/coverage.svg?branch=master)](https://codecov.io/github/mlfit/mlfit?branch=master)
 [![Codecov test
 coverage](https://codecov.io/gh/mlfit/mlfit/branch/master/graph/badge.svg)](https://codecov.io/gh/mlfit/mlfit?branch=master)
+[![](https://cranlogs.r-pkg.org/badges/mlfit)](https://cran.r-project.org/package=mlfit)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/mlfit)](https://CRAN.R-project.org/package=mlfit)
 <!-- badges: end -->
 
 Implementation of algorithms that extend Iterative Proportional Fitting
@@ -152,7 +153,7 @@ syn_pop
 #>  8     3     8     2 0     3     
 #>  9     4     9     2 0     1     
 #> 10     4    10     2 0     3     
-#> # … with 249 more rows
+#> # ... with 249 more rows
 ```
 
 ## Example - multiple zones
@@ -273,7 +274,6 @@ fitting_problems <- ml_problem(
     geo_hierarchy = geo_hierarchy
   )
 #> Creating a list of fitting problems by zone
-
 fits <- fitting_problems %>%
   lapply(ml_fit, algorithm = "ipu") %>%
   lapply(ml_replicate, algorithm = "trs")
