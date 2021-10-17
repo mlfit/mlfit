@@ -76,8 +76,8 @@
 <p>Implementation of algorithms that extend Iterative Proportional Fitting (IPF) to nested structures.</p>
 <p>The IPF algorithm operates on count data. This package offers implementations for several algorithms that extend this to nested structures: “parent” and “child” items for both of which constraints can be provided.</p>
 <div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor" aria-hidden="true"></a>Installation</h2>
+<h2>Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>Install from CRAN with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"mlfit"</span><span class="op">)</span></code></pre></div>
@@ -87,8 +87,8 @@
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mlfit/mlfit"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="example---single-zone" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example---single-zone" class="anchor" aria-hidden="true"></a>Example - single zone</h2>
+<h2>Example - single zone<a class="anchor" aria-label="anchor" href="#example---single-zone"></a>
+</h2>
 <p>Here is a multi-level fitting example with a reference sample (<code>reference_sample</code>) and two control tables (<code>individual_control</code> and <code>group_control</code>). Each row of <code>reference_sample</code> represents an individual in a sample of a population, where <code>HHNR</code> is their group ID and <code>PNR</code> is their individual ID, <code>APER</code> and <code>WKSTAT</code> are individial-level charateristics, and <code>CAR</code> is the only household characteristic of the sample population. The ‘N’ columns in both control tables denote how many units of individuals or groups belong to each category.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mlfit.github.io/mlfit/" class="external-link">mlfit</a></span><span class="op">)</span>
@@ -183,8 +183,8 @@
 <span class="co">#&gt; # ... with 249 more rows</span></code></pre></div>
 </div>
 <div id="example---multiple-zones" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example---multiple-zones" class="anchor" aria-hidden="true"></a>Example - multiple zones</h2>
+<h2>Example - multiple zones<a class="anchor" aria-label="anchor" href="#example---multiple-zones"></a>
+</h2>
 <p>This example is almost identical to the previous example, except we are creating sub-fitting problems based on zones. <code><a href="reference/ml_problem.html">ml_problem()</a></code> has the <code>geo_hierarchy</code> argument, where it lets you specify a geographical hierarchy, a <code>data.frame</code> with two columns: <code>region</code> and <code>zone</code>. To put it simply, a zone can only belong to one region. The image below shows an example of that, where the orange patch is a zone that is within the green region.</p>
 <p><img src="https://user-images.githubusercontent.com/17020181/113852241-afed5580-97df-11eb-80ed-2b458e8fcbda.png"></p>
 <p>When <code>geo_hierarchy</code> is validly specified, <code><a href="reference/ml_problem.html">ml_problem()</a></code> would return a list of fitting problems, one fitting problem per zone. Each fitting problem will contain only relevant subsets of the reference sample and control totals for its zone. Basically, the reference sample is a population survey sample taken at a regional level and the control totals should be at a zonal level.</p>
@@ -292,16 +292,16 @@
   <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">ml_replicate</span>, algorithm <span class="op">=</span> <span class="st">"trs"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="powered-by" class="section level2">
-<h2 class="hasAnchor">
-<a href="#powered-by" class="anchor" aria-hidden="true"></a>Powered by</h2>
+<h2>Powered by<a class="anchor" aria-label="anchor" href="#powered-by"></a>
+</h2>
 <ul>
 <li>
 <a href="https://krlmlr.github.io/grake/" class="external-link"><code>grake</code></a>: A reimplementation of generalized raking (<a href="https://amstat.tandfonline.com/doi/abs/10.1080/01621459.1992.10475217" class="external-link">Deville and Särndal, 1992</a>; <a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1993.10476369" class="external-link">Deville, Särndal and Sautory, 1993</a>)</li>
 </ul>
 </div>
 <div id="related-work" class="section level2">
-<h2 class="hasAnchor">
-<a href="#related-work" class="anchor" aria-hidden="true"></a>Related work</h2>
+<h2>Related work<a class="anchor" aria-label="anchor" href="#related-work"></a>
+</h2>
 <ul>
 <li>
 <a href="https://krlmlr.github.io/wrswoR/" class="external-link"><code>wrswoR</code></a>: An implementation of fast weighted random sampling without replacement (<a href="https://www.sciencedirect.com/science/article/pii/S002001900500298X" class="external-link">Efraimidis and Spirakis, 2006</a>)</li>
@@ -311,8 +311,8 @@
 <a href="https://github.com/jefferislab/RANN/tree/master-L1" class="external-link"><code>RANN.L1</code></a>: k-nearest neighbors using the L1 metric</li>
 </ul>
 <div id="where-is-multilevelipf" class="section level3">
-<h3 class="hasAnchor">
-<a href="#where-is-multilevelipf" class="anchor" aria-hidden="true"></a>Where is <code>MultiLeveLIPF</code>?</h3>
+<h3>Where is <code>MultiLeveLIPF</code>?<a class="anchor" aria-label="anchor" href="#where-is-multilevelipf"></a>
+</h3>
 <p>From version <code>0.4.0</code> onwards the package is now to be known as <code>mlfit</code>. If you would like to install any version that is older than <code>0.4.0</code> please use:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># See https://github.com/mlfit/mlfit/releases for the releases that are available</span>
@@ -322,8 +322,8 @@
 </div>
 </div>
 <div id="citation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#citation" class="anchor" aria-hidden="true"></a>Citation</h2>
+<h2>Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
 <p>To cite package ‘mlfit’ in publications use:</p>
 <p>Kirill Müller and Amarin Siripanich (2021). mlfit: Iterative Proportional Fitting Algorithms for Nested Structures. <a href="https://mlfit.github.io/mlfit/" class="external-link uri">https://mlfit.github.io/mlfit/</a>, <a href="https://github.com/mlfit/mlfit" class="external-link uri">https://github.com/mlfit/mlfit</a>.</p>
 <p>A BibTeX entry for LaTeX users is</p>
@@ -335,8 +335,8 @@
 <span id="cb9-6"><a href="#cb9-6"></a>}</span></code></pre></div>
 </div>
 <div id="used-in" class="section level2">
-<h2 class="hasAnchor">
-<a href="#used-in" class="anchor" aria-hidden="true"></a>Used in</h2>
+<h2>Used in<a class="anchor" aria-label="anchor" href="#used-in"></a>
+</h2>
 <ul>
 <li>Casati, D., Müller, K., Fourie, P. J., Erath, A., &amp; Axhausen, K. W. (2015). Synthetic population generation by combining a hierarchical, simulation-based approach with reweighting by generalized raking. Transportation Research Record, 2493(1), 107-116.</li>
 <li>Bösch, P. M., Müller, K., &amp; Ciari, F. (2016). The IVT 2015 baseline scenario. In 16th Swiss Transport Research Conference (STRC 2016). 16th Swiss Transport Research Conference (STRC 2016).</li>
