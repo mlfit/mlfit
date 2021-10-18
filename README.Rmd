@@ -284,3 +284,4 @@ A BibTeX entry for LaTeX users is
 - Ilahi, A., & Axhausen, K. W. (2018). Implementing Bayesian network and generalized raking multilevel IPF for constructing population synthesis in megacities. In 18th Swiss Transport Research Conference (STRC 2018). STRC.
 - Ilahi, A., & Axhausen, K. W. (2019). Integrating Bayesian network and generalized raking for population synthesis in Greater Jakarta. Regional Studies, Regional Science, 6(1), 623-636.
 - Yameogo, B. F., Vandanjon, P. O., Gastineau, P., & Hankach, P. (2021). Generating a two-layered synthetic population for French municipalities: Results and evaluation of four synthetic reconstruction methods. JASSS-Journal of Artificial Societies and Social Simulation, 24, 27p.
+- Zhou, M., Li, J., Basu, R., & Ferreira, J. (2022). Creating spatially-detailed heterogeneous synthetic populations for agent-based microsimulation. Computers, Environment and Urban Systems, 91, 101717.

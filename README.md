@@ -353,3 +353,7 @@ A BibTeX entry for LaTeX users is
     municipalities: Results and evaluation of four synthetic
     reconstruction methods. JASSS-Journal of Artificial Societies and
     Social Simulation, 24, 27p.
+-   Zhou, M., Li, J., Basu, R., & Ferreira, J. (2022). Creating
+    spatially-detailed heterogeneous synthetic populations for
+    agent-based microsimulation. Computers, Environment and Urban
+    Systems, 91, 101717.
