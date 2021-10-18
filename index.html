@@ -75,8 +75,8 @@
 
 <p>Implementation of algorithms that extend Iterative Proportional Fitting (IPF) to nested structures.</p>
 <p>The IPF algorithm operates on count data. This package offers implementations for several algorithms that extend this to nested structures: “parent” and “child” items for both of which constraints can be provided.</p>
-<div id="installation" class="section level2">
-<h2>Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>Install from CRAN with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -86,8 +86,8 @@
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mlfit/mlfit"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="example---single-zone" class="section level2">
-<h2>Example - single zone<a class="anchor" aria-label="anchor" href="#example---single-zone"></a>
+<div class="section level2">
+<h2 id="example---single-zone">Example - single zone<a class="anchor" aria-label="anchor" href="#example---single-zone"></a>
 </h2>
 <p>Here is a multi-level fitting example with a reference sample (<code>reference_sample</code>) and two control tables (<code>individual_control</code> and <code>group_control</code>). Each row of <code>reference_sample</code> represents an individual in a sample of a population, where <code>HHNR</code> is their group ID and <code>PNR</code> is their individual ID, <code>APER</code> and <code>WKSTAT</code> are individial-level charateristics, and <code>CAR</code> is the only household characteristic of the sample population. The ‘N’ columns in both control tables denote how many units of individuals or groups belong to each category.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -182,8 +182,8 @@
 <span class="co">#&gt; 10     4    10     2 0     3     </span>
 <span class="co">#&gt; # ... with 249 more rows</span></code></pre></div>
 </div>
-<div id="example---multiple-zones" class="section level2">
-<h2>Example - multiple zones<a class="anchor" aria-label="anchor" href="#example---multiple-zones"></a>
+<div class="section level2">
+<h2 id="example---multiple-zones">Example - multiple zones<a class="anchor" aria-label="anchor" href="#example---multiple-zones"></a>
 </h2>
 <p>This example is almost identical to the previous example, except we are creating sub-fitting problems based on zones. <code><a href="reference/ml_problem.html">ml_problem()</a></code> has the <code>geo_hierarchy</code> argument, where it lets you specify a geographical hierarchy, a <code>data.frame</code> with two columns: <code>region</code> and <code>zone</code>. To put it simply, a zone can only belong to one region. The image below shows an example of that, where the orange patch is a zone that is within the green region.</p>
 <p><img src="https://user-images.githubusercontent.com/17020181/113852241-afed5580-97df-11eb-80ed-2b458e8fcbda.png"></p>
@@ -291,16 +291,16 @@
   <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">ml_fit</span>, algorithm <span class="op">=</span> <span class="st">"ipu"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">ml_replicate</span>, algorithm <span class="op">=</span> <span class="st">"trs"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="powered-by" class="section level2">
-<h2>Powered by<a class="anchor" aria-label="anchor" href="#powered-by"></a>
+<div class="section level2">
+<h2 id="powered-by">Powered by<a class="anchor" aria-label="anchor" href="#powered-by"></a>
 </h2>
 <ul>
 <li>
 <a href="https://krlmlr.github.io/grake/" class="external-link"><code>grake</code></a>: A reimplementation of generalized raking (<a href="https://amstat.tandfonline.com/doi/abs/10.1080/01621459.1992.10475217" class="external-link">Deville and Särndal, 1992</a>; <a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1993.10476369" class="external-link">Deville, Särndal and Sautory, 1993</a>)</li>
 </ul>
 </div>
-<div id="related-work" class="section level2">
-<h2>Related work<a class="anchor" aria-label="anchor" href="#related-work"></a>
+<div class="section level2">
+<h2 id="related-work">Related work<a class="anchor" aria-label="anchor" href="#related-work"></a>
 </h2>
 <ul>
 <li>
@@ -310,8 +310,8 @@
 <li>
 <a href="https://github.com/jefferislab/RANN/tree/master-L1" class="external-link"><code>RANN.L1</code></a>: k-nearest neighbors using the L1 metric</li>
 </ul>
-<div id="where-is-multilevelipf" class="section level3">
-<h3>Where is <code>MultiLeveLIPF</code>?<a class="anchor" aria-label="anchor" href="#where-is-multilevelipf"></a>
+<div class="section level3">
+<h3 id="where-is-multilevelipf">Where is <code>MultiLeveLIPF</code>?<a class="anchor" aria-label="anchor" href="#where-is-multilevelipf"></a>
 </h3>
 <p>From version <code>0.4.0</code> onwards the package is now to be known as <code>mlfit</code>. If you would like to install any version that is older than <code>0.4.0</code> please use:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -321,8 +321,8 @@
 <p>Note that, all versions prior to <code>0.4.0</code> should be used as <code>MultiLeveLIPF</code> not <code>mlfit</code>.</p>
 </div>
 </div>
-<div id="citation" class="section level2">
-<h2>Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>To cite package ‘mlfit’ in publications use:</p>
 <p>Kirill Müller and Amarin Siripanich (2021). mlfit: Iterative Proportional Fitting Algorithms for Nested Structures. <a href="https://mlfit.github.io/mlfit/" class="external-link uri">https://mlfit.github.io/mlfit/</a>, <a href="https://github.com/mlfit/mlfit" class="external-link uri">https://github.com/mlfit/mlfit</a>.</p>
@@ -334,8 +334,8 @@
 <span id="cb9-5"><a href="#cb9-5"></a>  note =<span class="st"> </span>{https<span class="op">:</span><span class="er">//</span>mlfit.github.io<span class="op">/</span>mlfit<span class="op">/</span>, https<span class="op">:</span><span class="er">//</span>github.com<span class="op">/</span>mlfit<span class="op">/</span>mlfit},</span>
 <span id="cb9-6"><a href="#cb9-6"></a>}</span></code></pre></div>
 </div>
-<div id="used-in" class="section level2">
-<h2>Used in<a class="anchor" aria-label="anchor" href="#used-in"></a>
+<div class="section level2">
+<h2 id="used-in">Used in<a class="anchor" aria-label="anchor" href="#used-in"></a>
 </h2>
 <ul>
 <li>Casati, D., Müller, K., Fourie, P. J., Erath, A., &amp; Axhausen, K. W. (2015). Synthetic population generation by combining a hierarchical, simulation-based approach with reweighting by generalized raking. Transportation Research Record, 2493(1), 107-116.</li>
@@ -344,6 +344,7 @@
 <li>Ilahi, A., &amp; Axhausen, K. W. (2018). Implementing Bayesian network and generalized raking multilevel IPF for constructing population synthesis in megacities. In 18th Swiss Transport Research Conference (STRC 2018). STRC.</li>
 <li>Ilahi, A., &amp; Axhausen, K. W. (2019). Integrating Bayesian network and generalized raking for population synthesis in Greater Jakarta. Regional Studies, Regional Science, 6(1), 623-636.</li>
 <li>Yameogo, B. F., Vandanjon, P. O., Gastineau, P., &amp; Hankach, P. (2021). Generating a two-layered synthetic population for French municipalities: Results and evaluation of four synthetic reconstruction methods. JASSS-Journal of Artificial Societies and Social Simulation, 24, 27p.</li>
+<li>Zhou, M., Li, J., Basu, R., &amp; Ferreira, J. (2022). Creating spatially-detailed heterogeneous synthetic populations for agent-based microsimulation. Computers, Environment and Urban Systems, 91, 101717.</li>
 </ul>
 </div>
 
