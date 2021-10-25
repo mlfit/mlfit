@@ -29,7 +29,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/mlfit/mlfit/">
+  <a href="https://github.com/mlfit/mlfit/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -44,7 +44,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Compute margins for a weighting of a multi-level fitting problem</h1>
-    <small class="dont-index">Source: <a href="https://github.com/mlfit/mlfit/blob/master/R/margins.R"><code>R/margins.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/mlfit/mlfit/blob/master/R/margins.R" class="external-link"><code>R/margins.R</code></a></small>
     <div class="hidden name"><code>compute_margins.Rd</code></div>
     </div>
 
@@ -56,23 +56,20 @@
 
 <span class="fu">margin_to_df</span><span class="op">(</span><span class="va">controls</span>, count <span class="op">=</span> <span class="cn">NULL</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>ml_problem</th>
-      <td><p>A fitting problem created by
-<code><a href="ml_problem.html">ml_problem()</a></code> or returned by <code><a href="flatten_ml_fit_problem.html">flatten_ml_fit_problem()</a></code>.</p></td>
-    </tr><tr><th>weights</th>
-      <td><p>A vector with one entry per row of the original reference
-sample</p></td>
-    </tr><tr><th>verbose</th>
-      <td><p>If <code>TRUE</code>, print diagnostic output.</p></td>
-    </tr><tr><th>controls</th>
-      <td><p>Margins as returned by <code>compute_margins</code> or as passed
-to the <code>controls</code> parameter of <code><a href="ml_problem.html">ml_problem()</a></code>.</p></td>
-    </tr><tr><th>count</th>
-      <td><p>Name of control total column, autodetected by default.</p></td>
-    </tr></table></div>
+    
 
+<dl><dt>ml_problem</dt><dd><p>A fitting problem created by
+<code><a href="ml_problem.html">ml_problem()</a></code> or returned by <code><a href="flatten_ml_fit_problem.html">flatten_ml_fit_problem()</a></code>.</p></dd>
+</dl><dl><dt>weights</dt><dd><p>A vector with one entry per row of the original reference
+sample</p></dd>
+</dl><dl><dt>verbose</dt><dd><p>If <code>TRUE</code>, print diagnostic output.</p></dd>
+</dl><dl><dt>controls</dt><dd><p>Margins as returned by <code>compute_margins</code> or as passed
+to the <code>controls</code> parameter of <code><a href="ml_problem.html">ml_problem()</a></code>.</p></dd>
+</dl><dl><dt>count</dt><dd><p>Name of control total column, autodetected by default.</p></dd>
+</dl></div>
     <div id="value">
     <h2>Value</h2>
     <p><code>compute_margins()</code> returns a named list with two components,
@@ -94,11 +91,12 @@ controls (i.e., as expected by the <code>controls</code> parameter of the
     <h2>See also</h2>
     <div class="dont-index"><p><code><a href="ml_fit.html">ml_fit()</a></code></p></div>
     </div>
+    </div>
 
     <div id="examples">
     <h2>Examples</h2>
     <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="toy_example.html">toy_example</a></span><span class="op">(</span><span class="st">"Tiny"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">problem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">problem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="ml_fit.html">ml_fit</a></span><span class="op">(</span>ml_problem <span class="op">=</span> <span class="va">problem</span>, algorithm <span class="op">=</span> <span class="st">"entropy_o"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">margins</span> <span class="op">&lt;-</span> <span class="fu">compute_margins</span><span class="op">(</span><span class="va">problem</span>, <span class="va">fit</span><span class="op">$</span><span class="va">weights</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">margins</span></span>

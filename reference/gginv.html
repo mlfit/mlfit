@@ -32,7 +32,7 @@ implementation for computing the singular value decomposition."><!-- mathjax -->
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/mlfit/mlfit/">
+  <a href="https://github.com/mlfit/mlfit/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -47,7 +47,7 @@ implementation for computing the singular value decomposition."><!-- mathjax -->
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Generalized Inverse of a Matrix using a custom tolerance or SVD implementation</h1>
-    <small class="dont-index">Source: <a href="https://github.com/mlfit/mlfit/blob/master/R/grake.R"><code>R/grake.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/mlfit/mlfit/blob/master/R/grake.R" class="external-link"><code>R/grake.R</code></a></small>
     <div class="hidden name"><code>gginv.Rd</code></div>
     </div>
 
@@ -58,17 +58,17 @@ fixed tolerance value and a custom
 implementation for computing the singular value decomposition.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">gginv</span><span class="op">(</span>tol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">)</span>, svd <span class="op">=</span> <span class="fu">base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/base/svd.html">svd</a></span><span class="op">)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">gginv</span><span class="op">(</span>tol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">)</span>, svd <span class="op">=</span> <span class="fu">base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/base/svd.html" class="external-link">svd</a></span><span class="op">)</span></code></pre></div>
 
+    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>tol</th>
-      <td><p>A relative tolerance to detect zero singular values.</p></td>
-    </tr><tr><th>svd</th>
-      <td><p>A function that computes the singular value decomposition of a
-matrix</p></td>
-    </tr></table></div>
+    
 
+<dl><dt>tol</dt><dd><p>A relative tolerance to detect zero singular values.</p></dd>
+</dl><dl><dt>svd</dt><dd><p>A function that computes the singular value decomposition of a
+matrix</p></dd>
+</dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>A function that accepts one argument <code>X</code> that computes a MP
@@ -77,17 +77,18 @@ generalized inverse matrix for it.</p>
     <div id="details">
     <h2>Details</h2>
     <p>The <code>svd</code> argument is expected to adhere to the interface of
-<code><a href="https://rdrr.io/r/base/svd.html">base::svd()</a></code>. It will be called as <code>svd(x)</code> (with the
+<code><a href="https://rdrr.io/r/base/svd.html" class="external-link">base::svd()</a></code>. It will be called as <code>svd(x)</code> (with the
 <code>nu</code> and <code>nv</code> arguments unset) and is expected to return a named
 list with components <code>d</code>, <code>u</code> and <code>v</code>.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="https://rdrr.io/pkg/MASS/man/ginv.html">MASS::ginv()</a></code>, <code><a href="https://rdrr.io/r/base/svd.html">base::svd()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="https://rdrr.io/pkg/MASS/man/ginv.html" class="external-link">MASS::ginv()</a></code>, <code><a href="https://rdrr.io/r/base/svd.html" class="external-link">base::svd()</a></code></p></div>
     </div>
     <div id="author">
     <h2>Author</h2>
     <p>Adapted implementation from the <code>MASS</code> package.</p>
+    </div>
     </div>
 
   </div>
