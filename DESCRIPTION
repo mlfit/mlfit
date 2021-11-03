@@ -62,7 +62,13 @@ Suggests:
     MASS,
     sampling,
     XML,
-    waldo
+    waldo,
+    tidycensus,
+    sf,
+    tidyr,
+    ggplot2,
+    purrr,
+    janitor
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
