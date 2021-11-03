@@ -1,0 +1,299 @@
+---
+title: "Get started with `mlfit`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{get-started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  cache = TRUE,
+  message = FALSE
+)
+options(tigris_use_cache = TRUE)
+```
+
+```{r}
+library(mlfit)
+```
+
+{mlfit} provides various multi-level fitting algorithms that can be used to calibrate the unit record weights of a population sample to match its population constraints at both individual and group levels under one interface, `mlfit::ml_fit()`. This vignette provides a use case of the package.
+
+In this get started vignette, we are going to recreate a population, also known as 'synthetic population', from a small sample of the actual population that has its aggregate characteristics closely match its observed population aggregate constraints/controls.
+
+In transportation, researchers use Iterative Proportional Fitting (IPF) for recreating a population from microdata and its totals.
+
+> **microdata** refers to unit-record data of a population. Note that, in the {mlfit} documentation, we often refer to microdata as reference sample.
+
+> A **control total** is an aggregate statistic of one or more population's characteristics.
+
+To give a taste of such exercise, we are going to illustrate it on real US population data from US Census bureau in this example. Lucky for R users, the [{tidycensus}](https://walker-data.com/tidycensus/) package provides an easy-to-use interface to retrieve various US census datasets, and to use {tidycensus} you will need to acquire an API key as instructed [here](https://walker-data.com/tidycensus/articles/basic-usage.html).
+
+```{r setup}
+library(mlfit)
+library(tidycensus)
+library(dplyr)
+library(purrr)
+library(sf)
+library(tidyr)
+library(ggplot2)
+library(janitor)
+```
+
+## Hierachy of census geographic entities
+
+![<https://s3.amazonaws.com/libapps/accounts/8775/images/Census_geo_hierarchy.png>](https://s3.amazonaws.com/libapps/accounts/8775/images/Census_geo_hierarchy.png)
+
+Here is the relationship file: <https://www.census.gov/geographies/reference-files/time-series/geo/relationship-files.2010.html>
+
+## Load census data
+
+Control tables - Age x Sex - Household size x Household type - Marital status
+
+```{r}
+variables_dict <- 
+  load_variables(2018, "acs5") %>%
+  dplyr::filter(grepl("^SEX BY AGE$|^HOUSEHOLD TYPE BY HOUSEHOLD SIZE|^SEX BY MARITAL STATUS BY AGE FOR THE POPULATION 15 YEARS AND OVER$", concept, ignore.case = TRUE)) %>%
+  dplyr::mutate(label = gsub("Estimate!!Total!!", "", label))
+
+selected_variables <- variables_dict$name
+names(selected_variables) <- paste(variables_dict$concept, variables_dict$label, sep = "!!") 
+```
+
+```{r, results='hide'}
+census_tract <- get_acs(
+  geography = "tract", 
+  variables = selected_variables,
+  state = "IL", 
+  county = 1:5,
+  geometry = TRUE,
+  year = 2018,
+  keep_geo_vars = TRUE
+) %>%
+  dplyr::select(COUNTYFP, TRACTCE, variable, estimate) %>%
+  dplyr::mutate(
+    TRACTCE = as.numeric(TRACTCE), 
+    COUNTYFP = as.numeric(COUNTYFP)
+  )
+```
+
+```{r}
+control_totals <- census_tract %>%
+  sf::st_drop_geometry() %>%
+  dplyr::mutate(
+    concept = gsub("!!.*", "", variable)
+  ) %>%
+  group_split(concept) %>%
+  map(.f = ~ {
+    concept_name <- dplyr::pull(.x, concept)[[1]]
+    cnames <- 
+      concept_name %>% 
+      strsplit("BY") %>% 
+      unlist(recursive = TRUE) %>%
+      janitor::make_clean_names()
+    out <- tidyr::separate(.x, col = variable, into = c("concept", cnames), sep = "!!") %>%
+      dplyr::select(-concept) %>%
+      tidyr::drop_na()
+    out[rowSums(out == "Total") == 0, ] # remove rows that contain 'Total'
+  })
+
+household_controls_idx <- 1
+individual_controls_idx <- 2
+```
+
+Create a geographical corresponding table between PUMA and Tract.
+
+```{r, results="hide"}
+census_puma <- get_acs(
+  geography = "public use microdata area", 
+  variables = "B19013_001", # This can be any variable, since we won't be using it as a control variable
+  state = "IL", 
+  geometry = TRUE,
+  year = 2018,
+  keep_geo_vars = TRUE
+)
+
+census_to_puma_correspondence <- 
+  read.csv("https://www2.census.gov/geo/docs/maps-data/data/rel/2010_Census_Tract_to_2010_PUMA.txt") %>%
+  as_tibble() %>%
+  dplyr::filter(STATEFP == "17") %>% # only IL
+  dplyr::filter(PUMA5CE %in% (dplyr::pull(census_puma, PUMACE10) %>% unique() %>% as.numeric())) %>%
+  dplyr::rename(PUMA = "PUMA5CE") 
+```
+
+Let's plot them together
+
+```{r}
+ct <- census_tract %>%
+  group_by(TRACTCE) %>%
+  slice_head(n = 1) %>%
+  ungroup()
+
+cp <- census_puma %>%
+  group_by(PUMACE10) %>%
+  slice_head(n = 1) %>%
+  ungroup()
+
+ggplot() +
+  geom_sf(data = cp, aes(fill = "puma")) +
+  geom_sf(data = ct, aes(fill = "tract"), color = "white") +
+  theme_void() +
+  scale_fill_manual(values = c("puma" = "grey90", "tract" = "steelblue")) +
+  labs(colour = "Zonal level")
+```
+
+## Load microdata
+
+See here for variable definitions: <https://www2.census.gov/programs-surveys/acs/tech_docs/pums/data_dict/PUMS_Data_Dictionary_2018.pdf>
+
+```{r}
+pums_vars_2018 <- pums_variables %>% 
+  filter(year == 2018, survey == "acs5")
+
+pums_dict <- pums_vars_2018 %>% 
+  distinct(var_code, var_label, data_type, level)
+```
+
+```{r, results='hide'}
+pums <- get_pums(
+  variables = c("PUMA", "SEX", "AGEP", "MAR", "HHT", "NP"),
+  state = "IL",
+  survey = "acs1",
+  year = 2018,
+  recode = TRUE
+) %>%
+  dplyr::mutate(PUMA = as.numeric(PUMA))
+
+# remove the unlabelled columns
+cols_with_label <- 
+  names(pums)[grepl("_label$", names(pums))] %>%
+  gsub("_label", "", .)
+
+pums <- pums %>%
+  select(-cols_with_label)
+
+# remove '_label' suffix
+names(pums) <- gsub("_label", "", names(pums))
+
+# add more meaningful column names
+pums <- pums %>%
+  dplyr::rename(
+    age = "AGEP",
+    sex = "SEX",
+    marital_status = "MAR",
+    household_size = "NP",
+    household_type = "HHT"
+  )
+
+# categorise household size and relevel household type
+pums <- pums %>%
+  mutate(
+    household_size = ifelse(household_size >= 7,
+      "7-or-more person household",
+      paste0(household_size, "-person household")
+    ),
+    household_type = ifelse(grepl("Nonfamily", household_type, ignore.case = TRUE), 
+      "Nonfamily households",
+      "Family households"
+    ),
+    pid = 1:n() # add individual id
+  ) %>%
+  dplyr::mutate(across(where(is.factor), as.character))
+```
+
+## Create a fitting problem
+
+```{r}
+zone_ids <- 
+  census_tract %>%
+  sf::st_drop_geometry() %>%
+  distinct(COUNTYFP, TRACTCE)
+
+simple_ind_control <- control_totals[[individual_controls_idx]] %>%
+  dplyr::group_by(COUNTYFP, TRACTCE, sex) %>%
+  dplyr::summarise(count = sum(estimate)) %>%
+  dplyr::ungroup()
+
+simple_hh_control <-
+  control_totals[[household_controls_idx]] %>%
+  dplyr::rename(count = "estimate")
+
+fitting_problems <-
+  map2(zone_ids$COUNTYFP, zone_ids$TRACTCE, ~ {
+    puma_of_tract <- census_to_puma_correspondence %>%
+      dplyr::filter(COUNTYFP == .x & TRACTCE == .y) %>%
+      dplyr::pull(PUMA)
+    message("COUNTYFP: ", .x, ", TRACTCE: ", .y)
+    message("-> Selecting from PUMA: ", puma_of_tract)
+    ref_sample <- pums %>% dplyr::filter(PUMA == puma_of_tract)
+    ind_ctrl <- simple_ind_control %>% 
+      dplyr::filter(COUNTYFP == .x & TRACTCE == .y) %>%
+      dplyr::select(-COUNTYFP, -TRACTCE)
+    hh_ctrl <- simple_hh_control %>% 
+      dplyr::filter(COUNTYFP == .x & TRACTCE == .y) %>%
+      dplyr::select(-COUNTYFP, -TRACTCE)
+    ml_problem(
+      ref_sample = ref_sample,
+      controls = list(
+        individual = list(ind_ctrl),
+        group = list(hh_ctrl)
+      ),
+      field_names = special_field_names(
+        groupId = "SERIALNO", 
+        individualId = "pid", 
+        count = "count"
+      )
+    )
+  })
+```
+
+```{r}
+puma_of_tract <- merge(census_to_puma_correspondence, zone_ids, by = c("COUNTYFP", "TRACTCE"))
+
+pums_tract <-
+  merge(pums, puma_of_tract, by = "PUMA", all.x = FALSE)
+
+problems <- ml_problem(
+  ref_sample = pums_tract,
+      controls = list(
+        individual = list(simple_ind_control),
+        group = list(simple_hh_control)
+      ),
+      field_names = special_field_names(
+        groupId = "SERIALNO", 
+        individualId = "pid", 
+        count = "count",
+        zone = "TRACTCE",
+        region  = "COUNTYFP"
+      )
+    ,
+  geo_hierarchy = zone_ids
+)
+```
+
+## Fit the fitting problem
+
+```{r, warning=FALSE}
+fits <- map(fitting_problems, ~ ml_fit(.x, algorithm = "ipu"))
+```
+
+The results below are the outputs of the first two fitting problems we performed above.
+
+```{r}
+head(fits, n = 2)
+```
+
+## Evaluate the fit
+
+## Replicate the reference sample using the fitted weights
+
+```{r}
+replicates <- map(fits, ~ ml_replicate(.x, algorithm = "trs"))
+head(replicates, n = 2)
+```
+
+## Evaluate the synthetic populations
