@@ -48,7 +48,7 @@ g-weights with the initial sample weights."><!-- mathjax --><script src="https:/
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calibrate sample weights</h1>
-    <small class="dont-index">Source: <a href="https://github.com/mlfit/mlfit/blob/master/R/grake.R" class="external-link"><code>R/grake.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/mlfit/mlfit/blob/HEAD/R/grake.R" class="external-link"><code>R/grake.R</code></a></small>
     <div class="hidden name"><code>dss.Rd</code></div>
     </div>
 
@@ -60,7 +60,8 @@ The final sample weights need to be computed by multiplying the resulting
 <em>g</em>-weights with the initial sample weights.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">dss</span><span class="op">(</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dss</span><span class="op">(</span>
   <span class="va">X</span>,
   <span class="va">d</span>,
   <span class="va">totals</span>,
@@ -72,38 +73,46 @@ The final sample weights need to be computed by multiplying the resulting
   tol <span class="op">=</span> <span class="fl">1e-06</span>,
   attributes <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    
-
-<dl><dt>X</dt><dd><p>a matrix of calibration variables.</p></dd>
-</dl><dl><dt>d</dt><dd><p>a numeric vector giving the initial sample (or design) weights.</p></dd>
-</dl><dl><dt>totals</dt><dd><p>a numeric vector of population totals corresponding to the
+    <dl><dt>X</dt>
+<dd><p>a matrix of calibration variables.</p></dd>
+<dt>d</dt>
+<dd><p>a numeric vector giving the initial sample (or design) weights.</p></dd>
+<dt>totals</dt>
+<dd><p>a numeric vector of population totals corresponding to the
 calibration variables in <code>X</code>.</p></dd>
-</dl><dl><dt>q</dt><dd><p>a numeric vector of positive values accounting for
+<dt>q</dt>
+<dd><p>a numeric vector of positive values accounting for
 heteroscedasticity.  Small values reduce the variation of the
 <em>g</em>-weights.</p></dd>
-</dl><dl><dt>method</dt><dd><p>a character string specifying the calibration method to be
+<dt>method</dt>
+<dd><p>a character string specifying the calibration method to be
 used.  Possible values are <code>"linear"</code> for the linear method,
 <code>"raking"</code> for the multiplicative method known as raking and
 <code>"logit"</code> for the logit method.</p></dd>
-</dl><dl><dt>bounds</dt><dd><p>a numeric vector of length two giving bounds for the g-weights
+<dt>bounds</dt>
+<dd><p>a numeric vector of length two giving bounds for the g-weights
 to be used in the logit method.  The first value gives the lower bound (which
 must be smaller than or equal to 1) and the second value gives the upper
 bound (which must be larger than or equal to 1).  If <code>NULL</code>, the
 bounds are set to <code>c(0, 10)</code>.</p></dd>
-</dl><dl><dt>maxit</dt><dd><p>a numeric value giving the maximum number of iterations.</p></dd>
-</dl><dl><dt>ginv</dt><dd><p>a function that computes the Moore-Penrose generalized
+<dt>maxit</dt>
+<dd><p>a numeric value giving the maximum number of iterations.</p></dd>
+<dt>ginv</dt>
+<dd><p>a function that computes the Moore-Penrose generalized
 inverse (default: an optimized version of <code><a href="https://rdrr.io/pkg/MASS/man/ginv.html" class="external-link">MASS::ginv()</a></code>). In
 some cases it is possible to speed up the process by using
 a function that computes a "regular" matrix inverse such as
 <code>{solve.default}</code>.</p></dd>
-</dl><dl><dt>tol</dt><dd><p>relative tolerance; convergence is achieved if the difference of
+<dt>tol</dt>
+<dd><p>relative tolerance; convergence is achieved if the difference of
 all residuals (relative to the corresponding total) is smaller than this
 tolerance.</p></dd>
-</dl><dl><dt>attributes</dt><dd><p>should additional attributes (currently
+<dt>attributes</dt>
+<dd><p>should additional attributes (currently
 <code>success</code>, <code>iterations</code>, <code>method</code> and <code>bounds</code>)
 be added to the result? If <code>FALSE</code> (default), a warning is given
 if convergence within the given relative tolerance could not be achieved.</p></dd>
@@ -132,11 +141,10 @@ American Statistical Association</em>, <strong>88</strong>(423), 1013--1020.</p>
     <h2>Author</h2>
     <p>Andreas Alfons, with improvements by Kirill Müller</p>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">obs</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">obs</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span>
 <span class="r-in"><span class="va">vars</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
 <span class="r-in"><span class="va">Xs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">obs</span> <span class="op">*</span> <span class="va">vars</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="va">obs</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">obs</span><span class="op">)</span> <span class="op">/</span> <span class="va">obs</span></span>
@@ -157,7 +165,7 @@ American Statistical Association</em>, <strong>88</strong>(423), 1013--1020.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
 </div>
 
       </footer></div>

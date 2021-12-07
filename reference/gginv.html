@@ -47,7 +47,7 @@ implementation for computing the singular value decomposition."><!-- mathjax -->
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Generalized Inverse of a Matrix using a custom tolerance or SVD implementation</h1>
-    <small class="dont-index">Source: <a href="https://github.com/mlfit/mlfit/blob/master/R/grake.R" class="external-link"><code>R/grake.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/mlfit/mlfit/blob/HEAD/R/grake.R" class="external-link"><code>R/grake.R</code></a></small>
     <div class="hidden name"><code>gginv.Rd</code></div>
     </div>
 
@@ -58,15 +58,16 @@ fixed tolerance value and a custom
 implementation for computing the singular value decomposition.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">gginv</span><span class="op">(</span>tol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">)</span>, svd <span class="op">=</span> <span class="fu">base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/base/svd.html" class="external-link">svd</a></span><span class="op">)</span></code></pre></div>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">gginv</span><span class="op">(</span>tol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">)</span>, svd <span class="op">=</span> <span class="fu">base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/base/svd.html" class="external-link">svd</a></span><span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
-    
-
-<dl><dt>tol</dt><dd><p>A relative tolerance to detect zero singular values.</p></dd>
-</dl><dl><dt>svd</dt><dd><p>A function that computes the singular value decomposition of a
+    <dl><dt>tol</dt>
+<dd><p>A relative tolerance to detect zero singular values.</p></dd>
+<dt>svd</dt>
+<dd><p>A function that computes the singular value decomposition of a
 matrix</p></dd>
 </dl></div>
     <div id="value">
@@ -89,7 +90,6 @@ list with components <code>d</code>, <code>u</code> and <code>v</code>.</p>
     <h2>Author</h2>
     <p>Adapted implementation from the <code>MASS</code> package.</p>
     </div>
-    </div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -103,7 +103,7 @@ list with components <code>d</code>, <code>u</code> and <code>v</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
 </div>
 
       </footer></div>
