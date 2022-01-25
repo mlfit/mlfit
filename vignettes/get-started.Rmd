@@ -24,8 +24,6 @@ knitr::opts_chunk$set(
   fig.height = 5
 )
 options(tigris_use_cache = TRUE)
-
-# CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
 ```
 
 {mlfit} provides various multi-level fitting algorithms that can be used to adjust the weights of a sample of a population to match individual-level and group-level exogenous marginal totals under a single interface, `mlfit::ml_fit()`.
