@@ -68,7 +68,7 @@ Suggests:
     tidyr,
     ggplot2,
     purrr,
-    janitor,
+    mapview,
     knitr,
     rmarkdown
 Encoding: UTF-8
