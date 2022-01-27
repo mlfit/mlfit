@@ -39,6 +39,7 @@ library(dplyr)
 library(tidyr)
 library(purrr)
 library(mapview)
+library(ggplot2)
 ```
 
 Generally, for confidentiality reasons, reference samples are from a higher level geography than their control totals.
