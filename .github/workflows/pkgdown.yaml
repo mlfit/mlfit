@@ -11,6 +11,8 @@ name: pkgdown
 
 jobs:
   pkgdown:
+    env:
+      CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
     runs-on: ubuntu-latest
 
     name: "pkgdown"
