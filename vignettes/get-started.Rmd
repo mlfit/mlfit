@@ -90,7 +90,7 @@ mapview(list(puma_sf, tract_sf))
 Our study region is Chicago City (Central) Illinois, USA, which has `r nrow(tract_sf)` Census tracts within it.
 A corresponding table between **P**ublic **U**se **M**icrodata **A**reas (**PUMA**) and Census tracts (TRACTCE) will allow us to link the microdata with the control tables.
 
-# Prepare reference sample
+# Prepare a reference sample
 
 See here for variable definitions: <https://www2.census.gov/programs-surveys/acs/tech_docs/pums/data_dict/PUMS_Data_Dictionary_2018.pdf>
 
@@ -100,6 +100,11 @@ You can lookup the PUMS variables from `tidycensus::pums_variables`.
 pums_dict_2018 <- pums_variables %>% 
   filter(year == 2018, survey == "acs1") %>%
   distinct(var_code, var_label, data_type, level)
+```
+
+Next, we download the microdata which we are going to use as our reference sample.
+
+```{r}
 
 pums_raw <- get_pums(
   variables = c("SEX", "AGEP", "MAR", "HHT", "NP"),
@@ -109,7 +114,10 @@ pums_raw <- get_pums(
   year = 2018,
   recode = TRUE
 ) 
+```
 
+
+```{r}
 # prepare to remove the unlabelled columns of the labelled columns.
 # e.g., For MAR and MAR_label, MAR will be removed. 
 cols_with_label <- 
@@ -345,3 +353,5 @@ head(replicates, n = 2)
 ```
 
 # Evaluate the synthetic population
+
+# References
