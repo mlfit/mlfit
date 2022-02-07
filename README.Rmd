@@ -229,10 +229,19 @@ fitting_problems <- ml_problem(
     individual_controls = list(ind_ctrl),
     geo_hierarchy = geo_hierarchy
   )
+```
 
-fits <- fitting_problems %>%
-  lapply(ml_fit, algorithm = "ipu") %>%
-  lapply(ml_replicate, algorithm = "trs")
+```{r fitted}
+fitted_problems <- lapply(fitting_problems, ml_fit, algorithm = "ipu")
+```
+
+```{r evaluate}
+lapply(fitted_problems, ml_evaluate) %>%
+  dplyr::bind_rows()
+```
+
+```{r replicate}
+lapply(fitted_problems, ml_replicate, algorithm = "trs")
 ```
 
 ## Powered by

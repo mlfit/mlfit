@@ -79,7 +79,7 @@ new_timed_message <- function() {
   }
 }
 
-get_algo <- function(x) {
+get_ml_fit_algo <- function(x) {
   other_classes <- grep("^ml_fit_", class(x), value = TRUE)
   if (length(other_classes) == 0L) {
     "(unknown)"
@@ -176,7 +176,7 @@ is_ml_fit <- make_is("ml_fit")
 format.ml_fit <- function(x, ...) {
   c(
     "An object of class ml_fit",
-    "  Algorithm: " %+% get_algo(x),
+    "  Algorithm: " %+% get_ml_fit_algo(x),
     "  Success: " %+% x$success,
     "  Residuals (absolute): min = " %+% format(min(x$residuals), ...) %+%
       ", max = " %+% format(max(x$residuals), ...),
