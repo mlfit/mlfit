@@ -70,7 +70,7 @@ compute_pe <- function(actual, predicted) {
 
 #' Total sum of squares
 compute_tss <- function(x) {
-    sum((x - mean(x)^2))
+    sum((x - mean(x))^2)
 }
 
 #' R-squared
