@@ -1,14 +1,19 @@
 #' Integerise fitted weights
 #'
 #' @description
-#' This function adds integerised fitted weights to the input
-#' `ml_fit` object.
+#' This function integerise the fitted weights of a `ml_fit` object.
 #'
 #' @param ml_fit A `ml_fit` object created by the [ml_fit()] family.
+#' @param verbose If `TRUE`, print diagnostic output.
 #' @param algorithm Replication algorithm to use. "trs" is
 #'  the 'Truncate, replicate, sample' integerisation algorithm proposed
 #'  by Lovelace et al. (2013), "pp" is weighted sampling with
 #'  replacement, and "round" is just simple rounding.
+#' 
+#' @references
+#'      Lovelace, R., & Ballas, D. (2013). ‘Truncate, replicate, sample’:
+#'          A method for creating integer weights for spatial microsimulation.
+#'          Computers, Environment and Urban Systems, 41, 1-11.
 #'
 #' @return `ml_fit` object with a new `int_weights` field which contains
 #'  an integer vector of integerised weights. The new weights correspond
@@ -17,15 +22,13 @@
 #' @export
 #'
 #' @examples
-#'
 #' path <- toy_example("Tiny")
 #' fit <- ml_fit(ml_problem = readRDS(path), algorithm = "entropy_o")
 #' ml_integerise(fit, algorithm = "trs")
-ml_integerise <- function(ml_fit, algorithm = c("pp", "trs", "round"), as_individual_weights = FALSE, verbose = FALSE) {
+ml_integerise <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE) {
     .patch_verbose()
     message("Integerising the fitted weights")
     stopifnot(is_ml_fit(ml_fit))
-    stopifnot(is.logical(as_individual_weights))
     algorithm <- match.arg(algorithm)
     int_weights <- .get_int_fnc(algorithm)(weights = ml_fit$flat_weights)
     group_id <- ml_fit$flat$ml_problem$fieldNames$groupId
