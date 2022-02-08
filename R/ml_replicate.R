@@ -1,19 +1,16 @@
 #' Replicate records in a reference sample based on its fitted weights
 #'
 #' @description
-#' This function replicates each entry in a reference sample based on its fitted
-#' weights. This is useful if the result of multiple replication algorithms
-#' are compared to each other, or to generate a full synthetic population
-#' based on the result of a `ml_fit` object. Note that, all individual
-#' and group ids of the synthetic population are not the same as those in
-#' the original reference sample, and the total number of groups replicated
-#' is always very close to or equal the sum of the fitted group weights.
+#' This function replicates each entry in a reference sample based on its 
+#' integerised fitted weights. This is useful for generating a full 
+#' synthetic population based on the result of a `ml_fit` object. 
+#' 
+#' Note that, all individual and group ids of the synthetic population are
+#' not the same as those in the original reference sample, and the total 
+#' number of groups replicated is always very close to or equal the sum 
+#' of the fitted group weights.
 #'
 #' @param ml_fit A `ml_fit` object created by the [ml_fit()] family.
-#' @param algorithm Replication algorithm to use. "trs" is
-#'  the 'Truncate, replicate, sample' integerisation algorithm proposed
-#'  by Lovelace et al. (2013), "pp" is weighted sampling with
-#'  replacement, and "round" is just simple rounding.
 #' @param verbose If `TRUE`, print diagnostic output.
 #' @param .keep_original_ids If `TRUE`, the original individual and group
 #'  ids of the reference sample will be kept with suffix '_old'.
@@ -29,36 +26,24 @@
 #' @export
 #' @examples
 #' path <- toy_example("Tiny")
-#' fit <- ml_fit(ml_problem = readRDS(path), algorithm = "entropy_o")
-#' syn_pop <- ml_replicate(fit, algorithm = "trs")
+#' fit <- ml_fit(ml_problem = readRDS(path), algorithm = "entropy_o") %>%
+#'  ml_integerise(algorithm = "trs")
+#' syn_pop <- ml_replicate(fit)
 #' syn_pop
-ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = FALSE, .keep_original_ids = FALSE) {
+ml_replicate <- function(ml_fit, verbose = FALSE, .keep_original_ids = FALSE) {
   .patch_verbose()
+  stopifnot(is_ml_fit(ml_fit))
 
-  algorithm <- match.arg(algorithm)
-
-  message("Replicate using '", algorithm, "' algorithm")
-  group_id <- ml_fit$flat$ml_problem$fieldNames$groupId
-  count_col <- ml_fit$flat$ml_problem$fieldNames$count
-
-  message("Extracting fitted weights of each group")
-  number_of_persons_in_each_group <-
-    ml_fit$flat$ml_problem$refSample[[group_id]] %>%
-    table() %>%
-    as.integer()
-  weights <-
-    ml_fit$flat_weights
-
-  message("Integerising the fitted weights")
-  integerised_weights <- .get_int_fnc(algorithm)(weights = weights)
+  if (is.null(ml_fit$int_weights)) {
+    stop("There are no integerised weights in the input `ml_fit` object. ",
+      "Please use `ml_integerise()` to integerise the fitted weights before calling this function.")
+  }
 
   message("Duplicating the reference sample")
-  ind_integerised_weights <-
-    rep(integerised_weights, number_of_persons_in_each_group)
   replications <-
     rep(
       seq_len(nrow(ml_fit$flat$ml_problem$refSample)),
-      ind_integerised_weights
+      ml_fit$int_weights
     )
   replicated_ref_sample <-
     dplyr::slice(ml_fit$flat$ml_problem$refSample, replications) %>%
@@ -97,39 +82,4 @@ ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = 
   message("Done!")
   tmp_cols <- grepl("^\\.\\.(.*)\\.\\.$", names(replicated_ref_sample))
   replicated_ref_sample[, !tmp_cols]
-}
-
-.get_int_fnc <- function(algorithm) {
-  getFromNamespace(sprintf("int_%s", algorithm),
-    envir = as.environment("package:mlfit")
-  )
-}
-
-int_trs <- function(weights) {
-  truncated <- trunc(weights)
-  remainders <- weights - truncated
-  deficit <- round(sum(weights) - sum(truncated))
-  if (deficit != 0) {
-    sampled_indexes <-
-      sample_int_crank(length(weights),
-        size = deficit,
-        prob = remainders
-      )
-    truncated[sampled_indexes] <-
-      truncated[sampled_indexes] + 1L
-  }
-  truncated
-}
-
-int_pp <- function(weights) {
-  sample(
-    length(weights),
-    size = round(sum(weights)),
-    prob = weights,
-    replace = T
-  ) %>% tabulate(nbins = length(weights))
-}
-
-int_round <- function(weights) {
-  round(weights)
 }
