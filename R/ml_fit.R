@@ -79,7 +79,7 @@ new_timed_message <- function() {
   }
 }
 
-get_algo <- function(x) {
+get_ml_fit_algo <- function(x) {
   other_classes <- grep("^ml_fit_", class(x), value = TRUE)
   if (length(other_classes) == 0L) {
     "(unknown)"
@@ -174,12 +174,22 @@ is_ml_fit <- make_is("ml_fit")
 #' @rdname ml_fit
 #' @export
 format.ml_fit <- function(x, ...) {
+  if (!is.null(x$int_weights)) {
+    int_msg <- c(
+      "  Integerisation algorithm: " %+% get_ml_integerise_algo(x),
+      "    Relative diff. to fitted weights: " %+% round(compute_pe(sum(x$weights), sum(x$int_weights)) * 100, 2) %+% " %"
+    )
+  } else {
+    int_msg <- NULL
+  }
+
   c(
     "An object of class ml_fit",
-    "  Algorithm: " %+% get_algo(x),
+    "  Fitting algorithm: " %+% get_ml_fit_algo(x),
     "  Success: " %+% x$success,
     "  Residuals (absolute): min = " %+% format(min(x$residuals), ...) %+%
       ", max = " %+% format(max(x$residuals), ...),
+    int_msg,
     "  Flat problem:",
     "  " %+% format(x$flat)
   )

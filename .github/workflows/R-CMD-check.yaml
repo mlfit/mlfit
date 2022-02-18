@@ -24,6 +24,8 @@ name: rcc
 
 jobs:
   rcc-smoke:
+    env:
+      CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
     runs-on: ubuntu-latest
     outputs:
       sha: ${{ steps.commit.outputs.sha }}

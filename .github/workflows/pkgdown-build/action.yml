@@ -4,6 +4,8 @@ runs:
   using: "composite"
   steps:
     - name: Build site
+      env:
+        CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
       run: |
         pkgdown::build_site()
       shell: Rscript {0}

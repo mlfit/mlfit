@@ -41,6 +41,12 @@ Or the development version from GitHub:
 devtools::install_github("mlfit/mlfit")
 ```
 
+## `mlfit`'s Workflow
+
+The figure below shows the `mlfit` workflow.
+
+(to be added)
+
 ## Example - single zone
 
 Here is a multi-level fitting example with a reference sample (`reference_sample`) and two control tables (`individual_control` and `group_control`). Each row of `reference_sample` represents an individual in a sample of a population, where `HHNR` is their group ID and `PNR` is their individual ID, `APER` and `WKSTAT` are individial-level charateristics, and `CAR` is the only household characteristic of the sample population. The 'N' columns in both control tables denote how many units of individuals or groups belong to each category.
@@ -114,10 +120,25 @@ fit <- ml_fit(ml_problem = fitting_problem, algorithm = "ipu")
 fit
 ```
 
-`mlfit` also provides a function that helps to replicate the reference sample based on the fitted/calibrated weights. See `?ml_replicate` to find out which integerisation algorithms are available.
+Since the fitted weights contain decimals, we need to integerise them in order to generate a synthetic population because it wouldn't make sense to create half a person.
+The package provides `ml_integerise()` to help you with this task.
+`ml_integerise()` returns a `ml_fit` object with a field that contains integerised weights.
 
 ```{r}
-syn_pop <- ml_replicate(fit, algorithm = "trs")
+int_fit <- ml_integerise(fit, algorithm = "trs")
+int_fit
+```
+
+You can use `ml_evaluate()` to access the fit and the integerised fitted weights across different matrices such as the G statistic, sum of squared errors, standardised root mean squared errors, and R2.
+
+```{r}
+dplyr::bind_rows(ml_evaluate(fit), ml_evaluate(int_fit))
+```
+
+Lastly, `ml_replicate()`, as its name suggests, helps to replicate the reference sample based on the integerised weights.
+
+```{r}
+syn_pop <- ml_replicate(int_fit)
 syn_pop
 ```
 
@@ -134,81 +155,81 @@ When `geo_hierarchy` is validly specified, `ml_problem()` would return a list of
 ```{r}
 ref_sample <- tibble::tribble(
   ~HHNR, ~PNR, ~APER, ~HH_VAR, ~P_VAR, ~REGION,
-      1,    1,     3,       1,      1,       1,
-      1,    2,     3,       1,      2,       1,
-      1,    3,     3,       1,      3,       1,
-      2,    4,     2,       1,      1,       1,
-      2,    5,     2,       1,      3,       1,
-      3,    6,     3,       1,      1,       1,
-      3,    7,     3,       1,      1,       1,
-      3,    8,     3,       1,      2,       1,
-      4,    9,     3,       2,      1,       1,
-      4,   10,     3,       2,      3,       1,
-      4,   11,     3,       2,      3,       1,
-      5,   12,     3,       2,      2,       1,
-      5,   13,     3,       2,      2,       1,
-      5,   14,     3,       2,      3,       1,
-      6,   15,     2,       2,      1,       1,
-      6,   16,     2,       2,      2,       1,
-      7,   17,     5,       2,      1,       1,
-      7,   18,     5,       2,      1,       1,
-      7,   19,     5,       2,      2,       1,
-      7,   20,     5,       2,      3,       1,
-      7,   21,     5,       2,      3,       1,
-      8,   22,     2,       2,      1,       1,
-      8,   23,     2,       2,      2,       1,
-      9,   24,     3,       1,      1,       2,
-      9,   25,     3,       1,      2,       2,
-      9,   26,     3,       1,      3,       2,
-     10,   27,     2,       1,      1,       2,
-     10,   28,     2,       1,      3,       2,
-     11,   29,     3,       1,      1,       2,
-     11,   30,     3,       1,      1,       2,
-     11,   31,     3,       1,      2,       2,
-     12,   32,     3,       2,      1,       2,
-     12,   33,     3,       2,      3,       2,
-     12,   34,     3,       2,      3,       2,
-     13,   35,     3,       2,      2,       2,
-     13,   36,     3,       2,      2,       2,
-     13,   37,     3,       2,      3,       2,
-     14,   38,     2,       2,      1,       2,
-     14,   39,     2,       2,      2,       2,
-     15,   40,     5,       2,      1,       2,
-     15,   41,     5,       2,      1,       2,
-     15,   42,     5,       2,      2,       2,
-     15,   43,     5,       2,      3,       2,
-     15,   44,     5,       2,      3,       2,
-     16,   45,     2,       2,      1,       2,
-     16,   46,     2,       2,      2,       2
+      1,    1,     3,       "1",      "1",       1,
+      1,    2,     3,       "1",      "2",       1,
+      1,    3,     3,       "1",      "3",       1,
+      2,    4,     2,       "1",      "1",       1,
+      2,    5,     2,       "1",      "3",       1,
+      3,    6,     3,       "1",      "1",       1,
+      3,    7,     3,       "1",      "1",       1,
+      3,    8,     3,       "1",      "2",       1,
+      4,    9,     3,       "2",      "1",       1,
+      4,   10,     3,       "2",      "3",       1,
+      4,   11,     3,       "2",      "3",       1,
+      5,   12,     3,       "2",      "2",       1,
+      5,   13,     3,       "2",      "2",       1,
+      5,   14,     3,       "2",      "3",       1,
+      6,   15,     2,       "2",      "1",       1,
+      6,   16,     2,       "2",      "2",       1,
+      7,   17,     5,       "2",      "1",       1,
+      7,   18,     5,       "2",      "1",       1,
+      7,   19,     5,       "2",      "2",       1,
+      7,   20,     5,       "2",      "3",       1,
+      7,   21,     5,       "2",      "3",       1,
+      8,   22,     2,       "2",      "1",       1,
+      8,   23,     2,       "2",      "2",       1,
+      9,   24,     3,       "1",      "1",       2,
+      9,   25,     3,       "1",      "2",       2,
+      9,   26,     3,       "1",      "3",       2,
+     10,   27,     2,       "1",      "1",       2,
+     10,   28,     2,       "1",      "3",       2,
+     11,   29,     3,       "1",      "1",       2,
+     11,   30,     3,       "1",      "1",       2,
+     11,   31,     3,       "1",      "2",       2,
+     12,   32,     3,       "2",      "1",       2,
+     12,   33,     3,       "2",      "3",       2,
+     12,   34,     3,       "2",      "3",       2,
+     13,   35,     3,       "2",      "2",       2,
+     13,   36,     3,       "2",      "2",       2,
+     13,   37,     3,       "2",      "3",       2,
+     14,   38,     2,       "2",      "1",       2,
+     14,   39,     2,       "2",      "2",       2,
+     15,   40,     5,       "2",      "1",       2,
+     15,   41,     5,       "2",      "1",       2,
+     15,   42,     5,       "2",      "2",       2,
+     15,   43,     5,       "2",      "3",       2,
+     15,   44,     5,       "2",      "3",       2,
+     16,   45,     2,       "2",      "1",       2,
+     16,   46,     2,       "2",      "2",       2
   )
 
 
 hh_ctrl <- tibble::tribble(
   ~ZONE, ~HH_VAR, ~N,
-  1, 1, 35,
-  1, 2, 65,
-  2, 1, 35,
-  2, 2, 65,
-  3, 1, 35,
-  3, 2, 65,
-  4, 1, 35,
-  4, 2, 65
+  1, "1", 35 * 0.7,
+  1, "2", 65 * 0.7,
+  2, "1", 35 * 0.5,
+  2, "2", 65 * 0.5,
+  3, "1", 35 * 0.9,
+  3, "2", 65 * 0.9,
+  4, "1", 35,
+  4, "2", 65
 )
 
 ind_ctrl <- tibble::tribble(
   ~ZONE, ~P_VAR, ~N,
-  1, 1, 91,
-  1, 2, 65,
-  1, 3, 104,
-  2, 1, 91,
-  2, 2, 65,
-  2, 3, 104,
-  3, 1, 91,
-  3, 2, 65,
-  3, 3, 104,
-  4, 1, 91,
-  4, 2, 65,
-  4, 3, 104
+  1, "1", 91 * 0.7,
+  1, "2", 65 * 0.7,
+  1, "3", 104 * 0.7,
+  2, "1", 91 * 0.5,
+  2, "2", 65 * 0.5,
+  2, "3", 104 * 0.5,
+  3, "1", 91 * 0.9,
+  3, "2", 65 * 0.9,
+  3, "3", 104 * 0.9,
+  4, "1", 91,
+  4, "2", 65,
+  4, "3", 104
 )
 
 geo_hierarchy <- tibble::tribble(
@@ -229,10 +250,50 @@ fitting_problems <- ml_problem(
     individual_controls = list(ind_ctrl),
     geo_hierarchy = geo_hierarchy
   )
+```
 
-fits <- fitting_problems %>%
-  lapply(ml_fit, algorithm = "ipu") %>%
-  lapply(ml_replicate, algorithm = "trs")
+
+```{r fitted}
+library(purrr)
+
+fit_algos <- eval(formals(ml_fit)$algorithm)
+int_algos <- eval(formals(ml_integerise)$algorithm)
+
+crossed_combs <- cross3(fitting_problems, fit_algos, int_algos)
+
+fitted_problems <- map(crossed_combs, ~ 
+  .x[[1]] %>%
+    ml_fit(algorithm = .x[[2]]) %>%
+    ml_integerise(algorithm = .x[[3]])
+)
+```
+
+```{r evaluate}
+library(dplyr)
+result <- map_dfr(fitted_problems, ~ ml_evaluate(.x)) %>%
+  mutate(id = 1:n())
+
+# find the best combination of each zone based on their G statistic.
+best_combs <- result %>%
+    group_by(zone) %>% 
+    slice(which.min(srmse))
+
+best_combs %>%
+  knitr::kable()
+```
+
+```{r plot-eval-result}
+library(ggplot2)
+
+result %>%
+  ggplot(aes(x = zone, y = srmse, fill = ifelse(id %in% best_combs$id, "Best", "Not best"))) +
+  geom_col() +
+  facet_grid(integerisation_algorithm ~ fitting_algorithm, scales = "free_x") +
+  labs(fill = "", y = "Standardised RMSE")
+```
+
+```{r replicate}
+map(fitted_problems[best_combs$id], ~ ml_replicate(.x))
 ```
 
 ## Powered by
