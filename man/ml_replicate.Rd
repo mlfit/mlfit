@@ -44,8 +44,8 @@ syn_pop <- ml_replicate(fit, algorithm = "trs")
 syn_pop
 }
 \references{
-\preformatted{ Lovelace, R., & Ballas, D. (2013). ‘Truncate, replicate, sample’:
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ Lovelace, R., & Ballas, D. (2013). ‘Truncate, replicate, sample’:
      A method for creating integer weights for spatial microsimulation.
      Computers, Environment and Urban Systems, 41, 1-11.
-}
+}\if{html}{\out{</div>}}
 }
