@@ -65,50 +65,56 @@ is always very close to or equal the sum of the fitted group weights.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ml_replicate</span><span class="op">(</span>
-  <span class="va">ml_fit</span>,
-  algorithm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pp"</span>, <span class="st">"trs"</span>, <span class="st">"round"</span><span class="op">)</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>,
-  .keep_original_ids <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ml_replicate</span><span class="op">(</span></span>
+<span>  <span class="va">ml_fit</span>,</span>
+<span>  algorithm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pp"</span>, <span class="st">"trs"</span>, <span class="st">"round"</span><span class="op">)</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  .keep_original_ids <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>ml_fit</dt>
 <dd><p>A <code>ml_fit</code> object created by the <code><a href="ml_fit.html">ml_fit()</a></code> family.</p></dd>
+
+
 <dt>algorithm</dt>
 <dd><p>Replication algorithm to use. "trs" is
 the 'Truncate, replicate, sample' integerisation algorithm proposed
 by Lovelace et al. (2013), "pp" is weighted sampling with
 replacement, and "round" is just simple rounding.</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>If <code>TRUE</code>, print diagnostic output.</p></dd>
+
+
 <dt>.keep_original_ids</dt>
 <dd><p>If <code>TRUE</code>, the original individual and group
 ids of the reference sample will be kept with suffix '_old'.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The function returns a replicated sample in data.frame
+    
+
+<p>The function returns a replicated sample in data.frame
 in the format used in the reference sample of the input <code>ml_fit</code> object.</p>
     </div>
     <div id="references">
     <h2>References</h2>
-    
-<div class="sourceCode"><pre><code> Lovelace, R., &amp; Ballas, D. (2013). ‘Truncate, replicate, sample’:
-     A method for creating integer weights for spatial microsimulation.
-     Computers, Environment and Urban Systems, 41, 1-11.
-</code></pre></div>
-
+    <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a> Lovelace, R., <span class="sc">&amp;</span> Ballas, <span class="fu">D.</span> (<span class="dv">2013</span>). ‘Truncate, replicate, sample’<span class="sc">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>     A method <span class="cf">for</span> creating integer weights <span class="cf">for</span> spatial microsimulation.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>     Computers, Environment and Urban Systems, <span class="dv">41</span>, <span class="dv">1</span><span class="fl">-11.</span></span></code></pre><p></p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="toy_example.html">toy_example</a></span><span class="op">(</span><span class="st">"Tiny"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="ml_fit.html">ml_fit</a></span><span class="op">(</span>ml_problem <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span>, algorithm <span class="op">=</span> <span class="st">"entropy_o"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">syn_pop</span> <span class="op">&lt;-</span> <span class="fu">ml_replicate</span><span class="op">(</span><span class="va">fit</span>, algorithm <span class="op">=</span> <span class="st">"trs"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">syn_pop</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="toy_example.html">toy_example</a></span><span class="op">(</span><span class="st">"Tiny"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="ml_fit.html">ml_fit</a></span><span class="op">(</span>ml_problem <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span>, algorithm <span class="op">=</span> <span class="st">"entropy_o"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">syn_pop</span> <span class="op">&lt;-</span> <span class="fu">ml_replicate</span><span class="op">(</span><span class="va">fit</span>, algorithm <span class="op">=</span> <span class="st">"trs"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">syn_pop</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 258 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     HHNR   PNR  APER CAR   WKSTAT</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> </span>
@@ -137,7 +143,7 @@ in the format used in the reference sample of the input <code>ml_fit</code> obje
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

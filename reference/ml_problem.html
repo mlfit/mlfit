@@ -63,77 +63,105 @@ to <code>ml_problem</code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ml_problem</span><span class="op">(</span>
-  <span class="va">ref_sample</span>,
-  controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>individual <span class="op">=</span> <span class="va">individual_controls</span>, group <span class="op">=</span> <span class="va">group_controls</span><span class="op">)</span>,
-  <span class="va">field_names</span>,
-  <span class="va">individual_controls</span>,
-  <span class="va">group_controls</span>,
-  prior_weights <span class="op">=</span> <span class="cn">NULL</span>,
-  geo_hierarchy <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span>
-
-<span class="fu">is_ml_problem</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="co"># S3 method for ml_problem</span>
-<span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for ml_problem</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">special_field_names</span><span class="op">(</span>
-  <span class="va">groupId</span>,
-  <span class="va">individualId</span>,
-  individualsPerGroup <span class="op">=</span> <span class="cn">NULL</span>,
-  count <span class="op">=</span> <span class="cn">NULL</span>,
-  zone <span class="op">=</span> <span class="cn">NULL</span>,
-  region <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ml_problem</span><span class="op">(</span></span>
+<span>  <span class="va">ref_sample</span>,</span>
+<span>  controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>individual <span class="op">=</span> <span class="va">individual_controls</span>, group <span class="op">=</span> <span class="va">group_controls</span><span class="op">)</span>,</span>
+<span>  <span class="va">field_names</span>,</span>
+<span>  <span class="va">individual_controls</span>,</span>
+<span>  <span class="va">group_controls</span>,</span>
+<span>  prior_weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  geo_hierarchy <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_ml_problem</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for ml_problem</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for ml_problem</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">special_field_names</span><span class="op">(</span></span>
+<span>  <span class="va">groupId</span>,</span>
+<span>  <span class="va">individualId</span>,</span>
+<span>  individualsPerGroup <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  count <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  zone <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  region <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>ref_sample</dt>
 <dd><p>The reference sample</p></dd>
+
+
 <dt>controls</dt>
 <dd><p>Control totals, by default initialized from the
 <code>individual_controls</code> and <code>group_controls</code> arguments</p></dd>
+
+
 <dt>field_names</dt>
 <dd><p>Names of special fields, construct using
 <code>special_field_names()</code></p></dd>
+
+
 <dt>individual_controls, group_controls</dt>
 <dd><p>Control totals at individual
 and group level, given as a list of data frames where each data frame
 defines a control</p></dd>
+
+
 <dt>prior_weights</dt>
 <dd><p>Prior (or design) weights at group level; by default
 a vector of ones will be used, which corresponds to random sampling of
 groups</p></dd>
+
+
 <dt>geo_hierarchy</dt>
 <dd><p>A table shows mapping between a larger zoning level to
 many zones of a smaller zoning level. The column name of the larger level
 should be specified in <code>field_names</code> as 'region' and the smaller one as
 'zone'.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>An object</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Ignored.</p></dd>
+
+
 <dt>groupId, individualId</dt>
 <dd><p>Name of the column that defines the ID of the
 group or the individual</p></dd>
+
+
 <dt>individualsPerGroup</dt>
 <dd><p>Obsolete.</p></dd>
+
+
 <dt>count</dt>
 <dd><p>Name of control total column in control tables (use first numeric
 column in each control by default).</p></dd>
+
+
 <dt>region, zone</dt>
 <dd><p>Name of the column that defines the region of the reference
 sample or the zone of the controls. Note that region is a larger area that contains
 more than one zone.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class <code>ml_problem</code> or a list of them if <code>geo_hierarchy</code>was given, essentially a named list with the following components:</p><dl><dt><code>refSample</code></dt>
+    
+
+<p>An object of class <code>ml_problem</code> or a list of them if <code>geo_hierarchy</code></p>
+
+
+<p>was given, essentially a named list with the following components:</p><dl><dt><code>refSample</code></dt>
 <dd><p>The reference sample, a <code>data.frame</code>.</p></dd>
 
 <dt><code>controls</code></dt>
@@ -149,36 +177,36 @@ and <code>group</code>. Each contains a list of controls as <code>data.frame</co
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Create example from Ye et al., 2009</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Provide reference sample</span></span>
-<span class="r-in"><span class="va">ye</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="op">~</span><span class="va">HHNR</span>, <span class="op">~</span><span class="va">PNR</span>, <span class="op">~</span><span class="va">APER</span>, <span class="op">~</span><span class="va">HH_VAR</span>, <span class="op">~</span><span class="va">P_VAR</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">2</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">3</span>,</span>
-<span class="r-in">  <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">3</span>,</span>
-<span class="r-in">  <span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">3</span>, <span class="fl">8</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">2</span>,</span>
-<span class="r-in">  <span class="fl">4</span>, <span class="fl">9</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">4</span>, <span class="fl">10</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">3</span>,</span>
-<span class="r-in">  <span class="fl">4</span>, <span class="fl">11</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">3</span>,</span>
-<span class="r-in">  <span class="fl">5</span>, <span class="fl">12</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">2</span>,</span>
-<span class="r-in">  <span class="fl">5</span>, <span class="fl">13</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">2</span>,</span>
-<span class="r-in">  <span class="fl">5</span>, <span class="fl">14</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">3</span>,</span>
-<span class="r-in">  <span class="fl">6</span>, <span class="fl">15</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">6</span>, <span class="fl">16</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>,</span>
-<span class="r-in">  <span class="fl">7</span>, <span class="fl">17</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">7</span>, <span class="fl">18</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">7</span>, <span class="fl">19</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">2</span>,</span>
-<span class="r-in">  <span class="fl">7</span>, <span class="fl">20</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">3</span>,</span>
-<span class="r-in">  <span class="fl">7</span>, <span class="fl">21</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">3</span>,</span>
-<span class="r-in">  <span class="fl">8</span>, <span class="fl">22</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>,</span>
-<span class="r-in">  <span class="fl">8</span>, <span class="fl">23</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">ye</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Create example from Ye et al., 2009</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Provide reference sample</span></span></span>
+<span class="r-in"><span><span class="va">ye</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="op">~</span><span class="va">HHNR</span>, <span class="op">~</span><span class="va">PNR</span>, <span class="op">~</span><span class="va">APER</span>, <span class="op">~</span><span class="va">HH_VAR</span>, <span class="op">~</span><span class="va">P_VAR</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">3</span>, <span class="fl">8</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">4</span>, <span class="fl">9</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">4</span>, <span class="fl">10</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">4</span>, <span class="fl">11</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">5</span>, <span class="fl">12</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">5</span>, <span class="fl">13</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">5</span>, <span class="fl">14</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">6</span>, <span class="fl">15</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">6</span>, <span class="fl">16</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">7</span>, <span class="fl">17</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">7</span>, <span class="fl">18</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">7</span>, <span class="fl">19</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">7</span>, <span class="fl">20</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">7</span>, <span class="fl">21</span>, <span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">8</span>, <span class="fl">22</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">8</span>, <span class="fl">23</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ye</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 23 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     HHNR   PNR  APER HH_VAR P_VAR</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -193,50 +221,50 @@ and <code>group</code>. Each contains a list of controls as <code>data.frame</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     4     9     3      2     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     4    10     3      2     3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 13 more rows</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Specify control at household level</span></span>
-<span class="r-in"><span class="va">ye_hh</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="op">~</span><span class="va">HH_VAR</span>, <span class="op">~</span><span class="va">N</span>,</span>
-<span class="r-in">  <span class="fl">1</span>,       <span class="fl">35</span>,</span>
-<span class="r-in">  <span class="fl">2</span>,       <span class="fl">65</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">ye_hh</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Specify control at household level</span></span></span>
+<span class="r-in"><span><span class="va">ye_hh</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="op">~</span><span class="va">HH_VAR</span>, <span class="op">~</span><span class="va">N</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>,       <span class="fl">35</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">2</span>,       <span class="fl">65</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ye_hh</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   HH_VAR     N</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>      1    35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>      2    65</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Specify control at person level</span></span>
-<span class="r-in"><span class="va">ye_ind</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="op">~</span><span class="va">P_VAR</span>, <span class="op">~</span><span class="va">N</span>,</span>
-<span class="r-in">  <span class="fl">1</span>, <span class="fl">91</span>,</span>
-<span class="r-in">  <span class="fl">2</span>, <span class="fl">65</span>,</span>
-<span class="r-in">  <span class="fl">3</span>, <span class="fl">104</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">ye_ind</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Specify control at person level</span></span></span>
+<span class="r-in"><span><span class="va">ye_ind</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="op">~</span><span class="va">P_VAR</span>, <span class="op">~</span><span class="va">N</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">91</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">2</span>, <span class="fl">65</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">3</span>, <span class="fl">104</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ye_ind</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   P_VAR     N</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1    91</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2    65</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3   104</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">ye_problem</span> <span class="op">&lt;-</span> <span class="fu">ml_problem</span><span class="op">(</span></span>
-<span class="r-in">  ref_sample <span class="op">=</span> <span class="va">ye</span>,</span>
-<span class="r-in">  field_names <span class="op">=</span> <span class="fu">special_field_names</span><span class="op">(</span></span>
-<span class="r-in">    groupId <span class="op">=</span> <span class="st">"HHNR"</span>, individualId <span class="op">=</span> <span class="st">"PNR"</span>, count <span class="op">=</span> <span class="st">"N"</span></span>
-<span class="r-in">  <span class="op">)</span>,</span>
-<span class="r-in">  group_controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">ye_hh</span><span class="op">)</span>,</span>
-<span class="r-in">  individual_controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">ye_ind</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">ye_problem</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ye_problem</span> <span class="op">&lt;-</span> <span class="fu">ml_problem</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  ref_sample <span class="op">=</span> <span class="va">ye</span>,</span></span>
+<span class="r-in"><span>  field_names <span class="op">=</span> <span class="fu">special_field_names</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    groupId <span class="op">=</span> <span class="st">"HHNR"</span>, individualId <span class="op">=</span> <span class="st">"PNR"</span>, count <span class="op">=</span> <span class="st">"N"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  group_controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">ye_hh</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  individual_controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">ye_ind</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ye_problem</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class ml_problem</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Reference sample: 23 observations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Control totals: 1 at individual, and 1 at group level</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="ml_fit.html">ml_fit_dss</a></span><span class="op">(</span><span class="va">ye_problem</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">fit</span><span class="op">$</span><span class="va">weights</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="ml_fit.html">ml_fit_dss</a></span><span class="op">(</span><span class="va">ye_problem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span><span class="op">$</span><span class="va">weights</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  8.937470  8.937470  8.937470 23.448579 23.448579  2.613950  2.613950</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [8]  2.613950 25.899223 25.899223 25.899223 14.347802 14.347802 14.347802</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [15] 11.009562 11.009562  2.733852  2.733852  2.733852  2.733852  2.733852</span>
@@ -255,7 +283,7 @@ and <code>group</code>. Each contains a list of controls as <code>data.frame</co
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

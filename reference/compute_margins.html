@@ -53,9 +53,9 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">compute_margins</span><span class="op">(</span><span class="va">ml_problem</span>, <span class="va">weights</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">margin_to_df</span><span class="op">(</span><span class="va">controls</span>, count <span class="op">=</span> <span class="cn">NULL</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">compute_margins</span><span class="op">(</span><span class="va">ml_problem</span>, <span class="va">weights</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">margin_to_df</span><span class="op">(</span><span class="va">controls</span>, count <span class="op">=</span> <span class="cn">NULL</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -63,22 +63,35 @@
     <dl><dt>ml_problem</dt>
 <dd><p>A fitting problem created by
 <code><a href="ml_problem.html">ml_problem()</a></code> or returned by <code><a href="flatten_ml_fit_problem.html">flatten_ml_fit_problem()</a></code>.</p></dd>
+
+
 <dt>weights</dt>
 <dd><p>A vector with one entry per row of the original reference
 sample</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>If <code>TRUE</code>, print diagnostic output.</p></dd>
+
+
 <dt>controls</dt>
 <dd><p>Margins as returned by <code>compute_margins</code> or as passed
 to the <code>controls</code> parameter of <code><a href="ml_problem.html">ml_problem()</a></code>.</p></dd>
+
+
 <dt>count</dt>
 <dd><p>Name of control total column, autodetected by default.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>compute_margins()</code> returns a named list with two components,
-<code>individual</code> and <code>group</code>. Each contains a list of margins as <code>data.frame</code>s.
-<code>margins_to_df()</code> returns a data frame with the following columns:</p><dl><dt><code>..control.type..</code></dt>
+    
+
+<p><code>compute_margins()</code> returns a named list with two components,
+<code>individual</code> and <code>group</code>. Each contains a list of margins as <code>data.frame</code>s.</p>
+
+
+<p><code>margins_to_df()</code> returns a data frame with the following columns:</p><dl><dt><code>..control.type..</code></dt>
 <dd><p>Type of the control total: either <code>individual</code> or <code>group</code>.</p></dd>
 
 <dt><code>..control.name..</code></dt>
@@ -106,11 +119,11 @@ controls (i.e., as expected by the <code>controls</code> parameter of the
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="toy_example.html">toy_example</a></span><span class="op">(</span><span class="st">"Tiny"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">problem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="ml_fit.html">ml_fit</a></span><span class="op">(</span>ml_problem <span class="op">=</span> <span class="va">problem</span>, algorithm <span class="op">=</span> <span class="st">"entropy_o"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">margins</span> <span class="op">&lt;-</span> <span class="fu">compute_margins</span><span class="op">(</span><span class="va">problem</span>, <span class="va">fit</span><span class="op">$</span><span class="va">weights</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">margins</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="toy_example.html">toy_example</a></span><span class="op">(</span><span class="st">"Tiny"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">problem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="ml_fit.html">ml_fit</a></span><span class="op">(</span>ml_problem <span class="op">=</span> <span class="va">problem</span>, algorithm <span class="op">=</span> <span class="st">"entropy_o"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">margins</span> <span class="op">&lt;-</span> <span class="fu">compute_margins</span><span class="op">(</span><span class="va">problem</span>, <span class="va">fit</span><span class="op">$</span><span class="va">weights</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">margins</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $individual</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $individual$IND</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   WKSTAT   N</span>
@@ -126,15 +139,15 @@ controls (i.e., as expected by the <code>controls</code> parameter of the
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   1 65</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">margin_to_df</span><span class="op">(</span><span class="va">problem</span><span class="op">$</span><span class="va">controls</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">margin_to_df</span><span class="op">(</span><span class="va">problem</span><span class="op">$</span><span class="va">controls</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..control.type.. ..control.name.. ..id.. ..count..</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       individual              IND      1        91</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2       individual              IND      2        65</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3       individual              IND      3       104</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4            group            GROUP      0        35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5            group            GROUP      1        65</span>
-<span class="r-in"><span class="fu">margin_to_df</span><span class="op">(</span><span class="va">margins</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">margin_to_df</span><span class="op">(</span><span class="va">margins</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..control.type.. ..control.name.. ..id.. ..count..</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       individual              IND      1        91</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2       individual              IND      2        65</span>
@@ -155,7 +168,7 @@ controls (i.e., as expected by the <code>controls</code> parameter of the
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>
