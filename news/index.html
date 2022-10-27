@@ -47,7 +47,9 @@
       <small>Source: <a href="https://github.com/mlfit/mlfit/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="section level2"><h2 class="page-header" data-toc-text="0.5.3.9000" id="mlfit-0539000-2021-10-08">mlfit 0.5.3.9000 (2021-10-08)<a class="anchor" aria-label="anchor" href="#mlfit-0539000-2021-10-08"></a></h2></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.5.3.9000" id="mlfit-0539000-2021-10-08">mlfit 0.5.3.9000 (2021-10-08)<a class="anchor" aria-label="anchor" href="#mlfit-0539000-2021-10-08"></a></h2>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.3" id="mlfit-053-2021-10-08">mlfit 0.5.3 (2021-10-08)<small>2021-10-08</small><a class="anchor" aria-label="anchor" href="#mlfit-053-2021-10-08"></a></h2>
 <ul><li>Fixed the length of the <code>flat_weights</code> field of an <code>ml_fit</code> object when there are one or more entries that correspond to zero-valued controls in its <code>ml_problem</code> object. (<a href="https://github.com/mlfit/mlfit/issues/60" class="external-link">#60</a>)</li>
@@ -64,7 +66,8 @@
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.1" id="mlfit-051-2021-06-24">mlfit 0.5.1 (2021-06-24)<a class="anchor" aria-label="anchor" href="#mlfit-051-2021-06-24"></a></h2>
-<ul><li>Make a file check test more robust as per CRAN’s suggestion.</li></ul></div>
+<ul><li>Make a file check test more robust as per CRAN’s suggestion.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.0" id="mlfit-050-2021-06-24">mlfit 0.5.0 (2021-06-24)<a class="anchor" aria-label="anchor" href="#mlfit-050-2021-06-24"></a></h2>
 <ul><li>
@@ -119,10 +122,12 @@
 </ul></div>
 <div class="section level3">
 <h3 id="mlfit-0-3-7-9000-2">mlfit 0.3-5 (2016-09-03)<a class="anchor" aria-label="anchor" href="#mlfit-0-3-7-9000-2"></a></h3>
-<ul><li>Add “Driven by” and “Related work” sections to the README.</li></ul></div>
+<ul><li>Add “Driven by” and “Related work” sections to the README.</li>
+</ul></div>
 <div class="section level3">
 <h3 id="mlfit-0-3-7-9000-3">mlfit 0.3-4 (2016-08-03)<a class="anchor" aria-label="anchor" href="#mlfit-0-3-7-9000-3"></a></h3>
-<ul><li>Use a sparse matrix for the flattened reference sample.</li></ul></div>
+<ul><li>Use a sparse matrix for the flattened reference sample.</li>
+</ul></div>
 <div class="section level3">
 <h3 id="mlfit-0-3-7-9000-4">mlfit 0.3-3 (2016-06-06)<a class="anchor" aria-label="anchor" href="#mlfit-0-3-7-9000-4"></a></h3>
 <ul><li>Status messages with <code>verbose = TRUE</code> are prepended with a time stamp.</li>
@@ -130,7 +135,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="mlfit-0-3-7-9000-5">mlfit 0.3-2 (2016-04-25)<a class="anchor" aria-label="anchor" href="#mlfit-0-3-7-9000-5"></a></h3>
-<ul><li>Reorganized and renamed internal datasets.</li></ul></div>
+<ul><li>Reorganized and renamed internal datasets.</li>
+</ul></div>
 <div class="section level3">
 <h3 id="mlfit-0-3-7-9000-6">mlfit 0.3-1 (2016-04-17)<a class="anchor" aria-label="anchor" href="#mlfit-0-3-7-9000-6"></a></h3>
 <ul><li>Fitting result contains <code>iterations</code> and <code>tol</code> members (<a href="https://github.com/mlfit/mlfit/issues/28" class="external-link">#28</a>).</li>
@@ -145,33 +151,45 @@
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3" id="mlfit-03-2016-04-14">mlfit 0.3 (2016-04-14)<a class="anchor" aria-label="anchor" href="#mlfit-03-2016-04-14"></a></h2>
-<ul><li>Features<ul><li>New algoritms: HIPF (<a href="https://github.com/mlfit/mlfit/issues/2" class="external-link">#2</a>) and IPU.</li></ul></li>
-<li>Interface<ul><li>New <code>as.flat_ml_fit_problem()</code> is used to coerce input for the <code>ml_fit_</code> functions.</li>
+<ul><li>Features
+<ul><li>New algoritms: HIPF (<a href="https://github.com/mlfit/mlfit/issues/2" class="external-link">#2</a>) and IPU.</li>
+</ul></li>
+<li>Interface
+<ul><li>New <code>as.flat_ml_fit_problem()</code> is used to coerce input for the <code>ml_fit_</code> functions.</li>
 <li>
 <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code> and <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> methods for classes <code>fitting_problem</code>, <code>flat_ml_fit_problem</code> and <code>ml_fit</code>.</li>
 <li>Flattened reference sample now contains observations in rows, and controls in columns (<a href="https://github.com/mlfit/mlfit/issues/26" class="external-link">#26</a>).</li>
 <li>
 <code><a href="../reference/flatten_ml_fit_problem.html">flatten_ml_fit_problem()</a></code> gains new <code>model_matrix_type</code> argument that allows selecting an alternative model matrix building method where all cross-classifications are allocated to a column, regardless of overlaps. Flattened problems store the type of model matrix used, it is also shown with the <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code> and <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> methods.</li>
 </ul></li>
-<li>Improvements<ul><li>Reference sample doesn’t need to be ordered by group ID anymore.</li>
+<li>Improvements
+<ul><li>Reference sample doesn’t need to be ordered by group ID anymore.</li>
 <li>Remove <code>individualsPerGroup</code> special variable.</li>
 <li>Allow problems with individual-only controls.</li>
 <li>Check for correspondence of levels between sample and controls.</li>
 <li>Check for <code>NA</code> values in controls.</li>
 </ul></li>
-<li>Technical changes<ul><li>Use <code>grake</code> package again for calibration, because the alternatives are worse: <code>sampling</code> uses a too low tolerance, <code>survey</code> forcibly loads <code>MASS</code>, and <code>laeken</code> could work but is unrelated (which is the reason <code>grake</code> has been started in the first place).</li>
+<li>Technical changes
+<ul><li>Use <code>grake</code> package again for calibration, because the alternatives are worse: <code>sampling</code> uses a too low tolerance, <code>survey</code> forcibly loads <code>MASS</code>, and <code>laeken</code> could work but is unrelated (which is the reason <code>grake</code> has been started in the first place).</li>
 <li>Duplicate rows are kept in the reference sample.</li>
 <li>Rename <code>control_totals</code> to <code>target_values</code>.</li>
 <li>New <code><a href="../reference/toy_example.html">toy_example()</a></code> allows easier access to bundled examples, load with <code><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS()</a></code>.</li>
 <li>Move legacy format (IPAF) and related functions to <code>data-raw</code> directory.</li>
 <li>Use factors internally.</li>
 </ul></li>
-<li>Performance<ul><li>Use <code>dplyr</code> functions instead of <code><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate()</a></code>.</li></ul></li>
-<li>Tests<ul><li>Specific test for households with the same signature.</li></ul></li>
-<li>Documentation<ul><li>Enhance example.</li>
+<li>Performance
+<ul><li>Use <code>dplyr</code> functions instead of <code><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate()</a></code>.</li>
+</ul></li>
+<li>Tests
+<ul><li>Specific test for households with the same signature.</li>
+</ul></li>
+<li>Documentation
+<ul><li>Enhance example.</li>
 <li>Include flat example problem (group size = 1 for all groups).</li>
 </ul></li>
-<li>Cleanup<ul><li>Cleanup and split of <code><a href="../reference/flatten_ml_fit_problem.html">flatten_ml_fit_problem()</a></code>.</li></ul></li>
+<li>Cleanup
+<ul><li>Cleanup and split of <code><a href="../reference/flatten_ml_fit_problem.html">flatten_ml_fit_problem()</a></code>.</li>
+</ul></li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2" id="version-02-2016-01-30">Version 0.2 (2016-01-30)<a class="anchor" aria-label="anchor" href="#version-02-2016-01-30"></a></h2>
