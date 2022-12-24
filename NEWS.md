@@ -1,5 +1,20 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mlfit 0.5.3.9001 (2022-12-24)
+
+- Harmonize yaml formatting.
+
+- Revert changes to matrix section.
+
+- Reduce parallelism.
+
+- Also check dev on cran-* branches.
+
+- Update hash key for dev.
+
+- Remove R 3.3.
+
+
 # mlfit 0.5.3.9000 (2021-10-08)
 
 # mlfit 0.5.3 (2021-10-08)
