@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mlfit 0.5.3.9002 (2022-12-30)
+
+- Internal changes only.
+
+
 # mlfit 0.5.3.9001 (2022-12-24)
 
 - Harmonize yaml formatting.
