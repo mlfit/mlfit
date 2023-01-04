@@ -88,41 +88,41 @@
 - If the controls contain values of zero for existing observations in the reference sample, the removal of these observations now works in all cases (#30).
 
 
-## mlfit 0.3-7 (2018-01-22)
+# mlfit 0.3-7 (2018-01-22)
 
 - Add overview in package documentation.
 - Add examples to all functions.
 - Explicitly document return values to `ml_fit()`.
 
 
-## mlfit 0.3-6 (2017-03-28)
+# mlfit 0.3-6 (2017-03-28)
 
 - Set default maximum number of iterations for HIPF to 2000.
 - Convert documentation to Markdown.
 
 
-## mlfit 0.3-5 (2016-09-03)
+# mlfit 0.3-5 (2016-09-03)
 
 - Add "Driven by" and "Related work" sections to the README.
 
 
-## mlfit 0.3-4 (2016-08-03)
+# mlfit 0.3-4 (2016-08-03)
 
 - Use a sparse matrix for the flattened reference sample.
 
 
-## mlfit 0.3-3 (2016-06-06)
+# mlfit 0.3-3 (2016-06-06)
 
 - Status messages with `verbose = TRUE` are prepended with a time stamp.
 - Fail if `NA` group ID found.
 
 
-## mlfit 0.3-2 (2016-04-25)
+# mlfit 0.3-2 (2016-04-25)
 
 - Reorganized and renamed internal datasets.
 
 
-## mlfit 0.3-1 (2016-04-17)
+# mlfit 0.3-1 (2016-04-17)
 
 - Fitting result contains `iterations` and `tol` members (#28).
 - Fixed model matrix of "separate" type if only grand totals are given.
@@ -172,8 +172,7 @@
     - Cleanup and split of `flatten_ml_fit_problem()`.
 
 
-Version 0.2 (2016-01-30)
-===
+# mlfit 0.2 (2016-01-30)
 
 - New functions `compute_margins()` and `margins_to_df()` for validation
 - Support specification of prior weights in construction of fitting problems
@@ -190,25 +189,21 @@ Version 0.2 (2016-01-30)
 
 
 
-v0.1 (2015-05-26)
-===
+# mlfit 0.1 (2015-05-26)
 
 - new functions `fitting_problem`, `is.fitting_problem`, `special_field_names`
 - all fitting functions now expect an object of class `fitting_problem` (as returned by the `fitting_problem` and `import_IPAF_problem` functions); former calls like `ml_fit(ref_sample, controls, field_names)` now need to be written as `ml_fit(fitting_problem(...))`
 
-v0.0-14 (2015-04-15)
-===
+# mlfit 0.0-14 (2015-04-15)
 
 - use `grake` package instead of `laeken`
 - new argument `ginv` to `ml_fit_dss`, passed down to calibWeights
 
-v0.0-13 (2015-04-13)
-===
+# mlfit 0.0-13 (2015-04-13)
 
 - fix example for `ml_fit_dss`
 
-v0.0-12 (2014-11-21)
-===
+# mlfit 0.0-12 (2014-11-21)
 
 - new function `ml_fit_dss` with an implementation very close to the paper by
   Deville et al. (1993); implementation in the `laeken` package
@@ -221,10 +216,9 @@ v0.0-12 (2014-11-21)
 
 - improve warning and progress messages
 
-v0.0-11 (2014-07-25)
-===
+# mlfit 0.0-11 (2014-07-25)
 
-- return correct weights -- regression introduced in v0.0.9
+- return correct weights -- regression introduced in # mlfit 0.0.9
 
 - rewrite transformation of weights using sparse matrices and a home-grown
   Moore-Penrose inverse for our (very special) transformation matrix (#17)
@@ -238,16 +232,14 @@ v0.0-11 (2014-07-25)
 - remove observations that correspond to zero-valued control totals, with warning;
   don't warn if no corresponding observations need to be removed (#16)
 
-v0.0-10 (2014-07-04)
-===
+# mlfit 0.0-10 (2014-07-04)
 
 - support multiple controls at individual or group level, also detect conflicting
   control totals
 
 - support fitting one-dimensional problems (where only group-level controls are given)
 
-v0.0.9 (2014-06-19)
-===
+# mlfit 0.0.9 (2014-06-19)
 
 - new function `flatten_ml_fit_problem`: transform representation as returned
   by `import_IPAF_result` into a matrix, a control vector and a weights vector
@@ -260,8 +252,7 @@ v0.0.9 (2014-06-19)
 - aggregate identical household types, implement prior weights (so far only
   internally)
 
-v0.0.8 (2014-06-17)
-===
+# mlfit 0.0.8 (2014-06-17)
 
 - Add example for `ml_fit` (#11)
 
@@ -270,8 +261,7 @@ v0.0.8 (2014-06-17)
 
 - Faster internal data preparation for `ml_fit_entropy_o`
 
-v0.0.7 (2014-06-17)
-===
+# mlfit 0.0.7 (2014-06-17)
 
 - Fix dependency issues (#13, #14)
 
@@ -280,36 +270,31 @@ v0.0.7 (2014-06-17)
 - Print more helpful error message if control totals and reference sample
   categories do not overlap (#11)
 
-v0.0.6 (2014-02-09)
-===
+# mlfit 0.0.6 (2014-02-09)
 
 - `import_IPAF_results` now returns a class of type `IPAF_results`
 - New functions `ml_ipf` and `ml_ipf_entropy_o`, implementation does not yet
   return the same weights as the Python code
 - Convert control columns to factors
 
-v0.0.5 (2014-02-07)
-===
+# mlfit 0.0.5 (2014-02-07)
 
 - Fix importing configuration files with more than one control of any type
   and with comments in the control definition
 
 - New parameter `config_name` to `import`, defaults to `config.xml`
 
-v0.0.4 (2013-12-06)
-===
+# mlfit 0.0.4 (2013-12-06)
 
 - Parameter `all_weights` to `import` that allows importing also intermediate
   weights.  The output format of `import` has changed, the weights for each
   algorithm are now always a list of weight vectors, even in the default case
   `all_weights == FALSE` (#5).
 
-v0.0.3 (2013-11-28)
-===
+# mlfit 0.0.3 (2013-11-28)
 
 - Import results of old Python code (#1).
 
-v0.0.2 (2013-11-26)
-===
+# mlfit 0.0.2 (2013-11-26)
 
 - Initial setup
