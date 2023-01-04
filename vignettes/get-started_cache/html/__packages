@@ -1,0 +1,13 @@
+tibble
+purrr
+dplyr
+ggplot2
+testthat
+shiny
+mlfit
+tidycensus
+sf
+tidyr
+mapview
+future
+furrr

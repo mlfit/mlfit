@@ -1,8 +1,9 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+
 # mlfit 0.5.3.9003 (2023-01-04)
 
-- Same as previous version.
+- Fixed inconsistence header levels and invalid release titles in NEWS.md (#76, @maelle)
 
 
 # mlfit 0.5.3.9002 (2022-12-30)
