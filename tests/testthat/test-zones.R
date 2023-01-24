@@ -100,6 +100,36 @@ test_that("Create ml_problem by zones", {
   expect_true(all(sapply(problems, is_ml_problem)))
 })
 
+test_that("Create ml_problem with only individual controls", {
+  problems <- ml_problem(
+    ref_sample = ref_sample,
+    field_names = special_field_names(
+      groupId = "HHNR", individualId = "PNR", count = "N",
+      zone = "ZONE", region = "REGION"
+    ),
+    individual_controls = list(ind_ctrl),
+    geo_hierarchy = geo_hierarchy
+  )
+
+  expect_true(all(sapply(problems, is_ml_problem)))
+  expect_true(all(sapply(problems, function(x) is.null(x$group_controls))))
+})
+
+test_that("Create ml_problem with only household controls", {
+  problems <- ml_problem(
+    ref_sample = ref_sample,
+    field_names = special_field_names(
+      groupId = "HHNR", individualId = "PNR", count = "N",
+      zone = "ZONE", region = "REGION"
+    ),
+    group_controls = list(hh_ctrl),
+    geo_hierarchy = geo_hierarchy
+  )
+
+  expect_true(all(sapply(problems, is_ml_problem)))
+  expect_true(all(sapply(problems, function(x) is.null(x$individual_controls))))
+})
+
 test_that("bad zone-by-zone arguments", {
   expect_error(
     ml_problem(
@@ -155,6 +185,6 @@ test_that("bad zone-by-zone arguments", {
       individual_controls = list(ind_ctrl, ind_ctrl),
       geo_hierarchy = geo_hierarchy
     ),
-    regex = "Zone mismatch between individual and group controls:"
+    regex = "Zone mismatch between group and individual controls"
   )
 })

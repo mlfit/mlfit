@@ -96,7 +96,8 @@ ml_problem <- function(ref_sample,
                          group = group_controls
                        ),
                        field_names,
-                       individual_controls, group_controls,
+                       individual_controls = NULL, 
+                       group_controls = NULL,
                        prior_weights = NULL,
                        geo_hierarchy = NULL) {
   if (!is.null(geo_hierarchy)) {
@@ -138,17 +139,24 @@ ml_problem_by_zone <- function(ref_sample,
   if (!field_names$region %in% names(ref_sample)) {
     stop(sprintf("`region` field {%s} is not in `ref_sample`", field_names$region))
   }
-  if (!all(sapply(controls$group, function(x) {
-    field_names$zone %in% names(x)
-  }))) {
-    stop("There are one or more group controls that don't have the zone field.")
-  }
-  if (!all(sapply(controls$individual, function(x) {
-    field_names$zone %in% names(x)
-  }))) {
-    stop("There are one or more individual controls that don't have the zone field.")
+
+  #Check if both controls are missing
+  if (is.null(controls$group) && is.null(controls$individual)) {
+    stop("Both 'controls$group' and 'controls$individual' are missing. At least one level of control is required.")
   }
 
+  if (!is.null(controls$group) && !all(sapply(controls$group, function(x) {
+    field_names$zone %in% names(x)
+  }))) {
+    stop(sprint("There are one or more group controls that don't have the zone field ('%s').", field_names$zone))
+  }
+  if (!is.null(controls$individual) && !all(sapply(controls$individual, function(x) {
+    field_names$zone %in% names(x)
+  }))) {
+    stop(sprint("There are one or more individual controls that don't have the zone field ('%s').", field_names$zone))
+  }
+
+  # Split controls by zone
   group_controls <-
     lapply(controls$group, function(x) {
       splits <- split(x, x[[field_names$zone]])
@@ -163,26 +171,22 @@ ml_problem_by_zone <- function(ref_sample,
     })
   })
 
+  # only check that zones from both control levels match if both are present
   zones_from_group_controls <- unique(unlist(lapply(group_controls, names)))
   zones_from_individual_controls <- unique(unlist(lapply(individual_controls, names)))
-  if (!isTRUE(all.equal(zones_from_individual_controls, zones_from_group_controls))) {
-    if (requireNamespace("waldo")) {
-      comparison <-
-        waldo::compare(zones_from_individual_controls, zones_from_group_controls,
-          x_arg = "zones from individual controls",
-          y_arg = "zones from group controls"
-        )
-    } else {
-      comparison <- "To see the comparison install the `waldo` package and run this again."
-    }
-    stop("Zone mismatch between individual and group controls:\n", comparison)
+
+  if (!is.null(controls$group) && !is.null(controls$individual)) {
+    check_zone_match(zones_from_group_controls, zones_from_individual_controls)
   }
 
   if (!is.null(prior_weights)) {
     warning("Creating ml_problems by zone doesn't utilise `prior_weights`.")
   }
 
-  fitting_problems <- lapply(zones_from_group_controls, function(zone) {
+  # create a fitting problem for each zone
+  all_zones <- unique(c(zones_from_group_controls, zones_from_individual_controls))
+  fitting_problems <- lapply(all_zones, function(zone) {
+    message(sprintf("Creating fitting problem for zone %s", zone))
     zone_region <- geo_hierarchy[[field_names$region]][which(geo_hierarchy[[field_names$zone]] == zone)]
     zone_ref_sample <- ref_sample[ref_sample[[field_names$region]] == zone_region, ]
     zone_ref_sample[[field_names$region]] <- NULL
@@ -208,6 +212,19 @@ ml_problem_by_zone <- function(ref_sample,
   names(fitting_problems) <- zones_from_group_controls
 
   fitting_problems
+}
+
+check_zone_match <- function(group_zones, individual_zones) {
+  if (identical(sort(group_zones), sort(individual_zones))) {
+    return(TRUE)
+  } else {
+    stop(
+      "Zone mismatch between group and individual controls. The following zones are mising from each control level but exist in the other level: \n",
+      "- Zones missing from group controls: ", paste(setdiff(group_zones, individual_zones), collapse = ", "), "\n",
+      "- Zones missing from individual controls: ", paste(setdiff(individual_zones, group_zones), collapse = ", "), "\n",
+      "Make sure that all zones are present in both control levels."
+    )
+  }
 }
 
 #' Create a fitting problem
