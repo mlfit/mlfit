@@ -182,7 +182,12 @@ ml_problem_by_zone <- function(ref_sample,
   # check that the length of prior_weights match the number of unique group id of ref_sample
   if (!is.null(prior_weights)) {
     if (length(prior_weights) != length(unique(ref_sample[[field_names$groupId]]))) {
-      stop("The length of prior_weights does not match the number of rows in ref_sample.")
+      stop(
+        sprintf(
+          "The length of `prior_weights` does not match the number of unique group IDs (%s) in `ref_sample``.",
+          field_names$groupId
+        )
+      )
     }
     prior_weights_df <- data.frame(
       groupId = unique(ref_sample[[field_names$groupId]]), 

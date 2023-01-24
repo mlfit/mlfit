@@ -152,6 +152,28 @@ test_that("Create ml_problem with prior_weights", {
   expect_true(all(sapply(problems, function(x) !is.null(x$priorWeights))))
 })
 
+test_that("Create ml_problem with the length of prior_weights no matching the number of unique group ids of the referene sample", {
+  random_weights <- data.frame(
+    HHNR = unique(ref_sample$HHNR), 
+    prior_weights = runif(n = length(unique(ref_sample$HHNR)), max = 10)
+  )
+
+  expect_error(
+    ml_problem(
+      ref_sample = ref_sample,
+      field_names = special_field_names(
+        groupId = "HHNR", individualId = "PNR", count = "N",
+        zone = "ZONE", region = "REGION"
+      ),
+      group_controls = list(hh_ctrl),
+      individual_controls = list(ind_ctrl),
+      geo_hierarchy = geo_hierarchy,
+      prior_weights = random_weights$prior_weights[seq_len(length(random_weights$prior_weights) - 1)]
+    ),
+    regex = "The length of `prior_weights` does not match the number of unique group IDs"
+  )
+})
+
 test_that("bad zone-by-zone arguments", {
   expect_error(
     ml_problem(
