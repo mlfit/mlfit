@@ -1,5 +1,18 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mlfit 0.5.3.9004 (2023-01-04)
+
+## doc
+
+### NEWS.md 
+
+- Correct the latest news update.
+
+### news 
+
+- Fixed #76. (#77).
+
+
 
 # mlfit 0.5.3.9003 (2023-01-04)
 
