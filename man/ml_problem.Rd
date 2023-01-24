@@ -12,8 +12,8 @@ ml_problem(
   ref_sample,
   controls = list(individual = individual_controls, group = group_controls),
   field_names,
-  individual_controls,
-  group_controls,
+  individual_controls = NULL,
+  group_controls = NULL,
   prior_weights = NULL,
   geo_hierarchy = NULL
 )
