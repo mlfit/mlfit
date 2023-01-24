@@ -186,7 +186,6 @@ ml_problem_by_zone <- function(ref_sample,
   # create a fitting problem for each zone
   all_zones <- unique(c(zones_from_group_controls, zones_from_individual_controls))
   fitting_problems <- lapply(all_zones, function(zone) {
-    message(sprintf("Creating fitting problem for zone %s", zone))
     zone_region <- geo_hierarchy[[field_names$region]][which(geo_hierarchy[[field_names$zone]] == zone)]
     zone_ref_sample <- ref_sample[ref_sample[[field_names$region]] == zone_region, ]
     zone_ref_sample[[field_names$region]] <- NULL
