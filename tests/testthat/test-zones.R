@@ -130,6 +130,28 @@ test_that("Create ml_problem with only household controls", {
   expect_true(all(sapply(problems, function(x) is.null(x$individual_controls))))
 })
 
+test_that("Create ml_problem with prior_weights", {
+  random_weights <- data.frame(
+    HHNR = unique(ref_sample$HHNR), 
+    prior_weights = runif(n = length(unique(ref_sample$HHNR)), max = 10)
+  )
+
+  problems <- ml_problem(
+    ref_sample = ref_sample,
+    field_names = special_field_names(
+      groupId = "HHNR", individualId = "PNR", count = "N",
+      zone = "ZONE", region = "REGION"
+    ),
+    group_controls = list(hh_ctrl),
+    individual_controls = list(ind_ctrl),
+    geo_hierarchy = geo_hierarchy,
+    prior_weights = random_weights$prior_weights
+  )
+
+  expect_true(all(sapply(problems, is_ml_problem)))
+  expect_true(all(sapply(problems, function(x) !is.null(x$priorWeights))))
+})
+
 test_that("bad zone-by-zone arguments", {
   expect_error(
     ml_problem(
