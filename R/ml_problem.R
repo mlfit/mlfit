@@ -13,9 +13,8 @@
 #' @param individual_controls,group_controls Control totals at individual
 #'   and group level, given as a list of data frames where each data frame
 #'   defines a control
-#' @param prior_weights Prior (or design) weights at group level; by default
-#'   a vector of ones will be used, which corresponds to random sampling of
-#'   groups
+#' @param prior_weights (Deprecated) Use `special_field_names(prior_weight = '<column-name>')` 
+#'   to specify the prior weight column in the `ref_sample` instead.
 #' @param geo_hierarchy A table shows mapping between a larger zoning level to
 #'  many zones of a smaller zoning level. The column name of the larger level
 #'  should be specified in `field_names` as 'region' and the smaller one as
@@ -100,14 +99,30 @@ ml_problem <- function(ref_sample,
                        group_controls = NULL,
                        prior_weights = NULL,
                        geo_hierarchy = NULL) {
+
+  # deprecate the `prior_weights` argument
+  if (!is.null(prior_weights)) {
+    deprecate_soft(
+      "0.6.0", 
+      "mlfit::ml_problem(prior_weights)", 
+      "mlfit::ml_problem(field_names)", 
+      details = "Use `special_field_names(prior_weight = '<column-name>')` to specify the prior weight column in the `ref_sample` instead.")
+  }
+
+  if (is.null(prior_weights) && !is.null(field_names$prior_weight)) {
+    if (!field_names$prior_weight %in% names(ref_sample)) {
+      stop(sprintf("The prior weight column '%s' is not found in the reference sample.", field_names$prior_weight))
+    }
+    prior_weights <- ref_sample[[field_names$prior_weight]]
+  }
+
   if (!is.null(geo_hierarchy)) {
     message("Creating a list of fitting problems by zone")
     return(ml_problem_by_zone(
       ref_sample,
       controls,
       field_names,
-      prior_weights,
-      geo_hierarchy
+      geo_hierarchy = geo_hierarchy
     ))
   }
 
@@ -311,13 +326,17 @@ print.ml_problem <- default_print
 #' @param region,zone Name of the column that defines the region of the reference
 #' sample or the zone of the controls. Note that region is a larger area that contains
 #' more than one zone.
+#' @param prior_weight Name of the column that defines the prior weight of the reference 
+#'   sample. Prior (or design) weights at group level; by default
+#'   a vector of ones will be used, which corresponds to random sampling of
+#'   groups. 
 #'
 #' @export
 #' @rdname ml_problem
 special_field_names <- function(groupId, individualId, individualsPerGroup = NULL,
-                                count = NULL, zone = NULL, region = NULL) {
+                                count = NULL, zone = NULL, region = NULL, prior_weight = NULL) {
   if (!is.null(individualsPerGroup)) {
     warning("The individualsPerGroup argument is obsolete.", call. = FALSE)
   }
-  tibble::lst(groupId, individualId, count, zone, region)
+  tibble::lst(groupId, individualId, count, zone, region, prior_weight)
 }
