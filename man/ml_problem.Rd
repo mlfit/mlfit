@@ -30,7 +30,8 @@ special_field_names(
   individualsPerGroup = NULL,
   count = NULL,
   zone = NULL,
-  region = NULL
+  region = NULL,
+  prior_weight = NULL
 )
 }
 \arguments{
@@ -46,9 +47,8 @@ special_field_names(
 and group level, given as a list of data frames where each data frame
 defines a control}
 
-\item{prior_weights}{Prior (or design) weights at group level; by default
-a vector of ones will be used, which corresponds to random sampling of
-groups}
+\item{prior_weights}{(Deprecated) Use \code{special_field_names(prior_weight = '<column-name>')}
+to specify the prior weight column in the \code{ref_sample} instead.}
 
 \item{geo_hierarchy}{A table shows mapping between a larger zoning level to
 many zones of a smaller zoning level. The column name of the larger level
@@ -70,6 +70,11 @@ column in each control by default).}
 \item{region, zone}{Name of the column that defines the region of the reference
 sample or the zone of the controls. Note that region is a larger area that contains
 more than one zone.}
+
+\item{prior_weight}{Name of the column that defines the prior weight of the reference
+sample. Prior (or design) weights at group level; by default
+a vector of ones will be used, which corresponds to random sampling of
+groups.}
 }
 \value{
 An object of class \code{ml_problem} or a list of them if \code{geo_hierarchy}
