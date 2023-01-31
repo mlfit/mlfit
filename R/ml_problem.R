@@ -162,12 +162,12 @@ ml_problem_by_zone <- function(ref_sample,
   if (!is.null(controls$group) && !all(sapply(controls$group, function(x) {
     field_names$zone %in% names(x)
   }))) {
-    stop(sprint("There are one or more group controls that don't have the zone field ('%s').", field_names$zone))
+    stop(sprintf("There are one or more group controls that don't have the zone field ('%s').", field_names$zone))
   }
   if (!is.null(controls$individual) && !all(sapply(controls$individual, function(x) {
     field_names$zone %in% names(x)
   }))) {
-    stop(sprint("There are one or more individual controls that don't have the zone field ('%s').", field_names$zone))
+    stop(sprintf("There are one or more individual controls that don't have the zone field ('%s').", field_names$zone))
   }
 
   # Split controls by zone
