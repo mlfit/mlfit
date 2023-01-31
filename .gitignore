@@ -7,3 +7,4 @@ inst/doc
 /_builds/
 /_projects/
 /_steps/
+vignettes/*_cache
