@@ -137,7 +137,6 @@ ml_problem <- function(ref_sample,
 ml_problem_by_zone <- function(ref_sample,
                                controls,
                                field_names,
-                               prior_weights = NULL,
                                geo_hierarchy) {
   if (is.null(field_names$region)) {
     stop("field_names$zone is not specified.")
@@ -194,30 +193,13 @@ ml_problem_by_zone <- function(ref_sample,
     check_zone_match(zones_from_group_controls, zones_from_individual_controls)
   }
 
-  # check that the length of prior_weights match the number of unique group id of ref_sample
-  if (!is.null(prior_weights)) {
-    if (length(prior_weights) != length(unique(ref_sample[[field_names$groupId]]))) {
-      stop(
-        sprintf(
-          "The length of `prior_weights` does not match the number of unique group IDs (%s) in `ref_sample``.",
-          field_names$groupId
-        )
-      )
-    }
-    prior_weights_df <- data.frame(
-      groupId = unique(ref_sample[[field_names$groupId]]), 
-      prior_weights = prior_weights
-    )
-  }
-
   # create a fitting problem for each zone
   all_zones <- unique(c(zones_from_group_controls, zones_from_individual_controls))
   fitting_problems <- lapply(all_zones, function(zone) {
     zone_region <- geo_hierarchy[[field_names$region]][which(geo_hierarchy[[field_names$zone]] == zone)]
     zone_ref_sample <- ref_sample[ref_sample[[field_names$region]] == zone_region, ]
-    if (!is.null(prior_weights)) {
-      idx <- prior_weights_df$groupId %in% zone_ref_sample[[field_names$groupId]]
-      zone_prior_weights <- prior_weights_df[idx, ][["prior_weights"]]
+    if (!is.null(field_names$prior_weight)) {
+      zone_prior_weights <- zone_ref_sample[[field_names$prior_weight]]
     } else {
       zone_prior_weights <- NULL
     }
