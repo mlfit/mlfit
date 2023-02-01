@@ -1,12 +1,11 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
-# mlfit 0.5.3.9005 (2023-02-01)
+# mlfit 0.6.0 (2023-02-01)
 
-## Bug fixes
-
-### ml_problem_by_zone 
-
-- `ml_problem()` not allowing single-level fit… (#79).
+- Soft deprecated the `prior_weights` argument. The name of a weight column in the reference sample to be used as prior weights should be specified using the `prior_weight` argument in `special_field_names()`.
+- the `group_controls` and `individual_controls` arguments of `ml_problem()` now have `NULL` as their default value.
+- Fixed `ml_problem()` not allowing single-level control when the `geo_hierarchy` argument is not `NULL`. (#78, @walkerke)
+- It is now possible to use prior weights in a `geo_hierarchy` `ml_problem()`. Simply specify the name of the weight column in your reference sample using the `prior_weight` argument in `special_field_names()`. (#78, @walkerke)
 
 
 # mlfit 0.5.3.9004 (2023-01-04)
