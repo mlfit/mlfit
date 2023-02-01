@@ -85,6 +85,13 @@ geo_hierarchy <- tibble::tribble(
   2, 4
 )
 
+random_weights <- data.frame(
+    HHNR = unique(ref_sample$HHNR), 
+    hh_weight = runif(n = length(unique(ref_sample$HHNR)), max = 10)
+  )
+
+ref_sample_weighted <- merge(ref_sample, random_weights, by = "HHNR")
+
 test_that("Create ml_problem by zones", {
   problems <- ml_problem(
     ref_sample = ref_sample,
@@ -98,6 +105,69 @@ test_that("Create ml_problem by zones", {
   )
 
   expect_true(all(sapply(problems, is_ml_problem)))
+})
+
+test_that("Create ml_problem with only individual controls", {
+  problems <- ml_problem(
+    ref_sample = ref_sample,
+    field_names = special_field_names(
+      groupId = "HHNR", individualId = "PNR", count = "N",
+      zone = "ZONE", region = "REGION"
+    ),
+    individual_controls = list(ind_ctrl),
+    geo_hierarchy = geo_hierarchy
+  )
+
+  expect_true(all(sapply(problems, is_ml_problem)))
+  expect_true(all(sapply(problems, function(x) is.null(x$group_controls))))
+})
+
+test_that("Create ml_problem with only household controls", {
+  problems <- ml_problem(
+    ref_sample = ref_sample,
+    field_names = special_field_names(
+      groupId = "HHNR", individualId = "PNR", count = "N",
+      zone = "ZONE", region = "REGION"
+    ),
+    group_controls = list(hh_ctrl),
+    geo_hierarchy = geo_hierarchy
+  )
+
+  expect_true(all(sapply(problems, is_ml_problem)))
+  expect_true(all(sapply(problems, function(x) is.null(x$individual_controls))))
+})
+
+test_that("Create ml_problem by zone with prior weights", {
+  problems <- ml_problem(
+    ref_sample = ref_sample_weighted,
+    field_names = special_field_names(
+      groupId = "HHNR", individualId = "PNR", count = "N",
+      zone = "ZONE", region = "REGION", prior_weight = "hh_weight"
+    ),
+    group_controls = list(hh_ctrl),
+    individual_controls = list(ind_ctrl),
+    geo_hierarchy = geo_hierarchy
+  )
+
+  expect_true(all(sapply(problems, is_ml_problem)))
+  expect_true(all(sapply(problems, function(x) !is.null(x$priorWeights))))
+  expect_true(all(sapply(problems, function(x) is_ml_fit(ml_fit(x, algorithm = "ipu")))))
+})
+
+test_that("Create ml_problem by zone with non-existed prior weight column", {
+  expect_error(
+    ml_problem(
+      ref_sample = ref_sample_weighted,
+      field_names = special_field_names(
+        groupId = "HHNR", individualId = "PNR", count = "N",
+        zone = "ZONE", region = "REGION", prior_weight = "non_existed_column_name"
+      ),
+      group_controls = list(hh_ctrl),
+      individual_controls = list(ind_ctrl),
+      geo_hierarchy = geo_hierarchy
+    ),
+    regex = "The prior weight column 'non_existed_column_name' is not found in the reference sample."
+  )
 })
 
 test_that("bad zone-by-zone arguments", {
@@ -155,6 +225,6 @@ test_that("bad zone-by-zone arguments", {
       individual_controls = list(ind_ctrl, ind_ctrl),
       geo_hierarchy = geo_hierarchy
     ),
-    regex = "Zone mismatch between individual and group controls:"
+    regex = "Zone mismatch between group and individual controls"
   )
 })
