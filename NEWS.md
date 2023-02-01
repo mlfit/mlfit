@@ -1,5 +1,14 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mlfit 0.5.3.9005 (2023-02-01)
+
+## Bug fixes
+
+### ml_problem_by_zone 
+
+- `ml_problem()` not allowing single-level fit… (#79).
+
+
 # mlfit 0.5.3.9004 (2023-01-04)
 
 ## doc
