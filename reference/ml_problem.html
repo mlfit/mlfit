@@ -22,7 +22,7 @@ to ml_problem."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mlfit</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.3.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.0</span>
       </span>
     </div>
 
@@ -67,8 +67,8 @@ to <code>ml_problem</code>.</p>
 <span>  <span class="va">ref_sample</span>,</span>
 <span>  controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>individual <span class="op">=</span> <span class="va">individual_controls</span>, group <span class="op">=</span> <span class="va">group_controls</span><span class="op">)</span>,</span>
 <span>  <span class="va">field_names</span>,</span>
-<span>  <span class="va">individual_controls</span>,</span>
-<span>  <span class="va">group_controls</span>,</span>
+<span>  individual_controls <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  group_controls <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  prior_weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  geo_hierarchy <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
@@ -87,7 +87,8 @@ to <code>ml_problem</code>.</p>
 <span>  individualsPerGroup <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  count <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  zone <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  region <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  region <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  prior_weight <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -114,9 +115,8 @@ defines a control</p></dd>
 
 
 <dt>prior_weights</dt>
-<dd><p>Prior (or design) weights at group level; by default
-a vector of ones will be used, which corresponds to random sampling of
-groups</p></dd>
+<dd><p>(Deprecated) Use <code>special_field_names(prior_weight = '&lt;column-name&gt;')</code>
+to specify the prior weight column in the <code>ref_sample</code> instead.</p></dd>
 
 
 <dt>geo_hierarchy</dt>
@@ -152,6 +152,13 @@ column in each control by default).</p></dd>
 <dd><p>Name of the column that defines the region of the reference
 sample or the zone of the controls. Note that region is a larger area that contains
 more than one zone.</p></dd>
+
+
+<dt>prior_weight</dt>
+<dd><p>Name of the column that defines the prior weight of the reference
+sample. Prior (or design) weights at group level; by default
+a vector of ones will be used, which corresponds to random sampling of
+groups.</p></dd>
 
 </dl></div>
     <div id="value">

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mlfit</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.3.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.0</span>
       </span>
     </div>
 
@@ -47,6 +47,35 @@
       <small>Source: <a href="https://github.com/mlfit/mlfit/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.6.0" id="mlfit-060-2023-02-01">mlfit 0.6.0 (2023-02-01)<a class="anchor" aria-label="anchor" href="#mlfit-060-2023-02-01"></a></h2>
+<ul><li>Soft deprecated the <code>prior_weights</code> argument. The name of a weight column in the reference sample to be used as prior weights should be specified using the <code>prior_weight</code> argument in <code><a href="../reference/ml_problem.html">special_field_names()</a></code>.</li>
+<li>the <code>group_controls</code> and <code>individual_controls</code> arguments of <code><a href="../reference/ml_problem.html">ml_problem()</a></code> now have <code>NULL</code> as their default value.</li>
+<li>Fixed <code><a href="../reference/ml_problem.html">ml_problem()</a></code> not allowing single-level control when the <code>geo_hierarchy</code> argument is not <code>NULL</code>. (<a href="https://github.com/mlfit/mlfit/issues/78" class="external-link">#78</a>, <a href="https://github.com/walkerke" class="external-link">@walkerke</a>)</li>
+<li>It is now possible to use prior weights in a <code>geo_hierarchy</code> <code><a href="../reference/ml_problem.html">ml_problem()</a></code>. Simply specify the name of the weight column in your reference sample using the <code>prior_weight</code> argument in <code><a href="../reference/ml_problem.html">special_field_names()</a></code>. (<a href="https://github.com/mlfit/mlfit/issues/78" class="external-link">#78</a>, <a href="https://github.com/walkerke" class="external-link">@walkerke</a>)</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.5.3.9004" id="mlfit-0539004-2023-01-04">mlfit 0.5.3.9004 (2023-01-04)<a class="anchor" aria-label="anchor" href="#mlfit-0539004-2023-01-04"></a></h2>
+<div class="section level3">
+<h3 id="doc-0-5-3-9004">doc<a class="anchor" aria-label="anchor" href="#doc-0-5-3-9004"></a></h3>
+<div class="section level4">
+<h4 id="newsmd-0-5-3-9004">NEWS.md<a class="anchor" aria-label="anchor" href="#newsmd-0-5-3-9004"></a></h4>
+<ul><li>Correct the latest news update.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="news-0-5-3-9004">news<a class="anchor" aria-label="anchor" href="#news-0-5-3-9004"></a></h4>
+<ul><li>Fixed <a href="https://github.com/mlfit/mlfit/issues/76" class="external-link">#76</a>. (<a href="https://github.com/mlfit/mlfit/issues/77" class="external-link">#77</a>).</li>
+</ul></div>
+</div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.5.3.9003" id="mlfit-0539003-2023-01-04">mlfit 0.5.3.9003 (2023-01-04)<a class="anchor" aria-label="anchor" href="#mlfit-0539003-2023-01-04"></a></h2>
+<ul><li>Fixed inconsistence header levels and invalid release titles in NEWS.md (<a href="https://github.com/mlfit/mlfit/issues/76" class="external-link">#76</a>, <a href="https://github.com/maelle" class="external-link">@maelle</a>)</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.5.3.9002" id="mlfit-0539002-2022-12-30">mlfit 0.5.3.9002 (2022-12-30)<a class="anchor" aria-label="anchor" href="#mlfit-0539002-2022-12-30"></a></h2>
+<ul><li>Internal changes only.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.5.3.9001" id="mlfit-0539001-2022-12-24">mlfit 0.5.3.9001 (2022-12-24)<a class="anchor" aria-label="anchor" href="#mlfit-0539001-2022-12-24"></a></h2>
 <ul><li><p>Harmonize yaml formatting.</p></li>
@@ -118,36 +147,37 @@
 <li>Fix test on Windows.</li>
 <li>Avoid converting sparse matrix to full matrix.</li>
 <li>If the controls contain values of zero for existing observations in the reference sample, the removal of these observations now works in all cases (<a href="https://github.com/mlfit/mlfit/issues/30" class="external-link">#30</a>).</li>
-</ul><div class="section level3">
-<h3 id="mlfit-0-3-7-9000">mlfit 0.3-7 (2018-01-22)<a class="anchor" aria-label="anchor" href="#mlfit-0-3-7-9000"></a></h3>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.3-7" id="mlfit-03-7-2018-01-22">mlfit 0.3-7 (2018-01-22)<a class="anchor" aria-label="anchor" href="#mlfit-03-7-2018-01-22"></a></h2>
 <ul><li>Add overview in package documentation.</li>
 <li>Add examples to all functions.</li>
 <li>Explicitly document return values to <code><a href="../reference/ml_fit.html">ml_fit()</a></code>.</li>
 </ul></div>
-<div class="section level3">
-<h3 id="mlfit-0-3-7-9000-1">mlfit 0.3-6 (2017-03-28)<a class="anchor" aria-label="anchor" href="#mlfit-0-3-7-9000-1"></a></h3>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.3-6" id="mlfit-03-6-2017-03-28">mlfit 0.3-6 (2017-03-28)<a class="anchor" aria-label="anchor" href="#mlfit-03-6-2017-03-28"></a></h2>
 <ul><li>Set default maximum number of iterations for HIPF to 2000.</li>
 <li>Convert documentation to Markdown.</li>
 </ul></div>
-<div class="section level3">
-<h3 id="mlfit-0-3-7-9000-2">mlfit 0.3-5 (2016-09-03)<a class="anchor" aria-label="anchor" href="#mlfit-0-3-7-9000-2"></a></h3>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.3-5" id="mlfit-03-5-2016-09-03">mlfit 0.3-5 (2016-09-03)<a class="anchor" aria-label="anchor" href="#mlfit-03-5-2016-09-03"></a></h2>
 <ul><li>Add “Driven by” and “Related work” sections to the README.</li>
 </ul></div>
-<div class="section level3">
-<h3 id="mlfit-0-3-7-9000-3">mlfit 0.3-4 (2016-08-03)<a class="anchor" aria-label="anchor" href="#mlfit-0-3-7-9000-3"></a></h3>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.3-4" id="mlfit-03-4-2016-08-03">mlfit 0.3-4 (2016-08-03)<a class="anchor" aria-label="anchor" href="#mlfit-03-4-2016-08-03"></a></h2>
 <ul><li>Use a sparse matrix for the flattened reference sample.</li>
 </ul></div>
-<div class="section level3">
-<h3 id="mlfit-0-3-7-9000-4">mlfit 0.3-3 (2016-06-06)<a class="anchor" aria-label="anchor" href="#mlfit-0-3-7-9000-4"></a></h3>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.3-3" id="mlfit-03-3-2016-06-06">mlfit 0.3-3 (2016-06-06)<a class="anchor" aria-label="anchor" href="#mlfit-03-3-2016-06-06"></a></h2>
 <ul><li>Status messages with <code>verbose = TRUE</code> are prepended with a time stamp.</li>
 <li>Fail if <code>NA</code> group ID found.</li>
 </ul></div>
-<div class="section level3">
-<h3 id="mlfit-0-3-7-9000-5">mlfit 0.3-2 (2016-04-25)<a class="anchor" aria-label="anchor" href="#mlfit-0-3-7-9000-5"></a></h3>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.3-2" id="mlfit-03-2-2016-04-25">mlfit 0.3-2 (2016-04-25)<a class="anchor" aria-label="anchor" href="#mlfit-03-2-2016-04-25"></a></h2>
 <ul><li>Reorganized and renamed internal datasets.</li>
 </ul></div>
-<div class="section level3">
-<h3 id="mlfit-0-3-7-9000-6">mlfit 0.3-1 (2016-04-17)<a class="anchor" aria-label="anchor" href="#mlfit-0-3-7-9000-6"></a></h3>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.3-1" id="mlfit-03-1-2016-04-17">mlfit 0.3-1 (2016-04-17)<a class="anchor" aria-label="anchor" href="#mlfit-03-1-2016-04-17"></a></h2>
 <ul><li>Fitting result contains <code>iterations</code> and <code>tol</code> members (<a href="https://github.com/mlfit/mlfit/issues/28" class="external-link">#28</a>).</li>
 <li>Fixed model matrix of “separate” type if only grand totals are given.</li>
 <li>
@@ -157,7 +187,6 @@
 <li>HIPF and IPU stop iterating if tolerance is reached.</li>
 <li>IPU and HIPF abort iteration when the weights do not change measurably between two iterations (<a href="https://github.com/mlfit/mlfit/issues/27" class="external-link">#27</a>).</li>
 </ul></div>
-</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3" id="mlfit-03-2016-04-14">mlfit 0.3 (2016-04-14)<a class="anchor" aria-label="anchor" href="#mlfit-03-2016-04-14"></a></h2>
 <ul><li>Features
@@ -201,7 +230,7 @@
 </ul></li>
 </ul></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.2" id="version-02-2016-01-30">Version 0.2 (2016-01-30)<a class="anchor" aria-label="anchor" href="#version-02-2016-01-30"></a></h2>
+<h2 class="page-header" data-toc-text="0.2" id="mlfit-02-2016-01-30">mlfit 0.2 (2016-01-30)<a class="anchor" aria-label="anchor" href="#mlfit-02-2016-01-30"></a></h2>
 <ul><li>New functions <code><a href="../reference/compute_margins.html">compute_margins()</a></code> and <code>margins_to_df()</code> for validation</li>
 <li>Support specification of prior weights in construction of fitting problems</li>
 <li>Use <code>survey::grake()</code> instead of <code>grake::calibWeights()</code>.</li>
@@ -215,6 +244,90 @@
 <li>Clarify documentation</li>
 <li>Straighten out imports, use <code>importFrom</code> instead of <code>::</code>
 </li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.1" id="mlfit-01-2015-05-26">mlfit 0.1 (2015-05-26)<a class="anchor" aria-label="anchor" href="#mlfit-01-2015-05-26"></a></h2>
+<ul><li>new functions <code>fitting_problem</code>, <code>is.fitting_problem</code>, <code>special_field_names</code>
+</li>
+<li>all fitting functions now expect an object of class <code>fitting_problem</code> (as returned by the <code>fitting_problem</code> and <code>import_IPAF_problem</code> functions); former calls like <code>ml_fit(ref_sample, controls, field_names)</code> now need to be written as <code>ml_fit(fitting_problem(...))</code>
+</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0-14" id="mlfit-00-14-2015-04-15">mlfit 0.0-14 (2015-04-15)<a class="anchor" aria-label="anchor" href="#mlfit-00-14-2015-04-15"></a></h2>
+<ul><li>use <code>grake</code> package instead of <code>laeken</code>
+</li>
+<li>new argument <code>ginv</code> to <code>ml_fit_dss</code>, passed down to calibWeights</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0-13" id="mlfit-00-13-2015-04-13">mlfit 0.0-13 (2015-04-13)<a class="anchor" aria-label="anchor" href="#mlfit-00-13-2015-04-13"></a></h2>
+<ul><li>fix example for <code>ml_fit_dss</code>
+</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0-12" id="mlfit-00-12-2014-11-21">mlfit 0.0-12 (2014-11-21)<a class="anchor" aria-label="anchor" href="#mlfit-00-12-2014-11-21"></a></h2>
+<ul><li><p>new function <code>ml_fit_dss</code> with an implementation very close to the paper by Deville et al. (1993); implementation in the <code>laeken</code> package</p></li>
+<li><p>normalize weights to get rid of precision problems</p></li>
+<li><p>allow partly uncontrolled attributes and controls without observations in the reference sample (with a warning, <a href="https://github.com/mlfit/mlfit/issues/24" class="external-link">#24</a>)</p></li>
+<li><p>better error reporting for non-factor controls and existence of group ID column</p></li>
+<li><p>improve warning and progress messages</p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0-11" id="mlfit-00-11-2014-07-25">mlfit 0.0-11 (2014-07-25)<a class="anchor" aria-label="anchor" href="#mlfit-00-11-2014-07-25"></a></h2>
+<ul><li><p>return correct weights – regression introduced in # mlfit 0.0.9</p></li>
+<li><p>rewrite transformation of weights using sparse matrices and a home-grown Moore-Penrose inverse for our (very special) transformation matrix (<a href="https://github.com/mlfit/mlfit/issues/17" class="external-link">#17</a>)</p></li>
+<li><p>warn on missing observations for nonzero controls (<a href="https://github.com/mlfit/mlfit/issues/20" class="external-link">#20</a>)</p></li>
+<li><p><code>ml_fit_entropy_o</code> also returns flat weights</p></li>
+<li><p>allow arbitrary order in control total tables (<a href="https://github.com/mlfit/mlfit/issues/19" class="external-link">#19</a>)</p></li>
+<li><p>remove observations that correspond to zero-valued control totals, with warning; don’t warn if no corresponding observations need to be removed (<a href="https://github.com/mlfit/mlfit/issues/16" class="external-link">#16</a>)</p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0-10" id="mlfit-00-10-2014-07-04">mlfit 0.0-10 (2014-07-04)<a class="anchor" aria-label="anchor" href="#mlfit-00-10-2014-07-04"></a></h2>
+<ul><li><p>support multiple controls at individual or group level, also detect conflicting control totals</p></li>
+<li><p>support fitting one-dimensional problems (where only group-level controls are given)</p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0.9" id="mlfit-009-2014-06-19">mlfit 0.0.9 (2014-06-19)<a class="anchor" aria-label="anchor" href="#mlfit-009-2014-06-19"></a></h2>
+<ul><li><p>new function <code>flatten_ml_fit_problem</code>: transform representation as returned by <code>import_IPAF_result</code> into a matrix, a control vector and a weights vector</p></li>
+<li><p>function <code>ml_fit_entropy_o</code>: use <code><a href="https://rdrr.io/pkg/BB/man/dfsane.html" class="external-link">BB::dfsane</a></code> instead of <code><a href="https://rdrr.io/pkg/BB/man/BBsolve.html" class="external-link">BB::BBsolve</a></code> for solving the optimization problem; rename argument <code>BBsolve_args</code> to <code>dfsane_args</code></p></li>
+<li><p>function <code>ml_fit</code>: new parameter <code>verbose</code></p></li>
+<li><p>aggregate identical household types, implement prior weights (so far only internally)</p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0.8" id="mlfit-008-2014-06-17">mlfit 0.0.8 (2014-06-17)<a class="anchor" aria-label="anchor" href="#mlfit-008-2014-06-17"></a></h2>
+<ul><li><p>Add example for <code>ml_fit</code> (<a href="https://github.com/mlfit/mlfit/issues/11" class="external-link">#11</a>)</p></li>
+<li><p>allow additional arguments for the algorithms; <code>ml_fit_entropy_o</code> now accepts a named list <code>BBsolve_args</code> that contains additional arguments to <code><a href="https://rdrr.io/pkg/BB/man/BBsolve.html" class="external-link">BB::BBsolve</a></code></p></li>
+<li><p>Faster internal data preparation for <code>ml_fit_entropy_o</code></p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0.7" id="mlfit-007-2014-06-17">mlfit 0.0.7 (2014-06-17)<a class="anchor" aria-label="anchor" href="#mlfit-007-2014-06-17"></a></h2>
+<ul><li><p>Fix dependency issues (<a href="https://github.com/mlfit/mlfit/issues/13" class="external-link">#13</a>, <a href="https://github.com/mlfit/mlfit/issues/14" class="external-link">#14</a>)</p></li>
+<li><p>Add example for <code>ml_fit_entropy_o</code> (<a href="https://github.com/mlfit/mlfit/issues/11" class="external-link">#11</a>)</p></li>
+<li><p>Print more helpful error message if control totals and reference sample categories do not overlap (<a href="https://github.com/mlfit/mlfit/issues/11" class="external-link">#11</a>)</p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0.6" id="mlfit-006-2014-02-09">mlfit 0.0.6 (2014-02-09)<a class="anchor" aria-label="anchor" href="#mlfit-006-2014-02-09"></a></h2>
+<ul><li>
+<code>import_IPAF_results</code> now returns a class of type <code>IPAF_results</code>
+</li>
+<li>New functions <code>ml_ipf</code> and <code>ml_ipf_entropy_o</code>, implementation does not yet return the same weights as the Python code</li>
+<li>Convert control columns to factors</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0.5" id="mlfit-005-2014-02-07">mlfit 0.0.5 (2014-02-07)<a class="anchor" aria-label="anchor" href="#mlfit-005-2014-02-07"></a></h2>
+<ul><li><p>Fix importing configuration files with more than one control of any type and with comments in the control definition</p></li>
+<li><p>New parameter <code>config_name</code> to <code>import</code>, defaults to <code>config.xml</code></p></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0.4" id="mlfit-004-2013-12-06">mlfit 0.0.4 (2013-12-06)<a class="anchor" aria-label="anchor" href="#mlfit-004-2013-12-06"></a></h2>
+<ul><li>Parameter <code>all_weights</code> to <code>import</code> that allows importing also intermediate weights. The output format of <code>import</code> has changed, the weights for each algorithm are now always a list of weight vectors, even in the default case <code>all_weights == FALSE</code> (<a href="https://github.com/mlfit/mlfit/issues/5" class="external-link">#5</a>).</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0.3" id="mlfit-003-2013-11-28">mlfit 0.0.3 (2013-11-28)<a class="anchor" aria-label="anchor" href="#mlfit-003-2013-11-28"></a></h2>
+<ul><li>Import results of old Python code (<a href="https://github.com/mlfit/mlfit/issues/1" class="external-link">#1</a>).</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.0.2" id="mlfit-002-2013-11-26">mlfit 0.0.2 (2013-11-26)<a class="anchor" aria-label="anchor" href="#mlfit-002-2013-11-26"></a></h2>
+<ul><li>Initial setup</li>
 </ul></div>
   </div>
 
