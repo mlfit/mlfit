@@ -51,57 +51,57 @@ library(tibble)
 
 reference_sample <- tibble::tribble(
   ~HHNR, ~PNR, ~APER, ~CAR, ~WKSTAT,
-     1L,   1L,    3L,  "0",     "1",
-     1L,   2L,    3L,  "0",     "2",
-     1L,   3L,    3L,  "0",     "3",
-     2L,   4L,    2L,  "0",     "1",
-     2L,   5L,    2L,  "0",     "3",
-     3L,   6L,    3L,  "0",     "1",
-     3L,   7L,    3L,  "0",     "1",
-     3L,   8L,    3L,  "0",     "2",
-     4L,   9L,    3L,  "1",     "1",
-     4L,  10L,    3L,  "1",     "3",
-     4L,  11L,    3L,  "1",     "3",
-     5L,  12L,    3L,  "1",     "2",
-     5L,  13L,    3L,  "1",     "2",
-     5L,  14L,    3L,  "1",     "3",
-     6L,  15L,    2L,  "1",     "1",
-     6L,  16L,    2L,  "1",     "2",
-     7L,  17L,    5L,  "1",     "1",
-     7L,  18L,    5L,  "1",     "1",
-     7L,  19L,    5L,  "1",     "2",
-     7L,  20L,    5L,  "1",     "3",
-     7L,  21L,    5L,  "1",     "3",
-     8L,  22L,    2L,  "1",     "1",
-     8L,  23L,    2L,  "1",     "2"
-  )
+  1L, 1L, 3L, "0", "1",
+  1L, 2L, 3L, "0", "2",
+  1L, 3L, 3L, "0", "3",
+  2L, 4L, 2L, "0", "1",
+  2L, 5L, 2L, "0", "3",
+  3L, 6L, 3L, "0", "1",
+  3L, 7L, 3L, "0", "1",
+  3L, 8L, 3L, "0", "2",
+  4L, 9L, 3L, "1", "1",
+  4L, 10L, 3L, "1", "3",
+  4L, 11L, 3L, "1", "3",
+  5L, 12L, 3L, "1", "2",
+  5L, 13L, 3L, "1", "2",
+  5L, 14L, 3L, "1", "3",
+  6L, 15L, 2L, "1", "1",
+  6L, 16L, 2L, "1", "2",
+  7L, 17L, 5L, "1", "1",
+  7L, 18L, 5L, "1", "1",
+  7L, 19L, 5L, "1", "2",
+  7L, 20L, 5L, "1", "3",
+  7L, 21L, 5L, "1", "3",
+  8L, 22L, 2L, "1", "1",
+  8L, 23L, 2L, "1", "2"
+)
 
 individual_control <- tibble::tribble(
-  ~WKSTAT,   ~N,
-      "1",  91L,
-      "2",  65L,
-      "3", 104L
-  )
+  ~WKSTAT, ~N,
+  "1", 91L,
+  "2", 65L,
+  "3", 104L
+)
 
 group_control <- tibble::tribble(
-  ~CAR,  ~N,
-   "0", 35L,
-   "1", 65L
-  )
+  ~CAR, ~N,
+  "0", 35L,
+  "1", 65L
+)
 ```
 
 First we need to create a `ml_problem` object which defines our multi-level fitting problem. `special_field_names()` is useful for the `field_names` argument to `ml_problem()`, this is where we need to specific the names of the ID columns in our reference sample and the count column in the control tables.
 
 ```{r}
 fitting_problem <- ml_problem(
-  ref_sample = reference_sample, 
+  ref_sample = reference_sample,
   controls = list(
     individual = list(individual_control),
     group = list(group_control)
   ),
   field_names = special_field_names(
-    groupId = "HHNR", 
-    individualId = "PNR", 
+    groupId = "HHNR",
+    individualId = "PNR",
     count = "N"
   )
 )
@@ -134,53 +134,53 @@ When `geo_hierarchy` is validly specified, `ml_problem()` would return a list of
 ```{r}
 ref_sample <- tibble::tribble(
   ~HHNR, ~PNR, ~APER, ~HH_VAR, ~P_VAR, ~REGION,
-      1,    1,     3,       1,      1,       1,
-      1,    2,     3,       1,      2,       1,
-      1,    3,     3,       1,      3,       1,
-      2,    4,     2,       1,      1,       1,
-      2,    5,     2,       1,      3,       1,
-      3,    6,     3,       1,      1,       1,
-      3,    7,     3,       1,      1,       1,
-      3,    8,     3,       1,      2,       1,
-      4,    9,     3,       2,      1,       1,
-      4,   10,     3,       2,      3,       1,
-      4,   11,     3,       2,      3,       1,
-      5,   12,     3,       2,      2,       1,
-      5,   13,     3,       2,      2,       1,
-      5,   14,     3,       2,      3,       1,
-      6,   15,     2,       2,      1,       1,
-      6,   16,     2,       2,      2,       1,
-      7,   17,     5,       2,      1,       1,
-      7,   18,     5,       2,      1,       1,
-      7,   19,     5,       2,      2,       1,
-      7,   20,     5,       2,      3,       1,
-      7,   21,     5,       2,      3,       1,
-      8,   22,     2,       2,      1,       1,
-      8,   23,     2,       2,      2,       1,
-      9,   24,     3,       1,      1,       2,
-      9,   25,     3,       1,      2,       2,
-      9,   26,     3,       1,      3,       2,
-     10,   27,     2,       1,      1,       2,
-     10,   28,     2,       1,      3,       2,
-     11,   29,     3,       1,      1,       2,
-     11,   30,     3,       1,      1,       2,
-     11,   31,     3,       1,      2,       2,
-     12,   32,     3,       2,      1,       2,
-     12,   33,     3,       2,      3,       2,
-     12,   34,     3,       2,      3,       2,
-     13,   35,     3,       2,      2,       2,
-     13,   36,     3,       2,      2,       2,
-     13,   37,     3,       2,      3,       2,
-     14,   38,     2,       2,      1,       2,
-     14,   39,     2,       2,      2,       2,
-     15,   40,     5,       2,      1,       2,
-     15,   41,     5,       2,      1,       2,
-     15,   42,     5,       2,      2,       2,
-     15,   43,     5,       2,      3,       2,
-     15,   44,     5,       2,      3,       2,
-     16,   45,     2,       2,      1,       2,
-     16,   46,     2,       2,      2,       2
-  )
+  1, 1, 3, 1, 1, 1,
+  1, 2, 3, 1, 2, 1,
+  1, 3, 3, 1, 3, 1,
+  2, 4, 2, 1, 1, 1,
+  2, 5, 2, 1, 3, 1,
+  3, 6, 3, 1, 1, 1,
+  3, 7, 3, 1, 1, 1,
+  3, 8, 3, 1, 2, 1,
+  4, 9, 3, 2, 1, 1,
+  4, 10, 3, 2, 3, 1,
+  4, 11, 3, 2, 3, 1,
+  5, 12, 3, 2, 2, 1,
+  5, 13, 3, 2, 2, 1,
+  5, 14, 3, 2, 3, 1,
+  6, 15, 2, 2, 1, 1,
+  6, 16, 2, 2, 2, 1,
+  7, 17, 5, 2, 1, 1,
+  7, 18, 5, 2, 1, 1,
+  7, 19, 5, 2, 2, 1,
+  7, 20, 5, 2, 3, 1,
+  7, 21, 5, 2, 3, 1,
+  8, 22, 2, 2, 1, 1,
+  8, 23, 2, 2, 2, 1,
+  9, 24, 3, 1, 1, 2,
+  9, 25, 3, 1, 2, 2,
+  9, 26, 3, 1, 3, 2,
+  10, 27, 2, 1, 1, 2,
+  10, 28, 2, 1, 3, 2,
+  11, 29, 3, 1, 1, 2,
+  11, 30, 3, 1, 1, 2,
+  11, 31, 3, 1, 2, 2,
+  12, 32, 3, 2, 1, 2,
+  12, 33, 3, 2, 3, 2,
+  12, 34, 3, 2, 3, 2,
+  13, 35, 3, 2, 2, 2,
+  13, 36, 3, 2, 2, 2,
+  13, 37, 3, 2, 3, 2,
+  14, 38, 2, 2, 1, 2,
+  14, 39, 2, 2, 2, 2,
+  15, 40, 5, 2, 1, 2,
+  15, 41, 5, 2, 1, 2,
+  15, 42, 5, 2, 2, 2,
+  15, 43, 5, 2, 3, 2,
+  15, 44, 5, 2, 3, 2,
+  16, 45, 2, 2, 1, 2,
+  16, 46, 2, 2, 2, 2
+)
 
 
 hh_ctrl <- tibble::tribble(
@@ -220,15 +220,15 @@ geo_hierarchy <- tibble::tribble(
 )
 
 fitting_problems <- ml_problem(
-    ref_sample = ref_sample,
-    field_names = special_field_names(
-      groupId = "HHNR", individualId = "PNR", count = "N",
-      zone = "ZONE", region = "REGION"
-    ),
-    group_controls = list(hh_ctrl),
-    individual_controls = list(ind_ctrl),
-    geo_hierarchy = geo_hierarchy
-  )
+  ref_sample = ref_sample,
+  field_names = special_field_names(
+    groupId = "HHNR", individualId = "PNR", count = "N",
+    zone = "ZONE", region = "REGION"
+  ),
+  group_controls = list(hh_ctrl),
+  individual_controls = list(ind_ctrl),
+  geo_hierarchy = geo_hierarchy
+)
 
 fits <- fitting_problems %>%
   lapply(ml_fit, algorithm = "ipu") %>%

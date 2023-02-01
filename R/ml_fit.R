@@ -96,7 +96,6 @@ get_algo <- function(x) {
 #' accessed with `$` or `[[`:
 set_weights_success_and_residuals <- function(res, flat, flat_weights,
                                               tol, iterations) {
-
   #' - `weights`: Resulting weights, compatible to the original reference sample
   res$weights <- expand_weights(flat_weights, flat)
   #' - `tol`: The input tolerance

@@ -86,9 +86,9 @@ geo_hierarchy <- tibble::tribble(
 )
 
 random_weights <- data.frame(
-    HHNR = unique(ref_sample$HHNR), 
-    hh_weight = runif(n = length(unique(ref_sample$HHNR)), max = 10)
-  )
+  HHNR = unique(ref_sample$HHNR),
+  hh_weight = runif(n = length(unique(ref_sample$HHNR)), max = 10)
+)
 
 ref_sample_weighted <- merge(ref_sample, random_weights, by = "HHNR")
 

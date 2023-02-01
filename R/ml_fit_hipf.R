@@ -185,7 +185,6 @@ get_transform_group_to_groupsize <- function(group_reverse_weights_transform) {
 }
 
 rescale_group_weights_for_ind_per_group <- function(group_weights, weights_transform_group_to_groupsize, group_ind_totals) {
-
   # Appendix A
   Fp <- group_weights %*% weights_transform_group_to_groupsize
   ap <- as.vector(Fp) * (seq_along(Fp) * (group_ind_totals$group / group_ind_totals$ind) - 1)

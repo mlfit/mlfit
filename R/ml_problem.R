@@ -13,7 +13,7 @@
 #' @param individual_controls,group_controls Control totals at individual
 #'   and group level, given as a list of data frames where each data frame
 #'   defines a control
-#' @param prior_weights (Deprecated) Use `special_field_names(prior_weight = '<column-name>')` 
+#' @param prior_weights (Deprecated) Use `special_field_names(prior_weight = '<column-name>')`
 #'   to specify the prior weight column in the `ref_sample` instead.
 #' @param geo_hierarchy A table shows mapping between a larger zoning level to
 #'  many zones of a smaller zoning level. The column name of the larger level
@@ -95,18 +95,18 @@ ml_problem <- function(ref_sample,
                          group = group_controls
                        ),
                        field_names,
-                       individual_controls = NULL, 
+                       individual_controls = NULL,
                        group_controls = NULL,
                        prior_weights = NULL,
                        geo_hierarchy = NULL) {
-
   # deprecate the `prior_weights` argument
   if (!is.null(prior_weights)) {
     deprecate_soft(
-      "0.6.0", 
-      "mlfit::ml_problem(prior_weights)", 
-      "mlfit::ml_problem(field_names)", 
-      details = "Use `special_field_names(prior_weight = '<column-name>')` to specify the prior weight column in the `ref_sample` instead.")
+      "0.6.0",
+      "mlfit::ml_problem(prior_weights)",
+      "mlfit::ml_problem(field_names)",
+      details = "Use `special_field_names(prior_weight = '<column-name>')` to specify the prior weight column in the `ref_sample` instead."
+    )
   }
 
   if (is.null(prior_weights) && !is.null(field_names$prior_weight)) {
@@ -154,7 +154,7 @@ ml_problem_by_zone <- function(ref_sample,
     stop(sprintf("`region` field {%s} is not in `ref_sample`", field_names$region))
   }
 
-  #Check if both controls are missing
+  # Check if both controls are missing
   if (is.null(controls$group) && is.null(controls$individual)) {
     stop("Both 'controls$group' and 'controls$individual' are missing. At least one level of control is required.")
   }
@@ -308,10 +308,10 @@ print.ml_problem <- default_print
 #' @param region,zone Name of the column that defines the region of the reference
 #' sample or the zone of the controls. Note that region is a larger area that contains
 #' more than one zone.
-#' @param prior_weight Name of the column that defines the prior weight of the reference 
+#' @param prior_weight Name of the column that defines the prior weight of the reference
 #'   sample. Prior (or design) weights at group level; by default
 #'   a vector of ones will be used, which corresponds to random sampling of
-#'   groups. 
+#'   groups.
 #'
 #' @export
 #' @rdname ml_problem
