@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mlfit 0.6.0.9001 (2023-02-02)
+
+## Chore
+
+- Styler.
+
+
 # mlfit 0.6.0 (2023-02-01)
 
 - Soft deprecated the `prior_weights` argument. The name of a weight column in the reference sample to be used as prior weights should be specified using the `prior_weight` argument in `special_field_names()`.
