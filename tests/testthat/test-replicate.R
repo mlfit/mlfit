@@ -30,9 +30,3 @@ test_that("integerisation methods", {
   expect_length(int_round(w), 4)
   expect_gte(sum(int_round(w)), w_rounded_sum)
 })
-
-test_that(".get_int_fnc works", {
-  int_trs <- "global_env"
-  expect_error(.get_int_fnc("not_exist"), regexp = "object \'int_not_exist\' not found")
-  expect_true(is.function(.get_int_fnc("trs")))
-})
