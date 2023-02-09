@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mlfit</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.1</span>
       </span>
     </div>
 
@@ -47,6 +47,17 @@
       <small>Source: <a href="https://github.com/mlfit/mlfit/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.6.1" id="mlfit-061-2023-02-09">mlfit 0.6.1 (2023-02-09)<a class="anchor" aria-label="anchor" href="#mlfit-061-2023-02-09"></a></h2>
+<ul><li>Fixed the internal working of <code><a href="../reference/ml_replicate.html">ml_replicate()</a></code>. Getting a replication algorithm now is guaranteed to work even without the mlfit package in the current environment. This can be an fatal issue when mlfit is internally called by another package. The root cause of this is in the .get_int_fnc() that uses as.environment(“package:mlfit”).</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.6.0.9001" id="mlfit-0609001-2023-02-02">mlfit 0.6.0.9001 (2023-02-02)<a class="anchor" aria-label="anchor" href="#mlfit-0609001-2023-02-02"></a></h2>
+<div class="section level3">
+<h3 id="chore-0-6-0-9001">Chore<a class="anchor" aria-label="anchor" href="#chore-0-6-0-9001"></a></h3>
+<ul><li>Styler.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.0" id="mlfit-060-2023-02-01">mlfit 0.6.0 (2023-02-01)<a class="anchor" aria-label="anchor" href="#mlfit-060-2023-02-01"></a></h2>
 <ul><li>Soft deprecated the <code>prior_weights</code> argument. The name of a weight column in the reference sample to be used as prior weights should be specified using the <code>prior_weight</code> argument in <code><a href="../reference/ml_problem.html">special_field_names()</a></code>.</li>
