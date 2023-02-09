@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# mlfit 0.6.1 (2023-02-09)
+
+- Fixed the internal working of `ml_replicate()`. Getting a replication algorithm now is guaranteed to work even without the mlfit package in the current environment. This can be an fatal issue when mlfit is internally called by another package. The root cause of this is in the .get_int_fnc() that uses as.environment("package:mlfit").
+
+
 # mlfit 0.6.0.9001 (2023-02-02)
 
 ## Chore
