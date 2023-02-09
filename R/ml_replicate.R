@@ -36,6 +36,10 @@ ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = 
   .patch_verbose()
 
   algorithm <- match.arg(algorithm)
+  fun.name <- sprintf("int_%s", algorithm)
+  if (!exists(fun.name)) {
+    stop("Unknown algorithm:", algorithm)
+  }
 
   message("Replicate using '", algorithm, "' algorithm")
   group_id <- ml_fit$flat$ml_problem$fieldNames$groupId
@@ -50,7 +54,7 @@ ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = 
     ml_fit$flat_weights
 
   message("Integerising the fitted weights")
-  integerised_weights <- .get_int_fnc(algorithm)(weights = weights)
+  integerised_weights <- get(fun.name)(weights = weights)
 
   message("Duplicating the reference sample")
   ind_integerised_weights <-
@@ -97,12 +101,6 @@ ml_replicate <- function(ml_fit, algorithm = c("pp", "trs", "round"), verbose = 
   message("Done!")
   tmp_cols <- grepl("^\\.\\.(.*)\\.\\.$", names(replicated_ref_sample))
   replicated_ref_sample[, !tmp_cols]
-}
-
-.get_int_fnc <- function(algorithm) {
-  getFromNamespace(sprintf("int_%s", algorithm),
-    envir = as.environment("package:mlfit")
-  )
 }
 
 int_trs <- function(weights) {
