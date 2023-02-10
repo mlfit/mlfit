@@ -1,4 +1,13 @@
-<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+<!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
+
+# mlfit 0.6.1.9000 (2023-02-10)
+
+## Bug fixes
+
+### ml_replicate
+
+- Getting a replication algorithm now guarantee to w… (#81).
+
 
 # mlfit 0.6.1 (2023-02-09)
 
