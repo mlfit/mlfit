@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9001 (2023-02-17)
+
+- Internal changes only.
+
+
 # mlfit 0.6.1.9000 (2023-02-10)
 
 ## Bug fixes
