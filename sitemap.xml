@@ -1,51 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/compute_margins.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dss.html</loc>
-  </url>
-  <url>
-    <loc>/reference/fitting_problem.html</loc>
-  </url>
-  <url>
-    <loc>/reference/flatten_ml_fit_problem.html</loc>
-  </url>
-  <url>
-    <loc>/reference/gginv.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ml_fit.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ml_problem.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ml_replicate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mlfit-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/toy_example.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/compute_margins.html</loc></url>
+<url><loc>/reference/dss.html</loc></url>
+<url><loc>/reference/fitting_problem.html</loc></url>
+<url><loc>/reference/flatten_ml_fit_problem.html</loc></url>
+<url><loc>/reference/gginv.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/ml_fit.html</loc></url>
+<url><loc>/reference/ml_problem.html</loc></url>
+<url><loc>/reference/ml_replicate.html</loc></url>
+<url><loc>/reference/mlfit-package.html</loc></url>
+<url><loc>/reference/toy_example.html</loc></url>
 </urlset>
+
