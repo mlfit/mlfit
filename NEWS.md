@@ -1,5 +1,24 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9005 (2024-10-28)
+
+## Continuous integration
+
+  - Install via R CMD INSTALL ., not pak (#83).
+    
+      - ci: Install via R CMD INSTALL ., not pak
+    
+      - ci: Bump version of upload-artifact action
+    
+      - ci: Use pkgdown branch
+    
+      - ci: Updates from duckdb
+    
+      - ci: Trigger run
+    
+      - ci: Trigger run
+
+
 # mlfit 0.6.1.9004 (2024-08-31)
 
 ## Chore
