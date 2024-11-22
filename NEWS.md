@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9008 (2024-11-22)
+
+## Continuous integration
+
+  - Correctly detect branch protection (#86).
+
+
 # mlfit 0.6.1.9007 (2024-11-18)
 
 ## Continuous integration
