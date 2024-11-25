@@ -1,5 +1,18 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9009 (2024-11-25)
+
+## Continuous integration
+
+- Need to install R on Ubuntu 24.04 (#89).
+
+- Use Ubuntu 24.04 and styler PR (#87).
+
+## Uncategorized
+
+- PLACEHOLDER https://github.com/mlfit/mlfit/pull/16 (#16).
+
+
 # mlfit 0.6.1.9008 (2024-11-22)
 
 ## Continuous integration
