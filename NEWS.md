@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9010 (2024-11-26)
+
+## Continuous integration
+
+- Use styler from main branch (#90).
+
+
 # mlfit 0.6.1.9009 (2024-11-25)
 
 ## Continuous integration
