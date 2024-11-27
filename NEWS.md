@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9011 (2024-11-27)
+
+## Continuous integration
+
+- Explicit permissions (#91).
+
+
 # mlfit 0.6.1.9010 (2024-11-26)
 
 ## Continuous integration
