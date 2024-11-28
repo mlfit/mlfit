@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9012 (2024-11-28)
+
+## Continuous integration
+
+- Ignore errors when removing pkg-config on macOS (#92).
+
+
 # mlfit 0.6.1.9011 (2024-11-27)
 
 ## Continuous integration
