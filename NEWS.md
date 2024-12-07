@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9013 (2024-12-07)
+
+## Continuous integration
+
+- Use larger retry count for lock-threads workflow (#93).
+
+
 # mlfit 0.6.1.9012 (2024-11-28)
 
 ## Continuous integration
