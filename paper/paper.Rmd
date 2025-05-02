@@ -1,0 +1,57 @@
+---
+title: 'mlfit: Iterative Proportional Fitting Algorithms for Nested Structures'
+tags:
+  - R
+  - multi-level fitting algorithms
+  - population systhesis
+authors:
+  - name: Kirill Müller
+    affiliation: 1
+  - name: Amarin Siripanich^[corresponding author]
+    affiliation: 2
+  - name: Kay W. Axhausen
+    affiliation: 3
+  - name: Taha H. Rashidi
+    affiliation: 2
+affiliations:
+  - name: Cynkra GmbH
+    index: 1
+  - name: UNSW Sydney, Australia
+    index: 2
+  - name: ETH Zürich, Switzerland
+    index: 3
+date: "`r Sys.Date()`"
+bibliography: paper.bib
+output: rticles::joss_article
+# csl: apa.csl
+journal: JOSS
+link-citations: yes
+---
+
+# Summary
+
+<!-- A summary describing the high-level functionality and purpose of the software for a diverse, non-specialist audience. -->
+
+The `mlfit` package provides several well-known multi-level fitting algorithms and weighted sampling algorithms for generating synthetic populations, including: '**Iterative Proportional Updating**' [@ye2009methodology], '**Hierachical Iterative Proportional Fitting'** [@müller2011], '**Entropy Optimization'** [@bar2009estimating], **'Generalised Raking'** [@deville1993], an efficient weighted random sampling without replacement implementation [@müller2020], and '**Truncate, replicate, sample**' [@lovelace2013truncate]. 
+Creating a synthetic population only requires marginal constraints and a reference sample, also known as 'seed population'. 
+`mlfit` allows constraints to be specified at two levels: individual and group.
+The fitting algorithms that the package offers can calibrate the record weights of the reference sample to closely fit to all constraints in both levels. 
+Once the fitting step is done, weighted sampling algorithms can be applied to replicate the records of the reference sample according to their fitted weights.
+The final output would be a population that has characteristics closely match the specified marginal constraints, often referred to as a synthetic population.
+
+# Statement of need
+
+<!-- A Statement of Need section that clearly illustrates the research purpose of the software. -->
+
+Synthetic population is a crucial initial input of many agent-based and microsimulation models that also represents the initial state of their simulation environment. 
+Multi-level fitting algorithms allow synthetic populations that respect both individual and group marginal constraints to be generated.
+Such capability is highly important for simulation models that consider both individual and group characteristics such as in transport and land use models [@waddell2002; @salvini2005ilute; @moeckel2016] and demographic microsimulation models [@chingcuanco2017; @siripanich2020].
+With `mlfit`, results from different multi-level fitting algorithms can be compared and allow the best result to be selected based on the statistical measures provided.
+Furthermore, `mlfit` facilitates all steps in population synthesis from fitting, assessment, to replication. Various utility functions are also provided to perform zone-by-zone fitting [@müller2010], compute margins of fitted weights, and more. 
+Ultimately, it is one of a few population synthesis packages that offer implementations of several well-known multi-level fitting algorithms.
+
+# Acknowledgements
+
+This paper has been partly supported by the NCRIS-ARDC-AURIN-enabled, Australian Transport Research Cloud Platform Project 2021, https://hdl.handle.net/102.100.100/102.100.100/399880.
+
+# References
