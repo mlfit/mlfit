@@ -93,18 +93,21 @@ test_that("identical households", {
   ref_sample <- data.frame(group_id = group_id, ind = letters[1:2], group = LETTERS[group_id])
   ref_sample <- ref_sample %>%
     bind_rows(ref_sample %>% filter(group_id >= 2) %>% mutate(group_id = group_id + 2)) %>%
-    bind_rows(ref_sample %>% filter(group_id >= 3) %>% mutate(group_id = group_id + 3))
+    bind_rows(ref_sample %>% filter(group_id >= 3) %>% mutate(group_id = group_id + 3)) %>%
+    mutate(weight = group_id)
 
   controls <- list(
     group = list(
       data.frame(group = LETTERS[1:3], N = 2:4)
     )
   )
-  field_names <- list(
+  field_names <- special_field_names(
     count = "N",
-    groupId = "group_id"
+    groupId = "group_id", 
+    individualId = "ind",
+    prior_weight = "weight"
   )
-  problem <- ml_problem(ref_sample, controls, field_names, prior_weights = ref_sample$group_id)
+  problem <- ml_problem(ref_sample, controls, field_names)
   flat <- flatten_ml_fit_problem(problem)
   expect_equal(flat$ml_problem, problem)
   test_weights <- ref_sample$group_id
@@ -117,7 +120,8 @@ test_that("identical households", {
 
 test_that("don't need to sort by group id", {
   group_id <- c(1, 2, 3, 3, 2, 3) + 3
-  ref_sample <- data.frame(group_id = group_id, ind = letters[1:2], group = LETTERS[group_id])
+  ref_sample <- data.frame(group_id = group_id, ind = letters[1:2], group = LETTERS[group_id]) %>%
+    mutate(weight = group_id)
 
   controls <- list(
     group = list(
@@ -127,13 +131,16 @@ test_that("don't need to sort by group id", {
       data.frame(ind = letters[1:2], N = 1:2)
     )
   )
-  field_names <- list(
+
+  field_names <- special_field_names(
     count = "N",
-    groupId = "group_id"
+    individualId = "ind",
+    groupId = "group_id", 
+    prior_weight = "weight"
   )
 
-  problem <- ml_problem(ref_sample, controls, field_names, prior_weights = ref_sample$group_id)
-  problem_sorted <- ml_problem(arrange(ref_sample, group_id), controls, field_names, prior_weights = sort(ref_sample$group_id))
+  problem <- ml_problem(ref_sample, controls, field_names)
+  problem_sorted <- ml_problem(arrange(ref_sample, group_id), controls, field_names)
   flat <- flatten_ml_fit_problem(problem)
   flat_sorted <- flatten_ml_fit_problem(problem_sorted)
 
@@ -162,7 +169,7 @@ test_that("error if group id is NA", {
     groupId = "group_id"
   )
 
-  problem <- ml_problem(ref_sample, controls, field_names, prior_weights = ref_sample$group_id)
+  problem <- ml_problem(ref_sample, controls, field_names)
   expect_error(flatten_ml_fit_problem(problem), "NA")
 })
 
