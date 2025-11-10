@@ -1,5 +1,48 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9016 (2025-11-10)
+
+## Chore
+
+- Auto-update from GitHub Actions.
+
+  Run: https://github.com/mlfit/mlfit/actions/runs/17451567143
+
+- Auto-update from GitHub Actions.
+
+  Run: https://github.com/mlfit/mlfit/actions/runs/14636205729
+
+## Continuous integration
+
+- Use workflows for fledge (#109).
+
+- Sync (#108).
+
+- Use reviewdog for external PRs (#107).
+
+- Cleanup and fix macOS (#106).
+
+- Format with air, check detritus, better handling of `extra-packages` (#105).
+
+- Enhance permissions for workflow (#104).
+
+- Permissions, better tests for missing suggests, lints (#103).
+
+- Only fail covr builds if token is given (#102).
+
+- Always use `_R_CHECK_FORCE_SUGGESTS_=false` (#101).
+
+- Correct installation of xml2 (#100).
+
+- Explain (#99).
+
+- Add xml2 for covr, print testthat results (#98).
+
+- Fix (#97).
+
+- Sync (#96).
+
+
 # mlfit 0.6.1.9015 (2024-12-09)
 
 ## Continuous integration
