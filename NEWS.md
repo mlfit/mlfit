@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9017 (2025-11-12)
+
+## Continuous integration
+
+- Fix reviewdog and add commenting workflow (#110).
+
+
 # mlfit 0.6.1.9016 (2025-11-10)
 
 ## Chore
