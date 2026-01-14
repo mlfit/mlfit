@@ -1,5 +1,16 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9019 (2026-01-14)
+
+## Continuous integration
+
+- Fix comment (#114).
+
+- Tweaks (#113).
+
+- Test all R versions on branches that start with cran- (#112).
+
+
 # mlfit 0.6.1.9018 (2025-11-17)
 
 ## Continuous integration
