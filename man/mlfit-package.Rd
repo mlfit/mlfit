@@ -35,6 +35,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Amarin Siripanich \email{amarin.siri@gmail.com} (Contributed `ml_replicate()`)
   \item Kirill Müller (Creator of the package) [copyright holder]
 }
 
