@@ -1,5 +1,14 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9022 (2026-05-04)
+
+## Chore
+
+- Auto-update from GitHub Actions.
+
+  Run: https://github.com/mlfit/mlfit/actions/runs/25270199822
+
+
 # mlfit 0.6.1.9021 (2026-03-22)
 
 ## Chore
