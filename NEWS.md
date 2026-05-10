@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9025 (2026-05-10)
+
+## Continuous integration
+
+- Only run fledge on pushes to main.
+
+
 # mlfit 0.6.1.9024 (2026-05-10)
 
 ## Continuous integration
