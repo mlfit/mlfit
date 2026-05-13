@@ -8,3 +8,4 @@ inst/doc
 /_projects/
 /_steps/
 vignettes/*_cache
+.ccache/
