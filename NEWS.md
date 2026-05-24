@@ -1,5 +1,14 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9028 (2026-05-24)
+
+## Continuous integration
+
+- Update ccache-action reference.
+
+- Bump action version.
+
+
 # mlfit 0.6.1.9027 (2026-05-16)
 
 ## Continuous integration
