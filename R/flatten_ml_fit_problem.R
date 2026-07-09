@@ -76,7 +76,7 @@ flatten_ml_fit_problem <- function(ml_problem,
     mutate(canonical = match(.data$gid, .data$gid)) %>%
     mutate(proxy = !duplicated(.data$canonical)) %>%
     mutate(gidx = cumsum(.data$proxy)[.data$canonical]) %>%
-    select(-.data$canonical)
+    select(-all_of("canonical"))
 
   message("Splitting (2)")
   gid_lookup <-
