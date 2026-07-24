@@ -1,5 +1,18 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9031 (2026-07-24)
+
+## Bug fixes
+
+### ci
+
+- Emit empty package matrix when there are no (rev)deps.
+
+## Continuous integration
+
+- Use larger retry count for lock-threads workflow (#93).
+
+
 # mlfit 0.6.1.9030 (2026-07-22)
 
 ## Continuous integration
