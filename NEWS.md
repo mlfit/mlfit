@@ -1,5 +1,12 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9032 (2026-07-25)
+
+## Continuous integration
+
+- Lock down `format-suggest` egress (audit → block).
+
+
 # mlfit 0.6.1.9031 (2026-07-24)
 
 ## Bug fixes
