@@ -1,5 +1,16 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9033 (2026-07-28)
+
+## Continuous integration
+
+- Fix (#97).
+
+- Avoid failure in fledge workflow if no changes (#95).
+
+- Sync (#96).
+
+
 # mlfit 0.6.1.9032 (2026-07-25)
 
 ## Continuous integration
