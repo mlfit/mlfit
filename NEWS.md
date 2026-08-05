@@ -1,5 +1,24 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9034 (2026-08-05)
+
+## Chore
+
+- Auto-update from GitHub Actions.
+
+  Run: https://github.com/mlfit/mlfit/actions/runs/30974992688
+
+## Continuous integration
+
+- Permissions, better tests for missing suggests, lints (#103).
+
+- Remove unused pr-commands workflow.
+
+- Only fail covr builds if token is given (#102).
+
+- Explain (#99).
+
+
 # mlfit 0.6.1.9033 (2026-07-28)
 
 ## Continuous integration
