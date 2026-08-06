@@ -1,5 +1,16 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9035 (2026-08-06)
+
+## Continuous integration
+
+- Add sharded `revdep2` workflow.
+
+- Cleanup and fix macOS (#106).
+
+- Format with air, check detritus, better handling of `extra-packages` (#105).
+
+
 # mlfit 0.6.1.9034 (2026-08-05)
 
 ## Chore

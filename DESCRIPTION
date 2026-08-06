@@ -1,8 +1,8 @@
 Type: Package
 Package: mlfit
 Title: Iterative Proportional Fitting Algorithms for Nested Structures
-Version: 0.6.1.9034
-Date: 2026-08-05
+Version: 0.6.1.9035
+Date: 2026-08-06
 Authors@R: 
     c(
         person(
