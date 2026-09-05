@@ -1,5 +1,14 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# mlfit 0.6.1.9037 (2026-09-05)
+
+## Bug fixes
+
+### ci
+
+- Backport kit fixes from `rigraph`, `duckdb-r` and `dm`.
+
+
 # mlfit 0.6.1.9036 (2026-08-08)
 
 ## Continuous integration
